@@ -1,32 +1,3 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% University Assignment Title Page 
-% LaTeX Template
-% Version 1.0 (27/12/12)
-%
-% This template has been downloaded from:
-% http://www.LaTeXTemplates.com
-%
-% Original author:
-% WikiBooks (http://en.wikibooks.org/wiki/LaTeX/Title_Creation)
-%
-% License:
-% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
-% 
-% Instructions for using this template:
-% This title page is capable of being compiled as is. This is not useful for 
-% including it in another document. To do this, you have two options: 
-%
-% 1) Copy/paste everything between \begin{document} and \end{document} 
-% starting at \begin{titlepage} and paste this into another LaTeX file where you 
-% want your title page.
-% OR
-% 2) Remove everything outside the \begin{titlepage} and \end{titlepage} and 
-% move this file to the same directory as the LaTeX file you wish to add it to. 
-% Then add \input{./title_page_1.tex} to your LaTeX file where you want your
-% title page.
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 %----------------------------------------------------------------------------------------
 %	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
 %----------------------------------------------------------------------------------------
@@ -58,6 +29,9 @@
 \usepackage{tabularx}
 \usepackage{booktabs}
 \usepackage{indentfirst}
+\usepackage{colortbl}
+\usepackage{caption} 
+\captionsetup[table]{skip=10pt}
 
 \graphicspath{ {images/} }
 
@@ -215,9 +189,22 @@ Realizado no âmbito da unidade curricular de Agentes e Inteligência Artificial
 Variando as podendo o utilizador configurar o local do acidente, especificando, por um lado, o tipo, número e localização dos agentes a evacuar e, por outro, o número e localização de saídas de emergência e obstáculos.Adicionalmente, deverá apresentar diversos valores estatísticos, como o tempo médio e máximo de evacuação ou número de feridos.
 
 \section{Ferramentas}
-A implementação do programa descrito será realizada Sajas, Repast Symphony…
+A implementação do programa descrito será realizada usando a plataforma Repast Symphony + SAJaS.
+
+The Repast has been used extensively in social simulation applications. The latest
+version of Repast is Repast Simphony. Models can created with the visual designer
+(e.g., visual point-and-click tools are provided for designing agent model, specifying
+agent behavior, executing model, and examining results), or written in Java or any
+language that runs on the Java virtual machine. For example, users can design the
+logical structure, spatial structure (e.g., geographic maps and networks) and behaviors
+of their agent models by point-and-click. The simulation is visual and results are
+stored. In addition, Repast includes automated results analysis connections to a
+variety of spreadsheet, visualization, data mining, and statistical analysis tools 
+
 Para que serve
+
 Descrição das características principais
+
 Realce das funcionalidades relevantes para o trabalho
 
 
@@ -225,11 +212,43 @@ Realce das funcionalidades relevantes para o trabalho
 \subsection{Agentes}
 Na implementação do projeto deverá ser usada uma arquitetura de Subsunção, em que os comportamentos são definidos como regras, 
 
-Identificação e caracterização dos diversos tipos de agente a implementar.
+\setlength{\tabcolsep}{20pt}
+\renewcommand{\arraystretch}{1.3}
+\begin{table}[H]
+	\centering
+	\label{my-label}
+	\caption{Identificação e caracterização dos tipos de agente a implementar.}
+	\begin{tabular}{@{}lll@{}}
+		\toprule
+		\rowcolor[HTML]{FFFFFF} 
+	\textbf{Atributos}           & \textbf{Tipo}  & \textbf{Descrição}                                                                                                                                   \\ \midrule
+		\rowcolor[HTML]{FFFFFF} 
+		idade                & int   & {[}5, 65{]}                                                                                                                                 \\
+		\rowcolor[HTML]{FFFFFF} 
+		género               & int   & \begin{tabular}[c]{@{}l@{}}0: masculino\\ 1: feminino\end{tabular}                                                                          \\
+		\rowcolor[HTML]{FFFFFF} 
+		conhecimento da área & float & {[}0, 1{]}                                                                                                                                  \\
+		\rowcolor[HTML]{FFFFFF} 
+		liderança            & int   & \begin{tabular}[c]{@{}l@{}}0: seguidor\\ 1: líder\end{tabular}                                                                              \\
+		\rowcolor[HTML]{FFFFFF} 
+		independência        & int   & \begin{tabular}[c]{@{}l@{}}0: segue o líder do grupo\\ 1: não segue o líder\end{tabular}                                                    \\
+		\rowcolor[HTML]{FFFFFF} 
+		integridade física   & float & \begin{tabular}[c]{@{}l@{}}{[}0, 1{]}\\ 0: morto\\ \textless= 0,4: incapaz de se mover\\ condiciona a velocidade a que se move\end{tabular} \\
+		\rowcolor[HTML]{FFFFFF} 
+		fadiga               & float & \begin{tabular}[c]{@{}l@{}}{[}0, 1{]}\\ \textless= 0,4: incapaz de se mover\\ condiciona a velocidade a que se move\end{tabular}            \\
+		\rowcolor[HTML]{FFFFFF} 
+		estado de pânico     & float & \begin{tabular}[c]{@{}l@{}}{[}0,1{]}\\ condiciona a velocidade a que se move\end{tabular}                                                   \\
+		\rowcolor[HTML]{FFFFFF} 
+		velocidade inicial   & float & condicionada pelo género e da idade                                                                                                         \\
+		\rowcolor[HTML]{FFFFFF} 
+		velocidade máxima    & float & condicionada pelo género e da idade                                                                                                        
+	\end{tabular}
+
+\end{table}
 
 
 \subsection{Interação}
-Protocolos de interacção
+Protocolos de interação
 
 \subsection{Planeamento}
 Para a implementação, importa distinguir a divisão do programa em módulos:
