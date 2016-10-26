@@ -21,8 +21,8 @@ public class Child extends Person{
 	protected float initialSpeed;		 	 	
 	protected float currentSpeed;
 	
-	public Child( ContinuousSpace < Object > space , Grid < Object > grid){
-		super(space, grid);
+	public Child(Environment environment){
+		super(environment);
 		gender = (RandomHelper.nextIntFromTo(0, 1) == 1)? Gender.MALE : Gender.FEMALE;
 	}
 	

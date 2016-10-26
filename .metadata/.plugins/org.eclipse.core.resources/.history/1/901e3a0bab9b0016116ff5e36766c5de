@@ -25,8 +25,6 @@ public class SimulationBuilder implements ContextBuilder<Object> {
 	@Override
 	public Context build(Context<Object> context) {
 		context.setId("evacuation");
-		
-		environment = new Environment(context);
 					
 		/* initialize population */
 		Parameters params = RunEnvironment.getInstance().getParameters();

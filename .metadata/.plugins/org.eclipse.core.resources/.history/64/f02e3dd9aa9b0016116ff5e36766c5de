@@ -23,15 +23,13 @@ public class Person {
 	protected float initialSpeed;		 	 	
 	protected float currentSpeed;
 	
-	public Person(Environment environment){
-			this.space = environment.space ;
-			this.grid = environment.grid ;			
+	public Person(Environment){
+			this.space = space ;
+			this.grid = grid ;			
 			
 			fatigue = 0;
 			physicalIntegrity = 1;
 			panic = 0;
-			
-			// TODO initialize leader and independent
 	}
 	
 	public void moveTowards(GridPoint pt){

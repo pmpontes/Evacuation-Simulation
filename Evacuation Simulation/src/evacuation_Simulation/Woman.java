@@ -20,8 +20,8 @@ public class Woman extends Person{
 	protected float initialSpeed;		 	 	
 	protected float currentSpeed;
 	
-	public Woman( ContinuousSpace < Object > space , Grid < Object > grid){
-			super(space, grid);
+	public Woman(Environment environment){
+			super(environment);
 			gender = Gender.FEMALE;
 	}
 	

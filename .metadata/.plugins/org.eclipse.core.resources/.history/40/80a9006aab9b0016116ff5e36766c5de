@@ -30,8 +30,6 @@ public class Person {
 			fatigue = 0;
 			physicalIntegrity = 1;
 			panic = 0;
-			
-			// TODO initialize leader and independent
 	}
 	
 	public void moveTowards(GridPoint pt){

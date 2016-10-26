@@ -2,8 +2,9 @@ package evacuation_Simulation;
 
 import repast.simphony.space.continuous.ContinuousSpace;
 import repast.simphony.space.grid.Grid;
+import repast.simphony.random.RandomHelper;
 
-public class Man extends Person{
+public class Child extends Person{
 
 	protected ContinuousSpace<Object> space;
 	protected Grid<Object> grid;
@@ -20,9 +21,9 @@ public class Man extends Person{
 	protected float initialSpeed;		 	 	
 	protected float currentSpeed;
 	
-	public Man(Environment environment){
-		super(environment);			
-		gender = Gender.MALE;
+	public Child( ContinuousSpace < Object > space , Grid < Object > grid){
+		super(space, grid);
+		gender = (RandomHelper.nextIntFromTo(0, 1) == 1)? Gender.MALE : Gender.FEMALE;
 	}
 	
 }
