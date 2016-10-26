@@ -186,7 +186,7 @@ Realizado no âmbito da unidade curricular de Agentes e Inteligência Artificial
 
 \subsection{Resultados Esperados e Avaliação}
 
-Variando as podendo o utilizador configurar o local do acidente, especificando, por um lado, o tipo, número e localização dos agentes a evacuar e, por outro, o número e localização de saídas de emergência e obstáculos.Adicionalmente, deverá apresentar diversos valores estatísticos, como o tempo médio e máximo de evacuação ou número de feridos.
+Experimentando diferentes configurações para o local do acidente, seja variando, por um lado, o tipo, número ou localização dos agentes a evacuar e, por outro, o número e localização de saídas de emergência e obstáculos, será possível observar como estas variações se refletem no tempo médio e máximo de evacuação ou no número de feridos.
 
 \section{Ferramentas}
 A implementação do programa descrito será realizada usando a plataforma Repast Symphony + SAJaS.
@@ -210,6 +210,26 @@ Realce das funcionalidades relevantes para o trabalho
 
 \section{Especificação}
 \subsection{Agentes}
+
+Podem distinguir-se dimensões distintas no comportamento exibido durante uma evacuação: por um lado, o espaço a evacuar e a sua configuração, e, por outro lado, as características psicológicas e sociais que afetam a resposta dos que participam na evacuação.
+
+Assume-se que, em situações de emergência, os indivíduos entram em pânico e ficam, por isso, propensos a tomar decisões irracionais. Mais ainda, as pessoas tentam mover-se tão depressa quanto possível, devendo evitar obstáculos e sofrer ferimentos.
+
+No caso, assumem-se 
+In our agent-based models, several types of people are explored (e.g., men, women,
+children, security guards and evacuation leaders if necessary), as well as the various
+attributes (shown in Table 1) of agents are taken into account. 
+
+The attributes of people and the place configuration can be easily designed in Repast in which person
+is regarded as agent and place as “network” and “Grid”. 
+In addition, the environmental characteristics that this model considered are as
+follows [28]:  
+The total number of people in the area
+The number of exits
+The number of policeman in the area
+The number of security guard in the area
+
+
 Na implementação do projeto deverá ser usada uma arquitetura de Subsunção, em que os comportamentos são definidos como regras, 
 
 \setlength{\tabcolsep}{20pt}
@@ -217,7 +237,7 @@ Na implementação do projeto deverá ser usada uma arquitetura de Subsunção, 
 \begin{table}[H]
 	\centering
 	\label{my-label}
-	\caption{Identificação e caracterização dos tipos de agente a implementar.}
+	\caption{Atributos dos agentes a implementar.}
 	\begin{tabular}{@{}lll@{}}
 		\toprule
 		\rowcolor[HTML]{FFFFFF} 
@@ -266,9 +286,8 @@ Com base nesta divisão, definiram-se as seguintes etapas:
 
 \section{Conclusão}
 
-Finda esta primeira fase, consideram-se atingidos os objetivos definidos para esta primeira fase: foi feita a descrição do projeto – ...
-Cenário e objectivos do trabalho
-Estudo da plataforma/ferramenta (de sistemas multi-agente) para desenvolvimento
+Finda esta primeira fase, consideram-se atingidos os objetivos definidos para esta primeira fase: foi feita a descrição do projeto - ... Adicionalmente, após o estudo de diversas ferramentas, definiu-se a combinação Repast+SAJaS como a plataforma multiagente a usar no processo de  desenvolvimento.
+
 Agentes, suas estratégias e interacções
 Resultados esperados e como avaliá-los
 
