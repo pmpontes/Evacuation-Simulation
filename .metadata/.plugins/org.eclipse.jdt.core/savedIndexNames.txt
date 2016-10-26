@@ -1,0 +1,1 @@
+INDEX VERSION 1.129+G:\Documents\GitHub\aiad\.metadata\.plugins\org.eclipse.jdt.core
