@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="repast.simphony.space.grid.Grid"/>
+<fullyQualifiedTypeName name="repast.simphony.space.continuous.ContinuousSpace"/>
+<fullyQualifiedTypeName name="repast.simphony.space.grid.GridPoint"/>
+<fullyQualifiedTypeName name="repast.simphony.space.continuous.NdPoint"/>
+<fullyQualifiedTypeName name="repast.simphony.space.SpatialMath"/>
+</qualifiedTypeNameHistroy>

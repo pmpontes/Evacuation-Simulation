@@ -181,7 +181,7 @@ Alguns agentes poderão ser altruístas, no sentido de ajudarem acidentados a de
 
 \subsection{Objetivos}
 
-Realizado no âmbito da unidade curricular de Agentes e Inteligência Artificial Distribuída, com este trabalho pretende desenvolver-se um programa que permita simular a interação de agentes confinados a um espaço concreto e limitado, podendo o utilizador configurar o local do acidente, especificando, por um lado, o tipo, número e localização dos agentes a evacuar e, por outro, o número e localização de saídas de emergência e obstáculos.
+Realizado no âmbito da unidade curricular de Agentes e Inteligência Artificial Distribuída, com este trabalho pretende desenvolver-se um programa que permita simular a interação de agentes confinados a um espaço concreto e limitado perante a necessidade de evacuar esse espaço, podendo o utilizador configurar o local do acidente, especificando, por um lado, o tipo, número e localização dos agentes a evacuar e, por outro, o número e localização de saídas de emergência e obstáculos.
 
 
 \subsection{Resultados Esperados e Avaliação}
@@ -189,46 +189,25 @@ Realizado no âmbito da unidade curricular de Agentes e Inteligência Artificial
 Experimentando diferentes configurações para o local do acidente, seja variando, por um lado, o tipo, número ou localização dos agentes a evacuar e, por outro, o número e localização de saídas de emergência e obstáculos, será possível observar como estas variações se refletem no tempo médio e máximo de evacuação ou no número de feridos.
 
 \section{Ferramentas}
-A implementação do programa descrito será realizada usando a plataforma Repast Symphony + SAJaS.
+A implementação do programa descrito será realizada usando \textit{Repast}, uma \textit{framework open-source} que permite criar, analisar e experimentar com mundos artificiais populados por agentes que interagem de forma não trivial.
 
-The Repast has been used extensively in social simulation applications. The latest
-version of Repast is Repast Simphony. Models can created with the visual designer
-(e.g., visual point-and-click tools are provided for designing agent model, specifying
-agent behavior, executing model, and examining results), or written in Java or any
-language that runs on the Java virtual machine. For example, users can design the
-logical structure, spatial structure (e.g., geographic maps and networks) and behaviors
-of their agent models by point-and-click. The simulation is visual and results are
-stored. In addition, Repast includes automated results analysis connections to a
-variety of spreadsheet, visualization, data mining, and statistical analysis tools 
+Concretamente, irá utilizar-se a sua mais recente versão - \textit{Repast Simphony} -, no \textit{flavour RepastJ}, que permite programar em Java a estrutura espacial, a estrutura lógica e os comportamentos dos agentes.
 
-Para que serve
+Tendo sido amplamente utilizado em aplicações de simulação, considera-se de particular utilidade, por um lado, o foco em modelar o comportamento social e, por outro, a recolha de métricas associadas a essas simulações. Por último, tem-se a vantagem de poder acompanhar, de forma visual, o decorrer da simulação.
 
-Descrição das características principais
-
-Realce das funcionalidades relevantes para o trabalho
-
+Adicionalmente, pondera-se utilizar a \textit{API SAJaS}, que se propõe facilitar o desenvolvimento de sistemas multiagente, oferecendo funcionalidades \textit{JADE}.
 
 \section{Especificação}
 \subsection{Agentes}
 
 Podem distinguir-se dimensões distintas no comportamento exibido durante uma evacuação: por um lado, o espaço a evacuar e a sua configuração, e, por outro lado, as características psicológicas e sociais que afetam a resposta dos que participam na evacuação.
 
-Assume-se que, em situações de emergência, os indivíduos entram em pânico e ficam, por isso, propensos a tomar decisões irracionais. Mais ainda, as pessoas tentam mover-se tão depressa quanto possível, devendo evitar obstáculos e sofrer ferimentos.
+Assume-se que, em situações de emergência, os indivíduos entram em pânico e ficam, por isso, propensos a tomar decisões irracionais. Mais ainda, as pessoas tentam mover-se tão depressa quanto possível, devendo evitar obstáculos e ferimentos.
 
 No caso, assumem-se 
 In our agent-based models, several types of people are explored (e.g., men, women,
 children, security guards and evacuation leaders if necessary), as well as the various
 attributes (shown in Table 1) of agents are taken into account. 
-
-The attributes of people and the place configuration can be easily designed in Repast in which person
-is regarded as agent and place as “network” and “Grid”. 
-In addition, the environmental characteristics that this model considered are as
-follows [28]:  
-The total number of people in the area
-The number of exits
-The number of policeman in the area
-The number of security guard in the area
-
 
 Na implementação do projeto deverá ser usada uma arquitetura de Subsunção, em que os comportamentos são definidos como regras, 
 
@@ -253,9 +232,9 @@ Na implementação do projeto deverá ser usada uma arquitetura de Subsunção, 
 		\rowcolor[HTML]{FFFFFF} 
 		independência        & int   & \begin{tabular}[c]{@{}l@{}}0: segue o líder do grupo\\ 1: não segue o líder\end{tabular}                                                    \\
 		\rowcolor[HTML]{FFFFFF} 
-		integridade física   & float & \begin{tabular}[c]{@{}l@{}}{[}0, 1{]}\\ 0: morto\\ \textless= 0,4: incapaz de se mover\\ condiciona a velocidade a que se move\end{tabular} \\
+		integridade física   & float & \begin{tabular}[c]{@{}l@{}}{[}0, 1{]}\\ 0: morto\\ \textless 0,4: incapaz de se mover\\ condiciona a velocidade a que se move\end{tabular} \\
 		\rowcolor[HTML]{FFFFFF} 
-		fadiga               & float & \begin{tabular}[c]{@{}l@{}}{[}0, 1{]}\\ \textless= 0,4: incapaz de se mover\\ condiciona a velocidade a que se move\end{tabular}            \\
+		fadiga               & float & \begin{tabular}[c]{@{}l@{}}{[}0, 1{]}\\ \textgreater 0,8: incapaz de se mover\\ condiciona a velocidade a que se move\end{tabular}            \\
 		\rowcolor[HTML]{FFFFFF} 
 		estado de pânico     & float & \begin{tabular}[c]{@{}l@{}}{[}0,1{]}\\ condiciona a velocidade a que se move\end{tabular}                                                   \\
 		\rowcolor[HTML]{FFFFFF} 
@@ -286,10 +265,11 @@ Com base nesta divisão, definiram-se as seguintes etapas:
 
 \section{Conclusão}
 
-Finda esta primeira fase, consideram-se atingidos os objetivos definidos para esta primeira fase: foi feita a descrição do projeto - ... Adicionalmente, após o estudo de diversas ferramentas, definiu-se a combinação Repast+SAJaS como a plataforma multiagente a usar no processo de  desenvolvimento.
+No final, consideram-se atingidos os objetivos definidos para esta primeira fase: foi feita a descrição do projeto e do seu objetivo - desenvolver um programa que permita simular a interação de agentes confinados a um espaço concreto e limitado perante a necessidade de evacuar esse espaço.
+Após o estudo de diversas ferramentas, definiu-se a combinação \textit{Repast} e \textit{SAJaS} como a plataforma multiagente a utilizar no processo de  desenvolvimento.
 
-Agentes, suas estratégias e interacções
-Resultados esperados e como avaliá-los
+definiram-se os modelos de agente, suas estratégias e interacções
+No que respeita aos resultados esperados, anteciparam-se diversas experimentações ...
 
 \section{Recursos}
 \subsection{Bibliografia}

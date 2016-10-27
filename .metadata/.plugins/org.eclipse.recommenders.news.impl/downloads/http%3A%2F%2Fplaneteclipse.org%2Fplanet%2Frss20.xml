@@ -8,6 +8,36 @@
 	<description>Planet Eclipse - http://planeteclipse.org/planet/</description>
 
 <item>
+	<title>Melanie Bats: Sirius 4.1 is Out! What’s Inside ? Anger</title>
+	<guid isPermaLink="false">http://melb.enix.org/?p=399</guid>
+	<link>http://melb.enix.org/sirius/sirius-4-1-is-out-whats-inside-anger/</link>
+	<description>&lt;p dir=&quot;ltr&quot;&gt;&lt;img alt=&quot;&quot; class=&quot;aligncenter&quot; height=&quot;199&quot; src=&quot;https://lh5.googleusercontent.com/i-BbA6KpaRVD8UnMMUT6OtGUdDJO7ZyRe-lz-Ck0Bn8n1Gf7zR7m516l9UYGDteWGPboc8KDH3bkfqZgXKhO9KqFXApNZco_LjfjEy4kKPaRg5vf44MifWSusoSdaSWyVEvhY0cu&quot; style=&quot;font-weight: 300;&quot; width=&quot;160&quot; /&gt;&lt;/p&gt;
+&lt;p dir=&quot;ltr&quot;&gt;Do you ever feel that? This week I often dreamt I had the gift of ubiquity… I could replicate myself and be in several places at once. It would be a really useful skill to participate to EclipseCon Europe. I am angry to not be able to see all the talks I would have liked to attend. Happily, as every year all the slides will be available on the EclipseCon website and most of the talks are recorded and will be available on the Eclipse Foundation &lt;a href=&quot;https://www.youtube.com/user/EclipseFdn&quot;&gt;youtube channel&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;If you missed our talk yesterday, do not miss our &lt;a href=&quot;https://www.eclipsecon.org/europe2016/session/sirius-41-let-me-sirius-you&quot;&gt;slides available online&lt;/a&gt;.&lt;/p&gt;</description>
+	<pubDate>Thu, 27 Oct 2016 05:30:49 +0000</pubDate>
+</item>
+<item>
+	<title>itemis: BMW builds AUTOSAR backbone with open source projects sponsored by itemis</title>
+	<guid isPermaLink="true">https://blogs.itemis.com/en/bmw-builds-autosar-backbone-with-open-source-projects-sponsored-by-itemis</guid>
+	<link>https://blogs.itemis.com/en/bmw-builds-autosar-backbone-with-open-source-projects-sponsored-by-itemis</link>
+	<description>&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;On &lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;September 28th the &lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;9th AUTOSAR Open Conference took place in Gothenburg.&lt;/span&gt; From an Eclipse/Open Source point of view, &lt;a href=&quot;http://www.autosar.org/fileadmin/files/events/2016-09-28-9th-autosar-open/AUTOSAR_Methodology%40BMW_JAEGER.pdf&quot;&gt;Bernd Jäger's (BMW) talk on their Symphony project&lt;/a&gt; is very interesting.&lt;/p&gt;  
+&lt;p&gt;&lt;span&gt;BMW&lt;/span&gt;&lt;span&gt; has built&lt;/span&gt; the impressive AUTOSAR ECU engineering backbone with Eclipse open source technologies. Engineering data is consolidated from different data sources, merged in a big common model and then exported to AUTOSAR.&lt;/p&gt; 
+&lt;p&gt;Bernd Jäger mentions in his slides a few projects and I am happy to see that some of them are sponsored mainly or in part by itemis. Let us have a look, what the benefits of some of these technologies are.&lt;/p&gt; 
+&lt;h3&gt;Xtend: F&lt;span&gt;lexible and expressive Java-dialect&lt;/span&gt;&lt;/h3&gt; 
+&lt;p&gt;Obviously, we can infer that there are a lot of model-to-model transformations. &lt;a href=&quot;http://www.eclipse.org/xtend/&quot;&gt;Xtend&lt;/a&gt; supports these transformations with its &quot;create&quot; statements that help a lot to avoid caching and multiple passes. Also, you can create strong transformator frameworks &lt;span&gt;with active annotations&lt;/span&gt;. In addition, its concise syntax and lambda support makes it a better Java-dialect – not only for transformations but for any code. &lt;/p&gt; 
+&lt;h3&gt;&lt;span&gt;Xtext: Develop applications based on text based languages&lt;/span&gt;&lt;/h3&gt; 
+&lt;p&gt;&lt;span&gt;&lt;a href=&quot;https://www.itemis.com/en/xtext/&quot;&gt;Xtext&lt;/a&gt; supports the creation of textual domain specific languages. It can be used e.g. to easily create parsers for input files that follow a textual syntax (e.g. a LIN description file - .ldf). In addition, you can create languages for modifying, managing and serializing EMF models. This helps e.g. in creating test data.&lt;/span&gt;&lt;/p&gt; 
+&lt;h3&gt;Artop: Sphinx based framework &lt;/h3&gt; 
+&lt;p&gt;As the common platform for Eclipse/Java based AUTOSAR tooling &lt;a href=&quot;https://www.artop.org/&quot;&gt;Artop&lt;/a&gt; provides you with an implementation of the AUTOSAR metamodel, complete with (de-) serialization to ARXML. It is the most convenient way to read, process and write AUTOSAR.&lt;/p&gt; 
+&lt;h3&gt;Sphinx: Eclipse Modeling Framework-Extension&lt;/h3&gt; 
+&lt;p&gt;Artop is based on &lt;a href=&quot;https://www.eclipse.org/sphinx/&quot;&gt;Sphinx&lt;/a&gt; – a powerful open source project that manages complex models and adds a strong framework on top of the modelling supported by Eclipse EMF.&lt;/p&gt; 
+&lt;p&gt;All of the technologies above have been created and/or are maintained with the involvement of itemis. It is great to see the acceptance they find in the automotive industry.&lt;/p&gt; 
+&lt;p&gt;If you want to know more about the open source projects of itemis &lt;a href=&quot;https://www.eclipsecon.org/europe2016/program/sessions/accepted?keys=itemis&amp;amp;field_experience_value=All&amp;amp;field_session_type_tid=All&quot;&gt;meet us at EclipseCon 2016&lt;/a&gt;! &lt;/p&gt;  
+&lt;img alt=&quot;&quot; height=&quot;1&quot; src=&quot;http://track.hubspot.com/__ptq.gif?a=761475&amp;amp;k=14&amp;amp;r=https%3A%2F%2Fblogs.itemis.com%2Fen%2Fbmw-builds-autosar-backbone-with-open-source-projects-sponsored-by-itemis&amp;amp;bu=https%253A%252F%252Fblogs.itemis.com&amp;amp;bvt=rss&quot; style=&quot;width: 1px!important;&quot; width=&quot;1&quot; /&gt;</description>
+	<pubDate>Wed, 26 Oct 2016 10:37:28 +0000</pubDate>
+	<author>graf@itemis.de (Andreas Graf)</author>
+</item>
+<item>
 	<title>Christian Pontesegger: ECE 2016: Elevate your IDE with scripts</title>
 	<guid isPermaLink="false">tag:blogger.com,1999:blog-3460102793186140898.post-6561843788357367156</guid>
 	<link>http://codeandme.blogspot.com/2016/10/ece-2016-elevate-your-ide-with-scripts.html</link>
@@ -178,42 +208,6 @@ detail if anyone is interested.&lt;/p&gt;</description>
 	<pubDate>Tue, 25 Oct 2016 05:30:27 +0000</pubDate>
 </item>
 <item>
-	<title>Melanie Bats: Sirius 4.1 is Out! What’s Inside ? Joy</title>
-	<guid isPermaLink="false">http://melb.enix.org/?p=388</guid>
-	<link>http://melb.enix.org/sirius/sirius-4-1-is-out-whats-inside-joy/</link>
-	<description>&lt;p dir=&quot;ltr&quot;&gt;This week I am participating to &lt;a href=&quot;https://www.eclipsecon.org/europe2016/&quot;&gt;EclipseCon Europe&lt;/a&gt; to present what’s new in &lt;a href=&quot;https://www.eclipse.org/sirius/&quot;&gt;Eclipse Sirius&lt;/a&gt; 4.1.&lt;/p&gt;
-&lt;p dir=&quot;ltr&quot;&gt;&lt;img alt=&quot;&quot; class=&quot;aligncenter&quot; height=&quot;178&quot; src=&quot;https://lh3.googleusercontent.com/xP9yG2rBajXphda-MNbbPdCA2WRZ4K2oNZJGYgE9T3JIgb9X1EJpj47JSNQf4sXW5dAUgfeOMbbS0GY_ROu9eqGDDuFH1Az5WL4XXPnfVd41jL2UQchSOKXmu2ZWhrKtoepUNErw&quot; width=&quot;284&quot; /&gt;&lt;/p&gt;
-&lt;p dir=&quot;ltr&quot;&gt;&lt;span style=&quot;font-weight: 300;&quot;&gt; &lt;/span&gt;&lt;span style=&quot;font-weight: 300;&quot;&gt;What I feel like on monday morning: Joy!&lt;/span&gt;&lt;/p&gt;
-&lt;p dir=&quot;ltr&quot;&gt;&lt;img alt=&quot;&quot; class=&quot;aligncenter&quot; height=&quot;191&quot; src=&quot;https://lh6.googleusercontent.com/VnC_vS4-_9NfxS2OQF_a0bdS8wlakki-OvmoyvMFhf9lwjt8YGhNhw8iZLp9adgv2f3Y-WsniNoXp3XMYP8CuZ_6eWJ5jSDGqDr2zEyBVGD25uaGHKkjXR6OqTOLGPGxe81K7Y5f&quot; width=&quot;164&quot; /&gt;&lt;/p&gt;
-&lt;p dir=&quot;ltr&quot;&gt;On Monday evening I’ll be in Ludwigsburg for EclipseCon! This one is little special as it will be my first one as an official Sirius committer.&lt;/p&gt;
-&lt;p dir=&quot;ltr&quot;&gt;I am really happy to introduce you to the new features of the 4.1 release, especially what we did to improve the specifier experience:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p dir=&quot;ltr&quot;&gt;Pre-registered service class: starting from Sirius 4.1, by default when you create a new Viewpoint Specification Project, a service class is pre-registered.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p dir=&quot;ltr&quot;&gt;&lt;img alt=&quot;&quot; class=&quot;alignnone&quot; height=&quot;349&quot; src=&quot;https://lh5.googleusercontent.com/cX5w3vYba1tzBtgekaSrGLUarRiLLYcoQbz9NfLaBJHYvAb0cLd5eS1SImXLR-v7cn2LFIdMPVVzllx7dmdTm3j4dvFs3jPymt1S-Hy9UymLPDOYQFLpN1E0c6gk6Kg6oUVlMTKh&quot; width=&quot;602&quot; /&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p dir=&quot;ltr&quot;&gt;Improve the selection of deeply contained Viewpoint Specification Model elements: in a style property customization, the “applied on” field was used to open a popup with all styles of the VSM. As they are identified by type and color (e.g. square blue) a lot of entries are identical, making it difficult to select the correct one. Now it is more user friendly as the mapping container of the style is also presented.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p dir=&quot;ltr&quot;&gt;&lt;img alt=&quot;StyleCustoSelection.gif&quot; class=&quot;aligncenter&quot; height=&quot;331&quot; src=&quot;https://lh3.googleusercontent.com/oFtY03_FLNu36mYFhX9AcIJzehqDRYi0CARnBWkDz0CwQmIyiuFjgf3U259jqMLcYFA4bShuGDPIbOxMT9XQb1j1WZ3KOqmGzI1sg6PZEkrjj1NF6R0lL_sNqCb8EXmvuEINM2sE&quot; width=&quot;602&quot; /&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p dir=&quot;ltr&quot;&gt;Properly configured I18N: we have completed our work on the internationalization, with the runtime strings being properly externalized. As a result, you can specify keys in your VSM and using a properties file you can have translated labels in your user interface, here in Japanese. Since Sirius 4.1, new Viewpoint Specification Projects are properly configured for I18N.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p dir=&quot;ltr&quot;&gt;&lt;img alt=&quot;&quot; class=&quot;aligncenter&quot; height=&quot;272&quot; src=&quot;https://lh4.googleusercontent.com/0iiYFsNDKE-p8QUy1GEfsDQOJiuSbPbKqzF0L9MkclOwFPvtuh5rq6pzSrirutX9O8oOz4Z8O8ameQqkhUbIQTPQA6T_dn3coeDlPfiQZ0YC5wv9BGic532wJZFajWn47_7fNKyQ&quot; width=&quot;463&quot; /&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p dir=&quot;ltr&quot;&gt;Specifier editor for properties view description: we provide also the completion, and contribute a new simplified reference widget.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;I invite you to join the Sirius team tomorrow morning for the &lt;a href=&quot;https://www.eclipsecon.org/europe2016/session/sirius-workshop-lets-create-graphical-modeling-editor-robot&quot;&gt;Sirius workshop&lt;/a&gt; to experience in live all these new improvements. See you there!&lt;/p&gt;</description>
-	<pubDate>Mon, 24 Oct 2016 05:30:19 +0000</pubDate>
-</item>
-<item>
 	<title>Karsten Thoms: EclipseCon Europe 2016 – I’m coming!</title>
 	<guid isPermaLink="false">http://kthoms.wordpress.com/?p=725</guid>
 	<link>https://kthoms.wordpress.com/2016/10/23/eclipsecon-europe-2016-im-coming/</link>
@@ -375,25 +369,25 @@ detail if anyone is interested.&lt;/p&gt;</description>
 &lt;p&gt;&lt;strong&gt;The GEF DOT Editor&lt;/strong&gt;&lt;sup&gt;1&lt;/sup&gt; is an &lt;a href=&quot;https://www.eclipse.org/Xtext/&quot;&gt;Xtext&lt;/a&gt;-based textual editor registered for *.dot files within the Eclipse workbench UI. It is – together with the GEF DOT Graph View&lt;sup&gt;2&lt;/sup&gt; – part of the GEF Graphviz DOT authoring environment and – amongst others – provides support for the following features.&lt;/p&gt; 
 &lt;h3&gt;&lt;strong&gt;Syntax Highlighting&lt;/strong&gt; &lt;/h3&gt; 
 &lt;p&gt;The GEF DOT Editor uses different visual styles (different colors and fonts) for the different dot language elements. The keywords (such as 'graph', 'digraph', 'node', 'edge', ...) are represented in bold, the dot attribute names appear in blue, their values are shown in brown (or in red if they are quoted), while the embedded comments are highlighted in green. This kind of text decoration not only makes it easier to distinguish between the different dot language elements but also helps the user to find possible errors within the currently opened dot file.&lt;/p&gt; 
-&lt;p&gt;&lt;img alt=&quot;1_GEF_SyntaxHighlighting_1.png&quot; height=&quot;504&quot; src=&quot;https://blogs.itemis.com/hs-fs/hubfs/blog-files/1_GEF_SyntaxHighlighting_1.png?t=1477465551739&amp;amp;width=573&amp;amp;height=504&amp;amp;name=1_GEF_SyntaxHighlighting_1.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;573&quot; /&gt;&lt;/p&gt; 
+&lt;p&gt;&lt;img alt=&quot;1_GEF_SyntaxHighlighting_1.png&quot; height=&quot;504&quot; src=&quot;https://blogs.itemis.com/hs-fs/hubfs/blog-files/1_GEF_SyntaxHighlighting_1.png?t=1477484983379&amp;amp;width=573&amp;amp;height=504&amp;amp;name=1_GEF_SyntaxHighlighting_1.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;573&quot; /&gt;&lt;/p&gt; 
 &lt;h3&gt;&lt;strong&gt;Content Assist&lt;/strong&gt; &lt;/h3&gt; 
 &lt;p&gt;The GEF DOT Editor is able to provide suggestions on how to complete the statement/expression the user has just started to type. This content assist functionality can be accessed on any place within the opened dot file using the keyboard shortcut &lt;code&gt;Ctrl + Space&lt;/code&gt;. Depending on the current cursor position, only those dot language elements will be offered that make sense within the given context: graph attributes names within a graph context, edge attribute names within an edge context and all possible attribute values within a certain attribute context.&lt;/p&gt; 
-&lt;p&gt;&lt;img alt=&quot;2_GEF_ContentAssist_2.png&quot; height=&quot;504&quot; src=&quot;https://blogs.itemis.com/hs-fs/hubfs/blog-files/2_GEF_ContentAssist_2.png?t=1477465551739&amp;amp;width=573&amp;amp;height=504&amp;amp;name=2_GEF_ContentAssist_2.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;573&quot; /&gt;&lt;/p&gt; 
+&lt;p&gt;&lt;img alt=&quot;2_GEF_ContentAssist_2.png&quot; height=&quot;504&quot; src=&quot;https://blogs.itemis.com/hs-fs/hubfs/blog-files/2_GEF_ContentAssist_2.png?t=1477484983379&amp;amp;width=573&amp;amp;height=504&amp;amp;name=2_GEF_ContentAssist_2.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;573&quot; /&gt;&lt;/p&gt; 
 &lt;h3&gt;&lt;strong&gt;Background Validation&lt;/strong&gt;&lt;/h3&gt; 
 &lt;p&gt;The GEF DOT Editor continuously validates the content of the opened dot file while the user is editing, even if the current dot file has not been saved yet. When the editor issues a warning/error, e.g. in case of using a deprecated/invalid dot language element, it underlines the corresponding part in yellow/red that contains the warning/error. It also puts some warning/error markers with a meaningful message on the left and right side of the editor and also populates the Problems view with all the recognized issues. With such a support the user can easily identify the parts of the dot file that need to be fixed.&lt;/p&gt; 
-&lt;p&gt;&lt;img alt=&quot;3_GEF_BackgroundValidation_1.png&quot; height=&quot;632&quot; src=&quot;https://blogs.itemis.com/hs-fs/hubfs/blog-files/3_GEF_BackgroundValidation_1.png?t=1477465551739&amp;amp;width=702&amp;amp;height=632&amp;amp;name=3_GEF_BackgroundValidation_1.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;702&quot; /&gt;&lt;/p&gt; 
+&lt;p&gt;&lt;img alt=&quot;3_GEF_BackgroundValidation_1.png&quot; height=&quot;632&quot; src=&quot;https://blogs.itemis.com/hs-fs/hubfs/blog-files/3_GEF_BackgroundValidation_1.png?t=1477484983379&amp;amp;width=702&amp;amp;height=632&amp;amp;name=3_GEF_BackgroundValidation_1.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;702&quot; /&gt;&lt;/p&gt; 
 &lt;h3&gt;&lt;strong&gt;Quickfixes&lt;/strong&gt;&lt;/h3&gt; 
 &lt;p&gt;The GEF DOT Editor is – in certain cases – able to automatically fix the problems the user made while editing a dot file. In such cases, the editor offers so called quickfixes to the user. This functionality is available either throught the context menu of the warning/error marker or using the keyboard shortcut &lt;code&gt;Ctrl + 1&lt;/code&gt;. Applying such a quickfix can for instance replace an invalid dot attribute value by a valid one.&lt;/p&gt; 
-&lt;p&gt;&lt;img alt=&quot;4_GEF_Quickfixes_1.png&quot; height=&quot;630&quot; src=&quot;https://blogs.itemis.com/hs-fs/hubfs/blog-files/4_GEF_Quickfixes_1.png?t=1477465551739&amp;amp;width=700&amp;amp;height=630&amp;amp;name=4_GEF_Quickfixes_1.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;700&quot; /&gt;&lt;/p&gt; 
+&lt;p&gt;&lt;img alt=&quot;4_GEF_Quickfixes_1.png&quot; height=&quot;630&quot; src=&quot;https://blogs.itemis.com/hs-fs/hubfs/blog-files/4_GEF_Quickfixes_1.png?t=1477484983379&amp;amp;width=700&amp;amp;height=630&amp;amp;name=4_GEF_Quickfixes_1.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;700&quot; /&gt;&lt;/p&gt; 
 &lt;h3&gt;&lt;strong&gt;Folding&lt;/strong&gt;&lt;/h3&gt; 
 &lt;p&gt;The GEF DOT Editor supports collapsing certain parts of the currently opened dot file. This functionality is especially handy for large dot files to hide unnecessary details, e.g. the attributes belonging to a certain edge. Hovering on a collapsed part still enables the user to take a look at the hidden part without explicitly expanding it.&lt;/p&gt; 
-&lt;p&gt;&lt;img alt=&quot;5_GEF_Folding_1.png&quot; height=&quot;428&quot; src=&quot;https://blogs.itemis.com/hs-fs/hubfs/blog-files/5_GEF_Folding_1.png?t=1477465551739&amp;amp;width=584&amp;amp;height=428&amp;amp;name=5_GEF_Folding_1.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;584&quot; /&gt;&lt;img alt=&quot;5_GEF_Folding_2.png&quot; height=&quot;430&quot; src=&quot;https://blogs.itemis.com/hs-fs/hubfs/blog-files/5_GEF_Folding_2.png?t=1477465551739&amp;amp;width=586&amp;amp;height=430&amp;amp;name=5_GEF_Folding_2.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;586&quot; /&gt;&lt;/p&gt; 
+&lt;p&gt;&lt;img alt=&quot;5_GEF_Folding_1.png&quot; height=&quot;428&quot; src=&quot;https://blogs.itemis.com/hs-fs/hubfs/blog-files/5_GEF_Folding_1.png?t=1477484983379&amp;amp;width=584&amp;amp;height=428&amp;amp;name=5_GEF_Folding_1.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;584&quot; /&gt;&lt;img alt=&quot;5_GEF_Folding_2.png&quot; height=&quot;430&quot; src=&quot;https://blogs.itemis.com/hs-fs/hubfs/blog-files/5_GEF_Folding_2.png?t=1477484983379&amp;amp;width=586&amp;amp;height=430&amp;amp;name=5_GEF_Folding_2.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;586&quot; /&gt;&lt;/p&gt; 
 &lt;h3&gt;&lt;strong&gt;Outline View&lt;/strong&gt; &lt;/h3&gt; 
 &lt;p&gt;The GEF DOT Editor provides an outline view to help the user navigating through the opened dot file. It provides a hierarchical view of the graph nodes and edges together with their attributes. By default, it represents the elements in the same order as defined within the dot file, but also allows the user to sort them alphabetically. Moreover, the user can choose to synchronize the outline view selection with the editor selection by switching the&lt;em&gt;'Link with Editor'&lt;/em&gt; mode on, so a selection on an element within the outline view automatically highlights the corresponding dot element within the GEF DOT Editor.&lt;/p&gt; 
-&lt;p&gt;&lt;img alt=&quot;6_GEF_OutlineView_1.png&quot; height=&quot;506&quot; src=&quot;https://blogs.itemis.com/hs-fs/hubfs/blog-files/6_GEF_OutlineView_1.png?t=1477465551739&amp;amp;width=724&amp;amp;height=506&amp;amp;name=6_GEF_OutlineView_1.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;724&quot; /&gt;&lt;/p&gt; 
+&lt;p&gt;&lt;img alt=&quot;6_GEF_OutlineView_1.png&quot; height=&quot;506&quot; src=&quot;https://blogs.itemis.com/hs-fs/hubfs/blog-files/6_GEF_OutlineView_1.png?t=1477484983379&amp;amp;width=724&amp;amp;height=506&amp;amp;name=6_GEF_OutlineView_1.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;724&quot; /&gt;&lt;/p&gt; 
 &lt;h3&gt;&lt;strong&gt;Automatic Sync&lt;/strong&gt; &lt;/h3&gt; 
 &lt;p&gt;The GEF DOT Editor is also able to automatically notify the GEF DOT Graph View when the user saves the currently modified dot file. Using the &lt;em&gt;'Link with DOT Editor'&lt;/em&gt; functionality, there is no need to manually trigger the graph visualization to re-render the currently edited dot file within the GEF DOT Graph View.&lt;/p&gt; 
-&lt;p&gt;&lt;img alt=&quot;7_GEF_AutomaticSync_1.png&quot; height=&quot;378&quot; src=&quot;https://blogs.itemis.com/hs-fs/hubfs/blog-files/7_GEF_AutomaticSync_1.png?t=1477465551739&amp;amp;width=724&amp;amp;height=378&amp;amp;name=7_GEF_AutomaticSync_1.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;724&quot; /&gt;&lt;/p&gt; 
+&lt;p&gt;&lt;img alt=&quot;7_GEF_AutomaticSync_1.png&quot; height=&quot;378&quot; src=&quot;https://blogs.itemis.com/hs-fs/hubfs/blog-files/7_GEF_AutomaticSync_1.png?t=1477484983379&amp;amp;width=724&amp;amp;height=378&amp;amp;name=7_GEF_AutomaticSync_1.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;724&quot; /&gt;&lt;/p&gt; 
 &lt;h3&gt;&lt;strong&gt;Conclusion&lt;/strong&gt;&lt;/h3&gt; 
 &lt;p&gt;The GEF DOT Editor provides useful functionalities that come in handy when working with Graphviz *.dot files. Apart from that, the open source &lt;a href=&quot;https://github.com/eclipse/gef/wiki&quot;&gt;GEF Framework&lt;/a&gt; provides further components as parts of the GEF Graphviz DOT authoring environment. For further information, take a look at the &lt;a href=&quot;https://github.com/eclipse/gef/wiki/DOT-User-Guide&quot;&gt;GEF DOT User Guide&lt;/a&gt; or visit the &lt;a href=&quot;https://www.eclipsecon.org/europe2016/session/gef4-dot-oh-dot-oh&quot;&gt;GEF session on the EclipseCon Europe 2016&lt;/a&gt;.&lt;/p&gt;  
 &lt;p&gt;At the time of this writing, the functionality of the GEF Graphviz DOT authoring environment is limited as follows:&lt;/p&gt; 
@@ -577,13 +571,6 @@ detail if anyone is interested.&lt;/p&gt;</description>
 &lt;/div&gt;
  &lt;img alt=&quot;&quot; height=&quot;1&quot; src=&quot;http://feeds.feedburner.com/~r/benjamin-cabe-planet-eclipse/~4/LifQftgN3vc&quot; width=&quot;1&quot; /&gt;</description>
 	<pubDate>Tue, 18 Oct 2016 01:02:35 +0000</pubDate>
-</item>
-<item>
-	<title>Eclipse Announcements: 1 week to EclipseCon Europe 2016</title>
-	<guid isPermaLink="true">http://feedproxy.google.com/~r/eclipse/fnews/~3/RQdsEPtltIs/registration</guid>
-	<link>http://feedproxy.google.com/~r/eclipse/fnews/~3/RQdsEPtltIs/registration</link>
-	<description>Don't miss this year's EclipseCon Europe, starting on Oct 25, in Ludwigsburg, Germany.&lt;img alt=&quot;&quot; height=&quot;1&quot; src=&quot;http://feeds.feedburner.com/~r/eclipse/fnews/~4/RQdsEPtltIs&quot; width=&quot;1&quot; /&gt;</description>
-	<pubDate>Mon, 17 Oct 2016 14:50:00 +0000</pubDate>
 </item>
 
 </channel>
