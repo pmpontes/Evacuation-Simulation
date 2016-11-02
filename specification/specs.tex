@@ -31,6 +31,7 @@
 \usepackage{indentfirst}
 \usepackage{colortbl}
 \usepackage{caption} 
+\usepackage{enumitem}
 \captionsetup[table]{skip=10pt}
 
 \graphicspath{ {images/} }
@@ -155,17 +156,16 @@ Pedro \textsc{Pontes}\\[0.1cm]
 
 \section{Introdução} 
 
-Uma evacuação implica mover pessoas de um dado local devido à ocorrência de uma situação de (potencial) catástrofe. Exemplos incluem a evacuação de um edifício em chamas ou de uma localidade, antes, durante ou após um desastre natural, como uma cheia ou terramoto. Tipicamente, de uma evacuação acabam por resultar feridos ou mesmo mortes, vítimas de espezinhamento. 
+Uma evacuação implica mover pessoas de um dado local devido à ocorrência de uma situação de (potencial) catástrofe. Exemplos incluem a evacuação de um edifício em chamas ou de uma localidade, antes, durante ou após um desastre natural, como uma cheia ou terramoto. 
+
+Evacuar grandes multidões é um desafio, independentemente das circunstâncias. Tipicamente, uma evacuação de emergência resultam feridos - ou mesmo mortes -, devido ao caos e pânico que se geram.
 
 Com o aumento da frequência de situações que implicam a evacuação de um elevado número de pessoas num curto espaço de tempo, existe uma consciência acrescida da importância do planeamento dessas situações.
 
 Com efeito, a gestão e organização de multidões em situações de emergência tornou-se uma importante área de estudo ao longo dos últimos anos e desempenha, hoje, um papel importante no desenho de um edifício ou área.
 
-Dados os desafios - quer de ordem prática, quer de ordem financeira - que a realização de simulacros coloca, é cada vez mais comum o uso de técnicas de simulação para estudar estas situações, existindo diversos tipos de sistemas, como as simulações baseadas na dinâmica de fluxo, as simulações baseadas em autómatos e simulações baseadas em agentes.
+Dados os desafios - quer de ordem prática, quer de ordem financeira - que a realização de simulacros coloca, é cada vez mais comum o uso de técnicas de simulação para estudar estas situações. De facto, existem diversos tipos de sistemas, como as simulações baseadas na dinâmica de fluídos, as simulações baseadas em autómatos e as simulações baseadas em agentes.
 
-
-
-\newpage
 %----------------------------------------------------------------------------------------
 %	EUNCIADO 
 %----------------------------------------------------------------------------------------
@@ -176,17 +176,22 @@ Dados os desafios - quer de ordem prática, quer de ordem financeira - que a rea
 
 Ocorreu um incêndio, uma inundação, a libertação de um gás nocivo, um qualquer acidente que obriga à evacuação daqueles presentes num dado local. Esse local possui múltiplas saídas de emergência e também obstáculos. Os indivíduos encontram-se distribuídos pelo local, ocupados nas suas tarefas usuais. Aquando da deteção do acidente, todos os indivíduos procuram atingir uma das saídas de emergência, o mais rapidamente possível.
 
-Alguns agentes poderão ser altruístas, no sentido de ajudarem acidentados a deslocarem-se até à saída, outros poderão simplesmente querer "salvar a pele", exibindo um comportamento mais egoísta, conforme se descreve adiante.
+Alguns agentes poderão ser altruístas, no sentido de ajudarem acidentados a deslocarem-se até à saída, outros poderão simplesmente querer «salvar a pele», exibindo um comportamento mais egoísta, conforme se descreve adiante.
 
 
 \subsection{Objetivos}
 
-Realizado no âmbito da unidade curricular de Agentes e Inteligência Artificial Distribuída, com este trabalho pretende desenvolver-se um programa que permita simular a interação de agentes confinados a um espaço concreto e limitado perante a necessidade de evacuar esse espaço, podendo o utilizador configurar o local do acidente, especificando, por um lado, o tipo, número e localização dos agentes a evacuar e, por outro, o número e localização de saídas de emergência e obstáculos.
+Realizado no âmbito da unidade curricular de Agentes e Inteligência Artificial Distribuída, com este projeto pretende desenvolver-se um programa que permita simular a interação de agentes confinados a um espaço concreto e limitado perante a necessidade de evacuar esse espaço, podendo o utilizador definir diferentes cenários, especificando, por um lado, o tipo, número e localização dos agentes a evacuar e, por outro, o número e localização de saídas de emergência e obstáculos.
 
 
 \subsection{Resultados Esperados e Avaliação}
 
-Experimentando diferentes configurações para o local do acidente, seja variando, por um lado, o tipo, número ou localização dos agentes a evacuar e, por outro, o número e localização de saídas de emergência e obstáculos, será possível observar como estas variações se refletem no tempo médio e máximo de evacuação ou no número de feridos.
+Como mencionado, será possível - e relevante - avaliar diferentes cenários, através da experimentação com:
+\begin{itemize}
+	\item diferentes configurações para o local do acidente, variando o número e localização de saídas de emergência e obstáculos;
+	\item diferentes combinações de agentes a evacuar, variando o seu tipo, número ou localização.
+\end{itemize}
+Deste modo, será possível observar-se como estas variações se refletem no tempo médio e máximo de evacuação ou no número de feridos.
 
 \section{Ferramentas}
 A implementação do programa descrito será realizada usando \textit{Repast}, uma \textit{framework open-source} que permite criar, analisar e experimentar com mundos artificiais populados por agentes que interagem de forma não trivial.
@@ -195,7 +200,8 @@ Concretamente, irá utilizar-se a sua mais recente versão - \textit{Repast Simp
 
 Tendo sido amplamente utilizado em aplicações de simulação, considera-se de particular utilidade, por um lado, o foco em modelar o comportamento social e, por outro, a recolha de métricas associadas a essas simulações. Por último, tem-se a vantagem de poder acompanhar, de forma visual, o decorrer da simulação.
 
-Adicionalmente, pondera-se utilizar a \textit{API SAJaS}, que se propõe facilitar o desenvolvimento de sistemas multiagente, oferecendo funcionalidades \textit{JADE}.
+Adicionalmente, irá utilizar-se a \textit{API SAJaS}, que se propõe facilitar o desenvolvimento de sistemas multiagente, oferecendo funcionalidades \textit{JADE}. 
+No caso, as funcionalidades de maior interesse serão as capacidades de comunicação entre agentes, visando simular as interações expectáveis num cenário de evacuação.
 
 \section{Especificação}
 \subsection{Agentes}
@@ -204,10 +210,7 @@ Podem distinguir-se dimensões distintas no comportamento exibido durante uma ev
 
 Assume-se que, em situações de emergência, os indivíduos entram em pânico e ficam, por isso, propensos a tomar decisões irracionais. Mais ainda, as pessoas tentam mover-se tão depressa quanto possível, devendo evitar obstáculos e ferimentos.
 
-No caso, assumem-se 
-In our agent-based models, several types of people are explored (e.g., men, women,
-children, security guards and evacuation leaders if necessary), as well as the various
-attributes (shown in Table 1) of agents are taken into account. 
+No caso, os modelos assumem a existência de homens, mulheres e crianças, caracterizados por diversos atributos, conforme definido na Tabela 1.
 
 Na implementação do projeto deverá ser usada uma arquitetura de Subsunção, em que os comportamentos são definidos como regras, 
 
@@ -215,7 +218,7 @@ Na implementação do projeto deverá ser usada uma arquitetura de Subsunção, 
 \renewcommand{\arraystretch}{1.3}
 \begin{table}[H]
 	\centering
-	\label{my-label}
+	\label{agent-attributes}
 	\caption{Atributos dos agentes a implementar.}
 	\begin{tabular}{@{}lll@{}}
 		\toprule
@@ -238,44 +241,52 @@ Na implementação do projeto deverá ser usada uma arquitetura de Subsunção, 
 		\rowcolor[HTML]{FFFFFF} 
 		estado de pânico     & float & \begin{tabular}[c]{@{}l@{}}{[}0,1{]}\\ condiciona a velocidade a que se move\end{tabular}                                                   \\
 		\rowcolor[HTML]{FFFFFF} 
-		velocidade inicial   & float & condicionada pelo género e da idade                                                                                                         \\
+		velocidade inicial   & float & condicionada pelo género e pela idade                                                                                                         \\
 		\rowcolor[HTML]{FFFFFF} 
-		velocidade máxima    & float & condicionada pelo género e da idade                                                                                                        
+		velocidade máxima    & float & condicionada pelo género e pela idade                                                                                                        
 	\end{tabular}
 
 \end{table}
 
 
 \subsection{Interação}
-Protocolos de interação
+Protocolos de interação???
+Empurrar (uma pessoa empurra uma pessoa no seu caminho); 
+Guiar (uma pessoa pode ajudar outra); 
+Gritar (o facto de uma pessoa gritar pode aumentar o estado de pânico das pessoas em redor);
 
 \subsection{Planeamento}
-Para a implementação, importa distinguir a divisão do programa em módulos:
-Representação do Espaço;
-Representação dos Agentes;
-Definição das Interações;
-
-Com base nesta divisão, definiram-se as seguintes etapas:
--Especificação e planeamento;
--Implementação do espaço;
--Implementação dos agentes;
--Implementação das interações entre agentes;
--Exploração de diferentes cenários e recolha e avaliação de métricas.
+Para a implementação, definiram-se as seguintes etapas:
+\begin{enumerate}
+	\item Especificação e planeamento;
+	\item Implementação de:
+	 \begin{enumerate} 
+	 	\item Agentes;
+	 	\item Espaço;
+		\item Interações entre agentes;
+	\end{enumerate}
+	\item Exploração de diferentes cenários e recolha e avaliação de métricas.
+\end{enumerate}
 
 
 \section{Conclusão}
 
 No final, consideram-se atingidos os objetivos definidos para esta primeira fase: foi feita a descrição do projeto e do seu objetivo - desenvolver um programa que permita simular a interação de agentes confinados a um espaço concreto e limitado perante a necessidade de evacuar esse espaço.
+
 Após o estudo de diversas ferramentas, definiu-se a combinação \textit{Repast} e \textit{SAJaS} como a plataforma multiagente a utilizar no processo de  desenvolvimento.
 
-definiram-se os modelos de agente, suas estratégias e interacções
-No que respeita aos resultados esperados, anteciparam-se diversas experimentações ...
+Caracterizaram-se os modelos de agente a implementar e definiram-se as interações entre eles.
+
+Por fim, iniciou-se a fase de implementação, com uma primeira definição dos agentes e espaço a evacuar.
+
+
 
 \section{Recursos}
 \subsection{Bibliografia}
-[1] Almeida, João; Rosseti, Rosaldo; Coelho, António: Crowd Simulation Modeling Applied to Emergency and Evacuation Simulations using Multi-Agent Systems. (2011)
+[1] Almeida, João; Rosseti, Rosaldo; Coelho, António: \textit{Crowd Simulation Modeling Applied to Emergency and Evacuation Simulations using Multi-Agent Systems}. (2011)
 
 \subsection{Software}
+[1] \textit{Repast Simphony Plugin for Eclipse}.
 
 \end{titlepage}
 \end{document}
