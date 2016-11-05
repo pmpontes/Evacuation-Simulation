@@ -1,0 +1,9 @@
+package serviceConsumerProviderVis;
+
+public class ProviderGoodAgent extends ProviderAgent {
+
+	public ProviderGoodAgent() {
+		super(EvacuationSimulationLauncher.FAILURE_PROBABILITY_GOOD_PROVIDER);
+	}
+
+}

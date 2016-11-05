@@ -1,0 +1,110 @@
+package serviceConsumerProviderVis;
+
+import jade.core.AID;
+import jade.core.Profile;
+import jade.core.ProfileImpl;
+import jade.wrapper.StaleProxyException;
+import repast.simphony.context.Context;
+import repast.simphony.context.space.graph.NetworkBuilder;
+import sajas.core.Agent;
+import sajas.core.Runtime;
+import sajas.sim.repasts.RepastSLauncher;
+import sajas.wrapper.ContainerController;
+
+public class EvacuationSimulationLauncher extends RepastSLauncher {
+
+	private static int CHILDREN_COUNT = 10;
+	private static int MAN_COUNT = 20;
+	private static int WOMAN_COUNT = 30;
+	
+	protected static double FAILURE_PROBABILITY_GOOD_PROVIDER = 0.2;
+	protected static double FAILURE_PROBABILITY_BAD_PROVIDER = 0.8;
+	
+	public static final boolean USE_RESULTS_COLLECTOR = true;
+	
+	private ContainerController mainContainer;
+	private ContainerController agentContainer;
+	private Environment environment;
+	
+	public static Agent getAgent(Context<?> context, AID aid) {
+		for(Object obj : context.getObjects(Agent.class)) {
+			if(((Agent) obj).getAID().equals(aid)) {
+				return (Agent) obj;
+			}
+		}
+		return null;
+	}
+
+	
+	@Override
+	public String getName() {
+		return "Emergency Evacuation -- SAJaS RepastS Simulation";
+	}
+
+	@Override
+	protected void launchJADE() {
+		
+		Runtime rt = Runtime.instance();
+		Profile p1 = new ProfileImpl();
+		mainContainer = rt.createMainContainer(p1);
+		agentContainer = mainContainer;
+		
+		createAgents();
+	}
+	
+	private void createAgents() {
+		
+		try {
+			
+			AID resultsCollectorAID = null;
+			if(USE_RESULTS_COLLECTOR) {
+				// create results collector
+				ResultsCollector resultsCollector = new ResultsCollector();
+				mainContainer.acceptNewAgent("ResultsCollector", resultsCollector).start();
+				resultsCollectorAID = resultsCollector.getAID();
+			}
+			
+			// create providers
+			// good providers
+			for (int i = 0; i < N_PROVIDERS/2; i++) {
+				ProviderAgent pa = new ProviderGoodAgent();
+				agentContainer.acceptNewAgent("GoodProvider" + i, pa).start();
+			}
+			// bad providers
+			for (int i = 0; i < N_PROVIDERS/2; i++) {
+				ProviderAgent pa = new ProviderBadAgent();
+				agentContainer.acceptNewAgent("BadProvider" + i, pa).start();
+			}
+
+			// create consumers
+			// consumers that use all providers
+			for (int i = 0; i < N_CONSUMERS; i++) {
+				ConsumerAgent ca = new ConsumerAllAgent(N_CONTRACTS, resultsCollectorAID);
+				mainContainer.acceptNewAgent("Consumer" + i, ca).start();
+			}
+			// consumers that filter providers
+			for (int i = 0; i < N_CONSUMERS_FILTERING_PROVIDERS; i++) {
+				ConsumerAgent ca = new ConsumerFilterAgent(N_CONTRACTS, resultsCollectorAID);
+				mainContainer.acceptNewAgent("ConsumerF" + i, ca).start();
+			}
+
+		} catch (StaleProxyException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	@Override
+	public Context build(Context<Object> context) {
+		// http://repast.sourceforge.net/docs/RepastJavaGettingStarted.pdf
+		//context.setId("evacuation"); ????
+		
+		environment = new Environment(context);
+		
+		NetworkBuilder<Object> netBuilder = new NetworkBuilder<Object>("Service Consumer/Provider network", context, true);
+		netBuilder.buildNetwork();
+		
+		return super.build(context);
+	}
+
+}

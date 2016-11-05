@@ -206,13 +206,16 @@ No caso, as funcionalidades de maior interesse serão as capacidades de comunica
 \section{Especificação}
 \subsection{Agentes}
 
+Identificação e caracterização dos agentes (arquitectura, comportamento, estratégias)
+
+
+
 Podem distinguir-se dimensões distintas no comportamento exibido durante uma evacuação: por um lado, o espaço a evacuar e a sua configuração, e, por outro lado, as características psicológicas e sociais que afetam a resposta dos que participam na evacuação.
 
 Assume-se que, em situações de emergência, os indivíduos entram em pânico e ficam, por isso, propensos a tomar decisões irracionais. Mais ainda, as pessoas tentam mover-se tão depressa quanto possível, devendo evitar obstáculos e ferimentos.
+Deste modo, tem-se que os agentes a implementar serão autónomos, proativos e reativos.
 
 No caso, os modelos assumem a existência de homens, mulheres e crianças, caracterizados por diversos atributos, conforme definido na Tabela 1.
-
-Na implementação do projeto deverá ser usada uma arquitetura de Subsunção, em que os comportamentos são definidos como regras, 
 
 \setlength{\tabcolsep}{20pt}
 \renewcommand{\arraystretch}{1.3}
@@ -251,8 +254,11 @@ Na implementação do projeto deverá ser usada uma arquitetura de Subsunção, 
 
 \subsection{Interação}
 Protocolos de interação???
+
 Empurrar (uma pessoa empurra uma pessoa no seu caminho); 
+
 Guiar (uma pessoa pode ajudar outra); 
+
 Gritar (o facto de uma pessoa gritar pode aumentar o estado de pânico das pessoas em redor);
 
 \subsection{Planeamento}
@@ -263,7 +269,7 @@ Para a implementação, definiram-se as seguintes etapas:
 	 \begin{enumerate} 
 	 	\item Agentes;
 	 	\item Espaço;
-		\item Interações entre agentes;
+		\item Interação entre agentes;
 	\end{enumerate}
 	\item Exploração de diferentes cenários e recolha e avaliação de métricas.
 \end{enumerate}
@@ -277,7 +283,7 @@ Após o estudo de diversas ferramentas, definiu-se a combinação \textit{Repast
 
 Caracterizaram-se os modelos de agente a implementar e definiram-se as interações entre eles.
 
-Por fim, iniciou-se a fase de implementação, com uma primeira definição dos agentes e espaço a evacuar.
+Adicionalmente, iniciou-se a fase de implementação, com uma primeira definição dos agentes e espaço a evacuar.
 
 
 
@@ -286,7 +292,8 @@ Por fim, iniciou-se a fase de implementação, com uma primeira definição dos 
 [1] Almeida, João; Rosseti, Rosaldo; Coelho, António: \textit{Crowd Simulation Modeling Applied to Emergency and Evacuation Simulations using Multi-Agent Systems}. (2011)
 
 \subsection{Software}
-[1] \textit{Repast Simphony Plugin for Eclipse}.
+[1] \textit{Plugin Repast Simphony} para \textit{Eclipse IDE};
+[2] \textit{SAJaS}.
 
 \end{titlepage}
 \end{document}
