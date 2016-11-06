@@ -253,13 +253,18 @@ No caso, os modelos assumem a existência de homens, mulheres e crianças, carac
 
 
 \subsection{Interação}
-Protocolos de interação???
 
-Empurrar (uma pessoa empurra uma pessoa no seu caminho); 
+Com vista a simular de forma mais fidedigna as condições de uma evacuação de emergência, prevê-se a implementação das seguintes interações entre agentes:
 
-Guiar (uma pessoa pode ajudar outra); 
+Empurrar;
+	
+	Uma pessoa pode empurrar uma pessoa no seu caminho.
 
-Gritar (o facto de uma pessoa gritar pode aumentar o estado de pânico das pessoas em redor);
+Ajudar;
+	Uma pessoa pode ajudar outra a pôr-se a pé.
+
+Gritar.
+	O facto de uma pessoa gritar pode aumentar o estado de pânico das pessoas em redor;
 
 \subsection{Planeamento}
 Para a implementação, definiram-se as seguintes etapas:
@@ -267,9 +272,13 @@ Para a implementação, definiram-se as seguintes etapas:
 	\item Especificação e planeamento;
 	\item Implementação de:
 	 \begin{enumerate} 
-	 	\item Agentes;
+	 	\item Agente;
 	 	\item Espaço;
+	 	
+	 	Teste e análise do comportamento de um agente num espaço.
 		\item Interação entre agentes;
+		
+		Teste e análise do comportamento de vários agentes num espaço. 
 	\end{enumerate}
 	\item Exploração de diferentes cenários e recolha e avaliação de métricas.
 \end{enumerate}
