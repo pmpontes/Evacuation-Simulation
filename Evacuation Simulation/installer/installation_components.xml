@@ -4,7 +4,7 @@
 
 <installation version="1.0">
     <info>
-      <appname>Evacuation Simulation</appname>
+      <appname>ServiceConsumerProviderVis</appname>
 			<appversion>1.0</appversion>
       <summarylogfilepath>$INSTALL_PATH/installinfo/Summary.htm</summarylogfilepath>
     </info>
@@ -155,17 +155,17 @@
 
 		<pack name="Sources" required="no">
            	<description>The model source code</description>
-           	<file src="$StagingOptionalArea/src" targetdir="$INSTALL_PATH/Evacuation Simulation"/>
+           	<file src="$StagingOptionalArea/src" targetdir="$INSTALL_PATH/ServiceConsumerProviderVis"/>
         </pack>
 
         <pack name="Documentation" required="no">
            	<description>The model documentation</description>
-           	<file src="$StagingOptionalArea/docs" targetdir="$INSTALL_PATH/Evacuation Simulation"/>
+           	<file src="$StagingOptionalArea/docs" targetdir="$INSTALL_PATH/ServiceConsumerProviderVis"/>
         </pack>
 
 <!--        <pack name="Data" required="no">-->
 <!--            <description>The user data</description>-->
-<!--            <file src="repast.simphony.bin_and_src_$REPAST_VERSION/temp/freezedried_data" targetdir="$INSTALL_PATH/Evacuation Simulation"/>-->
+<!--            <file src="repast.simphony.bin_and_src_$REPAST_VERSION/temp/freezedried_data" targetdir="$INSTALL_PATH/ServiceConsumerProviderVis"/>-->
 <!--        </pack>-->
     </packs>
 

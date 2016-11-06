@@ -4,10 +4,10 @@
 
   <skipIfNotSupported/>
   
-  <programGroup defaultName="Evacuation Simulation" location="StartMenu"/>
+  <programGroup defaultName="ServiceConsumerProviderVis" location="StartMenu"/>
   
   <shortcut
-     name="Evacuation Simulation"
+     name="ServiceConsumerProviderVis"
      programGroup="yes"
      desktop="no"
      applications="no"
@@ -17,7 +17,7 @@
      commandLine=""
      workingDirectory="$INSTALL_PATH"
      description="Model"
-     iconFile="$INSTALL_PATH\Evacuation Simulation\icons\model.bmp"
+     iconFile="$INSTALL_PATH\ServiceConsumerProviderVis\icons\model.bmp"
      iconIndex="0"
      initialState="noShow">
      <createForPack name="Model"/>
@@ -30,7 +30,7 @@
      applications="no"
      startMenu="no"
      startup="no"
-     target="$INSTALL_PATH\Evacuation Simulation\docs\index.html"
+     target="$INSTALL_PATH\ServiceConsumerProviderVis\docs\index.html"
      commandLine=""
 	 iconFile="%SystemRoot%\system32\SHELL32.dll"
      iconIndex="23" 
@@ -40,7 +40,7 @@
   </shortcut>
   
   <shortcut
-     name="Evacuation Simulation Uninstaller"
+     name="ServiceConsumerProviderVis Uninstaller"
      programGroup="yes"
      desktop="no"
      applications="no"

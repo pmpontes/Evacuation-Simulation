@@ -1,0 +1,5 @@
+package serviceConsumerProviderVis;
+
+public enum Gender {
+	MALE, FEMALE
+}

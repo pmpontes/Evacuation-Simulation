@@ -200,7 +200,7 @@ Concretamente, irá utilizar-se a sua mais recente versão - \textit{Repast Simp
 
 Tendo sido amplamente utilizado em aplicações de simulação, considera-se de particular utilidade, por um lado, o foco em modelar o comportamento social e, por outro, a recolha de métricas associadas a essas simulações. Por último, tem-se a vantagem de poder acompanhar, de forma visual, o decorrer da simulação.
 
-Adicionalmente, irá utilizar-se a \textit{API SAJaS}, que se propõe facilitar o desenvolvimento de sistemas multiagente, oferecendo funcionalidades \textit{JADE}. 
+Adicionalmente, irá utilizar-se a \textit{API SAJaS}, com vista a facilitar o desenvolvimento de sistemas multiagente, oferecendo funcionalidades \textit{JADE}. 
 No caso, as funcionalidades de maior interesse serão as capacidades de comunicação entre agentes, visando simular as interações expectáveis num cenário de evacuação.
 
 \section{Especificação}
@@ -256,16 +256,18 @@ No caso, os modelos assumem a existência de homens, mulheres e crianças, carac
 
 Com vista a simular de forma mais fidedigna as condições de uma evacuação de emergência, prevê-se a implementação das seguintes interações entre agentes:
 
-Empurrar;
+\begin{itemize}
+\item Empurrar;
 	
 	Uma pessoa pode empurrar uma pessoa no seu caminho.
 
-Ajudar;
+\item Ajudar;
+
 	Uma pessoa pode ajudar outra a pôr-se a pé.
 
-Gritar.
+\item Gritar.
 	O facto de uma pessoa gritar pode aumentar o estado de pânico das pessoas em redor;
-
+\end{itemize}
 \subsection{Planeamento}
 Para a implementação, definiram-se as seguintes etapas:
 \begin{enumerate}
