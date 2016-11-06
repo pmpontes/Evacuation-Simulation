@@ -206,10 +206,6 @@ No caso, as funcionalidades de maior interesse serão as capacidades de comunica
 \section{Especificação}
 \subsection{Agentes}
 
-Identificação e caracterização dos agentes (arquitectura, comportamento, estratégias)
-
-
-
 Podem distinguir-se dimensões distintas no comportamento exibido durante uma evacuação: por um lado, o espaço a evacuar e a sua configuração, e, por outro lado, as características psicológicas e sociais que afetam a resposta dos que participam na evacuação.
 
 Assume-se que, em situações de emergência, os indivíduos entram em pânico e ficam, por isso, propensos a tomar decisões irracionais. Mais ainda, as pessoas tentam mover-se tão depressa quanto possível, devendo evitar obstáculos e ferimentos.
@@ -232,11 +228,11 @@ No caso, os modelos assumem a existência de homens, mulheres e crianças, carac
 		\rowcolor[HTML]{FFFFFF} 
 		género               & int   & \begin{tabular}[c]{@{}l@{}}0: masculino\\ 1: feminino\end{tabular}                                                                          \\
 		\rowcolor[HTML]{FFFFFF} 
-		conhecimento da área & float & {[}0, 1{]}                                                                                                                                  \\
+		conhecimento da área & float & \begin{tabular}[c]{@{}l@{}}{[}0, 1{]} \\probabilidade de seguir o caminho\\ correto até à saída mais próxima\\\end{tabular}                                                                                                                                     \\
 		\rowcolor[HTML]{FFFFFF} 
-		liderança            & int   & \begin{tabular}[c]{@{}l@{}}0: seguidor\\ 1: líder\end{tabular}                                                                              \\
+		independência        & float   & \begin{tabular}[c]{@{}l@{}}{[}0, 1{]} \\probabilidade de seguir outros\\\end{tabular}  \\ 
 		\rowcolor[HTML]{FFFFFF} 
-		independência        & int   & \begin{tabular}[c]{@{}l@{}}0: segue o líder do grupo\\ 1: não segue o líder\end{tabular}                                                    \\
+		altruísmo   & float & \begin{tabular}[c]{@{}l@{}}{[}0, 1{]} \\probabilidade de ajudar outros\\\end{tabular}    \\                                                  
 		\rowcolor[HTML]{FFFFFF} 
 		integridade física   & float & \begin{tabular}[c]{@{}l@{}}{[}0, 1{]}\\ 0: morto\\ \textless 0,4: incapaz de se mover\\ condiciona a velocidade a que se move\end{tabular} \\
 		\rowcolor[HTML]{FFFFFF} 
@@ -252,7 +248,7 @@ No caso, os modelos assumem a existência de homens, mulheres e crianças, carac
 \end{table}
 
 
-\subsection{Interação}
+\subsection{Interações}
 
 Com vista a simular de forma mais fidedigna as condições de uma evacuação de emergência, prevê-se a implementação das seguintes interações entre agentes:
 
@@ -260,10 +256,11 @@ Com vista a simular de forma mais fidedigna as condições de uma evacuação de
 \item Empurrar;
 	
 	Uma pessoa pode empurrar uma pessoa no seu caminho, derrubando-a.
+	Uma pessoa que seja derrubada verá a sua integridade física diminuída. 
 
 \item Ajudar;
 
-	Uma pessoa pode ajudar outra a levantar-se.
+	Uma pessoa pode ajudar outra, seja ajudando-a a levantar-se ou guiando-a até à saída, caso em que a mobilidade da pessoa altruísta fica diminuída.
 
 \item Gritar.
 	O facto de uma pessoa gritar pode aumentar o estado de pânico das pessoas em redor.
@@ -296,7 +293,7 @@ Após o estudo de diversas ferramentas, definiu-se a combinação \textit{Repast
 
 Caracterizaram-se os modelos de agente a implementar e definiram-se as interações entre eles.
 
-Adicionalmente, iniciou-se a fase de implementação, com uma primeira definição dos agentes e espaço a evacuar.
+Iniciou-se, ainda, a fase de implementação, com uma primeira definição dos agentes e espaço a evacuar.
 
 
 

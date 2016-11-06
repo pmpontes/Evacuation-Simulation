@@ -6,6 +6,24 @@
     <language>en</language>
      <atom:link href="http://marketplace.eclipse.org/rss.xml" rel="self" type="application/rss+xml" />
       <item>
+    <title>eclox</title>
+    <link>http://marketplace.eclipse.org/content/eclox</link>
+    <description>&lt;div class=&quot;field field-name-field-resource-image field-type-image field-label-hidden&quot;&gt;&lt;div class=&quot;field-items&quot;&gt;&lt;div class=&quot;field-item even&quot;&gt;&lt;img class=&quot;img-responsive&quot; src=&quot;http://marketplace.eclipse.org/sites/default/files/ecloxH_0.png&quot; width=&quot;110&quot; height=&quot;80&quot; alt=&quot;&quot; /&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;field field-name-shared-date-created field-type-text field-label-inline clearfix&quot;&gt;&lt;div class=&quot;field-label&quot;&gt;Date Created:&amp;nbsp;&lt;/div&gt;&lt;div class=&quot;field-items&quot;&gt;&lt;div class=&quot;field-item even&quot;&gt;Fri, 2014-03-07 03:42&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;field field-name-shared-date-updated field-type-text field-label-inline clearfix&quot;&gt;&lt;div class=&quot;field-label&quot;&gt;Date Updated:&amp;nbsp;&lt;/div&gt;&lt;div class=&quot;field-items&quot;&gt;&lt;div class=&quot;field-item even&quot;&gt;Sun, 2016-11-06 12:41&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;field field-name-shared-submitted-by field-type-text field-label-inline clearfix&quot;&gt;&lt;div class=&quot;field-label&quot;&gt;Submitted by:&amp;nbsp;&lt;/div&gt;&lt;div class=&quot;field-items&quot;&gt;&lt;div class=&quot;field-item even&quot;&gt;&lt;a href=&quot;/user/ipajuelo/listings&quot; title=&quot;Ivan Pajuelo&quot;&gt;Ivan Pajuelo&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;!-- google_ad_section_start --&gt;&lt;div class=&quot;field field-name-body field-type-text-with-summary field-label-hidden&quot;&gt;&lt;div class=&quot;field-items&quot;&gt;&lt;div class=&quot;field-item even&quot;&gt;&lt;p&gt;Eclox is a simple doxygen frontend plug-in for eclipse. It aims to provide a slim and sleek integration of the code documentation process into eclipse by providing a high-level graphical user interface over doxygen.&lt;br /&gt;
+•graphical edition of doxyfile settings&lt;br /&gt;
+•integrated doxygen invocation&lt;br /&gt;
+•doxygen outputs logging and&lt;br /&gt;
+•optional packaged doxygen binaries (for windows and linux)&lt;/p&gt;
+&lt;p&gt;Eclox is a  free software distributed under the term of the:&lt;br /&gt;
+•Eclipse Public Licence v 1.0 from version 0-10-0,&lt;br /&gt;
+•GNU General Public Licence (GPL) for version 0-8-x and older.&lt;/p&gt;
+&lt;p&gt;Project page and update site: &lt;a href=&quot;http://anb0s.github.io/eclox&quot;&gt;http://anb0s.github.io/eclox&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;!-- google_ad_section_end --&gt;</description>
+     <pubDate>Fri, 07 Mar 2014 08:42:41 +0000</pubDate>
+ <dc:creator>ipajuelo</dc:creator>
+ <guid isPermaLink="false">1536329 at http://marketplace.eclipse.org</guid>
+ <comments>http://marketplace.eclipse.org/content/eclox#comments</comments>
+  </item>
+  <item>
     <title>ANTLR 4 IDE</title>
     <link>http://marketplace.eclipse.org/content/antlr-4-ide</link>
     <description>&lt;div class=&quot;field field-name-field-resource-image field-type-image field-label-hidden&quot;&gt;&lt;div class=&quot;field-items&quot;&gt;&lt;div class=&quot;field-item even&quot;&gt;&lt;img class=&quot;img-responsive&quot; src=&quot;http://marketplace.eclipse.org/sites/default/files/logo_32.png&quot; width=&quot;73&quot; height=&quot;73&quot; alt=&quot;&quot; /&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;field field-name-shared-date-created field-type-text field-label-inline clearfix&quot;&gt;&lt;div class=&quot;field-label&quot;&gt;Date Created:&amp;nbsp;&lt;/div&gt;&lt;div class=&quot;field-items&quot;&gt;&lt;div class=&quot;field-item even&quot;&gt;Tue, 2014-12-09 09:04&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;field field-name-shared-date-updated field-type-text field-label-inline clearfix&quot;&gt;&lt;div class=&quot;field-label&quot;&gt;Date Updated:&amp;nbsp;&lt;/div&gt;&lt;div class=&quot;field-items&quot;&gt;&lt;div class=&quot;field-item even&quot;&gt;Sat, 2016-11-05 19:42&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;field field-name-shared-submitted-by field-type-text field-label-inline clearfix&quot;&gt;&lt;div class=&quot;field-label&quot;&gt;Submitted by:&amp;nbsp;&lt;/div&gt;&lt;div class=&quot;field-items&quot;&gt;&lt;div class=&quot;field-item even&quot;&gt;&lt;a href=&quot;/user/eespina/listings&quot; title=&quot;Edgar Espina&quot;&gt;Edgar Espina&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;!-- google_ad_section_start --&gt;&lt;div class=&quot;field field-name-body field-type-text-with-summary field-label-hidden&quot;&gt;&lt;div class=&quot;field-items&quot;&gt;&lt;div class=&quot;field-item even&quot;&gt;&lt;ul&gt;&lt;li&gt;ANTLR 4.x&lt;/li&gt;
@@ -202,32 +220,6 @@ Since it is built on the Eclipse Platform, the DVT IDE can be easily integrated 
  <dc:creator>fzadroznyr0g</dc:creator>
  <guid isPermaLink="false">114 at http://marketplace.eclipse.org</guid>
  <comments>http://marketplace.eclipse.org/content/pydev-python-ide-eclipse#comments</comments>
-  </item>
-  <item>
-    <title>EGradle</title>
-    <link>http://marketplace.eclipse.org/content/egradle</link>
-    <description>&lt;div class=&quot;field field-name-field-resource-image field-type-image field-label-hidden&quot;&gt;&lt;div class=&quot;field-items&quot;&gt;&lt;div class=&quot;field-item even&quot;&gt;&lt;img class=&quot;img-responsive&quot; src=&quot;http://marketplace.eclipse.org/sites/default/files/EGradle-Profile-Image-Marketplace.png&quot; width=&quot;110&quot; height=&quot;80&quot; alt=&quot;&quot; /&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;field field-name-shared-date-created field-type-text field-label-inline clearfix&quot;&gt;&lt;div class=&quot;field-label&quot;&gt;Date Created:&amp;nbsp;&lt;/div&gt;&lt;div class=&quot;field-items&quot;&gt;&lt;div class=&quot;field-item even&quot;&gt;Tue, 2016-09-13 14:26&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;field field-name-shared-date-updated field-type-text field-label-inline clearfix&quot;&gt;&lt;div class=&quot;field-label&quot;&gt;Date Updated:&amp;nbsp;&lt;/div&gt;&lt;div class=&quot;field-items&quot;&gt;&lt;div class=&quot;field-item even&quot;&gt;Wed, 2016-11-02 07:26&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;field field-name-shared-submitted-by field-type-text field-label-inline clearfix&quot;&gt;&lt;div class=&quot;field-label&quot;&gt;Submitted by:&amp;nbsp;&lt;/div&gt;&lt;div class=&quot;field-items&quot;&gt;&lt;div class=&quot;field-item even&quot;&gt;&lt;a href=&quot;/user/atregnaghi/listings&quot; title=&quot;Albert Tregnaghi&quot;&gt;Albert Tregnaghi&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;!-- google_ad_section_start --&gt;&lt;div class=&quot;field field-name-body field-type-text-with-summary field-label-hidden&quot;&gt;&lt;div class=&quot;field-items&quot;&gt;&lt;div class=&quot;field-item even&quot;&gt;&lt;p&gt;&lt;strong&gt;EGradle is a lightweight, fast and comfortable gradle integration for eclipse &lt;/strong&gt;&lt;i&gt;(&amp;gt;= Neon)&lt;/i&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;h1&gt;Features overview&lt;/h1&gt;
-&lt;ul&gt;&lt;li&gt;Console and Eclipse can be used parallel without conflicts&lt;/li&gt;
-&lt;li&gt;Gradle execution (Quick launch + launch configurations)&lt;/li&gt;
-&lt;li&gt;JUnit Integration&lt;/li&gt;
-&lt;li&gt;Virtual root project&lt;/li&gt;
-&lt;li&gt;Synchronization by one click&lt;/li&gt;
-&lt;li&gt;Keywords are highlighted in Console&lt;/li&gt;
-&lt;li&gt;Compile and evaluation errors are marked&lt;/li&gt;
-&lt;li&gt;Simple gradle editor&lt;/li&gt;
-&lt;li&gt;Integrated eclipse help&lt;/li&gt;
-&lt;li&gt;Multiple ways to import gradle projects&lt;/li&gt;
-&lt;/ul&gt;&lt;h1&gt;Additional Links&lt;/h1&gt;
-&lt;ul&gt;&lt;li&gt;&lt;a href=&quot;https://github.com/de-jcup/egradle/releases&quot;&gt;Release history&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://github.com/de-jcup/egradle/wiki&quot;&gt;EGradle Wiki&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://github.com/de-jcup/egradle/issues&quot;&gt;Issues&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://github.com/de-jcup/egradle&quot;&gt;Code&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;!-- google_ad_section_end --&gt;</description>
-     <pubDate>Tue, 13 Sep 2016 18:26:23 +0000</pubDate>
- <dc:creator>atregnaghi</dc:creator>
- <guid isPermaLink="false">3071167 at http://marketplace.eclipse.org</guid>
- <comments>http://marketplace.eclipse.org/content/egradle#comments</comments>
   </item>
   </channel>
 </rss>
