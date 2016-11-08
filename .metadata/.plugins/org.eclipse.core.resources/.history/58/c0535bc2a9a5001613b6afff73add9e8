@@ -1,0 +1,19 @@
+package evacuation_simulation;
+
+import jade.core.AID;
+import repast.simphony.random.RandomHelper;
+import repast.simphony.space.continuous.ContinuousSpace;
+import repast.simphony.space.grid.Grid;
+
+public class IndependentKnowledgeableAltruist extends Person{
+
+	public IndependentKnowledgeableAltruist(AID resultsCollector){
+		super(resultsCollector);
+		
+		areaKnowledge = RandomHelper.nextIntFromTo(MAX_SCALE / 2, MAX_SCALE);
+		independent = RandomHelper.nextIntFromTo(MAX_SCALE / 2, MAX_SCALE);
+		altruism = RandomHelper.nextIntFromTo(MAX_SCALE / 2, MAX_SCALE);
+	}
+	
+	
+}

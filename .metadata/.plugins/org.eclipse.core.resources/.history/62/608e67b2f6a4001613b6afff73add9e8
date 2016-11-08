@@ -1,0 +1,13 @@
+package evacuation_simulation;
+
+import jade.core.AID;
+import repast.simphony.space.continuous.ContinuousSpace;
+import repast.simphony.space.grid.Grid;
+
+public class Man2 extends Person{
+
+	public Man2(AID resultsCollector){
+		super(resultsCollector);			
+	}
+	
+}

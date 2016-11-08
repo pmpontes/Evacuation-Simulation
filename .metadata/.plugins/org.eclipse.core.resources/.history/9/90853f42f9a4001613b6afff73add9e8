@@ -1,0 +1,134 @@
+package evacuation_simulation;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import jade.content.lang.Codec;
+import jade.content.lang.sl.SLCodec;
+import jade.content.onto.Ontology;
+import jade.core.AID;
+import jade.domain.FIPAException;
+import jade.domain.FIPANames;
+import jade.domain.FIPAAgentManagement.DFAgentDescription;
+import jade.domain.FIPAAgentManagement.ServiceDescription;
+import jade.lang.acl.ACLMessage;
+import repast.simphony.context.Context;
+import repast.simphony.random.RandomHelper;
+import repast.simphony.space.SpatialMath;
+import repast.simphony.space.continuous.ContinuousSpace;
+import repast.simphony.space.continuous.NdPoint;
+import repast.simphony.space.graph.Network;
+import repast.simphony.space.grid.Grid;
+import repast.simphony.space.grid.GridPoint;
+import repast.simphony.util.SimUtilities;
+import sajas.core.Agent;
+import sajas.domain.DFService;
+import serviceConsumerProviderVis.onto.ServiceOntology;
+
+public class Person extends Agent{
+	public static int PANIC_VARIATION = 10;
+	public static int FATIGUE_VARIATION = 10;
+	public static int PHYSICAL_INTEGRITY_VARIATION = 10;
+	
+	protected AID resultsCollector;
+
+	//////////////////////////////////////////////////////////////////////////
+	protected Context<?> context;
+	protected Network<Object> net;
+	
+	protected ContinuousSpace<Object> space;
+	protected Grid<Object> grid;
+	
+	///////////////////////////////////////////////////////////////////////
+	protected float areaKnowledge;	 	/* [0, 100] */
+	protected boolean independent;	 	/* true/false */
+	protected float mobility;			/* [0, 100] */
+	protected float panic;		 	 	/* [0, 100] */
+	
+	protected Gender gender; 		 	/* MALE / FEMALE */
+	protected int age;				 	/* [5, 65] */
+	protected float fatigue;	 	 	/* [0, 100] */
+	protected float maxSpeed;		 	 	
+	protected float currentSpeed;
+	
+	///////////////////////////////////////////////////////////////////////////
+	private Codec codec;
+	private Ontology serviceOntology;	
+	protected ACLMessage myCfp;
+
+	
+	public Person(AID resultsCollector){
+			this.resultsCollector = resultsCollector;		
+			
+			areaKnowledge = 50;	 	/* [0, 100] */
+			independent = true;	 	/* true/false */
+			fatigue = 0;
+			mobility = 100;
+			panic = 0;
+			currentSpeed = maxSpeed;
+		
+			
+			gender = (RandomHelper.nextIntFromTo(0, 1) == 1) ? Gender.MALE : Gender.FEMALE;
+	}
+	
+	@Override
+	public void setup() {
+		
+		// TODO understand what this does!!!!!!!!!
+
+		// register language and ontology
+		codec = new SLCodec();
+		serviceOntology = ServiceOntology.getInstance();
+		getContentManager().registerLanguage(codec);
+		getContentManager().registerOntology(serviceOntology);
+		
+		// subscribe DF
+		DFAgentDescription template = new DFAgentDescription();
+		ServiceDescription sd = new ServiceDescription();
+		sd.setType("service-provider");
+		template.addServices(sd);
+//		addBehaviour(new DFSubscInit(this, template));
+
+		// prepare cfp message
+		myCfp = new ACLMessage(ACLMessage.CFP);
+		myCfp.setLanguage(codec.getName());
+		myCfp.setOntology(serviceOntology.getName());
+		myCfp.setProtocol(FIPANames.InteractionProtocol.FIPA_CONTRACT_NET);
+//		//
+//		ServiceProposalRequest serviceProposalRequest = new ServiceProposalRequest(requiredService);
+//		try {
+//			getContentManager().fillContent(myCfp, serviceProposalRequest);
+//		} catch (CodecException | OntologyException e) {
+//			e.printStackTrace();
+//		}
+		
+		// waker behaviour for starting CNets
+		//addBehaviour(new StartCNets(this, 2000));
+	}
+	
+	@Override
+	protected void takeDown() {
+		try {
+			DFService.deregister(this);
+		} catch (FIPAException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void moveTowards(GridPoint pt){
+		
+		// TODO check if there first if there is an obstacle or person
+		
+		if(!pt.equals(grid.getLocation(this))){
+			NdPoint myPoint = space.getLocation(this);
+			NdPoint otherPoint = new NdPoint(pt.getX(), pt.getY());
+			double angle = SpatialMath.calcAngleFor2DMovement(space, myPoint, otherPoint);
+			
+			space.moveByVector(this, 1, angle, 0);
+			myPoint = space.getLocation(this);
+			grid.moveTo(this, (int) myPoint.getX(), (int) myPoint.getY());
+			
+			fatigue++; // TODO review this increase 
+		}
+	}
+}

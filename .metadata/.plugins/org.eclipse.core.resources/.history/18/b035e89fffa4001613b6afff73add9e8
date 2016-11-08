@@ -1,0 +1,18 @@
+package evacuation_simulation;
+
+import cern.jet.random.Binomial;
+import repast.simphony.random.RandomHelper;
+
+public class Test {
+
+	public static void main(String[] args) {
+		RandomHelper.init();		
+		Binomial bin = RandomHelper.getBinomial();
+		
+		for(int i=0; i<20; i++){
+			System.out.println(bin.nextInt(5, 65));
+		}
+
+	}
+
+}

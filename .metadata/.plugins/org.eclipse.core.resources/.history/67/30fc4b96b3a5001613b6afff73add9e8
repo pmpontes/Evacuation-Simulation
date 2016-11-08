@@ -1,0 +1,172 @@
+package evacuation_simulation;
+
+import jade.content.lang.Codec;
+import jade.content.lang.sl.SLCodec;
+import jade.content.onto.Ontology;
+import jade.core.AID;
+import jade.domain.FIPAException;
+import jade.domain.FIPANames;
+import jade.domain.FIPAAgentManagement.DFAgentDescription;
+import jade.domain.FIPAAgentManagement.ServiceDescription;
+import jade.lang.acl.ACLMessage;
+import repast.simphony.context.Context;
+import repast.simphony.random.RandomHelper;
+import repast.simphony.space.SpatialMath;
+import repast.simphony.space.continuous.ContinuousSpace;
+import repast.simphony.space.continuous.NdPoint;
+import repast.simphony.space.graph.Network;
+import repast.simphony.space.grid.Grid;
+import repast.simphony.space.grid.GridPoint;
+import sajas.core.Agent;
+import sajas.domain.DFService;
+import serviceConsumerProviderVis.onto.ServiceOntology;
+
+public class Person extends Agent{
+	public static final int PANIC_VARIATION = 10;
+	public static final int FATIGUE_VARIATION = 10;
+	public static final int MOBILITY_VARIATION = 10;
+	
+	public static final int MAX_AGE = 65;
+	public static final int MIN_AGE = 5;
+	
+	public static final int MAX_SCALE= 100;
+	public static final int MIN_SCALE= 0;
+	
+	protected AID resultsCollector;
+
+	//////////////////////////////////////////////////////////////////////////
+	protected Context<?> context;
+	protected Network<Object> net;
+	
+	protected ContinuousSpace<Object> space;
+	protected Grid<Object> grid;
+	
+	/*
+	 * Human attributes
+	 */
+	protected int areaKnowledgeable;	 /* [0, 100] */
+	protected int altruistic;			 /* [0, 100] */
+	protected int independent;	 	 /* [0, 100] */
+	
+	protected int fatigue;	 	 	 /* [0, 100] */
+	protected int mobility;			 /* [0, 100] */
+	protected int panic;		 	 /* [0, 100] */
+	
+	protected Gender gender; 		 /* MALE / FEMALE */
+	protected int age;				 /* [5, 65] */
+	
+	protected float maxSpeed;		 	 	
+	protected float currentSpeed;
+	
+	///////////////////////////////////////////////////////////////////////////
+	private Codec codec;
+	private Ontology serviceOntology;	
+	protected ACLMessage myCfp;
+
+	
+	public Person(AID resultsCollector){
+			this.resultsCollector = resultsCollector;		
+			
+			areaKnowledgeable = MAX_SCALE / 2;
+			independent = MAX_SCALE / 2;
+			// TODO check the use Normal distribution
+			//altruistic = RandomHelper.getBinomial().nextIntFromTo(MIN_SCALE, MAX_SCALE);
+			altruistic = RandomHelper.nextIntFromTo(MIN_SCALE, MAX_SCALE);
+			
+			fatigue = MIN_SCALE;
+			mobility = MAX_SCALE;
+			panic = MIN_SCALE;			
+			
+			gender = (RandomHelper.nextIntFromTo(0, 1) == 1) ? Gender.MALE : Gender.FEMALE;
+			
+			// TODO check the use Normal distribution
+			//age = RandomHelper.getBinomial().nextInt(MIN_AGE, MAX_AGE);
+			age = RandomHelper.nextIntFromTo(MIN_AGE, MAX_AGE);
+			
+			maxSpeed = gender.getMaxSpeed();
+			if(age < 18 || age >35)
+				maxSpeed -= 10;
+			
+			if(age>45)
+				maxSpeed -= 10;
+
+			currentSpeed = maxSpeed  / 2;
+	}
+	
+	public int calculatePanicVariation(){
+		if(age < MAX_AGE / 3 || age > 2 * MAX_AGE / 3){
+			return (int) (PANIC_VARIATION * 1.3);
+		}else return PANIC_VARIATION;
+	}
+	
+	public void updateFatigue(boolean isIncrease){
+		
+		
+	}
+	
+	public void updateMobility(boolean isIncrease){
+		
+		
+	}
+	
+	@Override
+	public void setup() {
+		
+		// TODO understand what this does!!!!!!!!!
+
+		// register language and ontology
+		codec = new SLCodec();
+		serviceOntology = ServiceOntology.getInstance();
+		getContentManager().registerLanguage(codec);
+		getContentManager().registerOntology(serviceOntology);
+		
+		// subscribe DF
+		DFAgentDescription template = new DFAgentDescription();
+		ServiceDescription sd = new ServiceDescription();
+		sd.setType("service-provider");
+		template.addServices(sd);
+//		addBehaviour(new DFSubscInit(this, template));
+
+		// prepare cfp message
+		myCfp = new ACLMessage(ACLMessage.CFP);
+		myCfp.setLanguage(codec.getName());
+		myCfp.setOntology(serviceOntology.getName());
+		myCfp.setProtocol(FIPANames.InteractionProtocol.FIPA_CONTRACT_NET);
+//		//
+//		ServiceProposalRequest serviceProposalRequest = new ServiceProposalRequest(requiredService);
+//		try {
+//			getContentManager().fillContent(myCfp, serviceProposalRequest);
+//		} catch (CodecException | OntologyException e) {
+//			e.printStackTrace();
+//		}
+		
+		// waker behaviour for starting CNets
+		//addBehaviour(new StartCNets(this, 2000));
+	}
+	
+	@Override
+	protected void takeDown() {
+		try {
+			DFService.deregister(this);
+		} catch (FIPAException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void moveTowards(GridPoint pt){
+		
+		// TODO check if there first if there is an obstacle or person
+		
+		if(!pt.equals(grid.getLocation(this))){
+			NdPoint myPoint = space.getLocation(this);
+			NdPoint otherPoint = new NdPoint(pt.getX(), pt.getY());
+			double angle = SpatialMath.calcAngleFor2DMovement(space, myPoint, otherPoint);
+			
+			space.moveByVector(this, 1, angle, 0);
+			myPoint = space.getLocation(this);
+			grid.moveTo(this, (int) myPoint.getX(), (int) myPoint.getY());
+			
+			fatigue++; // TODO review this increase 
+		}
+	}
+}

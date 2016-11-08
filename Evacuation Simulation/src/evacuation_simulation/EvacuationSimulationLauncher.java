@@ -1,11 +1,13 @@
 package evacuation_simulation;
 
+import cern.jet.random.Binomial;
 import jade.core.AID;
 import jade.core.Profile;
 import jade.core.ProfileImpl;
 import jade.wrapper.StaleProxyException;
 import repast.simphony.context.Context;
 import repast.simphony.context.space.graph.NetworkBuilder;
+import repast.simphony.random.RandomHelper;
 import sajas.core.Agent;
 import sajas.core.Runtime;
 import sajas.sim.repasts.RepastSLauncher;
@@ -83,8 +85,16 @@ public class EvacuationSimulationLauncher extends RepastSLauncher {
 		} else {
 			agentContainer = mainContainer;
 		}
+		
+		RandomHelper.init();
+		Binomial bin = RandomHelper.getBinomial();
+		System.out.println(bin);
+		for(int i=0; i<20; i++){
+			System.out.println(bin.nextInt(5, 65));
+		}
 
-		createAgents();
+		System.err.println("Done!!");
+		//createAgents();
 	}
 
 	private void createAgents() {
@@ -101,19 +111,19 @@ public class EvacuationSimulationLauncher extends RepastSLauncher {
 
 			// create population
 			// children
-			for (int i = 0; i < N_MEN; i++) {
-				agentContainer.acceptNewAgent("Child" + i, new Man(resultsCollectorAID)).start();
-			}
-			
-			// woman
-			for (int i = 0; i < N_WOMEN; i++) {
-				agentContainer.acceptNewAgent("BadProvider" + i, new Woman(resultsCollectorAID)).start();
-			}
-
-			// children
-			for (int i = 0; i < N_CHILDREN; i++) {
-				agentContainer.acceptNewAgent("Child" + i, new Child(resultsCollectorAID)).start();
-			}
+//			for (int i = 0; i < N_MEN; i++) {
+//				agentContainer.acceptNewAgent("Child" + i, new Man(resultsCollectorAID)).start();
+//			}
+//			
+//			// woman
+//			for (int i = 0; i < N_WOMEN; i++) {
+//				agentContainer.acceptNewAgent("BadProvider" + i, new Woman(resultsCollectorAID)).start();
+//			}
+//
+//			// children
+//			for (int i = 0; i < N_CHILDREN; i++) {
+//				agentContainer.acceptNewAgent("Child" + i, new Child(resultsCollectorAID)).start();
+//			}
 
 		} catch (StaleProxyException e) {
 			e.printStackTrace();
@@ -130,7 +140,7 @@ public class EvacuationSimulationLauncher extends RepastSLauncher {
 
 		NetworkBuilder<Object> netBuilder = new NetworkBuilder<Object>("Evacuation network", context, true);
 		netBuilder.buildNetwork();
-
+		
 		return super.build(context);
 	}
 

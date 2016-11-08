@@ -1,0 +1,12 @@
+package evacuation_simulation;
+
+import repast.simphony.random.RandomHelper;
+
+public class Test {
+
+	public static void main(String[] args) {
+		age = RandomHelper.getBinomial().nextInt(5, 65);
+
+	}
+
+}
