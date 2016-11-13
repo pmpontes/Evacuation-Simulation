@@ -1,6 +1,7 @@
 package evacuation_simulation;
 
 import cern.jet.random.Binomial;
+import environment.Environment;
 import jade.core.AID;
 import jade.core.Profile;
 import jade.core.ProfileImpl;
