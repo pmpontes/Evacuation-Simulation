@@ -1,0 +1,28 @@
+package serviceConsumerProviderVis.onto;
+
+import jade.content.Concept;
+
+public class EvacueeStats implements Concept {
+
+	private static final long serialVersionUID = 1L;
+
+	public enum Value {SUCCESS, FAILURE};
+	
+	private Value value;
+	
+	public EvacueeStats() {
+	}
+	
+	public EvacueeStats(Value value) {
+		this.setValue(value);
+	}
+
+	public Value getValue() {
+		return value;
+	}
+
+	public void setValue(Value value) {
+		this.value = value;
+	}
+	
+}

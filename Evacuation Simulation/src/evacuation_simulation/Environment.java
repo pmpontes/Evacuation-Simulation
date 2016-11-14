@@ -1,5 +1,8 @@
 package evacuation_simulation;
 
+import java.util.ArrayList;
+
+import evacuation_simulation.Person.ScreamBehaviour;
 import repast.simphony.context.Context;
 import repast.simphony.context.space.continuous.ContinuousSpaceFactory;
 import repast.simphony.context.space.continuous.ContinuousSpaceFactoryFinder;
@@ -12,6 +15,8 @@ import repast.simphony.space.grid.Grid;
 import repast.simphony.space.grid.GridBuilderParameters;
 import repast.simphony.space.grid.SimpleGridAdder;
 import repast.simphony.space.grid.WrapAroundBorders;
+import sajas.core.Agent;
+import jade.core.AID;
 
 public class Environment {
 	
@@ -42,4 +47,16 @@ public class Environment {
 		grid.moveTo(obj,  (int)pt.getX(), (int)pt.getY());
 	}
 
+	// TODO
+	public ArrayList<AID> findNear(Agent agent, int radius){
+		return null;
+	}
+
+	/**
+	 * @param agent
+	 * @return list of agents immediately near the agent (radius = 5)
+	 */
+	public ArrayList<AID> findNear(Agent agent){
+		return findNear(agent, 5);
+	}
 }

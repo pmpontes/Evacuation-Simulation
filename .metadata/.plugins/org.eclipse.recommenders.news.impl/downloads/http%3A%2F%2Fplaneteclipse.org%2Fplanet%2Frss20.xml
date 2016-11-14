@@ -8,6 +8,198 @@
 	<description>Planet Eclipse - http://planeteclipse.org/planet/</description>
 
 <item>
+	<title>typefox.io: Eclipse LSP4J Is Here!</title>
+	<guid isPermaLink="false">http://typefox.io/?p=13926</guid>
+	<link>http://typefox.io/eclipse-lsp4j-is-here</link>
+	<description>&lt;p&gt;This week the &lt;a href=&quot;https://github.com/eclipse/lsp4j&quot;&gt;LSP4J repository&lt;/a&gt; finally got created and filled with the initial contributions. LSP4J is a Java binding of Microsoft’s &lt;a href=&quot;https://github.com/Microsoft/language-server-protocol&quot;&gt;Language Server Protocol&lt;/a&gt; (LSP) with a Java implementation of the extended &lt;a href=&quot;http://www.jsonrpc.org/specification&quot;&gt;JSON RPC v2.0&lt;/a&gt; the LSP is based on. The project aims at simplifying implementation of a LanguageClient (an editor) or a LanguageServer (e.g. a &lt;a href=&quot;https://channel9.msdn.com/Blogs/Seth-Juarez/Anders-Hejlsberg-on-Modern-Compiler-Construction&quot;&gt;modern&lt;/a&gt; compiler) in Java. Here is a short introduction of how to use it.&lt;/p&gt;
+&lt;h2&gt;Implement Your Language Server (or Client)&lt;/h2&gt;
+&lt;p&gt;The first thing you should do is to implement your language server. To do so just implement the interface &lt;em&gt;org.eclipse.lsp4j.LanguageServer&lt;/em&gt;. If you are implementing a client (e.g. an editor) you would need to implement &lt;em&gt;org.eclipse.lsp4j.LanguageClient&lt;/em&gt; instead.&lt;/p&gt;
+&lt;h2&gt;Launch and Connect with the Other End&lt;/h2&gt;
+&lt;p&gt;Now that you have an actual implementation you can connect it with a remote client. Let’s assume you have an &lt;em&gt;Inputstream&lt;/em&gt; and an &lt;em&gt;Outputstream&lt;/em&gt;, over which you want to communicate with a language client.&lt;/p&gt;
+&lt;p&gt;The utility class &lt;em&gt;LSPLauncher&lt;/em&gt; does most of the wiring for you. Here is the code needed.&lt;/p&gt;&lt;pre class=&quot;crayon-plain-tag&quot;&gt;LanguageServer server = ... ;
+Launcher&amp;lt;LanguageClient&amp;gt; launcher = LSPLauncher.createServerLauncher(
+                                                        server,
+                                                        inputstream, 
+                                                        outputstream);&lt;/pre&gt;&lt;p&gt;With this we have a &lt;em&gt;Launcher&lt;/em&gt; object on which we can obtain the remote proxy (of type &lt;em&gt;LanguageClient&lt;/em&gt; in this case). Usually a language server should also implement &lt;em&gt;LanguageClientAware&lt;/em&gt;, which defines a single method connect(LanguageClient) over which you can pass the remote proxy to the language server.&lt;/p&gt;&lt;pre class=&quot;crayon-plain-tag&quot;&gt;if (server instanceof LanguageClientAware) {
+   LanguageClient client = launcher.getRemoteProxy();
+   ((LanguageClientAware)server).connect(client);
+}&lt;/pre&gt;&lt;p&gt;Now your language server is not only able to receive messages from the other side, but can send messages back as well.&lt;/p&gt;
+&lt;p&gt;The final thing you need to to do in order to start listening on the given input stream, is calling&lt;/p&gt;&lt;pre class=&quot;crayon-plain-tag&quot;&gt;launcher.startListening();&lt;/pre&gt;&lt;p&gt;This will start the listening process in a new thread.&lt;/p&gt;
+&lt;h2&gt;Underlying Concepts&lt;/h2&gt;
+&lt;p&gt;As mentioned in the beginning LSP4J is based on JSON RPC. The implementation is completely independent of the LSP, so can be used for other protocols. Also we made sure that it is easy to extend the LSP with new messages. This is important to bridge the last non-standard 20% and to prototype possible extensions for the LSP. We are for instance currently experimenting with support for semantic coloring and will submit an enhancement request once we are happy with it.&lt;/p&gt;
+&lt;p&gt;Please refer to the &lt;a href=&quot;https://github.com/eclipse/lsp4j/blob/master/documentation/jsonrpc.md&quot;&gt;documentation&lt;/a&gt; to learn more about the JSON RPC layer.&lt;/p&gt;</description>
+	<pubDate>Sat, 12 Nov 2016 18:38:12 +0000</pubDate>
+</item>
+<item>
+	<title>Pascal Rapicault: 5 reasons to use EGerrit - #1 – Comment directly from the language editor</title>
+	<guid isPermaLink="false">tag:blogger.com,1999:blog-27225531.post-3747151371376145240</guid>
+	<link>http://prapicault.blogspot.com/2016/11/5-reasons-to-use-egerrit-1-comment.html</link>
+	<description>To celebrate the release of &lt;a href=&quot;http://wiki.eclipse.org/EGerrit/New_and_Noteworthy/1.1.1&quot;&gt;EGerrit 1.1&lt;/a&gt;, we are enumerating the &lt;a href=&quot;http://prapicault.blogspot.ca/2016/10/5-reasons-to-use-egerrit-5-being-in.html&quot;&gt;top&lt;/a&gt; &lt;a href=&quot;http://prapicault.blogspot.com/2016/10/5-reasons-to-use-egerrit-4-simple.html&quot;&gt;5&lt;/a&gt; &lt;a href=&quot;http://5-reasons-to-use-egerrit-3-in-place.html/&quot;&gt;features&lt;/a&gt; of the &lt;a href=&quot;http://5-reasons-to-use-egerrit-2-compare.html/&quot;&gt;tool&lt;/a&gt;.&lt;br /&gt;&lt;br /&gt;&lt;h2&gt;#1 - Comment directly from the language editor&lt;/h2&gt;When you are performing the review of a large change, the compare editor may no longer be satisfactory because you want to have multiple files opened, or because you want to see more information about the source code. Yet, you still want to be able to enter and see comments while you are in the regular editor (e.g. Java editor).&lt;br /&gt;&lt;br /&gt;This is exactly what the EGerrit’s integration with the Eclipse markers let you do. When you checkout a review, a marker will be associated with each comment from the checked-out revision; and each file that is part of the review will feature a context menu to let you enter a new comment (see picture). Each marker created will be shown in the “Markers view” and will have  associated quick-fixes letting you reply to the comment, or delete it if  it is a draft. &lt;br /&gt;&lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;&lt;a href=&quot;http://1.bp.blogspot.com/-GvZdx9KMjjE/WA-BoL1DffI/AAAAAAAAAU0/ICE17nQhW64jk00Np7J2R7El54AcOckugCK4B/s1600/Markers.png&quot; style=&quot;margin-left: 1em; margin-right: 1em;&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;622&quot; src=&quot;https://1.bp.blogspot.com/-GvZdx9KMjjE/WA-BoL1DffI/AAAAAAAAAU0/ICE17nQhW64jk00Np7J2R7El54AcOckugCK4B/s640/Markers.png&quot; width=&quot;640&quot; /&gt;&lt;/a&gt;&lt;/div&gt;&lt;br /&gt;&lt;br /&gt; This concludes our top 5 of EGerrit features, and we hope that you will take the time to &lt;a href=&quot;http://marketplace.eclipse.org/content/egerrit&quot; target=&quot;_blank&quot;&gt;try out the tool&lt;/a&gt; and provide us with &lt;a href=&quot;https://tuleap.eclipse.org/plugins/agiledashboard/?group_id=102&amp;amp;action=showKanban&amp;amp;id=6#/kanban&quot; target=&quot;_blank&quot;&gt;feedback, and feature requests&lt;/a&gt;. Of course 1.1 is not the end, and we are steadily improving the tool by making the workflows smoother, and deepening the integrations. Our current release plan is to ship a new version of EGerrit with Neon.2 in December 2016, with Neon.3 in February 2017, and with Oxygen in June 2017. If you can’t wait for those, you can always get our latest I build from &lt;a href=&quot;http://wiki.eclipse.org/EGerrit/p2_repositories&quot;&gt;one of our repository&lt;/a&gt;. &lt;br /&gt;&lt;br /&gt; Top 5 EGerrit features: &lt;ul&gt;&lt;li&gt;&lt;a href=&quot;http://prapicault.blogspot.ca/2016/10/5-reasons-to-use-egerrit-5-being-in.html&quot;&gt;Being in Eclipse&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;http://prapicault.blogspot.ca/2016/10/5-reasons-to-use-egerrit-4-simple.html&quot;&gt;Simple checkout&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;http://prapicault.blogspot.ca/2016/10/5-reasons-to-use-egerrit-3-in-place.html&quot;&gt;In-place comments&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;http://prapicault.blogspot.ca/2016/11/5-reasons-to-use-egerrit-2-compare.html&quot;&gt;Compare against workspace&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;http://prapicault.blogspot.ca/2016/11/5-reasons-to-use-egerrit-1-comment.html&quot;&gt;Comment in the editor&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;</description>
+	<pubDate>Sat, 12 Nov 2016 15:47:46 +0000</pubDate>
+	<author>noreply@blogger.com (Pascal)</author>
+</item>
+<item>
+	<title>Maximilian and Jonas: Modeling Symposium at EclipseCon Europe 2016 – Slides</title>
+	<guid isPermaLink="false">http://eclipsesource.com/blogs/?p=27423</guid>
+	<link>http://eclipsesource.com/blogs/2016/11/10/modeling-symposium-at-eclipsecon-europe-2016-slides/</link>
+	<description>&lt;p&gt;Thanks for attending the modeling symposium at EclipseCon Europe 2016, thank you for the positive feedback and thanks to all the speakers.&lt;/p&gt;
+&lt;p&gt;Three of the presenters have shared their slide with me, which can be found here:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.opcoach.com/wp-content/uploads/2016/10/ModelingSymposium_genModelAddon.pdf&quot;&gt;GenModelAddon – &lt;/a&gt;&lt;a href=&quot;http://www.opcoach.com/wp-content/uploads/2016/10/ModelingSymposium_genModelAddon.pdf&quot;&gt;Oliver Prouvost&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.slideshare.net/IstvanRath/exploring-the-future-of-eclipse-modeling-web-and-semantic-collaboration&quot;&gt;Exploring the Future of Eclipse Modeling: Web and Semantic Collaboration – Istvan Rath&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.slideshare.net/kthoms/generating-visual-studio-code-extensions-for-xtext-dsls&quot;&gt;Generating Visual Studio Code Extensions for Xtext DSLs – Karsten Thoms&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;&lt;div style=&quot;display: inline-block;&quot;&gt;&lt;a href=&quot;https://twitter.com/intent/tweet?source=webclient&amp;amp;text=Modeling+Symposium+at+EclipseCon+Europe+2016+%E2%80%93+Slides&amp;amp;via=eclipsesource&amp;amp;url=http://eclipsesource.com/blogs/2016/11/10/modeling-symposium-at-eclipsecon-europe-2016-slides/&quot; style=&quot;margin-right: 5px;&quot; target=&quot;_blank&quot; title=&quot;Share on Twitter&quot;&gt;&lt;img alt=&quot;Twitter&quot; src=&quot;http://eclipsesource.com/blogs/wp-content/plugins/custom-about-author/images/social_media/twitter.png&quot; title=&quot;Twitter&quot; /&gt;&lt;/a&gt;&lt;a href=&quot;https://plus.google.com/share?url=http://eclipsesource.com/blogs/2016/11/10/modeling-symposium-at-eclipsecon-europe-2016-slides/&quot; style=&quot;margin-right: 5px;&quot; target=&quot;_blank&quot; title=&quot;+1&quot;&gt;&lt;img alt=&quot;Google+&quot; src=&quot;http://eclipsesource.com/blogs/wp-content/plugins/custom-about-author/images/social_media/google_plus.png&quot; title=&quot;Google+&quot; /&gt;&lt;/a&gt;&lt;a href=&quot;http://www.linkedin.com/cws/share?url=http://eclipsesource.com/blogs/2016/11/10/modeling-symposium-at-eclipsecon-europe-2016-slides/&quot; style=&quot;margin-right: 5px;&quot; target=&quot;_blank&quot; title=&quot;Share on LinkedIn&quot;&gt;&lt;img alt=&quot;LinkedIn&quot; src=&quot;http://eclipsesource.com/blogs/wp-content/plugins/custom-about-author/images/social_media/linkedin.png&quot; title=&quot;LinkedIn&quot; /&gt;&lt;/a&gt;&lt;a href=&quot;https://www.facebook.com/sharer/sharer.php?u=http://eclipsesource.com/blogs/2016/11/10/modeling-symposium-at-eclipsecon-europe-2016-slides/&amp;amp;t=Modeling+Symposium+at+EclipseCon+Europe+2016+%E2%80%93+Slides&quot; style=&quot;margin-right: 5px;&quot; target=&quot;_blank&quot; title=&quot;Facebook&quot;&gt;&lt;img alt=&quot;Facebook&quot; src=&quot;http://eclipsesource.com/blogs/wp-content/plugins/custom-about-author/images/social_media/facebook.png&quot; title=&quot;Facebook&quot; /&gt;&lt;/a&gt;&lt;/div&gt;&lt;br /&gt;&lt;a href=&quot;http://eclipsesource.com/blogs/2016/11/10/modeling-symposium-at-eclipsecon-europe-2016-slides/#respond&quot;&gt;Leave a Comment&lt;/a&gt;. Tagged with &lt;a href=&quot;http://eclipsesource.com/blogs/tag/eclipse/&quot; title=&quot;eclipse Tag&quot;&gt;eclipse&lt;/a&gt;, &lt;a href=&quot;http://eclipsesource.com/blogs/tag/eclipsecon/&quot; title=&quot;eclipsecon Tag&quot;&gt;eclipsecon&lt;/a&gt;, &lt;a href=&quot;http://eclipsesource.com/blogs/tag/emf/&quot; title=&quot;emf Tag&quot;&gt;emf&lt;/a&gt;, &lt;a href=&quot;http://eclipsesource.com/blogs/tag/eclipse/&quot; title=&quot;eclipse Tag&quot;&gt;eclipse&lt;/a&gt;, &lt;a href=&quot;http://eclipsesource.com/blogs/tag/eclipsecon/&quot; title=&quot;eclipsecon Tag&quot;&gt;eclipsecon&lt;/a&gt;, &lt;a href=&quot;http://eclipsesource.com/blogs/tag/emf/&quot; title=&quot;emf Tag&quot;&gt;emf&lt;/a&gt;&lt;p&gt;&lt;/p&gt;</description>
+	<pubDate>Thu, 10 Nov 2016 13:09:37 +0000</pubDate>
+</item>
+<item>
+	<title>Kichwa Coders: The Sound of the Universe @ EclipseCon Europe 2016</title>
+	<guid isPermaLink="false">http://kichwacoders.com/?p=905</guid>
+	<link>https://kichwacoders.com/2016/11/10/the-sound-of-the-universe-eclipsecon-europe-2016/</link>
+	<description>&lt;div class=&quot;embed-twitter&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p dir=&quot;ltr&quot; lang=&quot;en&quot;&gt;After detecting gravitational waves keynote speaker Dr Benno Willke detects the next-best thing: &lt;a href=&quot;https://twitter.com/EclipseScience&quot;&gt;@EclipseScience&lt;/a&gt; group &lt;a href=&quot;https://twitter.com/hashtag/eclipsecon?src=hash&quot;&gt;#eclipsecon&lt;/a&gt; &lt;a href=&quot;https://t.co/YgRcrqnIDf&quot;&gt;pic.twitter.com/YgRcrqnIDf&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;— Tracy Miranda (@tracymiranda) &lt;a href=&quot;https://twitter.com/tracymiranda/status/791339711516246020&quot;&gt;October 26, 2016&lt;/a&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;/p&gt;&lt;/div&gt;
+&lt;p&gt;At EclipseCon this year I heard the &lt;a href=&quot;http://podcasts.nytimes.com/podcasts/2016/02/11/science/space/ligo-chirp/LIGOChirp.mp3&quot; target=&quot;_blank&quot;&gt;sound of the universe&lt;/a&gt;. And it was awesome and breathtaking. To be precise, it was the sound of two black holes colliding over a billion years ago,  part of the enthralling &lt;a href=&quot;https://www.youtube.com/watch?v=r5FYv9MhzzM&quot; target=&quot;_blank&quot;&gt;final keynote&lt;/a&gt; from Dr Benno Wilke on detecting gravitational waves. It was a fitting way to end a conference that had kicked off with another amazing keynote:  Stephen Carver delivering a powerful and emotional story of the people and tech behind the space shuttle disasters, framed in profound lessons on real communication and avoiding silo thinking.&lt;/p&gt;
+&lt;p&gt;For the very first time at EclipseCon Europe we held a &lt;a href=&quot;https://wiki.eclipse.org/CDT/summitece2016&quot; target=&quot;_blank&quot;&gt;CDT summit&lt;/a&gt;. Over 10 years ago I had the honour of being the first developer from Europe involved in CDT, so to bring the summit to Europe was a particularly special moment for me, especially with our renowned project co-lead Doug Schaefer in attendance. The summit was a success, particularly welcoming contributors from the wider community into the fold, and will definitely something we will be doing again next year.&lt;/p&gt;
+&lt;div class=&quot;embed-twitter&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p dir=&quot;ltr&quot; lang=&quot;en&quot;&gt;The embedded tools showcase, that was part of the CDT summit was one of my highlights at &lt;a href=&quot;https://twitter.com/hashtag/eclipsecon?src=hash&quot;&gt;#eclipsecon&lt;/a&gt; this year: &lt;a href=&quot;https://t.co/62Fkd3hCq5&quot;&gt;https://t.co/62Fkd3hCq5&lt;/a&gt; &lt;a href=&quot;https://t.co/inJPQ13vIw&quot;&gt;pic.twitter.com/inJPQ13vIw&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;— Tracy Miranda (@tracymiranda) &lt;a href=&quot;https://twitter.com/tracymiranda/status/793435616893599744&quot;&gt;November 1, 2016&lt;/a&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;/p&gt;&lt;/div&gt;
+&lt;p&gt;As this year’s focus there was also a big community focus on diversity and raising awareness on this topic. The activity included my talk on ‘&lt;a href=&quot;https://www.eclipsecon.org/europe2016/session/seven-habits-diverse-communities&quot; target=&quot;_blank&quot;&gt;7 Habits of Highly Diverse Communities&lt;/a&gt;‘, addressing the board on the topic and a diversity BOF session. The discussions were great, lots of good energy, practical suggestions and I am so proud to see the community work together to ensure we can be as open and inclusive as possible.&lt;/p&gt;
+&lt;div class=&quot;embed-twitter&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p dir=&quot;ltr&quot; lang=&quot;en&quot;&gt;Software is changing everything. How do we make sure we don't just develop for the elite, privileged or rich? &lt;a href=&quot;https://twitter.com/tracymiranda&quot;&gt;@tracymiranda&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;— Alex Schladebeck (@alex_schl) &lt;a href=&quot;https://twitter.com/alex_schl/status/790924734515056640&quot;&gt;October 25, 2016&lt;/a&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;/p&gt;&lt;/div&gt;
+&lt;p&gt;The Science Working Group had good reason to celebrate at the conference: we have just completed our very first &lt;a href=&quot;https://www.eclipse.org/org/press-release/20161021scienceICESoftware.php&quot; target=&quot;_blank&quot;&gt;simultaneous release&lt;/a&gt; of five projects. A significant milestone for this nascent group, and was terrific to talk about the projects to the rest of the community.&lt;/p&gt;
+&lt;p&gt;There was an incredible amount on at the conference this year, the best way to get a quick taste was hearing what people enjoyed: language servers, Xtext, Sirius, scripting, IoT &amp;amp; testing were topics that kept coming up. On a personal level, it was my most intense EclipseCon yet with three talks, a BOF and a summit to organize. On the whole it was the busiest conference yet with a record attendance of 619. The most important thing is always the people: lots of new and old friends to talk to and exchange energy. At EclipseCon this year I heard the sound of the Eclipse universe. And it was awesome and breathtaking.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;(A version of this article was first published on jaxenter.com: &lt;a href=&quot;https://jaxenter.com/eclipsecon-europe-at-a-glance-129883.html&quot; rel=&quot;nofollow&quot;&gt;https://jaxenter.com/eclipsecon-europe-at-a-glance-129883.html&lt;/a&gt;)&lt;/em&gt;&lt;/p&gt;&lt;br /&gt;  &lt;a href=&quot;http://feeds.wordpress.com/1.0/gocomments/kichwacoders.wordpress.com/905/&quot; rel=&quot;nofollow&quot;&gt;&lt;img alt=&quot;&quot; border=&quot;0&quot; src=&quot;http://feeds.wordpress.com/1.0/comments/kichwacoders.wordpress.com/905/&quot; /&gt;&lt;/a&gt; &lt;img alt=&quot;&quot; border=&quot;0&quot; height=&quot;1&quot; src=&quot;https://pixel.wp.com/b.gif?host=kichwacoders.com&amp;amp;blog=68353182&amp;amp;post=905&amp;amp;subd=kichwacoders&amp;amp;ref=&amp;amp;feed=1&quot; width=&quot;1&quot; /&gt;</description>
+	<pubDate>Thu, 10 Nov 2016 12:35:22 +0000</pubDate>
+        <enclosure url="http://podcasts.nytimes.com/podcasts/2016/02/11/science/space/ligo-chirp/LIGOChirp.mp3" length="290143" type="audio/mpeg"/>
+</item>
+<item>
+	<title>ModelBus: Berlin Eclipse DemoCom on December 5th</title>
+	<guid isPermaLink="true">http://www.modelbus.org/en/blog/News/View/Berlin%2BEclipse%2BDemoCom%2Bon%2BDecember%2B5th-32.html</guid>
+	<link>http://www.modelbus.org/en/blog/News/View/Berlin%2BEclipse%2BDemoCom%2Bon%2BDecember%2B5th-32.html</link>
+	<description>We are happy to announce the Eclipse DemoCom on December 5th in Berlin! This time it is held at ThoughtWorks Werkstatt and starting at 6 PM.&lt;br /&gt;
+If you want to participate or give a presentation, visit the respective wiki page:&lt;br /&gt;
+&lt;a href=&quot;https://wiki.eclipse.org/Eclipse_DemoCamp_December_2016_Berlin&quot; target=&quot;_blank&quot;&gt;https://wiki.eclipse.org/Eclipse_DemoCamp_December_2016_Berlin&lt;/a&gt;&lt;br /&gt;
+ &lt;br /&gt;
+So far we have a talk/demo on building Web Editors using Microsoft's Monaco Web Editor component combined with the Language Server Protocol powered by &lt;a href=&quot;https://www.eclipse.org/Xtext/&quot; target=&quot;_blank&quot;&gt;Xtext&lt;/a&gt;. Also, fingers crossed, we might get a talk on the reactive server technology &lt;a href=&quot;http://vertx.io/&quot; target=&quot;_blank&quot;&gt;Vert.x&lt;/a&gt;.&lt;br /&gt;
+&lt;br /&gt;
+If you have experience with &lt;a href=&quot;https://www.eclipse.org/che/&quot; target=&quot;_blank&quot;&gt;Eclipse Che&lt;/a&gt;, we would be happy about a demo on this cool new technology. But we'd like to show the diversity of topics covered by Eclipse projects. So whether you want to present something on IoT, or modeling, or classical IDE topics: everyone is welcome!&lt;br /&gt;
+ &lt;br /&gt;
+See you on December 5th in Berlin!</description>
+	<pubDate>Thu, 10 Nov 2016 11:30:00 +0000</pubDate>
+</item>
+<item>
+	<title>JBoss Tools Team: JBoss Tools 4.4.2.AM3 for Eclipse Neon</title>
+	<guid isPermaLink="true">http://tools.jboss.org/blog/am3.4.4.2.neon.html</guid>
+	<link>http://tools.jboss.org/blog/am3.4.4.2.neon.html</link>
+	<description>&lt;div&gt;&lt;div id=&quot;preamble&quot;&gt;
+      &lt;div class=&quot;sectionbody&quot;&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Happy to announce 4.4.2.AM3 (Developer Milestone 3) build for Eclipse Neon.1, the latest milestone before the GA release.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Downloads available at &lt;a href=&quot;http://tools.jboss.org/downloads/jbosstools/neon/4.4.2.AM3.html&quot;&gt;JBoss Tools 4.4.2 AM3&lt;/a&gt;.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;sect1&quot;&gt;
+      &lt;h2 id=&quot;what-is-new&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;http://tools.jboss.org/blog/news.atom#what-is-new&quot;&gt;&lt;/a&gt;What is New?&lt;/h2&gt;
+      &lt;div class=&quot;sectionbody&quot;&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Full info is at &lt;a href=&quot;http://tools.jboss.org/documentation/whatsnew/jbosstools/4.4.2.AM3.html&quot;&gt;this page&lt;/a&gt;. Some highlights are below.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;sect2&quot;&gt;
+      &lt;h3 id=&quot;openshift-3&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;http://tools.jboss.org/blog/news.atom#openshift-3&quot;&gt;&lt;/a&gt;OpenShift 3&lt;/h3&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;An important new feature made it into this milestone: the NodeJS application support on OpenShift.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;sect3&quot;&gt;
+      &lt;h4 id=&quot;node-js-debugger&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;http://tools.jboss.org/blog/news.atom#node-js-debugger&quot;&gt;&lt;/a&gt;Node.js Debugger&lt;/h4&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Now it is possible to debug Node.js applications deployed to Openshift. All you need to do is creating a &lt;strong&gt;Server Adapter&lt;/strong&gt; for the app and running it in the &lt;strong&gt;Debug&lt;/strong&gt; mode. After that a new &lt;strong&gt;V8&lt;/strong&gt; debug session will be created:&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;imageblock&quot;&gt;
+      &lt;div class=&quot;content&quot;&gt;
+      &lt;img alt=&quot;v8 debug console&quot; src=&quot;http://tools.jboss.org/documentation/whatsnew/openshift/images/v8-debug-console.png&quot; width=&quot;600&quot; /&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Put some breakpoints in the code and start debugging!&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;imageblock&quot;&gt;
+      &lt;div class=&quot;content&quot;&gt;
+      &lt;img alt=&quot;node js debugger&quot; src=&quot;http://tools.jboss.org/documentation/whatsnew/openshift/images/node-js-debugger.png&quot; width=&quot;600&quot; /&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Changing the code during the debug session is also supported - just save the file and new changes will be applied automatically. Here is a short demo video which describes the debugging process in action:&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;videoblock&quot;&gt;
+      &lt;div class=&quot;content&quot;&gt;
+      
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Step by step instructions are available &lt;a href=&quot;http://tools.jboss.org/documentation/whatsnew/jbosstools/4.4.2.AM3.html#openshift&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;sect2&quot;&gt;
+      &lt;h3 id=&quot;forge&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;http://tools.jboss.org/blog/news.atom#forge&quot;&gt;&lt;/a&gt;Forge&lt;/h3&gt;
+      &lt;div class=&quot;sect3&quot;&gt;
+      &lt;h4 id=&quot;forge-runtime-updated-to-3-3-3-final&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;http://tools.jboss.org/blog/news.atom#forge-runtime-updated-to-3-3-3-final&quot;&gt;&lt;/a&gt;Forge Runtime updated to 3.3.3.Final&lt;/h4&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;The included Forge runtime is now 3.3.3.Final. Read the official announcement &lt;a href=&quot;http://forge.jboss.org/news/jboss-forge-3.3.3.final-is-here&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;imageblock&quot;&gt;
+      &lt;div class=&quot;content&quot;&gt;
+      &lt;img alt=&quot;startup&quot; src=&quot;http://tools.jboss.org/documentation/whatsnew/forge/images/4.4.2.AM3/startup.png&quot; /&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Enjoy!&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Jeff Maury&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;&lt;/div&gt;</description>
+	<pubDate>Thu, 10 Nov 2016 09:12:45 +0000</pubDate>
+</item>
+<item>
+	<title>Doug Schaefer: Using Eclipse CDT with MSYS2</title>
+	<guid isPermaLink="false">http://cdtdoug.ca/?p=786</guid>
+	<link>https://cdtdoug.ca/2016/11/08/using-eclipse-cdt-with-msys2/</link>
+	<description>&lt;p&gt;MSYS2 is a relatively new distribution to support the MinGW compiler on Windows. It’s actually grown beyond that and has a pretty rich set of packages that include CMake, clang and gcc, and a huge set of libraries including Qt and SDL. It’s kept reasonably up-to-date and I’m sure if we can grow the community even more, we could get things even faster (e.g. Qt is one minor release behind).&lt;/p&gt;
+&lt;p&gt;On Windows, the CDT loves MinGW and MSYS. As Eclipse is a native application, it really expects things like path names and such to be native Windows things. Cygwin, being a Linux emulation layer, and the recent Bash for Windows are actually hard for CDT to integrate with because they hide away the native.&lt;/p&gt;
+&lt;p&gt;For Eclipse Neon, CDT has added support for automatically detecting the MinGW compilers in an MSYS2 installation. This article will give a quick guide on how to set up MSYS2 with the proper set of packages to start building C++ projects on Windows.&lt;/p&gt;
+&lt;p&gt;First a quick rant about their choice of package manager, pacman. I’m sure people who use Arch Linux love pacman. It’s pretty powerful. But I worry that it’s a tough fit for Windows users. The problem gets worse as there are actually three sets of packages, msys (common), mingw32 (for 32-bit tools), and mingw64 (for 64-bit tools) and some packages are in multiple of those. pacman makes you pick each time you install a package. And it gets worse installing the toolchain since mingw32 and mingw64 each have toolchains that target 32-bit and 64-bit. Now you’re up to five combinations.&lt;/p&gt;
+&lt;p&gt;But it’s what we got so we’ll have to make due. Hopefully we can simplify this a bit.&lt;/p&gt;
+&lt;p&gt;First, most people are on 64-bit Windows these days and for that, just select the mingw64 packages and the x86_64 toolchains. If you are on 32-bit Windows, go mingw32 and i686 toolchain. If you are targeting both 32 and 64 bit, simply add the other toolchain. But also make sure you add all the libraries for that architecture too.&lt;/p&gt;
+&lt;p&gt;MSYS2 starts with a pretty decent installer. It’s available from &lt;a href=&quot;https://msys2.github.io/&quot;&gt;https://msys2.github.io/&lt;/a&gt;. The instructions on that page are a good description on how to do the initial setup. After finishing that, you still have no toolchains or libraries. To set up your development environment, run the following command. This gives you gcc and make, enough to build a hello world project.&lt;/p&gt;
+&lt;pre&gt;pacman -S make mingw64/mingw-w64-x86_64-gcc&lt;/pre&gt;
+&lt;p&gt;A couple of quick notes on that. The toolchain comes from the mingw-w64 project which produces both 32-bit and 64-bit compilers. Confusing? Yes. Also, pick the make from the default package set since it’s a more full featured make than the mingw32-make that comes with the mingw64 package set.&lt;/p&gt;
+&lt;p&gt;That should be enough to get started. Feel free to poke around and add library packages you’d like to use. Qt projects should just work with CDT’s new (and still very young) Qt plug-ins.&lt;/p&gt;
+&lt;p&gt;More later as we figure out the right configuration for CMake and for other libraries.&lt;/p&gt;</description>
+	<pubDate>Tue, 08 Nov 2016 19:46:36 +0000</pubDate>
+</item>
+<item>
+	<title>Maximilian and Jonas: Eclipse Democamp Munich, December 5th 2016 – Already sold out?</title>
+	<guid isPermaLink="false">http://eclipsesource.com/blogs/?p=27417</guid>
+	<link>http://eclipsesource.com/blogs/2016/11/08/eclipse-democamp-munich-december-5th-2016-already-sold-out/</link>
+	<description>&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Every year it is amazing to see how fast the &lt;/span&gt;&lt;a href=&quot;https://www.eventbrite.de/e/eclipse-democamp-december-2016-tickets-28833687335&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Eclipse DemoCamp in Munich&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt; sells out. To give everyone a fair chance to register, we have announced the time the registration opens in advance. This year, it took less than 24 hours, until the available 80 seats were fully booked. However, even if you did not get a seat, we still encourage you to register for the waiting list. You can register &lt;/span&gt;&lt;a href=&quot;https://www.eventbrite.de/e/eclipse-democamp-december-2016-tickets-28833687335&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;here&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;. There you’ll also find detailed information on the location, agenda, time and more. The democamp is in 4 weeks (December 5th 2016) and some of the 80 registrants will be forced to cancel. We remind all current registrants to double check their availability. We expect some people to unregister before the event. If and only if you are on the waiting list, you will be notified immediately, once a seat becomes available. We wish you good luck and we are looking forward to great demos and seeing you in December!&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;A big thanks to our sponsors: EclipseSource München GmbH, &lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;BSI Business Systems Integration AG&lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt; and Eclipse Foundation.&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;&lt;div style=&quot;display: inline-block;&quot;&gt;&lt;a href=&quot;https://twitter.com/intent/tweet?source=webclient&amp;amp;text=Eclipse+Democamp+Munich%2C+December+5th+2016+%E2%80%93+Already+sold+out%3F&amp;amp;via=eclipsesource&amp;amp;url=http://eclipsesource.com/blogs/2016/11/08/eclipse-democamp-munich-december-5th-2016-already-sold-out/&quot; style=&quot;margin-right: 5px;&quot; target=&quot;_blank&quot; title=&quot;Share on Twitter&quot;&gt;&lt;img alt=&quot;Twitter&quot; src=&quot;http://eclipsesource.com/blogs/wp-content/plugins/custom-about-author/images/social_media/twitter.png&quot; title=&quot;Twitter&quot; /&gt;&lt;/a&gt;&lt;a href=&quot;https://plus.google.com/share?url=http://eclipsesource.com/blogs/2016/11/08/eclipse-democamp-munich-december-5th-2016-already-sold-out/&quot; style=&quot;margin-right: 5px;&quot; target=&quot;_blank&quot; title=&quot;+1&quot;&gt;&lt;img alt=&quot;Google+&quot; src=&quot;http://eclipsesource.com/blogs/wp-content/plugins/custom-about-author/images/social_media/google_plus.png&quot; title=&quot;Google+&quot; /&gt;&lt;/a&gt;&lt;a href=&quot;http://www.linkedin.com/cws/share?url=http://eclipsesource.com/blogs/2016/11/08/eclipse-democamp-munich-december-5th-2016-already-sold-out/&quot; style=&quot;margin-right: 5px;&quot; target=&quot;_blank&quot; title=&quot;Share on LinkedIn&quot;&gt;&lt;img alt=&quot;LinkedIn&quot; src=&quot;http://eclipsesource.com/blogs/wp-content/plugins/custom-about-author/images/social_media/linkedin.png&quot; title=&quot;LinkedIn&quot; /&gt;&lt;/a&gt;&lt;a href=&quot;https://www.facebook.com/sharer/sharer.php?u=http://eclipsesource.com/blogs/2016/11/08/eclipse-democamp-munich-december-5th-2016-already-sold-out/&amp;amp;t=Eclipse+Democamp+Munich%2C+December+5th+2016+%E2%80%93+Already+sold+out%3F&quot; style=&quot;margin-right: 5px;&quot; target=&quot;_blank&quot; title=&quot;Facebook&quot;&gt;&lt;img alt=&quot;Facebook&quot; src=&quot;http://eclipsesource.com/blogs/wp-content/plugins/custom-about-author/images/social_media/facebook.png&quot; title=&quot;Facebook&quot; /&gt;&lt;/a&gt;&lt;/div&gt;&lt;br /&gt;&lt;a href=&quot;http://eclipsesource.com/blogs/2016/11/08/eclipse-democamp-munich-december-5th-2016-already-sold-out/#respond&quot;&gt;Leave a Comment&lt;/a&gt;. Tagged with &lt;a href=&quot;http://eclipsesource.com/blogs/tag/demo/&quot; title=&quot;demo Tag&quot;&gt;demo&lt;/a&gt;, &lt;a href=&quot;http://eclipsesource.com/blogs/tag/eclipse/&quot; title=&quot;eclipse Tag&quot;&gt;eclipse&lt;/a&gt;, &lt;a href=&quot;http://eclipsesource.com/blogs/tag/demo/&quot; title=&quot;demo Tag&quot;&gt;demo&lt;/a&gt;, &lt;a href=&quot;http://eclipsesource.com/blogs/tag/eclipse/&quot; title=&quot;eclipse Tag&quot;&gt;eclipse&lt;/a&gt;&lt;p&gt;&lt;/p&gt;</description>
+	<pubDate>Tue, 08 Nov 2016 10:46:34 +0000</pubDate>
+</item>
+<item>
 	<title>Eclipse Announcements: Eclipse Platform Turns 15 Today!</title>
 	<guid isPermaLink="true">http://feedproxy.google.com/~r/eclipse/fnews/~3/Akx2eMmJM10/pr.html</guid>
 	<link>http://feedproxy.google.com/~r/eclipse/fnews/~3/Akx2eMmJM10/pr.html</link>
@@ -56,7 +248,7 @@ If you are interested in giving a talk, please send your presentation proposal t
  &lt;li&gt;Language name: &lt;code class=&quot;highlighter-rouge&quot;&gt;com.itemis.xtext.example.domainmodel.Domainmodel&lt;/code&gt;&lt;/li&gt; 
  &lt;li&gt;Language extensions: &lt;code class=&quot;highlighter-rouge&quot;&gt;dmodel&lt;/code&gt;&lt;/li&gt; 
 &lt;/ul&gt; 
-&lt;p&gt;&lt;img alt=&quot;new-wizard-page1-Xtext-DSL-Gradle.png&quot; height=&quot;631&quot; src=&quot;https://blogs.itemis.com/hs-fs/hubfs/blog-files/new_wizard_page1%202.png?t=1478538604782&amp;amp;width=531&amp;amp;height=631&amp;amp;name=new_wizard_page1%202.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;531&quot; /&gt;&lt;/p&gt; 
+&lt;p&gt;&lt;img alt=&quot;new-wizard-page1-Xtext-DSL-Gradle.png&quot; height=&quot;631&quot; src=&quot;https://blogs.itemis.com/hs-fs/hubfs/blog-files/new_wizard_page1%202.png?t=1479137000185&amp;amp;width=531&amp;amp;height=631&amp;amp;name=new_wizard_page1%202.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;531&quot; /&gt;&lt;/p&gt; 
 &lt;p&gt;On the next page, select the following values:&lt;/p&gt; 
 &lt;ul&gt; 
  &lt;li&gt;Generic IDE Support&lt;/li&gt; 
@@ -64,7 +256,7 @@ If you are interested in giving a talk, please send your presentation proposal t
  &lt;li&gt;Preferred Build System: Gradle&lt;/li&gt; 
  &lt;li&gt;Source Layout: Maven/Gradle&lt;/li&gt; 
 &lt;/ul&gt; 
-&lt;p&gt;&lt;img alt=&quot;new-wizard-page2-Xtext-DSL-Gradle.png&quot; height=&quot;631&quot; src=&quot;https://blogs.itemis.com/hs-fs/hubfs/blog-files/new_wizard_page2%202.png?t=1478538604782&amp;amp;width=532&amp;amp;height=631&amp;amp;name=new_wizard_page2%202.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;532&quot; /&gt;&lt;/p&gt; 
+&lt;p&gt;&lt;img alt=&quot;new-wizard-page2-Xtext-DSL-Gradle.png&quot; height=&quot;631&quot; src=&quot;https://blogs.itemis.com/hs-fs/hubfs/blog-files/new_wizard_page2%202.png?t=1479137000185&amp;amp;width=532&amp;amp;height=631&amp;amp;name=new_wizard_page2%202.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;532&quot; /&gt;&lt;/p&gt; 
 &lt;p&gt;After clicking &lt;em&gt;Finish&lt;/em&gt; the wizard will create a directory structure that looks like this:&lt;/p&gt; 
 &lt;div class=&quot;highlighter-rouge&quot;&gt; 
  &lt;pre class=&quot;prettyprint&quot;&gt;└── com.itemis.xtext.example.domainmodel.parent
@@ -443,185 +635,6 @@ At EclipseCon Europe 2016, I spent a few minutes chatting with Johannes Eder and
 &lt;img alt=&quot;&quot; height=&quot;1&quot; src=&quot;http://track.hubspot.com/__ptq.gif?a=761475&amp;amp;k=14&amp;amp;r=https%3A%2F%2Fblogs.itemis.com%2Fen%2Flanguage-development-on-.net-with-xtext-part-2-creating-a-dotnet-assembly-from-an-xtext-dsl&amp;amp;bu=https%253A%252F%252Fblogs.itemis.com&amp;amp;bvt=rss&quot; style=&quot;width: 1px!important;&quot; width=&quot;1&quot; /&gt;</description>
 	<pubDate>Thu, 03 Nov 2016 07:48:44 +0000</pubDate>
 	<author>stadler@itemis.de (Bernhard Stadler)</author>
-</item>
-<item>
-	<title>typefox.io: How to Embed a Monaco Editor in a Browser as a Part of My First Task at TypeFox</title>
-	<guid isPermaLink="false">http://typefox.io/?p=13874</guid>
-	<link>http://typefox.io/how-to-embed-a-monaco-editor-in-a-browser-as-a-part-of-my-first-task-at-typefox</link>
-	<description>&lt;p&gt;Hi there, this is Akos. I am the new one at TypeFox, and within this post, I would like to describe you what was my first task after joining TypeFox. Namely, how to embed the &lt;a href=&quot;https://microsoft.github.io/monaco-editor/&quot;&gt;Monaco Editor&lt;/a&gt; in the web browser and how to support a simple expression language from the browser using the &lt;a href=&quot;https://github.com/Microsoft/language-server-protocol&quot;&gt;Language Server Protocol&lt;/a&gt; (LSP).&lt;/p&gt;
-&lt;p&gt;&lt;img alt=&quot;monaco_example_add&quot; class=&quot;alignnone size-full wp-image-13910&quot; height=&quot;300&quot; src=&quot;http://typefox.io/wp-content/uploads/2016/11/monaco_example_add.gif&quot; width=&quot;1452&quot; /&gt;&lt;/p&gt;
-&lt;p&gt;I came from the Java world; I did Eclipse plug-in development in the last couple of years. Although I also worked with Java EE technologies and created rich web based applications with various frameworks such as JBoss Seam and Vaadin I never really had to deal with the JavaScript part because the currently used technology somehow magically took care of them under the hood and I had to deal rather with the Java code. Embedding the Monaco Editor was a bit more complicated task and required some additional JavaScript and TypeScript knowledge. Besides that, I also used Gradle, &lt;a href=&quot;http://webpack.github.io/docs/what-is-webpack.html&quot;&gt;Webpack&lt;/a&gt;, and npm.&lt;/p&gt;
-&lt;p&gt;First and foremost, what is the Monaco Editor? The Monaco Editor is a browser-based code editor that powers &lt;a href=&quot;https://github.com/Microsoft/vscode&quot;&gt;VS Code&lt;/a&gt;. It supports cool features such as syntax and semantic validation, content assist, syntax coloring, parameter hints, hover, and &lt;a href=&quot;https://code.visualstudio.com/docs/editor/editingevolved&quot;&gt;much more&lt;/a&gt; out of the box. It is well-documented and relatively easy to connect with a language server and integrate into your projects.&lt;/p&gt;
-&lt;p&gt;The first thing I needed for this task is the Xtext implementation of the language server. This server is available from the &lt;a href=&quot;http://typefox.io/xtext-2-11-beta-1-is-here&quot;&gt;2.11.0.beta1&lt;/a&gt; milestone version of Xtext and depends on a lightweight library: &lt;a href=&quot;https://github.com/TypeFox/ls-api&quot;&gt;ls-api&lt;/a&gt;. This library is a simple Java binding for the LSP and is going to be replaced by the &lt;a href=&quot;https://projects.eclipse.org/proposals/lsp4j&quot;&gt;LSP4J&lt;/a&gt; Eclipse project in the future. By default, the Xtext language server supports various features, such as content proposals, hover, mark occurrences, and find references, which one can use for almost any kind of DSLs without any further customizations. Besides that, there are a couple of additional features that require custom implementation; for instance the signature helper which provides parameter hints. Usually, one single language is supported by one server; however, the Xtext server is capable of supporting multiple Xtext languages at the same time. The only requirement is that the actual implementation of the language should be available from the classpath of the server as a bundled jar.&lt;/p&gt;
-&lt;p&gt;I had to prepare some generic glue code that acts as a web socket server endpoint and handles the lifecycle of the Xtext language server instance associated with the web socket session. On session-open event, it creates a new server instance and caches it and indeed on the web socket session-close event it shuts down the server and removes it from the cache. Besides that, to be able to support Guice based dependency injection in RESTful web services I used the &lt;a href=&quot;https://github.com/Squarespace/jersey2-guice&quot;&gt;jersey2-guice&lt;/a&gt; library which supports DI within the Jersey 2.x implementation of the &lt;a href=&quot;https://jcp.org/en/jsr/detail?id=311&quot;&gt;JAX-RS/JSR-311&lt;/a&gt; specification.&lt;/p&gt;
-&lt;p&gt;Once the server-side was ready, and our DSL was available on the classpath, I had to implement a language-specific signature helper. I added some tests and switched to the client-side code. On the client-side, I used mostly TypeScript with some additional JavaScript code and invoked Webpack to compile TypeScript to JavaScript and to build the dependency graph with all of my static assets to create one single uglified JavaScript file for the browser. The client code is responsible for creating a web socket and connecting to the Xtext language server. Once the connection is successfully established between the client and server, the language gets registered into a new Monaco Editor instance. Right after the editor instantiation, both the syntax coloring and the auto-bracket insertion was configured in the client code. Currently, the LSP does not support syntax coloring, so this had to be added to the JavaScript code.&lt;/p&gt;
-&lt;p&gt;The last remaining part of this task was to build a web-archive file and deploy it. Since not all environments have installed Node.js on it, an individual Node.js task was added to the Gradle configuration to install Node.js with npm. Npm can install Webpack and Webpack can gather all modules and their direct and transitive dependencies reading the content of the package.json of our module. Finally, Gradle creates a war file which can be optionally deployed on a Tomcat server using the &lt;a href=&quot;https://github.com/akhikhl/gretty&quot;&gt;Gretty&lt;/a&gt; Gradle plug-in.&lt;/p&gt;
-&lt;p&gt;This example web-based Monaco Editor, which was presented at &lt;a href=&quot;https://www.eclipsecon.org/europe2016/session/language-server-protocol-explained&quot;&gt;EclipseCon Europe&lt;/a&gt; last week, is available &lt;a href=&quot;http://monaco-demo.typefox.io/&quot;&gt;here&lt;/a&gt;. We are planning to make both the generic glue code (used for the server) and the Monaco Editor code accessible in the future. Once the code is available under the EPL 1.0 license, we’ll come back to you with another blog post with all the technical details and pitfalls. If you cannot wait, feel free to drop me a mail.&lt;/p&gt;
-&lt;div align=&quot;center&quot;&gt;&lt;div class=&quot;fusion-button-wrapper&quot;&gt;&lt;a class=&quot;fusion-button button-flat button-round button-large button-default button-1&quot; href=&quot;http://monaco-demo.typefox.io&quot; target=&quot;_self&quot;&gt;&lt;span class=&quot;fusion-button-text&quot;&gt;Try the Monaco Demo&lt;/span&gt;&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;</description>
-	<pubDate>Wed, 02 Nov 2016 08:40:05 +0000</pubDate>
-</item>
-<item>
-	<title>Eclipse Announcements: EclipseCon Europe: A Great Week for All</title>
-	<guid isPermaLink="true">http://feedproxy.google.com/~r/eclipse/fnews/~3/L6TL93Gcs9M/</guid>
-	<link>http://feedproxy.google.com/~r/eclipse/fnews/~3/L6TL93Gcs9M/</link>
-	<description>Thanks to the sponsors, speakers, and attendees who made EclipseCon Europe 2016 such a success. Missed some talks? We'll post the YouTube playlist soon.&lt;img alt=&quot;&quot; height=&quot;1&quot; src=&quot;http://feeds.feedburner.com/~r/eclipse/fnews/~4/L6TL93Gcs9M&quot; width=&quot;1&quot; /&gt;</description>
-	<pubDate>Mon, 31 Oct 2016 15:00:00 +0000</pubDate>
-</item>
-<item>
-	<title>Eclipse Announcements: Eclipse Newsletter - Discover Eclipse Runtimes</title>
-	<guid isPermaLink="true">http://feedproxy.google.com/~r/eclipse/fnews/~3/aFUwHYND83c/</guid>
-	<link>http://feedproxy.google.com/~r/eclipse/fnews/~3/aFUwHYND83c/</link>
-	<description>This month's newsletter features Eclipse runtime projects: Equinox, Golo, Jetty, OMR, and Vert.x.&lt;img alt=&quot;&quot; height=&quot;1&quot; src=&quot;http://feeds.feedburner.com/~r/eclipse/fnews/~4/aFUwHYND83c&quot; width=&quot;1&quot; /&gt;</description>
-	<pubDate>Mon, 31 Oct 2016 14:20:00 +0000</pubDate>
-</item>
-<item>
-	<title>Maximilian and Jonas: Save the date: Eclipse DemoCamp 05.12.2016</title>
-	<guid isPermaLink="false">http://eclipsesource.com/blogs/?p=27389</guid>
-	<link>http://eclipsesource.com/blogs/2016/10/31/save-the-date-eclipse-democamp-05-12-2016/</link>
-	<description>&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;We are pleased to invite you to participate to the Eclipse DemoCamp Munich 2016. Like in the past years, we continue in our tradition of hosting a “Christmas DemoCamp”. Please save the following date and mark your calendars on December 5th 2016 for the next Eclipse DemoCamp in Munich!  &lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;We offer 80 seats, but we usually receive around 200 registrations. &lt;strong&gt;To give everybody the same chance, registration for the event will start exactly on November 7th 2016 2pm.&lt;/strong&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;More details on the event and the possibility to register you will find here:&lt;br /&gt;
-&lt;/span&gt;&lt;a href=&quot;https://www.eventbrite.de/e/eclipse-democamp-december-2016-tickets-28833687335&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;https://www.eventbrite.de/e/eclipse-democamp-december-2016-tickets-28833687335&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;If you are interested in giving a talk, please send your presentation proposal to &lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;jhelming@eclipsesource.com for consideration. There are always more proposals than slots in the agenda, so we will make a selection from submitted proposals.&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;We are looking forward to your registration and seeing you in December!&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;&lt;div style=&quot;display: inline-block;&quot;&gt;&lt;a href=&quot;https://twitter.com/intent/tweet?source=webclient&amp;amp;text=Save+the+date%3A+Eclipse+DemoCamp+05.12.2016&amp;amp;via=eclipsesource&amp;amp;url=http://eclipsesource.com/blogs/2016/10/31/save-the-date-eclipse-democamp-05-12-2016/&quot; style=&quot;margin-right: 5px;&quot; target=&quot;_blank&quot; title=&quot;Share on Twitter&quot;&gt;&lt;img alt=&quot;Twitter&quot; src=&quot;http://eclipsesource.com/blogs/wp-content/plugins/custom-about-author/images/social_media/twitter.png&quot; title=&quot;Twitter&quot; /&gt;&lt;/a&gt;&lt;a href=&quot;https://plus.google.com/share?url=http://eclipsesource.com/blogs/2016/10/31/save-the-date-eclipse-democamp-05-12-2016/&quot; style=&quot;margin-right: 5px;&quot; target=&quot;_blank&quot; title=&quot;+1&quot;&gt;&lt;img alt=&quot;Google+&quot; src=&quot;http://eclipsesource.com/blogs/wp-content/plugins/custom-about-author/images/social_media/google_plus.png&quot; title=&quot;Google+&quot; /&gt;&lt;/a&gt;&lt;a href=&quot;http://www.linkedin.com/cws/share?url=http://eclipsesource.com/blogs/2016/10/31/save-the-date-eclipse-democamp-05-12-2016/&quot; style=&quot;margin-right: 5px;&quot; target=&quot;_blank&quot; title=&quot;Share on LinkedIn&quot;&gt;&lt;img alt=&quot;LinkedIn&quot; src=&quot;http://eclipsesource.com/blogs/wp-content/plugins/custom-about-author/images/social_media/linkedin.png&quot; title=&quot;LinkedIn&quot; /&gt;&lt;/a&gt;&lt;a href=&quot;https://www.facebook.com/sharer/sharer.php?u=http://eclipsesource.com/blogs/2016/10/31/save-the-date-eclipse-democamp-05-12-2016/&amp;amp;t=Save+the+date%3A+Eclipse+DemoCamp+05.12.2016&quot; style=&quot;margin-right: 5px;&quot; target=&quot;_blank&quot; title=&quot;Facebook&quot;&gt;&lt;img alt=&quot;Facebook&quot; src=&quot;http://eclipsesource.com/blogs/wp-content/plugins/custom-about-author/images/social_media/facebook.png&quot; title=&quot;Facebook&quot; /&gt;&lt;/a&gt;&lt;/div&gt;&lt;br /&gt;&lt;a href=&quot;http://eclipsesource.com/blogs/2016/10/31/save-the-date-eclipse-democamp-05-12-2016/#respond&quot;&gt;Leave a Comment&lt;/a&gt;. Tagged with &lt;a href=&quot;http://eclipsesource.com/blogs/tag/democamp/&quot; title=&quot;democamp Tag&quot;&gt;democamp&lt;/a&gt;, &lt;a href=&quot;http://eclipsesource.com/blogs/tag/eclipse/&quot; title=&quot;eclipse Tag&quot;&gt;eclipse&lt;/a&gt;, &lt;a href=&quot;http://eclipsesource.com/blogs/tag/emf-forms/&quot; title=&quot;emf forms Tag&quot;&gt;emf forms&lt;/a&gt;, &lt;a href=&quot;http://eclipsesource.com/blogs/tag/democamp/&quot; title=&quot;democamp Tag&quot;&gt;democamp&lt;/a&gt;, &lt;a href=&quot;http://eclipsesource.com/blogs/tag/eclipse/&quot; title=&quot;eclipse Tag&quot;&gt;eclipse&lt;/a&gt;, &lt;a href=&quot;http://eclipsesource.com/blogs/tag/emf-forms/&quot; title=&quot;emf forms Tag&quot;&gt;emf forms&lt;/a&gt;&lt;p&gt;&lt;/p&gt;</description>
-	<pubDate>Mon, 31 Oct 2016 13:00:55 +0000</pubDate>
-</item>
-<item>
-	<title>Christian Pontesegger: Oomph 05: Git checkout</title>
-	<guid isPermaLink="false">tag:blogger.com,1999:blog-3460102793186140898.post-5266772667005025328</guid>
-	<link>http://codeandme.blogspot.com/2016/10/oomph-05-git-checkout.html</link>
-	<description>In this tutorial we will checkout a git repository and import its projects into the workspace.&lt;br /&gt;&lt;br /&gt;Source code for this tutorial is available on github as a &lt;a href=&quot;https://github.com/Pontesegger/codeandme/blob/master/Code%20&amp;amp;%20Me%20Blog/oomph_05_git_checkout.zip?raw=true&quot;&gt;single zip archive&lt;/a&gt;, as a &lt;a href=&quot;https://github.com/Pontesegger/codeandme/blob/master/Code%20&amp;amp;%20Me%20Blog/oomph_05_git_checkout.psf?raw=true&quot;&gt;Team Project Set&lt;/a&gt; or you can &lt;a href=&quot;https://github.com/Pontesegger/codeandme/tree/master/oomph/05_git_checkout&quot; target=&quot;_blank&quot;&gt;browse the files&lt;/a&gt; online.   &lt;br /&gt;&lt;br /&gt;For a list of all Oomph related tutorials see my &lt;a href=&quot;http://codeandme.blogspot.co.at/p/oomph-articles.html&quot; target=&quot;_blank&quot;&gt;Oomph Tutorials Overview&lt;/a&gt;.&lt;br /&gt;&lt;u&gt;&lt;b&gt;&lt;br /&gt;&lt;/b&gt;&lt;/u&gt;&lt;u&gt;&lt;b&gt;Step 1: Git clone task&lt;/b&gt;&lt;/u&gt;&lt;br /&gt;&lt;br /&gt;First open your &lt;i&gt;CodeAndMe.setup&lt;/i&gt; file and look for a new child called &lt;i&gt;Git Clone&lt;/i&gt;. Quite likely you will find it under &lt;i&gt;Additional Tasks&lt;/i&gt;. All tasks available under that submenu are currently not installed. By selecting them eclipse triggers a background job to install the necessary components. Before you can use it a restart of your workbench will be required.&lt;br /&gt;&lt;br /&gt;Once you added a &lt;i&gt;Git Clone&lt;/i&gt; task open its &lt;i&gt;Properties&lt;/i&gt;. The bare minimum information to provide is the &lt;i&gt;Remote URI&lt;/i&gt;. Set it to your clone location, eg. https://github.com/Pontesegger/codeandme.git&lt;br /&gt;&lt;br /&gt;We will also provide an &lt;i&gt;ID&lt;/i&gt; so we can reference that setup task from other tasks later during the install. Therefore set &lt;i&gt;ID&lt;/i&gt; to &lt;i&gt;codeandme.git.clone&lt;/i&gt;.&lt;br /&gt;&lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;&lt;a href=&quot;https://4.bp.blogspot.com/-gIuyHT5JOAA/WATIiiyPRKI/AAAAAAAAAs0/0z-s1CX_FGUMk0gF5Z-dYxrJXxv_bQMqgCLcB/s1600/oomph_05_01.png&quot; style=&quot;margin-left: 1em; margin-right: 1em;&quot;&gt;&lt;img border=&quot;0&quot; src=&quot;https://4.bp.blogspot.com/-gIuyHT5JOAA/WATIiiyPRKI/AAAAAAAAAs0/0z-s1CX_FGUMk0gF5Z-dYxrJXxv_bQMqgCLcB/s1600/oomph_05_01.png&quot; /&gt;&lt;/a&gt;&lt;/div&gt;The checkout &lt;i&gt;Location&lt;/i&gt; is typically chosen by the user and should not be defined in the setup file. Users will set this during installation by using the &lt;i&gt;Git clone location rule&lt;/i&gt; variable.&lt;br /&gt;&lt;u&gt;&lt;b&gt;&lt;br /&gt;&lt;/b&gt;&lt;/u&gt;&lt;u&gt;&lt;b&gt;Step 2: Import projects&lt;/b&gt;&lt;/u&gt;&lt;br /&gt;&lt;br /&gt;The clone task will create a local copy of the repository but that does not mean that its projects are already visible in the workspace.&lt;br /&gt;&lt;br /&gt;We need to add a dedicated &lt;i&gt;Projects Import&lt;/i&gt; task. Further add a subnode of type &lt;i&gt;Source Locator&lt;/i&gt; to it. Now switch to its &lt;i&gt;Properties&lt;/i&gt; and set the &lt;i&gt;Root Folder&lt;/i&gt;. Instead of providing a fixed location here we will refer to the Git Clone task we defined earlier.&lt;br /&gt;&lt;br /&gt;When a task has an ID, we can refer to it directly using a variable: ${task.id}. Further all task properties are available by just adding the property name: ${task.id.property_name}.&lt;br /&gt;&lt;br /&gt;To get the path where our git repository was checked out to we can use: ${codeandme.git.clone.location}&lt;br /&gt;&lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;&lt;a href=&quot;https://3.bp.blogspot.com/-xwRX2IO2rSk/WATJDX2zDJI/AAAAAAAAAs4/QaPUtATB1KQZ_Z5n17ZvL0wjW-JvPSbpgCLcB/s1600/oomph_05_02.png&quot; style=&quot;margin-left: 1em; margin-right: 1em;&quot;&gt;&lt;img border=&quot;0&quot; src=&quot;https://3.bp.blogspot.com/-xwRX2IO2rSk/WATJDX2zDJI/AAAAAAAAAs4/QaPUtATB1KQZ_Z5n17ZvL0wjW-JvPSbpgCLcB/s1600/oomph_05_02.png&quot; /&gt;&lt;/a&gt;&lt;/div&gt;Give it a try to see that your task configuration is correct.&lt;br /&gt;&lt;br /&gt;</description>
-	<pubDate>Mon, 31 Oct 2016 10:24:40 +0000</pubDate>
-	<author>noreply@blogger.com (Christian Pontesegger)</author>
-</item>
-<item>
-	<title>Melanie Bats: Sirius 4.1 is Out! What’s Inside ? Sadness</title>
-	<guid isPermaLink="false">http://melb.enix.org/?p=404</guid>
-	<link>http://melb.enix.org/sirius/sirius-4-1-is-out-whats-inside-sadness/</link>
-	<description>&lt;p dir=&quot;ltr&quot;&gt;That’s too sad! &lt;a href=&quot;https://www.eclipsecon.org/europe2016/&quot;&gt;EclipseCon Europe&lt;/a&gt; finished yesterday.&lt;img alt=&quot;&quot; class=&quot;aligncenter&quot; height=&quot;163&quot; src=&quot;https://lh5.googleusercontent.com/TPpOymkpFHaoSaG6PaO6QOx-pkEHfyb30AJXutJRvzseHcYrVLjXqjHvLW6RmEtLL-XQLhaNwdAXJ5ZLoTbcite9ThdRFPFMAvWAAKw7YbJU2XAB9AkGH-QqFwd-feKlnP9VSjCZ&quot; style=&quot;font-weight: 300;&quot; width=&quot;180&quot; /&gt;&lt;/p&gt;
-&lt;p dir=&quot;ltr&quot;&gt;It was again a great conference, with inspiring talks and excellent discussions with different members of the Eclipse community. These moments with our community are motivating us to prepare the future of &lt;a href=&quot;https://www.eclipse.org/sirius&quot;&gt;Eclipse Sirius&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt; &lt;span style=&quot;font-weight: 300;&quot;&gt;So what’s next? What would we cook for you in Eclipse Oxygen?&lt;/span&gt;&lt;/p&gt;
-&lt;p dir=&quot;ltr&quot;&gt;&lt;img alt=&quot;3ba14416270031.5632259d47f7e.jpg&quot; class=&quot;aligncenter&quot; height=&quot;518px;&quot; src=&quot;https://lh5.googleusercontent.com/86Q-tucOegM1hBilPjX7MnVz799SAXs06VYsr00cG0vfvG6yuYIQd4KOsh8JBcRZ39CNjlMBiNEe2B55ZVn8LAZr24oH_fhcntTu3CxBIN3_fsQ2DoXhzIKQWEPRnXJIudqgAIrUTJM&quot; width=&quot;481px;&quot; /&gt;&lt;/p&gt;
-&lt;p dir=&quot;ltr&quot;&gt;&lt;span style=&quot;font-weight: 300;&quot;&gt;As we already said in our talk, we are already preparing the future with Sirius 4.1 when we introduce the &lt;em&gt;DRepresentationDescriptor&lt;/em&gt;. This internal change has no impact on normal users: it was made as a first step to &lt;strong&gt;prepare for better scalability&lt;/strong&gt; down the road. For specifiers and developers who wrote code that depends on the internal organisation of the *.aird files, you may need to adapt your code.&lt;/span&gt;&lt;/p&gt;
-&lt;p dir=&quot;ltr&quot;&gt;To learn more about the Sirius roadmap, be sure to not missed Cedric’s talk at &lt;a href=&quot;http://www.siriuscon.org/&quot;&gt;SiriusCon&lt;/a&gt;.&lt;/p&gt;
-&lt;p dir=&quot;ltr&quot;&gt;&lt;img alt=&quot;&quot; class=&quot;aligncenter&quot; height=&quot;365&quot; src=&quot;https://lh3.googleusercontent.com/gMyJVnQOtgkYSQqj-GrFnmxLwmRNKrB1j2UNDgYoKJw3bIyY3NDYf3CBx3N-AFKe9FInu0jWqeptY63fX3VsqHoaxijTFHodZt2wh3t3stErq1NZ0boxgaA-B_jiRNiF9DbGo6w_&quot; width=&quot;408&quot; /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span style=&quot;font-weight: 300;&quot;&gt;I will also give a talk with Stéphane specifically about the Properties view feature, we will detail what’s possible with this new feature:&lt;/span&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p dir=&quot;ltr&quot;&gt;Let Sirius automatically create default properties views for your designer&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p dir=&quot;ltr&quot;&gt;Create a simple properties view description and customize it as you do for other types of representations thanks to the following widgets: label, text, text area, checkbox, radio, list, reference&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p dir=&quot;ltr&quot;&gt;Use the new EMF.Edit customizations provided by Sirius&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p dir=&quot;ltr&quot;&gt;Discover the power of the dynamic mappings to automatically create the properties view fields for the different types of elements used in your metamodels&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p dir=&quot;ltr&quot;&gt;Understand how to provide filters and validation programmatically&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p dir=&quot;ltr&quot;&gt;&lt;span style=&quot;font-weight: 300;&quot;&gt;Learn how to contribute some custom widgets&lt;/span&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p dir=&quot;ltr&quot;&gt;And much more!&lt;/p&gt;
-&lt;p dir=&quot;ltr&quot;&gt;Do not look for excuses, SiriusCon is where you have to be if you are interested in graphical modeling: easy to come as it will be held in Paris near the tour Eiffel, it’s a one day event, and it’s free. The &lt;a href=&quot;http://www.siriuscon.org/#program&quot;&gt;program&lt;/a&gt; promises to be interesting with talks about case studies on the morning, technical sessions by the afternoon and a clinic all the day.&lt;/p&gt;
-&lt;p&gt;I am counting on you &lt;a href=&quot;http://www.siriuscon.org/register.php&quot;&gt;being there&lt;/a&gt; on November 15th and I hope to see you soon at SiriusCon!&lt;/p&gt;</description>
-	<pubDate>Fri, 28 Oct 2016 05:30:51 +0000</pubDate>
-</item>
-<item>
-	<title>Pascal Rapicault: 5 reasons to use EGerrit - #3, In-place comments</title>
-	<guid isPermaLink="false">tag:blogger.com,1999:blog-27225531.post-4283871304406313285</guid>
-	<link>http://prapicault.blogspot.com/2016/10/5-reasons-to-use-egerrit-3-in-place.html</link>
-	<description>To celebrate the release of &lt;a href=&quot;http://wiki.eclipse.org/EGerrit/New_and_Noteworthy/1.1.1&quot;&gt;EGerrit 1.1&lt;/a&gt;, we are enumerating the &lt;a href=&quot;http://prapicault.blogspot.ca/2016/10/5-reasons-to-use-egerrit-5-being-in.html&quot;&gt;top&lt;/a&gt; &lt;a href=&quot;http://prapicault.blogspot.com/2016/10/5-reasons-to-use-egerrit-4-simple.html&quot;&gt;5&lt;/a&gt; features of the tool.&lt;br /&gt;&lt;br /&gt;&lt;h3&gt;&lt;b&gt;Reason #3 – In-place comments.&lt;/b&gt;&lt;/h3&gt;Performing a review means commenting. As you go through the changes, you want to enter comments right here and there, and this can be done directly from the compare editor! Simply start typing in the editor and you will see the new text appear with a yellow background indicating that this is a comment (see picture).&lt;br /&gt;&lt;br /&gt;&lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;&lt;a href=&quot;http://2.bp.blogspot.com/-trTf7rtUngI/WA9ybxR53mI/AAAAAAAAAUU/gSLYvjNJdik51PrR4lOXtYrwCrcKBJtywCK4B/s1600/800px-Compare1.0.png&quot; style=&quot;margin-left: 1em; margin-right: 1em;&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;360&quot; src=&quot;https://2.bp.blogspot.com/-trTf7rtUngI/WA9ybxR53mI/AAAAAAAAAUU/gSLYvjNJdik51PrR4lOXtYrwCrcKBJtywCK4B/s640/800px-Compare1.0.png&quot; width=&quot;640&quot; /&gt;&lt;/a&gt;&lt;/div&gt;Saving the editor will push the comments as drafts.  Of course comments that have been entered by other users are also shown in place. &lt;br /&gt;You can download EGerrit from the &lt;a href=&quot;http://download.eclipse.org/releases/neon&quot; target=&quot;_blank&quot;&gt;Neon release &lt;/a&gt;repo or from the &lt;a href=&quot;http://marketplace.eclipse.org/content/egerrit&quot; target=&quot;_blank&quot;&gt;Eclipse Marketplace&lt;/a&gt;. For questions, you can connect with us on &lt;a href=&quot;https://dev.eclipse.org/mailman/listinfo/egerrit-dev&quot;&gt;egerrit-dev@eclipse.org&lt;/a&gt;; and for bugs or to take a peek at the future you can see our &lt;a href=&quot;https://tuleap.eclipse.org/plugins/agiledashboard/?group_id=102&amp;amp;action=showKanban&amp;amp;id=6#/kanban&quot; target=&quot;_blank&quot;&gt;Kanban board&lt;/a&gt;.</description>
-	<pubDate>Fri, 28 Oct 2016 05:30:24 +0000</pubDate>
-	<author>noreply@blogger.com (Pascal)</author>
-</item>
-<item>
-	<title>Jeremie Bresson: Asciidoctor instead of MediaWiki?</title>
-	<guid isPermaLink="true">http://jmini.github.io/blog/2016/2016-10-28_from_mediawiki_to_asciidoc.html</guid>
-	<link>http://jmini.github.io/blog/2016/2016-10-28_from_mediawiki_to_asciidoc.html</link>
-	<description>&lt;div class=&quot;paragraph&quot;&gt; 
- &lt;p&gt;During &lt;a href=&quot;https://www.eclipsecon.org/europe2016/&quot;&gt;EclipseCon Europe 2016&lt;/a&gt; we had a great BoF Session about documentation with Asciidoctor at Eclipse. A lot of subjects were discussed, from the editing possibilities inside or outside Eclipse IDE to the best toolchains for document generation/customization.&lt;/p&gt; 
-&lt;/div&gt; 
-&lt;div class=&quot;imageblock&quot;&gt; 
- &lt;div class=&quot;content&quot;&gt; 
-  &lt;img alt=&quot;BoFs Session Schedule at EclipseCon Europe 2016&quot; src=&quot;http://jmini.github.io/blog/2016/2016-10-28_bofs_eclipsecon_europe_2016.jpg&quot; /&gt; 
- &lt;/div&gt; 
-&lt;/div&gt; 
-&lt;div class=&quot;paragraph&quot;&gt; 
- &lt;p&gt;One topic that was discussed during the meeting was the conversion of MediaWiki documentation to the AsciiDoc format. I am happy to blog about this topic and to propose a solution.&lt;/p&gt; 
-&lt;/div&gt; 
-&lt;div class=&quot;paragraph&quot;&gt; 
- &lt;p&gt;A lot of Eclipse projects are using the &lt;a href=&quot;https://wiki.eclipse.org/&quot;&gt;Eclipse MediaWiki instance&lt;/a&gt; for their documentation. Maybe I can summarize my vision on this topic: I consider the usage of a Git repository better as a wiki engine. A wiki engine is not enough when it comes to documentation of different versions of your project/product (git branches, cherry pick…​). If you host the repository on GitHub (it works also with GitLab) and if you use one of the markup syntaxes supported by the online editor, you get almost the same experience as with a wiki engine (online edition, online preview of changes, navigation in the history, diffs…​). Reviews and discussions inside pull requests are a great way to collaborate. Having also everything offline is a big plus (I work a lot in the train). Amongst the different markup syntaxes you can choose, I consider the AsciiDoc format as the best option (management of code snippets, callout support in listings blocs, variable substitution and conditional inclusion, multiple output formats, live preview in browser during edition in any text editor, easy integration in existing build toolchain, possibility to extend the language with custom macros…​). In my opinion Asciidoctor is becoming a state of the art documentation toolchain in many projects.&lt;/p&gt; 
-&lt;/div&gt; 
-&lt;div class=&quot;paragraph&quot;&gt; 
- &lt;p&gt;This immediately raises the next question: what can we do with the great content we have on the Eclipse wiki? How can it be migrated to the AsciiDoc format? In my opinion the &lt;a href=&quot;https://eclipse.org/mylyn/docs&quot;&gt;Mylyn Wikitext project&lt;/a&gt; can help, but an &lt;code&gt;AsciiDocDocumentBuilder&lt;/code&gt; is missing. I have opened &lt;a href=&quot;https://bugs.eclipse.org/bugs/show_bug.cgi?id=506643&quot;&gt;Bug 506643&lt;/a&gt; for that and &lt;a href=&quot;https://git.eclipse.org/r/84040&quot;&gt;contributed&lt;/a&gt; a first implementation. My code will now go through the eclipse review process. To test it today, you need to check out the repo (and the corresponding gerrit change).&lt;/p&gt; 
-&lt;/div&gt; 
-&lt;div class=&quot;paragraph&quot;&gt; 
- &lt;p&gt;Here a simple example:&lt;/p&gt; 
-&lt;/div&gt; 
-&lt;div class=&quot;listingblock&quot;&gt; 
- &lt;div class=&quot;title&quot;&gt;
-  Listing 1. Example MediaWiki document
- &lt;/div&gt; 
- &lt;div class=&quot;content&quot;&gt; 
-  &lt;pre&gt;'''Lorem ipsum''' sed tempor euismod elit, et eleifend tellus lacinia a.
-
-=== Penatibus et magnis
-
-Pellentesque ut ''lorem lorem''.
-
-[[Image:foo.png|Foo image]]
-
-Nulla ut sapien tellus. Quisque id semper nulla. Nullam facilisis risus turpis.
-
-* Cras posuere tempor urna
-* Laoreet pharetra diam rhoncus at
-* Quisque ornare diam eu iaculis auctor.
-
-Pellentesque tincidunt ultricies varius. [http://eclipse.org/ Lorem ipsum dolor] sit amet, consectetur adipiscing elit.
-
-Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Suspendisse potenti.&lt;/pre&gt; 
- &lt;/div&gt; 
-&lt;/div&gt; 
-&lt;div class=&quot;paragraph&quot;&gt; 
- &lt;p&gt;That will be converted to:&lt;/p&gt; 
-&lt;/div&gt; 
-&lt;div class=&quot;listingblock&quot;&gt; 
- &lt;div class=&quot;title&quot;&gt;
-  Listing 2. Result of the conversion to AsciiDoc
- &lt;/div&gt; 
- &lt;div class=&quot;content&quot;&gt; 
-  &lt;pre&gt;*Lorem ipsum* sed tempor euismod elit, et eleifend tellus lacinia a.
-
-=== Penatibus et magnis
-
-Pellentesque ut _lorem lorem_.
-
-image:foo.png[title=&quot;Foo image&quot;]
-
-Nulla ut sapien tellus. Quisque id semper nulla. Nullam facilisis risus turpis.
-
-* Cras posuere tempor urna
-* Laoreet pharetra diam rhoncus at
-* Quisque ornare diam eu iaculis auctor.
-
-Pellentesque tincidunt ultricies varius. link:http://eclipse.org/[Lorem ipsum dolor] sit amet, consectetur adipiscing elit.
-
-Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Suspendisse potenti.&lt;/pre&gt; 
- &lt;/div&gt; 
-&lt;/div&gt; 
-&lt;div class=&quot;paragraph&quot;&gt; 
- &lt;p&gt;Of course my tool has certainly some limitations. Markup conversion is never an easy task. I think that the MediaWiki parser provided by the Mylyn Wikitext project is a good choice, because it is already used for the generation of some eclipse help pages. For the conversion to AsciiDoc there is already some support in the Wikitext framework (AsciiDoc is just an other output Markup there). I just created a new class: &lt;code&gt;AsciiDocDocumentBuilder&lt;/code&gt; (plus an other one for the test suite). I have used the &lt;code&gt;MarkdownDocumentBuilder&lt;/code&gt; as base and adapted it for AsciiDoc. I consider my implementation as a first usable version. Any feedback is welcomed (on the Bug, on Gerrit, twitter or on the mailing list). Depending on the feedback, I will be happy to iterate and to improve it for concrete use cases.&lt;/p&gt; 
-&lt;/div&gt; 
-&lt;div class=&quot;paragraph&quot;&gt; 
- &lt;p&gt;By the way, if an Eclipse Project wants to migrate and start to use Asciidoctor, I will be happy to help as much as I can.&lt;/p&gt; 
-&lt;/div&gt;</description>
-	<pubDate>Thu, 27 Oct 2016 22:00:00 +0000</pubDate>
 </item>
 
 </channel>

@@ -1,0 +1,313 @@
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{parselines}
+\usepackage[portuguese]{babel}
+\usepackage{graphicx}
+\usepackage[document]{ragged2e}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{geometry}
+\geometry{
+	a4paper,
+	total={170mm,257mm},
+	left=30mm,
+	right=30mm,
+	top=30mm,
+	bottom=30mm,
+}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{float}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{indentfirst}
+\usepackage{colortbl}
+\usepackage{caption} 
+\usepackage{enumitem}
+\captionsetup[table]{skip=10pt}
+
+\graphicspath{ {images/} }
+
+\colorlet{punct}{red!60!black}
+\definecolor{background}{HTML}{EEEEEE}
+\definecolor{delim}{RGB}{20,105,176}
+\colorlet{numb}{magenta!60!black}
+
+
+\lstdefinelanguage{json}{
+    basicstyle=\normalfont\ttfamily,
+    numbers=left,
+    numberstyle=\scriptsize,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    breaklines=true,
+    frame=lines,
+    backgroundcolor=\color{background},
+    literate=
+     *{0}{{{\color{numb}0}}}{1}
+      {1}{{{\color{numb}1}}}{1}
+      {2}{{{\color{numb}2}}}{1}
+      {3}{{{\color{numb}3}}}{1}
+      {4}{{{\color{numb}4}}}{1}
+      {5}{{{\color{numb}5}}}{1}
+      {6}{{{\color{numb}6}}}{1}
+      {7}{{{\color{numb}7}}}{1}
+      {8}{{{\color{numb}8}}}{1}
+      {9}{{{\color{numb}9}}}{1}
+      {:}{{{\color{punct}{:}}}}{1}
+      {,}{{{\color{punct}{,}}}}{1}
+      {\{}{{{\color{delim}{\{}}}}{1}
+      {\}}{{{\color{delim}{\}}}}}{1}
+      {[}{{{\color{delim}{[}}}}{1}
+      {]}{{{\color{delim}{]}}}}{1},
+}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+\hypersetup{
+  colorlinks, linkcolor=black
+}
+
+\begin{document}
+
+\begin{titlepage}
+
+\newcommand{\HRule}{\rule{\linewidth}{1mm}} % Defines a new command for the horizontal lines, change thickness here
+
+\center % Center everything on the page
+ 
+%----------------------------------------------------------------------------------------
+%	HEADING SECTIONS
+%----------------------------------------------------------------------------------------
+
+\includegraphics{feup.jpg}
+
+\textsc{\large Agentes e Inteligência Artificial Distribuída}\\[0.8cm] % Major heading such as course name
+\textsc{\large 4º ano do Mestrado Integrado em Engenharia Informática e Computação}\\[0.8cm] % Minor heading such as course title
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\HRule \\[1.2cm]
+{ \huge \bfseries \textit{Simulação de Evacuação com Agentes}}\\[0.6cm] % Title of your document
+{ \large \bfseries Relatório de Implementação} \\[0.6cm]
+\HRule \\[2cm]
+ 
+%----------------------------------------------------------------------------------------
+%	AUTHOR SECTION
+%----------------------------------------------------------------------------------------
+
+
+% If you don't want a supervisor, uncomment the two lines below and remove the section above
+\Large \emph{Estudantes:}\\[0.5cm] \normalsize
+Gil \textsc{Domingues}\\[0.1cm]  
+- up201304646@fe.up.pt\\[0.1cm]
+Pedro \textsc{Pontes}\\[0.1cm]
+- up201305367@fe.up.pt\\[2cm] 
+
+%----------------------------------------------------------------------------------------
+%	DATE SECTION
+%----------------------------------------------------------------------------------------
+
+{\large \today}\\[0cm] % Date, change the \today to a set date if you want to be precise
+
+%----------------------------------------------------------------------------------------
+%	TABLE OF CONTENTS & LISTS OF FIGURES AND TABLES
+%----------------------------------------------------------------------------------------
+
+\clearpage 
+
+\tableofcontents
+
+\clearpage 
+%----------------------------------------------------------------------------------------
+%	INTRODUÇÃO
+%----------------------------------------------------------------------------------------
+\justify\normalsize
+
+\section{Introdução} 
+
+Uma evacuação implica mover pessoas de um dado local devido à ocorrência de uma situação de (potencial) catástrofe. Exemplos incluem a evacuação de um edifício em chamas ou de uma localidade, antes, durante ou após um desastre natural, como uma cheia ou terramoto. 
+
+Evacuar grandes multidões é um desafio, independentemente das circunstâncias. Tipicamente, de uma evacuação de emergência resultam feridos - ou mesmo mortes -, devido ao caos e pânico que se geram.
+
+Com o aumento da frequência de situações que implicam a evacuação de um elevado número de pessoas num curto espaço de tempo, existe uma consciência acrescida da importância do planeamento dessas situações.
+
+Com efeito, a gestão e organização de multidões em situações de emergência tornou-se uma importante área de estudo ao longo dos últimos anos e desempenha, hoje, um papel importante no planeamento de um edifício ou área.
+
+Dados os desafios - quer de ordem prática, quer de ordem financeira - que a realização de simulacros coloca, é cada vez mais comum o uso de técnicas de simulação para estudar estas situações. De facto, existem já diversos tipos de sistemas, como as simulações baseadas na dinâmica de fluídos, as simulações baseadas em autómatos e as simulações baseadas em agentes.
+
+%----------------------------------------------------------------------------------------
+%	EUNCIADO 
+%----------------------------------------------------------------------------------------
+
+\section{Enunciado}
+
+\subsection{Descrição}
+
+Ocorreu um incêndio, uma inundação, a libertação de um gás nocivo, um qualquer acidente que obriga à evacuação daqueles presentes num dado local. Esse local possui múltiplas saídas de emergência e também obstáculos. Os indivíduos encontram-se distribuídos pelo local, ocupados nas suas tarefas usuais. Aquando da deteção do acidente, todos os indivíduos procuram atingir uma das saídas de emergência, o mais rapidamente possível.
+
+Alguns agentes poderão ser altruístas, no sentido de ajudarem acidentados a deslocarem-se até à saída, outros poderão simplesmente querer «salvar a pele», exibindo um comportamento mais egoísta, conforme se descreve adiante.
+
+
+\subsection{Objetivos}
+
+Realizado no âmbito da unidade curricular de Agentes e Inteligência Artificial Distribuída, com este projeto pretende desenvolver-se um programa que permita simular a interação de agentes confinados a um espaço concreto e limitado perante a necessidade de evacuar esse espaço, podendo o utilizador definir diferentes cenários, especificando, por um lado, o tipo, número e localização dos agentes a evacuar e, por outro, o número e localização de saídas de emergência e obstáculos.
+
+
+\subsection{Resultados Esperados}
+
+Como mencionado, será possível - e relevante - avaliar diferentes cenários, através da experimentação com:
+\begin{itemize}
+	\item diferentes configurações para o local do acidente, variando o número e localização de saídas de emergência e obstáculos;
+	\item diferentes combinações de agentes a evacuar, variando o seu tipo, número ou localização.
+\end{itemize}
+
+Deste modo, será possível observar-se como estas variações se refletem em métricas como o tempo médio e máximo de evacuação ou o número de feridos.
+
+\section{Ferramentas}
+A implementação do programa descrito será realizada usando \textit{Repast}, uma \textit{framework open-source} que permite criar, analisar e experimentar com mundos artificiais populados por agentes que interagem de forma não trivial.
+
+Concretamente, irá utilizar-se a sua mais recente versão - \textit{Repast Simphony} -, no \textit{flavour RepastJ}, que permite programar em \textit{Java} a estrutura espacial, a estrutura lógica e os comportamentos dos agentes.
+
+Tendo sido amplamente utilizado em aplicações de simulação, considera-se de particular utilidade, por um lado, o foco em modelar o comportamento social e, por outro, a recolha de métricas associadas às simulações realizadas. Por último, tem-se a vantagem de poder acompanhar, de forma visual, o decorrer da simulação.
+
+Adicionalmente, irá utilizar-se a \textit{API SAJaS}, com vista a facilitar o desenvolvimento deste sistema multiagente, dado oferecer funcionalidades \textit{JADE}. 
+No caso, as funcionalidades de maior interesse serão as capacidades de comunicação entre agentes, visando simular as interações expectáveis num cenário de evacuação.
+
+\section{Especificação}
+\subsection{Agentes}
+
+Podem distinguir-se dimensões distintas no comportamento exibido durante uma evacuação: por um lado, o espaço a evacuar e a sua configuração, e, por outro lado, as características psicológicas e sociais que afetam a resposta dos que participam na evacuação.
+
+Assume-se que, em situações de emergência, os indivíduos entram em pânico e ficam, por isso, propensos a tomar decisões irracionais. Mais ainda, as pessoas tentam mover-se tão depressa quanto possível, devendo evitar obstáculos e ferimentos.
+Deste modo, tem-se que os agentes a implementar serão autónomos, proativos e reativos.
+
+No caso, os modelo definidos assumem a existência de homens, mulheres e crianças, caracterizados por diversos atributos, conforme definido na Tabela 1.
+
+\setlength{\tabcolsep}{20pt}
+\renewcommand{\arraystretch}{1.3}
+\begin{table}[H]
+	\centering
+	\label{agent-attributes}
+	\caption{Atributos dos agentes a implementar.}
+	\begin{tabular}{@{}lll@{}}
+		\toprule
+		\rowcolor[HTML]{FFFFFF} 
+	\textbf{Atributos}           & \textbf{Tipo}  & \textbf{Descrição}                                                                                                                                   \\ \midrule
+		\rowcolor[HTML]{FFFFFF} 
+		idade                & int   & {[}5, 65{]}                                                                                                                                 \\
+		\rowcolor[HTML]{FFFFFF} 
+		género               & int   & \begin{tabular}[c]{@{}l@{}}0: masculino\\ 1: feminino\end{tabular}                                                                          \\
+		\rowcolor[HTML]{FFFFFF} 
+		conhecimento da área & float & \begin{tabular}[c]{@{}l@{}}{[}0, 1{]} \\probabilidade de seguir um caminho\\ até à saída mais próxima\\\end{tabular}                                                                                                                                     \\
+		\rowcolor[HTML]{FFFFFF} 
+		independência        & float   & \begin{tabular}[c]{@{}l@{}}{[}0, 1{]} \\probabilidade de seguir (ou não) outros\\\end{tabular}  \\ 
+		\rowcolor[HTML]{FFFFFF} 
+		altruísmo   & float & \begin{tabular}[c]{@{}l@{}}{[}0, 1{]} \\probabilidade de ajudar outros\\\end{tabular}    \\                                                  
+		\rowcolor[HTML]{FFFFFF} 
+		mobilidade   & float & \begin{tabular}[c]{@{}l@{}}{[}0, 1{]}\\ condiciona a velocidade a que se move\end{tabular} \\
+		\rowcolor[HTML]{FFFFFF} 
+		fadiga               & float & \begin{tabular}[c]{@{}l@{}}{[}0, 1{]}\\  condiciona a velocidade a que se move\end{tabular}            \\
+		\rowcolor[HTML]{FFFFFF} 
+		estado de pânico     & float & \begin{tabular}[c]{@{}l@{}}{[}0,1{]}\\ condiciona a velocidade a que se move\end{tabular}                                                   \\
+		\rowcolor[HTML]{FFFFFF} 
+		velocidade inicial   & float & condicionada pelo género e pela idade                                                                                                         \\
+		\rowcolor[HTML]{FFFFFF} 
+		velocidade máxima    & float & condicionada pelo género e pela idade                                                                                                        
+	\end{tabular}
+
+\end{table}
+
+
+\subsection{Interações}
+
+Com vista a simular de forma mais fidedigna as condições de uma evacuação de emergência, prevê-se a implementação das seguintes interações entre agentes:
+
+\begin{itemize}
+	
+\item Empurrar;
+	
+Uma pessoa em pânico pode empurrar uma outra no seu caminho, derrubando-a. Uma
+pessoa que seja derrubada verá a sua integridade física e, consequentemente, a sua mobilidade, reduzidas.
+
+\item Ajudar;
+
+	Uma pessoa pode ajudar outra, guiando-a até à saída, caso em que a mobilidade da pessoa altruísta fica diminuída (cansa-se mais rapidamente).
+
+\item Gritar.
+	O facto de uma pessoa gritar pode aumentar o estado de pânico das pessoas em redor.
+\end{itemize}
+
+Além destas interações, deverá ser implementado outro tipo de interação, por modo a permitir a troca de informações entre as pessoas - nomeadamente, no que respeita à localização das saídas.
+
+\subsection{Planeamento}
+Para a implementação, definiram-se as seguintes etapas:
+\begin{enumerate}
+	\item Especificação e planeamento;
+	\item Implementação de:
+	 \begin{enumerate} 
+	 	\item Agente;
+	 	\item Espaço;
+	 	
+	 	Teste e análise do comportamento de um agente num espaço.
+		\item Interação entre agentes;
+		
+		Teste e análise do comportamento de vários agentes num espaço. 
+	\end{enumerate}
+	\item Exploração de diferentes cenários e recolha e avaliação de métricas.
+\end{enumerate}
+
+
+\section{Conclusão}
+
+No final, consideram-se atingidos os objetivos definidos para esta primeira fase: foi feita a descrição do projeto e do seu objetivo - desenvolver um programa que permita simular a interação de agentes confinados a um espaço concreto e limitado perante a necessidade de evacuar esse espaço.
+
+Após o estudo de diversas ferramentas, definiu-se a combinação \textit{Repast} e \textit{SAJaS} como a plataforma multiagente a utilizar no processo de  desenvolvimento.
+
+Caracterizaram-se os modelos de agente a implementar e definiram-se as interações entre eles.
+
+Iniciou-se, ainda, a fase de implementação, com uma primeira definição dos agentes e espaço a evacuar.
+
+
+
+\section{Recursos}
+\subsection{Bibliografia}
+[1] Almeida, João; Rosseti, Rosaldo; Coelho, António: \textit{Crowd Simulation Modeling Applied to Emergency and Evacuation Simulations using Multi-Agent Systems}. (2011)
+
+\subsection{Software}
+[1] \textit{Plugin Repast Simphony} para \textit{Eclipse IDE};
+
+[2] \textit{SAJaS}.
+
+\end{titlepage}
+\end{document}

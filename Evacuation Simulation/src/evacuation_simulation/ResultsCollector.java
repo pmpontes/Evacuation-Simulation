@@ -10,8 +10,8 @@ import sajas.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.wrapper.ControllerException;
-import serviceConsumerProviderVis.onto.ContractOutcome;
-import serviceConsumerProviderVis.onto.Results;
+import serviceConsumerProviderVis.onto.EvacueeStats;
+import serviceConsumerProviderVis.onto.EvacueeStats;
 import serviceConsumerProviderVis.onto.ServiceOntology;
 
 import java.util.ArrayList;
@@ -22,15 +22,20 @@ public class ResultsCollector extends Agent {
 
 	private static final long serialVersionUID = 1L;
 	
-	private int nResults;
-	
+	/* Relevant metrics */
+	private int nEvacuees;
+	private int nEvacuated;
+	private int nInjuries;
+	private int nDead;
+
 	private long startTime = System.currentTimeMillis();
 	
-	private Map<Integer,ArrayList<ArrayList<ContractOutcome>>> aggregatedResults = new TreeMap<Integer, ArrayList<ArrayList<ContractOutcome>>>();
+	private ArrayList<EvacueeStats> evacuationResults = new ArrayList<EvacueeStats>();
 	
-	//////////////////////////TO BE CORRECTED, when understood
-	public ResultsCollector() {
-		this.nResults = nResults | 0;
+	
+	public ResultsCollector(int nEvacuees) {
+		this.nEvacuees = nEvacuees;
+		this.nEvacuated = 0;
 	}
 	
 	private Codec codec;
@@ -49,20 +54,18 @@ public class ResultsCollector extends Agent {
 		addBehaviour(new ResultsListener());
 	}
 	
-	protected void printResults() {
+	// TODO
+	protected void calculateResults() {
 		long took = System.currentTimeMillis() - startTime;
-		System.out.println("Took: \t" + took);
 		
-		for(int consumerType : aggregatedResults.keySet()) {
-			ArrayList<ArrayList<ContractOutcome>> resultsForConsumerType = aggregatedResults.get(consumerType);						
-			for(ArrayList<ContractOutcome> contractOutcomes : resultsForConsumerType) {
-				System.out.print(consumerType);
-				for(ContractOutcome contractOutcome : contractOutcomes) {
-					System.out.print("\t" + contractOutcome.getValue());
-				}
-				System.out.println();
-			}
-		}
+		
+	}
+	
+	// TODO
+	protected void printResults() {
+		System.out.println("Took: \t");
+		
+		
 		
 	}
 
@@ -80,22 +83,20 @@ public class ResultsCollector extends Agent {
 		public void action() {
 			
 			ACLMessage inform = myAgent.receive(template);
+			
 			if(inform != null) {
-				Results results = null;
+				EvacueeStats result = null;
 				try {
-					results = (Results) getContentManager().extractContent(inform);
-					ArrayList<ArrayList<ContractOutcome>> resultsForConsumerType = aggregatedResults.get(results.getProviderFilterSize());
-					if(resultsForConsumerType == null) {
-						resultsForConsumerType = new ArrayList<ArrayList<ContractOutcome>>();
-						aggregatedResults.put(results.getProviderFilterSize(), resultsForConsumerType);
-					}
-					resultsForConsumerType.add(results.getContractOutcomes());
+					result = (EvacueeStats) getContentManager().extractContent(inform);
+					evacuationResults.add(result);
 				} catch (CodecException | OntologyException e) {
 					e.printStackTrace();
 				}
 				
-				if(--nResults == 0) {
-					// output results
+				// when evacuation is complete
+				if(++nEvacuated == nEvacuees) {
+					// calculate and output results
+					calculateResults();			
 					printResults();
 					
 					// shutdown
@@ -108,9 +109,6 @@ public class ResultsCollector extends Agent {
 			} else {
 				block();
 			}
-			
 		}
-		
 	}
-
 }

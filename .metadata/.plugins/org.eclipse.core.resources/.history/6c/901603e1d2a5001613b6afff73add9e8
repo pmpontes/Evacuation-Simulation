@@ -1,0 +1,18 @@
+package serviceConsumerProviderVis.onto;
+
+import jade.content.Predicate;
+
+import java.util.ArrayList;
+
+public class EvacueeStats implements Predicate {
+
+	private static final long serialVersionUID = 1L;
+	
+	private int physicalCondition;
+	private long evacuatedAt; 
+	
+	public EvacueeStats(int physicalCondition) {
+		this.physicalCondition = physicalCondition;
+		evacuatedAt = System.currentTimeMillis();
+	}
+}

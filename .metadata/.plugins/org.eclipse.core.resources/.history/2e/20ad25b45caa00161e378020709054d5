@@ -1,0 +1,15 @@
+package evacuation_simulation;
+
+import jade.core.AID;
+import repast.simphony.random.RandomHelper;
+
+public class SecurityOfficer extends IndependentKnowledgeable{
+
+	public SecurityOfficer(AID resultsCollector, Environment environment){
+		super(resultsCollector, environment);
+	}
+	
+	
+	
+	
+}

@@ -23,3 +23,10 @@
 1478612618271	Rename field 'areaKnowledgeable'
 1478612637943	Rename field 'altruistic'
 1478612660537	Rename field 'independent'
+1478619361083	Rename field 'N_MEN'
+1478619574972	Rename field 'N_WOMEN'
+1478619606023	Rename field 'N_CHILDREN'
+1478621531454	Rename type 'ContractOutcome'
+1478621598889	Rename type 'EvacueeStatus'
+1478622169379	Delete element
+1478622196784	Rename type 'Results'

@@ -1,0 +1,20 @@
+package serviceConsumerProviderVis.onto;
+
+import jade.content.Predicate;
+
+import java.util.ArrayList;
+
+public class EvacueeStats implements Predicate {
+
+	private static final long serialVersionUID = 1L;
+	
+	private int mobility;
+
+	public EvacueeStats() {
+	}
+
+	public EvacueeStats(int providerFilterSize, ArrayList<EvacueeStats> contractOutcomes) {
+		this.setProviderFilterSize(providerFilterSize);
+		this.setContractOutcomes(contractOutcomes);
+	}
+}

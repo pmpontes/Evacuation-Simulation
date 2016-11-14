@@ -1,9 +1,0 @@
-package serviceConsumerProviderVis;
-
-public class ProviderBadAgent extends ProviderAgent {
-
-	public ProviderBadAgent() {
-		super(EvacuationSimulationLauncher.FAILURE_PROBABILITY_BAD_PROVIDER);
-	}
-
-}

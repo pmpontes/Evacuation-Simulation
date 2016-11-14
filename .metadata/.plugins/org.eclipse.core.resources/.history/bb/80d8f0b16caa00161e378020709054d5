@@ -1,0 +1,34 @@
+package serviceConsumerProviderVis.onto;
+
+import evacuation_simulation.Gender;
+import jade.content.Predicate;
+
+public class EvacueeStats implements Predicate {
+
+	private static final long serialVersionUID = 1L;
+	
+	private int physicalCondition;
+	private int 
+	
+	private long evacuatedAt; 
+	
+	public EvacueeStats(Gender gender, int age, int areaKnowledge, int altruism, int independence, int fatigue, int mobility, int panic) {
+		
+		this.physicalCondition = mobility;
+		evacuatedAt = System.currentTimeMillis();
+	}
+
+	/**
+	 * @return the physicalCondition
+	 */
+	public int getPhysicalCondition() {
+		return physicalCondition;
+	}
+
+	/**
+	 * @return the evacuatedAt
+	 */
+	public long getEvacuatedAt() {
+		return evacuatedAt;
+	}
+}
