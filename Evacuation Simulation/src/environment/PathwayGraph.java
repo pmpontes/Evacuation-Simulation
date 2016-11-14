@@ -2,7 +2,6 @@ package environment;
 
 import java.util.ArrayList;
 
-import jade.gui.AgentTree.Node;
 
 public class PathwayGraph {
 	
@@ -43,7 +42,7 @@ public class PathwayGraph {
 			for( Node nodeB : nodes ) {
 				if( nodeA != nodeB ) {
 					if( nodeA.getY() < height-1 ){
-						if( ( nodeA.getY() == nodeB.getY() && nodeA == nodeB.getX()+1 ) || ( nodeA.getX() == nodeB.getX() && nodeA.getY() == nodeB.getY()-1 ) ) {
+						if( ( nodeA.getY() == nodeB.getY() && nodeA.getX() == nodeB.getX()+1 ) || ( nodeA.getX() == nodeB.getX() && nodeA.getY() == nodeB.getY()-1 ) ) {
 							nodeA.addNeighbour(nodeB);
 							maxInstanceCounter--;
 						}
