@@ -1,0 +1,20 @@
+package serviceConsumerProviderVis.onto;
+
+import jade.content.AgentAction;
+
+public class DirectionsRequest implements AgentAction {
+	
+	private static final long serialVersionUID = 1L;
+	
+	private int x;
+	private int y;
+
+	public DirectionsRequest() {
+	}
+	
+	public DirectionsRequest(int myX, int myY) {
+		this.x = myX;
+		this.y = myY;
+	}
+
+}

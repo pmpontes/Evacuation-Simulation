@@ -1,0 +1,26 @@
+package serviceConsumerProviderVis.onto;
+
+import jade.content.AgentAction;
+
+public class DirectionsRequest implements AgentAction {
+	
+	private static final long serialVersionUID = 1L;
+	
+	private String myLocation;
+
+	public DirectionsRequest() {
+	}
+	
+	public DirectionsRequest(String myLocation) {
+		this.myLocation = myLocation;
+	}
+
+	public String getServiceName() {
+		return myLocation;
+	}
+
+	public void setServiceName(String myLocation) {
+		this.myLocation = myLocation;
+	}
+
+}

@@ -1,0 +1,12 @@
+package serviceConsumerProviderVis.onto;
+
+import jade.content.AgentAction;
+
+public class HelpConfirmation implements AgentAction {
+	
+	private static final long serialVersionUID = 1L;
+
+	public HelpConfirmation() {
+	}
+
+}

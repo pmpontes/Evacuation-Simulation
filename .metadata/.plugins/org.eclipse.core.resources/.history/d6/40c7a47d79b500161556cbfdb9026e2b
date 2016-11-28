@@ -1,0 +1,31 @@
+package serviceConsumerProviderVis.onto;
+
+import jade.content.AgentAction;
+
+public class DirectionsReply implements AgentAction {
+	
+	private static final long serialVersionUID = 1L;
+	
+	private int knowkledge;
+
+	public DirectionsReply() {
+	}
+	
+	public DirectionsReply(int knowledge) {
+		this.knowkledge = knowledge;
+	}
+
+	/**
+	 * @return the knowkledge
+	 */
+	public int getKnowkledge() {
+		return knowkledge;
+	}
+
+	/**
+	 * @param knowkledge the knowkledge to set
+	 */
+	public void setKnowkledge(int knowkledge) {
+		this.knowkledge = knowkledge;
+	}
+}

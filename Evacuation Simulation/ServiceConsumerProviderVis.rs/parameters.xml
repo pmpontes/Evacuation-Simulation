@@ -3,24 +3,20 @@
 
 	<parameter name="randomSeed" displayName="Default Random Seed" type="int" defaultValue="__NULL__" />
 
-	<parameter name="N" displayName="N"
+	<parameter name="N_KNOWLEDGEABLE" displayName="N_KNOWLEDGEABLE"
 		type="int" defaultValue="10" isReadOnly="false"
 		converter="repast.simphony.parameter.StringConverterFactory$IntConverter" />
 
-	<parameter name="N_CONSUMERS" displayName="N_CONSUMERS"
-		type="int" defaultValue="10" isReadOnly="false"
+	<parameter name="N_INDEPENDENT" displayName="N_INDEPENDENT"
+		type="int" defaultValue="30" isReadOnly="false"
 		converter="repast.simphony.parameter.StringConverterFactory$IntConverter" />
 
-	<parameter name="FILTER_SIZE" displayName="FILTER_SIZE"
-		type="int" defaultValue="5" isReadOnly="false"
+	<parameter name="N_INDEPENDENT_KNOWLEDGEABLE" displayName="N_INDEPENDENT_KNOWLEDGEABLE"
+		type="int" defaultValue="20" isReadOnly="false"
 		converter="repast.simphony.parameter.StringConverterFactory$IntConverter" />
 
-	<parameter name="FAILURE_PROBABILITY_GOOD_PROVIDER" displayName="FAILURE_PROBABILITY_GOOD_PROVIDER"
-		type="double" defaultValue="0.2" isReadOnly="false"
-		converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter" />
-
-	<parameter name="FAILURE_PROBABILITY_BAD_PROVIDER" displayName="FAILURE_PROBABILITY_GOOD_PROVIDER"
-		type="double" defaultValue="0.8" isReadOnly="false"
+	<parameter name="N_DEPENDENT_UNKNOWLEDGEABLE" displayName="N_DEPENDENT_UNKNOWLEDGEABLE"
+		type="int" defaultValue="20" isReadOnly="false"
 		converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter" />
 
 </parameters>

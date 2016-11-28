@@ -8,6 +8,382 @@
 	<description>Planet Eclipse - http://planeteclipse.org/planet/</description>
 
 <item>
+	<title>Tom Schindl: Improving Min/Max performance in “e4-on-JavaFX” applications</title>
+	<guid isPermaLink="false">http://tomsondev.bestsolution.at/?p=4867</guid>
+	<link>https://tomsondev.bestsolution.at/2016/11/25/improving-minmax-performance-in-e4-on-javafx-applications/</link>
+	<description>&lt;p&gt;When it comes to performance in JavaFX one of the biggest problems is that if you detach and reattach a big SceneGraph-Part you run:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;CSS-Pass&lt;/li&gt;
+&lt;li&gt;Layout-Pass&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;So in general one should avoid those operations as much as possible but there are situations you can’t get something implemented without doing exactly this kind of thing.&lt;/p&gt;
+&lt;p&gt;In the &lt;strong&gt;current architecture&lt;/strong&gt; of e(fx)clipse we need to use this reparenting in case of minimizing/maximizing certain areas of your &lt;a href=&quot;https://wiki.eclipse.org/Efxclipse/Runtime/e4&quot;&gt;e4-on-JavaFX application&lt;/a&gt; which might lead to a very poor user experience if you eg have a &lt;code&gt;MPartStack&lt;/code&gt; with many complex substructures (like eg our &lt;a href=&quot;https://wiki.eclipse.org/Efxclipse/SmartCode&quot;&gt;code editor&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;Today we took a closer look for one of our customers to find out if we – the e(fx)clipse – framework can do anything to fix that problem and after some experiments we managed to come up with a solution who allows us to reparent the content of an &lt;code&gt;MPartStack&lt;/code&gt; in constant time:&lt;/p&gt;
+&lt;div class=&quot;jetpack-video-wrapper&quot;&gt;&lt;/div&gt;
+&lt;p&gt;In general I’d say that such optimization should not be required and JavaFX CSS and Layout performance HAS to be improved in general and JavaFX-Components have to get smarter in not running CSS-Passes on SG-Parts who are currently not showing.&lt;/p&gt;&lt;br /&gt;  &lt;a href=&quot;http://feeds.wordpress.com/1.0/gocomments/tomsondev.wordpress.com/4867/&quot; rel=&quot;nofollow&quot;&gt;&lt;img alt=&quot;&quot; border=&quot;0&quot; src=&quot;http://feeds.wordpress.com/1.0/comments/tomsondev.wordpress.com/4867/&quot; /&gt;&lt;/a&gt; &lt;img alt=&quot;&quot; border=&quot;0&quot; height=&quot;1&quot; src=&quot;https://pixel.wp.com/b.gif?host=tomsondev.bestsolution.at&amp;amp;blog=7995503&amp;amp;post=4867&amp;amp;subd=tomsondev&amp;amp;ref=&amp;amp;feed=1&quot; width=&quot;1&quot; /&gt;</description>
+	<pubDate>Fri, 25 Nov 2016 20:00:10 +0000</pubDate>
+</item>
+<item>
+	<title>Tom Schindl: New SashLayout container has landed in e(fx)clipse</title>
+	<guid isPermaLink="false">http://tomsondev.bestsolution.at/?p=4862</guid>
+	<link>https://tomsondev.bestsolution.at/2016/11/25/new-sashlayout-container-has-landed-in-efxclipse/</link>
+	<description>&lt;p&gt;I just pushed a new layout-container who has a similar feature set than the JavaFX built-in &lt;code&gt;SplitPane&lt;/code&gt; but ensures that proportions are not corrupted if you shrink the container (just watch the video below to get an idea what I mean).&lt;/p&gt;
+&lt;div class=&quot;jetpack-video-wrapper&quot;&gt;&lt;/div&gt;
+&lt;p&gt;The layout algorithm is not something I came up myself. I just reworked the one from SWT to be used in JavaFX.&lt;/p&gt;&lt;br /&gt;  &lt;a href=&quot;http://feeds.wordpress.com/1.0/gocomments/tomsondev.wordpress.com/4862/&quot; rel=&quot;nofollow&quot;&gt;&lt;img alt=&quot;&quot; border=&quot;0&quot; src=&quot;http://feeds.wordpress.com/1.0/comments/tomsondev.wordpress.com/4862/&quot; /&gt;&lt;/a&gt; &lt;img alt=&quot;&quot; border=&quot;0&quot; height=&quot;1&quot; src=&quot;https://pixel.wp.com/b.gif?host=tomsondev.bestsolution.at&amp;amp;blog=7995503&amp;amp;post=4862&amp;amp;subd=tomsondev&amp;amp;ref=&amp;amp;feed=1&quot; width=&quot;1&quot; /&gt;</description>
+	<pubDate>Fri, 25 Nov 2016 10:24:58 +0000</pubDate>
+</item>
+<item>
+	<title>Eclipse Announcements: Registration Open | Eclipse Converge</title>
+	<guid isPermaLink="true">http://feedproxy.google.com/~r/eclipse/fnews/~3/l7Os-6Ow1cc/registration-open</guid>
+	<link>http://feedproxy.google.com/~r/eclipse/fnews/~3/l7Os-6Ow1cc/registration-open</link>
+	<description>Discover the newest Eclipse Community event. Join us in San Jose alongside Devoxx US.&lt;img alt=&quot;&quot; height=&quot;1&quot; src=&quot;http://feeds.feedburner.com/~r/eclipse/fnews/~4/l7Os-6Ow1cc&quot; width=&quot;1&quot; /&gt;</description>
+	<pubDate>Fri, 25 Nov 2016 07:30:00 +0000</pubDate>
+</item>
+<item>
+	<title>itemis: Chicken and Pig</title>
+	<guid isPermaLink="true">https://blogs.itemis.com/en/committer-for-xtext</guid>
+	<link>https://blogs.itemis.com/en/committer-for-xtext</link>
+	<description>&lt;p&gt;&lt;strong&gt;Question:&lt;/strong&gt; Concerning a bacon-and-egg breakfast, what's the difference between the role of the chicken and that of the pig?&lt;br /&gt;&lt;strong&gt;Answer:&lt;/strong&gt; The chicken is &lt;em&gt;involved&lt;/em&gt;, but the pig is &lt;em&gt;committed&lt;/em&gt;!&lt;/p&gt; 
+&lt;p&gt;&lt;span&gt;So what does that have to do with my work on &lt;/span&gt;&lt;a href=&quot;https://www.itemis.com/en/xtext/&quot;&gt;Xtext&lt;/a&gt;&lt;span&gt;?&lt;/span&gt;&lt;/p&gt; 
+&lt;div&gt; 
+ &lt;p&gt;Xtext by now has a history reaching over a whole decade. Since its early beginnings I have been using the framework and developed several DSLs for customers with it. I have given trainings, consulting, and professional support. I wrote articles and blog posts and talked on conferences, demo camps and community events about Xtext and solutions created with it.&lt;/p&gt; 
+ &lt;p&gt;Often it was assumed that I was a committer on the Xtext project and people were very confused when I said that I'm not. I was “just” an expert user and active contributor and I was fine with that. I loved working for my customers and was highly dedicated to craft their solutions. Xtext development had a good momentum and I was happy with just applying this wonderful piece of technology.&lt;/p&gt; 
+ &lt;h2&gt;From feeling involved...&lt;/h2&gt; 
+ &lt;p&gt;Recently, my perception has changed a little. While Xtext 2.9 brought a big feature boost (e.g. &lt;a href=&quot;https://eclipse.org/Xtext/releasenotes.html#/releasenotes/2015/11/16/version-2-9-0&quot;&gt;new generator, Web &amp;amp; IDEA support, better Maven &amp;amp; Gradle support etc.&lt;/a&gt;), Xtext 2.10 somehow brought no new prominent features and fewer fixes than the community had expected. For the upcoming 2.11 release the main topics are support of the Language Server Protocol and splitting of Xtext’s single source repository into eight smaller ones.&lt;/p&gt; 
+ &lt;p&gt;While the main intention behind the repository split is further stabilization, Xtext and Xtend still have &lt;a href=&quot;https://bugs.eclipse.org/bugs/buglist.cgi?bug_severity=blocker&amp;amp;bug_severity=critical&amp;amp;bug_severity=major&amp;amp;bug_severity=normal&amp;amp;bug_severity=minor&amp;amp;bug_severity=trivial&amp;amp;bug_status=UNCONFIRMED&amp;amp;bug_status=NEW&amp;amp;bug_status=ASSIGNED&amp;amp;bug_status=REOPENED&amp;amp;classification=Modeling&amp;amp;classification=Tools&amp;amp;columnlist=product%2Ccomponent%2Cassigned_to%2Cbug_status%2Cresolution%2Cshort_desc%2Cchangeddate%2Cstatus_whiteboard%2Ckeywords&amp;amp;known_name=Open%20Xtext%20Bugs&amp;amp;list_id=15375808&amp;amp;product=TMF&amp;amp;product=Xtend&amp;amp;query_based_on=Open&quot;&gt;more than 1000 bug reports open&lt;/a&gt;. So there is plenty to do and I felt that I could help the project best by getting involved in this topic. Also, the bugs document how users actually use Xtext and where they have problems. I would like to focus on the users and their needs.&lt;/p&gt; 
+ &lt;p&gt;Therefore I started to contribute to the project more and more actively, hunted and re-tested bugs. Some were not reproducible, some of them I could already fix and others still exist, but at least they are now marked that they have been reproduced currently. For new issues I want to help users to get a more instant feedback and assure that the issues pile does not grow further. For the near future I want to make sure that stabilization does not lead to stagnation and that we do not keep adding technological debt, but will also actively fight against it.&lt;/p&gt; 
+ &lt;h2&gt;&lt;strong&gt;...to being committed&lt;/strong&gt;&lt;/h2&gt; 
+ &lt;p&gt;I really feel &lt;em&gt;committed&lt;/em&gt; to the project now and I am pleased that itemis grants the necessary time for me and my colleagues to keep improving this interesting piece of technology. Therefore I am happy that my colleagues Holger Schill finally proposed me to become committer on the project and that those who voted for me showed that they appreciate my dedication and work. &lt;/p&gt; 
+ &lt;p&gt;Now I plan to intensify my work on Xtext even more and to use my close relation to users to improve their experience with the framework. I am confident that I can bring a different perspective into the project that is adding value to it.&lt;/p&gt; 
+&lt;/div&gt;  
+&lt;img alt=&quot;&quot; height=&quot;1&quot; src=&quot;http://track.hubspot.com/__ptq.gif?a=761475&amp;amp;k=14&amp;amp;r=https%3A%2F%2Fblogs.itemis.com%2Fen%2Fcommitter-for-xtext&amp;amp;bu=https%253A%252F%252Fblogs.itemis.com&amp;amp;bvt=rss&quot; style=&quot;width: 1px!important;&quot; width=&quot;1&quot; /&gt;</description>
+	<pubDate>Thu, 24 Nov 2016 12:00:10 +0000</pubDate>
+	<author>thoms@itemis.de (Karsten Thoms)</author>
+</item>
+<item>
+	<title>Eclipse Announcements: Eclipse Newsletter | Eclipse Loves Science</title>
+	<guid isPermaLink="true">http://feedproxy.google.com/~r/eclipse/fnews/~3/X3TZFw0f4IA/</guid>
+	<link>http://feedproxy.google.com/~r/eclipse/fnews/~3/X3TZFw0f4IA/</link>
+	<description>Let's science the sh*t out of this month's newsletter!&lt;img alt=&quot;&quot; height=&quot;1&quot; src=&quot;http://feeds.feedburner.com/~r/eclipse/fnews/~4/X3TZFw0f4IA&quot; width=&quot;1&quot; /&gt;</description>
+	<pubDate>Thu, 24 Nov 2016 11:08:00 +0000</pubDate>
+</item>
+<item>
+	<title>Eclipse Announcements: Open IoT Challenge 3.0 | Extended Deadline</title>
+	<guid isPermaLink="true">http://feedproxy.google.com/~r/eclipse/fnews/~3/o2pUQkECX-8/</guid>
+	<link>http://feedproxy.google.com/~r/eclipse/fnews/~3/o2pUQkECX-8/</link>
+	<description>The submission deadline for the Open IoT Challenge 3.0 has been extended to November 30 @ 11:59 PM PT.&lt;img alt=&quot;&quot; height=&quot;1&quot; src=&quot;http://feeds.feedburner.com/~r/eclipse/fnews/~4/o2pUQkECX-8&quot; width=&quot;1&quot; /&gt;</description>
+	<pubDate>Thu, 24 Nov 2016 06:12:00 +0000</pubDate>
+</item>
+<item>
+	<title>JBoss Tools Team: Production BRMS and Fuse Tooling for Neon</title>
+	<guid isPermaLink="true">http://tools.jboss.org/blog/integration-stack-4.4.0.Final.html</guid>
+	<link>http://tools.jboss.org/blog/integration-stack-4.4.0.Final.html</link>
+	<description>&lt;div&gt;&lt;div id=&quot;preamble&quot;&gt;
+      &lt;div class=&quot;sectionbody&quot;&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;&lt;strong&gt;Try our complete Eclipse-Neon capable, Devstudio 10.1.0 compatible integration tooling.&lt;/strong&gt;&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;imageblock&quot;&gt;
+      &lt;div class=&quot;content&quot;&gt;
+      &lt;img alt=&quot;jbosstools jbdevstudio blog header&quot; src=&quot;http://tools.jboss.org/blog/images/jbosstools-jbdevstudio-blog-header.png&quot; /&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;&lt;strong&gt;JBoss Tools Integration Stack 4.4.0.Final / JBoss Developer Studio Integration Stack 10.0.0.GA&lt;/strong&gt;&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;admonitionblock note&quot;&gt;
+      &lt;table&gt;
+      &lt;tbody&gt;&lt;tr&gt;
+      &lt;td class=&quot;icon&quot;&gt;
+      &lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
+      &lt;/td&gt;
+      &lt;td class=&quot;content&quot;&gt;
+      All of the Integratioon Stack components have been verified to work with the same dependencies as JBoss Tools 4.4 and Developer Studio 10.
+      &lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;/tbody&gt;&lt;/table&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;sect1&quot;&gt;
+      &lt;h2 id=&quot;what-s-new-for-this-release&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;http://tools.jboss.org/blog/news.atom#what-s-new-for-this-release&quot;&gt;&lt;/a&gt;What’s new for this release?&lt;/h2&gt;
+      &lt;div class=&quot;sectionbody&quot;&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Fuse Tooling/SwitchYard and BRMS Tooling are released for the Eclipse/Neon platform (&lt;a href=&quot;http://localhost:4242/downloads/devstudio/neon/10.1.0.GA.html#central&quot;&gt;Devstudio 10.1.0&lt;/a&gt;).  The latest &lt;a href=&quot;http://access.redhat.com/documentation/en/red-hat-jboss-fuse/6.3/&quot;&gt;Fuse runtime&lt;/a&gt; and &lt;a href=&quot;http://developers.redhat.com/products/brms/download/&quot;&gt;BRMS runtime&lt;/a&gt; are supported.  Also - we’re happy to offer the latest Mars-based DataVirtualization bits as Early Access on our Neon platform.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;sect2&quot;&gt;
+      &lt;h3 id=&quot;released-tooling-highlights&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;http://tools.jboss.org/blog/news.atom#released-tooling-highlights&quot;&gt;&lt;/a&gt;Released Tooling Highlights&lt;/h3&gt;
+      &lt;div class=&quot;sect3&quot;&gt;
+      &lt;h4 id=&quot;jboss-fuse-development-highlights&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;http://tools.jboss.org/blog/news.atom#jboss-fuse-development-highlights&quot;&gt;&lt;/a&gt;JBoss Fuse Development Highlights&lt;/h4&gt;
+      &lt;div class=&quot;sect4&quot;&gt;
+      &lt;h5 id=&quot;fuse-tooling-highlights&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;http://tools.jboss.org/blog/news.atom#fuse-tooling-highlights&quot;&gt;&lt;/a&gt;Fuse Tooling Highlights&lt;/h5&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;See the &lt;a href=&quot;https://access.redhat.com/documentation/en/red-hat-jboss-developer-studio-integration-stack/10.0/paged/1000ga-release-notes-and-known-issues/chapter-4-resolved-issues&quot;&gt;Fuse Tooling 9.0.0.Final Resolved Issues Section&lt;/a&gt; of the Integration Stack 10.0.0.GA release notes.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;sect4&quot;&gt;
+      &lt;h5 id=&quot;switchyard-highlights&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;http://tools.jboss.org/blog/news.atom#switchyard-highlights&quot;&gt;&lt;/a&gt;SwitchYard Highlights&lt;/h5&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;See the &lt;a href=&quot;https://access.redhat.com/documentation/en/red-hat-jboss-developer-studio-integration-stack/10.0/paged/1000ga-release-notes-and-known-issues/chapter-4-resolved-issues&quot;&gt;SwitchYard 2.2.0.Final Resolved Issues Section&lt;/a&gt; of the Integration Stack 10.0.0.GA release notes.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;sect3&quot;&gt;
+      &lt;h4 id=&quot;jboss-business-process-and-rules-development&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;http://tools.jboss.org/blog/news.atom#jboss-business-process-and-rules-development&quot;&gt;&lt;/a&gt;JBoss Business Process and Rules Development&lt;/h4&gt;
+      &lt;div class=&quot;sect4&quot;&gt;
+      &lt;h5 id=&quot;bpmn2-modeler-highlights&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;http://tools.jboss.org/blog/news.atom#bpmn2-modeler-highlights&quot;&gt;&lt;/a&gt;BPMN2 Modeler Highlights&lt;/h5&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;See the &lt;a href=&quot;https://access.redhat.com/documentation/en/red-hat-jboss-developer-studio-integration-stack/10.0/paged/1000ga-release-notes-and-known-issues/chapter-4-resolved-issues&quot;&gt;BPMN2 1.3.2.Final Resolved Issues Section&lt;/a&gt; of the Integration Stack 10.0.0.GA release notes.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;sect4&quot;&gt;
+      &lt;h5 id=&quot;drools-jbpm6-highlights&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;http://tools.jboss.org/blog/news.atom#drools-jbpm6-highlights&quot;&gt;&lt;/a&gt;Drools/jBPM6 Highlights&lt;/h5&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;See the &lt;a href=&quot;https://access.redhat.com/documentation/en/red-hat-jboss-developer-studio-integration-stack/10.0/paged/1000ga-release-notes-and-known-issues/chapter-4-resolved-issuesl&quot;&gt;Drools 6.5.1.Final Resolved Issues Section&lt;/a&gt;&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;sect2&quot;&gt;
+      &lt;h3 id=&quot;early-access-technical-preview-tooling-highlights&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;http://tools.jboss.org/blog/news.atom#early-access-technical-preview-tooling-highlights&quot;&gt;&lt;/a&gt;Early Access/ Technical Preview Tooling Highlights&lt;/h3&gt;
+      &lt;div class=&quot;sect3&quot;&gt;
+      &lt;h4 id=&quot;data-virtualization-highlights&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;http://tools.jboss.org/blog/news.atom#data-virtualization-highlights&quot;&gt;&lt;/a&gt;Data Virtualization Highlights&lt;/h4&gt;
+      &lt;div class=&quot;sect4&quot;&gt;
+      &lt;h5 id=&quot;teiid-designer-highlights&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;http://tools.jboss.org/blog/news.atom#teiid-designer-highlights&quot;&gt;&lt;/a&gt;Teiid Designer Highlights&lt;/h5&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;See the &lt;a href=&quot;https://access.redhat.com/documentation/en/red-hat-jboss-developer-studio-integration-stack/10.0/paged/1000ga-release-notes-and-known-issues/chapter-4-resolved-issues&quot;&gt;Teiid Designer 10.0.2.Final Release Notes&lt;/a&gt;&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;sect1&quot;&gt;
+      &lt;h2 id=&quot;what-s-an-integration-stack&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;http://tools.jboss.org/blog/news.atom#what-s-an-integration-stack&quot;&gt;&lt;/a&gt;What’s an Integration Stack?&lt;/h2&gt;
+      &lt;div class=&quot;sectionbody&quot;&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Red Hat JBoss Developer Studio Integration Stack is a set of Eclipse-based development tools. It further enhances the IDE functionality provided by JBoss Developer Studio, with plug-ins specifically for use when developing for other Red Hat JBoss products.  It’s where the Fuse Tooling, DataVirt Tooling and BRMS tooling is aggregated.  The following frameworks are supported:&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;sect2&quot;&gt;
+      &lt;h3 id=&quot;jboss-fuse-development&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;http://tools.jboss.org/blog/news.atom#jboss-fuse-development&quot;&gt;&lt;/a&gt;JBoss Fuse Development&lt;/h3&gt;
+      &lt;div class=&quot;ulist&quot;&gt;
+      &lt;ul&gt;
+      &lt;li&gt;
+      &lt;p&gt;&lt;a href=&quot;http://tools.jboss.org/features/apachecamel.html&quot;&gt;Fuse Tooling&lt;/a&gt; - JBoss Fuse Development provides tooling for Red Hat JBoss Fuse.  It features the latest versions of the Fuse Data Transformation tooling, SwitchYard and access to the Fuse SAP Tool Suite.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+      &lt;p&gt;&lt;a href=&quot;http://tools.jboss.org/features/switchyard.html&quot;&gt;SwitchYard&lt;/a&gt; - A lightweight service delivery framework providing full lifecycle support for developing, deploying, and managing service-oriented applications.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;sect2&quot;&gt;
+      &lt;h3 id=&quot;jboss-business-process-and-rules-development-2&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;http://tools.jboss.org/blog/news.atom#jboss-business-process-and-rules-development-2&quot;&gt;&lt;/a&gt;JBoss Business Process and Rules Development&lt;/h3&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;JBoss Business Process and Rules Development plug-ins provide design, debug and testing tooling for developing business processes for Red Hat JBoss BRMS and Red Hat JBoss BPM Suite.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;ulist&quot;&gt;
+      &lt;ul&gt;
+      &lt;li&gt;
+      &lt;p&gt;&lt;a href=&quot;http://tools.jboss.org/features/bpel.html&quot;&gt;BPEL Designer&lt;/a&gt; - Orchestrating your business processes.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+      &lt;p&gt;&lt;a href=&quot;http://tools.jboss.org/features/bpmn2.html&quot;&gt;BPMN2 Modeler&lt;/a&gt; - A graphical modeling tool which allows creation and editing of Business Process Modeling Notation diagrams using graphiti.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+      &lt;p&gt;&lt;a href=&quot;http://tools.jboss.org/features/drools.html&quot;&gt;Drools&lt;/a&gt; - A Business Logic integration Platform which provides a unified and integrated platform for Rules, Workflow and Event Processing including KIE.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+      &lt;p&gt;&lt;a href=&quot;http://tools.jboss.org/features/jbpm.html&quot;&gt;jBPM6&lt;/a&gt; - A flexible Business Process Management (BPM) suite.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;sect2&quot;&gt;
+      &lt;h3 id=&quot;jboss-data-virtualization-development&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;http://tools.jboss.org/blog/news.atom#jboss-data-virtualization-development&quot;&gt;&lt;/a&gt;JBoss Data Virtualization Development&lt;/h3&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;JBoss Data Virtualization Development plug-ins provide a graphical interface to manage various aspects of Red Hat JBoss Data Virtualization instances, including the ability to design virtual databases and interact with associated governance repositories.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;ulist&quot;&gt;
+      &lt;ul&gt;
+      &lt;li&gt;
+      &lt;p&gt;&lt;a href=&quot;http://tools.jboss.org/features/teiiddesigner.html&quot;&gt;Teiid Designer&lt;/a&gt; - A visual tool that enables rapid, model-driven definition, integration, management and testing of data services without programming using the Teiid runtime framework.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;sect2&quot;&gt;
+      &lt;h3 id=&quot;jboss-integration-and-soa-development&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;http://tools.jboss.org/blog/news.atom#jboss-integration-and-soa-development&quot;&gt;&lt;/a&gt;JBoss Integration and SOA Development&lt;/h3&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;JBoss Integration and SOA Development plug-ins provide tooling for developing, configuring and deploying BRMS, SwitchYard and Fuse applications to Red Hat JBoss Fuse and Fuse Fabric containers, Apache ServiceMix, and Apache Karaf instances.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;ulist&quot;&gt;
+      &lt;ul&gt;
+      &lt;li&gt;
+      &lt;p&gt;All of the Business Process and Rules Development plugins, plus…​&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+      &lt;p&gt;&lt;a href=&quot;http://tools.jboss.org/features/apachecamel.html&quot;&gt;Fuse Apache Camel Tooling&lt;/a&gt; - A graphical tool for integrating software components that works with Apache ServiceMix, Apache ActiveMQ, Apache Camel and the FuseSource distributions.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+      &lt;p&gt;&lt;a href=&quot;http://tools.jboss.org/features/switchyard.html&quot;&gt;SwitchYard&lt;/a&gt; - A lightweight service delivery framework providing full lifecycle support for developing, deploying, and managing service-oriented applications.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;sect2&quot;&gt;
+      &lt;h3 id=&quot;the-jboss-tools-website-features-tab&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;http://tools.jboss.org/blog/news.atom#the-jboss-tools-website-features-tab&quot;&gt;&lt;/a&gt;The JBoss Tools website features tab&lt;/h3&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Don’t miss the &lt;a href=&quot;http://tools.jboss.org/features&quot;&gt;Features tab&lt;/a&gt; for up to date information on your favorite Integration Stack components.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;sect1&quot;&gt;
+      &lt;h2 id=&quot;installation&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;http://tools.jboss.org/blog/news.atom#installation&quot;&gt;&lt;/a&gt;Installation&lt;/h2&gt;
+      &lt;div class=&quot;sectionbody&quot;&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;The easiest way to install the Integration Stack components is through the &lt;a href=&quot;http://developers.redhat.com/download-manager/file/devstudio-integration-stack-10.0.0.GA-standalone-installer.jar&quot;&gt;stand-alone installer&lt;/a&gt;.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;For a complete set of Integration Stack installation instructions, see &lt;a href=&quot;https://access.redhat.com/documentation/en/red-hat-jboss-developer-studio-integration-stack/10.0/paged/installation-guide/&quot;&gt;Integration Stack Installation Instructions&lt;/a&gt;&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;&lt;em&gt;Give it a try!&lt;/em&gt;&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Paul Leacu.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;&lt;/div&gt;</description>
+	<pubDate>Fri, 18 Nov 2016 08:20:22 +0000</pubDate>
+</item>
+<item>
+	<title>InfoQ Eclipse feed: Eclipse Che 5.0 Brings Docker Compose Support, Workspace Agents, and More</title>
+	<guid isPermaLink="true">http://www.infoq.com/news/2016/11/eclipse-che-50-announced?utm_campaign=infoq_content&amp;utm_source=infoq&amp;utm_medium=feed&amp;utm_term=Eclipse</guid>
+	<link>http://www.infoq.com/news/2016/11/eclipse-che-50-announced?utm_campaign=infoq_content&amp;utm_source=infoq&amp;utm_medium=feed&amp;utm_term=Eclipse</link>
+	<description>&lt;img src=&quot;http://www.infoq.com/styles/i/logo_bigger.jpg&quot; /&gt;&lt;p&gt;At the first CheConf16, a virtual user conference dedicated to Eclipse Che, a containerized portable development workspace, Codenvy CEO and Che project leader Tyler Jewell announced Eclipse Che 5.0. Expected to be released before the end of the year, it will introduce support for Docker Compose, Workspace Agents, and more.
+&lt;/p&gt; &lt;i&gt;By Sergio De Simone&lt;/i&gt;</description>
+	<pubDate>Wed, 16 Nov 2016 22:00:00 +0000</pubDate>
+</item>
+<item>
+	<title>itemis: itemis goes EclipseCon Europe 2016</title>
+	<guid isPermaLink="true">https://blogs.itemis.com/de/itemis-goes-eclipsecon-2016</guid>
+	<link>https://blogs.itemis.com/de/itemis-goes-eclipsecon-2016</link>
+	<description>&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Vom 25. - 27. Oktober fand die &lt;/span&gt;&lt;a href=&quot;https://www.eclipsecon.org/europe2016/&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;EclipseCon Europe 2016&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt; in Ludwigsburg statt – und itemis war natürlich wieder mit dabei.&lt;/span&gt;&lt;/p&gt;  
+&lt;h2&gt;Eclipse Scout startete schon am Sonntag&lt;/h2&gt; 
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Im Vorfeld der EclipseCon hat sich die &lt;a href=&quot;http://www.eclipse.org/scout/&quot;&gt;Eclipse Scout&lt;/a&gt; Community bereits am Sonntag getroffen&lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;. Die Community ist noch recht klein, so dass ich gerne die Gelegenheit genutzt habe, mich montags auf der Unconference am Scout User Day zu beteiligen. Auch andere itemis-Kollegen&lt;span&gt;, wie etwa Andreas Graf oder Klaus Birken,&lt;/span&gt; waren auf der Unconference in weiteren Arbeitskreisen vertreten.&lt;br /&gt;&lt;/span&gt;&lt;/p&gt; 
+&lt;h2&gt;Von Shuttle Cases über GEF zu Xtext&lt;/h2&gt; 
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Eröffnet wurde die EclipseCon nach den Workshops am Vormittag dann am Dienstag Nachmittag mit der großartigen Keynote &quot;The Shuttle Case&quot; von Stephen Carver&lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;, in der es um die NASA-Katastrophen Challenger und Columbia ging. Die Keynote war äußerst unterhaltsam, lustig aber auch sehr bedrückend – für uns ungeschlagen die beste Keynote, die bisher vorgetragen wurde. &lt;/span&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=AyrRoKN_kvg&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Von der Keynote gibt es einen Mitschnitt von der GOTO Konferenz &lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;aus dem letztem Jahr&lt;/span&gt;&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;, allerdings ohne die gezeigten Videoausschnitte. Alle Links zu den hier erwähnten Keynotes und Vorträgen findet ihr auch am Ende dieses Artikels.&lt;/span&gt;&lt;/p&gt; 
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Thematisch schloss sich die Keynote von Benno Willke am Donnerstag an: In &lt;span style=&quot;font-weight: 400;&quot;&gt;&quot;Observation of Gravitational Waves from Binary Black Hole Mergers – Dawn of a New Astronomy“ berichtete&lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt; er, wie Gravitationswellen einer Kollision zweier Schwarzer Löcher in 1,5 Milliarden Lichtjahren Entfernung auf der Erde gemessen werden konnten und wie die Apparaturen dazu funktionieren.&lt;/span&gt;&lt;/span&gt;&lt;/p&gt; 
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Wir Itemiker waren natürlich auch mit einigen Vorträgen vertreten. Alexander Nyßen eröffnete die itemis-Talks am Dienstag mit seinem Vortrag zu &lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;“GEF (4) – Dot Oh Dot Oh”. &lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Holger Schill und ich hatten am Mittwoch unseren ersten Talk zum Thema &lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;&quot;Recipes to build Code Generators for Non-Xtext Models with Xtend“. &lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt; Im anschließenden Modeling Symposium haben wir gezeigt, &lt;span style=&quot;font-weight: 400;&quot;&gt;wie &lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;man&lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt; für eine Xtext DSL eine Extension für Visual Studio Code generiert&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;. Am Donnerstag ging es zu den Themen&lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt; &lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;&quot;From stairway to heaven onto the highway to hell with Xtext“&lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt; und &lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;&quot;Xtext beyond the defaults – How to tackle performance problems“ weiter. Alle unsere Talks waren gut besucht und wir freuten uns über viel positives Feedback.&lt;/span&gt;&lt;/p&gt; 
+&lt;h2&gt;Keine EclipseCon ohne Party&lt;/h2&gt; 
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Natürlich wurde – gerade am Mittwochabend im Club ECE – auch viel gefeiert und bei dem ein oder anderen Bierchen Networking betrieben. Wie jedes Jahr haben wir viele interessante Kontakte knüpfen können und alte Bekannte wiedergetroffen.&lt;/span&gt;&lt;/p&gt; 
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;&lt;img alt=&quot;EclipseCon2016-itemis-team.jpg&quot; src=&quot;https://blogs.itemis.com/hs-fs/hubfs/blog-files/EclipseCon2016-itemis-team.jpg?t=1480322230558&amp;amp;width=640&amp;amp;name=EclipseCon2016-itemis-team.jpg&quot; style=&quot;width: 640px; display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;640&quot; /&gt;&lt;br /&gt;&lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Mit 619 Teilnehmern hat die EclipseCon 2016 tatsächlich einen Besucherrekord aufgestellt. Dabei war das Verhältnis von Alumni zu Ersttätern etwa 50%. itemis war mit gut 15 Kollegen die stärkste Fraktion auf der Konferenz und als Sponsor mit einem Stand vertreten, an dem wir mit einigen Konferenzteilnehmern interessante Gespräche rund um Xtext, GEF und SmartHome führen konnten. &lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;&lt;span&gt;In Kooperation mit Eclipse &lt;/span&gt;&lt;span&gt;konnten wir zudem zwei Studenten die Möglichkeit geben, am Mittwoch kostenlos an der EclipseCon 2016 teilzunehmen.&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;So konnten sie zum ersten Mal Themen &lt;/span&gt;&lt;span&gt;rund um Eclipse, Xtext, GEF und Co. hautnah erleben und waren begeistert, die Möglichkeit an der Teilnahme bekommen zu haben und sich mit der Community austauschen zu können. Ralph Müller hat sich die Ehre gegeben und die Studenten persönlich durch die Ausstellung begleitet.&lt;br /&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt; 
+&lt;h2&gt;Mehr erfahren?&lt;/h2&gt; 
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Ihr wollt mehr über die Talks und Keynotes erfahren? Wir haben alle wichtigen Links für euch zusammengefasst:&lt;/span&gt;&lt;/p&gt; 
+&lt;ul&gt; 
+ &lt;li&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Stephen Carver: &lt;span style=&quot;font-weight: 400;&quot;&gt;&lt;a href=&quot;https://www.eclipsecon.org/europe2016/session/shuttle-case&quot;&gt;„The Shuttle Case&lt;/a&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;/li&gt; 
+ &lt;li&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Alexander Nyßen: &lt;a href=&quot;https://www.eclipsecon.org/europe2016/session/gef4-dot-oh-dot-oh&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;“GEF (4) – Dot Oh Dot Oh”&lt;/span&gt;&lt;/a&gt;&lt;/span&gt;&lt;/li&gt; 
+ &lt;li&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Karsten Thomas und Holger Schill: &lt;a href=&quot;http://www.slideshare.net/kthoms/recipes-to-build-code-generators-for-nonxtext-models-with-xtend&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;&quot;Recipes to build Code Generators for Non-Xtext Models with Xtend“&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt; &lt;/span&gt;&lt;/span&gt;&lt;/li&gt; 
+ &lt;li&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Karsten Thoms und Holger Schill: &lt;/span&gt;&lt;a href=&quot;http://www.slideshare.net/kthoms/generating-visual-studio-code-extensions-for-xtext-dsls&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Beitrag im Modeling Symposium&lt;/span&gt;&lt;/a&gt;&lt;/span&gt;&lt;/li&gt; 
+ &lt;li&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Benno Wilke: &lt;a href=&quot;https://www.eclipsecon.org/europe2016/session/observation-gravitational-waves-binary-black-hole-mergers-dawn-new-astronomy&quot;&gt;&quot;Observation of Gravitational Waves from Binary Black Hole Mergers - Dawn of a New Astronomy“&lt;/a&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/li&gt; 
+ &lt;li&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Karsten Thoms: &lt;a href=&quot;http://www.slideshare.net/kthoms/from-stairway-to-heaven-onto-the-highway-to-hell-with-xtext&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;&quot;From stairway to heaven onto the highway to hell with Xtext“&lt;/span&gt;&lt;/a&gt;&lt;/span&gt;&lt;/span&gt;&lt;/li&gt; 
+ &lt;li&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Holger Schill: &lt;a href=&quot;http://www.slideshare.net/holgerschill/xtext-beyond-the-defaults-how-to-tackle-performance-problems&quot;&gt;&quot;Xtext beyond the defaults – How to tackle performance problems“&lt;/a&gt;&lt;/span&gt;&lt;/span&gt;&lt;/li&gt; 
+&lt;/ul&gt;  
+&lt;img alt=&quot;&quot; height=&quot;1&quot; src=&quot;http://track.hubspot.com/__ptq.gif?a=761475&amp;amp;k=14&amp;amp;r=https%3A%2F%2Fblogs.itemis.com%2Fde%2Fitemis-goes-eclipsecon-2016&amp;amp;bu=https%253A%252F%252Fblogs.itemis.com&amp;amp;bvt=rss&quot; style=&quot;width: 1px!important;&quot; width=&quot;1&quot; /&gt;</description>
+	<pubDate>Wed, 16 Nov 2016 15:22:00 +0000</pubDate>
+	<author>thoms@itemis.de (Karsten Thoms)</author>
+</item>
+<item>
+	<title>PapyrusUML: Papyrus-RT v 0.8.0</title>
+	<guid isPermaLink="false">http://papyrusuml.wordpress.com/?p=286</guid>
+	<link>https://papyrusuml.wordpress.com/2016/11/16/papyrus-rt-v-0-8-0/</link>
+	<description>&lt;p&gt;Good news!&lt;/p&gt;
+&lt;p&gt;A new version of &lt;strong&gt;Me for Real Time&lt;/strong&gt; is now available!&lt;/p&gt;
+&lt;p&gt;Papyrus-RT 0.8.0 (on Neon no less) is now available for download!&lt;/p&gt;
+&lt;p&gt;There are many ways for you to enjoy the goodness of this new release, and all can be accessed on the &lt;a href=&quot;https://eclipse.org/papyrus-rt/content/download.php&quot;&gt;Papyrus-RT Download page&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Have the multiple installation option made your head spin?  Are you wondering which installation approach is best for you? Don’t worry, we have a &lt;a href=&quot;https://wiki.eclipse.org/Papyrus-RT/User_Guide/Which_installation_for_me&quot;&gt;page on our wiki that explains the various installation methods&lt;/a&gt; to help you make an informed choice!&lt;/p&gt;
+&lt;p&gt;Wondering what’s in the release? Just consult the &lt;a href=&quot;https://wiki.eclipse.org/Papyrus-RT/Releases/Neon_v0.8_Release_Notes&quot;&gt;0.8.0 release notes&lt;/a&gt;!&lt;/p&gt;
+&lt;p&gt;As for what’s coming, you can see that in the &lt;a href=&quot;https://wiki.eclipse.org/Papyrus-RT/Releases#MVP2_.2F_0.9_.281.0_candidate.29_-_Better_behave.21&quot;&gt;next release’s definition&lt;/a&gt;!&lt;/p&gt;
+&lt;p&gt;Enjoy!&lt;/p&gt;&lt;br /&gt;Filed under: &lt;a href=&quot;https://papyrusuml.wordpress.com/category/papyrus-rt/&quot;&gt;Papyrus-RT&lt;/a&gt;, &lt;a href=&quot;https://papyrusuml.wordpress.com/category/uml-rt/&quot;&gt;UML-RT&lt;/a&gt;, &lt;a href=&quot;https://papyrusuml.wordpress.com/category/uncategorized/&quot;&gt;Uncategorized&lt;/a&gt; Tagged: &lt;a href=&quot;https://papyrusuml.wordpress.com/tag/modeling/&quot;&gt;modeling&lt;/a&gt;, &lt;a href=&quot;https://papyrusuml.wordpress.com/tag/new/&quot;&gt;New&lt;/a&gt;, &lt;a href=&quot;https://papyrusuml.wordpress.com/tag/release/&quot;&gt;release&lt;/a&gt; &lt;a href=&quot;http://feeds.wordpress.com/1.0/gocomments/papyrusuml.wordpress.com/286/&quot; rel=&quot;nofollow&quot;&gt;&lt;img alt=&quot;&quot; border=&quot;0&quot; src=&quot;http://feeds.wordpress.com/1.0/comments/papyrusuml.wordpress.com/286/&quot; /&gt;&lt;/a&gt; &lt;a href=&quot;http://feeds.wordpress.com/1.0/godelicious/papyrusuml.wordpress.com/286/&quot; rel=&quot;nofollow&quot;&gt;&lt;img alt=&quot;&quot; border=&quot;0&quot; src=&quot;http://feeds.wordpress.com/1.0/delicious/papyrusuml.wordpress.com/286/&quot; /&gt;&lt;/a&gt; &lt;a href=&quot;http://feeds.wordpress.com/1.0/gofacebook/papyrusuml.wordpress.com/286/&quot; rel=&quot;nofollow&quot;&gt;&lt;img alt=&quot;&quot; border=&quot;0&quot; src=&quot;http://feeds.wordpress.com/1.0/facebook/papyrusuml.wordpress.com/286/&quot; /&gt;&lt;/a&gt; &lt;a href=&quot;http://feeds.wordpress.com/1.0/gotwitter/papyrusuml.wordpress.com/286/&quot; rel=&quot;nofollow&quot;&gt;&lt;img alt=&quot;&quot; border=&quot;0&quot; src=&quot;http://feeds.wordpress.com/1.0/twitter/papyrusuml.wordpress.com/286/&quot; /&gt;&lt;/a&gt; &lt;a href=&quot;http://feeds.wordpress.com/1.0/gostumble/papyrusuml.wordpress.com/286/&quot; rel=&quot;nofollow&quot;&gt;&lt;img alt=&quot;&quot; border=&quot;0&quot; src=&quot;http://feeds.wordpress.com/1.0/stumble/papyrusuml.wordpress.com/286/&quot; /&gt;&lt;/a&gt; &lt;a href=&quot;http://feeds.wordpress.com/1.0/godigg/papyrusuml.wordpress.com/286/&quot; rel=&quot;nofollow&quot;&gt;&lt;img alt=&quot;&quot; border=&quot;0&quot; src=&quot;http://feeds.wordpress.com/1.0/digg/papyrusuml.wordpress.com/286/&quot; /&gt;&lt;/a&gt; &lt;a href=&quot;http://feeds.wordpress.com/1.0/goreddit/papyrusuml.wordpress.com/286/&quot; rel=&quot;nofollow&quot;&gt;&lt;img alt=&quot;&quot; border=&quot;0&quot; src=&quot;http://feeds.wordpress.com/1.0/reddit/papyrusuml.wordpress.com/286/&quot; /&gt;&lt;/a&gt; &lt;img alt=&quot;&quot; border=&quot;0&quot; height=&quot;1&quot; src=&quot;https://pixel.wp.com/b.gif?host=papyrusuml.wordpress.com&amp;amp;blog=72365150&amp;amp;post=286&amp;amp;subd=papyrusuml&amp;amp;ref=&amp;amp;feed=1&quot; width=&quot;1&quot; /&gt;</description>
+	<pubDate>Wed, 16 Nov 2016 09:00:35 +0000</pubDate>
+</item>
+<item>
+	<title>Zoltan Ujhelyi: Naming Maven repositories</title>
+	<guid isPermaLink="false">http://cubussapiens.hu/?p=2901</guid>
+	<link>http://cubussapiens.hu/2016/11/naming-maven-repositories/</link>
+	<description>&lt;p&gt;&lt;strong&gt;Motto:&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote cite=&quot;https://twitter.com/rob_pike/status/447202124753952768&quot;&gt;&lt;p&gt;Caches are bugs waiting to happen. &lt;a href=&quot;https://twitter.com/rob_pike/status/447202124753952768&quot;&gt;Rob Pike&lt;/a&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;The last two days I was hunting an issue in the Maven/Tycho based build of &lt;a href=&quot;http://eclipse.org/viatra&quot;&gt;VIATRA&lt;/a&gt;: some artifacts from Maven Central were not found anymore, seemingly without any related change. A more detailed analysis has shown that the issue is specific to the build server at the Eclipse Foundation: in all other cases the builds run successfully.&lt;/p&gt;
+&lt;p&gt;When looking at the debug output of the build (the -X switch for mvn is truly a killer feature…) it was interesting that the build did not try to download the dependency from Maven Central nor from the mirror set up for builds at the Hudson instance at eclipse. Given that the first twenty-two modules compiled (with dependencies to Maven Central) this made no sense.&lt;/p&gt;
+&lt;p&gt;After managing the sanity loss and calling for help (thanks Ábel and Balázs) we have managed to identify that the settings.xml used on Hudson caused the problem. After calling for &lt;a href=&quot;https://bugs.eclipse.org/bugs/show_bug.cgi?id=507542&quot;&gt;more help&lt;/a&gt; (thanks for the quick help from webmaster) I have finally managed to find out the root cause of the issue: repository identifier clash caused by the maven central mirror and a dependency issue.&lt;/p&gt;
+&lt;p&gt;For performance and network utilization reasons a &lt;a href=&quot;https://bugs.eclipse.org/bugs/show_bug.cgi?id=492412&quot;&gt;mirror for maven central was set up &lt;/a&gt;about a month ago using the following fragment:&lt;/p&gt;
+&lt;pre class=&quot;brush: xml; auto-links: false; highlight: [3]; title: ; notranslate&quot;&gt;&amp;lt;mirrors&amp;gt;
+    &amp;lt;mirror&amp;gt;
+      &amp;lt;id&amp;gt;repo.eclipse.org&amp;lt;/id&amp;gt;
+      &amp;lt;name&amp;gt;Eclipse Central Proxy&amp;lt;/name&amp;gt;
+      &amp;lt;url&amp;gt;https://repo.eclipse.org/content/repositories/maven_central/&amp;lt;/url&amp;gt;
+      &amp;lt;mirrorOf&amp;gt;central&amp;lt;/mirrorOf&amp;gt;
+    &amp;lt;/mirror&amp;gt;
+&amp;lt;/mirrors&amp;gt;
+&lt;/pre&gt;
+&lt;p&gt;Our problematic bundle had a repository declaration as follows:&lt;/p&gt;
+&lt;pre class=&quot;brush: xml; auto-links: false; highlight: [3]; title: ; notranslate&quot;&gt;&amp;lt;repositories&amp;gt;
+    &amp;lt;repository&amp;gt;
+        &amp;lt;id&amp;gt;repo.eclipse.org&amp;lt;/id&amp;gt;
+        &amp;lt;url&amp;gt;https://repo.eclipse.org/content/groups/releases/&amp;lt;/url&amp;gt;
+    &amp;lt;/repository&amp;gt;
+&amp;lt;/repositories&amp;gt;
+&lt;/pre&gt;
+&lt;p&gt;What happened here is that we declared some repositories with the same identifier as the proxy repository declared by webmaster, and Maven got confused, and thought that everything from Central is reachable from our declared dependency repository. &lt;a href=&quot;http://git.eclipse.org/c/viatra/org.eclipse.viatra.git/diff/releng/org.eclipse.viatra.parent/pom.xml?id=d23e91a3cc44dc52a98f295d27a6083bef8cb435&quot;&gt;Changing the identifier&lt;/a&gt; to avoid the name clash solved this issue nicely.&lt;/p&gt;
+&lt;p&gt;Now only one question remains: why was this issue not found earlier. The answer is trivial: the plugins were available in the local repository, effectively hiding the unresolvable dependencies. A completely unrelated cleanup of the local repository however has brought forth this issue, causing much headache to find.&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;The main lesson we learned here: &lt;strong&gt;DO NOT&lt;/strong&gt; reuse the same repository identifier for multiple repositories. It can cause very subtle, hard to debug issues in the long run. However, there are a few other aspects you have to keep in mind:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;All repositories and plugin repositories defined in your parent project are also inherited, so their name should also be unique.&lt;/li&gt;
+&lt;li&gt;Identifier clash might not be a problem in case of deployment repositories, but have not tested this aspect yet.&lt;/li&gt;
+&lt;li&gt;A more specific lesson for Eclipse projects building on Foundation Servers: &lt;del&gt;&lt;strong&gt;DO NOT&lt;/strong&gt; use the identifier “&lt;em&gt;repo.eclipse.org&lt;/em&gt;” for your repositories. Maybe it is worth checking whether the identifier is used (e.g. use following &lt;a href=&quot;https://github.com/search?l=Maven+POM&amp;amp;q=org%3Aeclipse+%22%3Cid%3Erepo.eclipse.org%3C%2Fid%3E%22&amp;amp;ref=searchresults&amp;amp;type=Code&amp;amp;utf8=%E2%9C%93&quot;&gt;the github search link &lt;/a&gt;to check projects developed or mirrored to the Eclipse Github organization), and update accordingly.&lt;/del&gt; &lt;strong&gt;Update: &lt;/strong&gt;the mirror repository id &lt;a href=&quot;https://bugs.eclipse.org/bugs/show_bug.cgi?id=507542#c3&quot;&gt;was updated&lt;/a&gt; to “&lt;em&gt;eclipse.maven.central.mirror&lt;/em&gt;” that should not clash with manual repository names.&lt;del&gt;&lt;br /&gt;
+&lt;/del&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+	<pubDate>Tue, 15 Nov 2016 22:14:55 +0000</pubDate>
+</item>
+<item>
+	<title>Geniutec: Java 8 Features Supported by Spring 4</title>
+	<guid isPermaLink="false">https://www.genuitec.com/?p=501467</guid>
+	<link>https://www.genuitec.com/java-8-and-spring-4/</link>
+	<description>&lt;p&gt;Spring Framework 4 supports Java 8 language and API features. In this article, we will focus on the new Java 8 features which are supported in Spring 4. The most important ones are lambda expressions, method references, JSR-310 Date and Time, and Repeatable annotations.Lambda ExpressionsSpring code base uses a lot of functional interfaces and with […]&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://www.genuitec.com/java-8-and-spring-4/&quot; rel=&quot;nofollow&quot;&gt;Java 8 Features Supported by Spring 4&lt;/a&gt; appeared first on &lt;a href=&quot;https://www.genuitec.com&quot; rel=&quot;nofollow&quot;&gt;Genuitec&lt;/a&gt;.&lt;/p&gt;</description>
+	<pubDate>Tue, 15 Nov 2016 19:17:20 +0000</pubDate>
+</item>
+<item>
+	<title>Maximilian and Jonas: Running EMF Client Platform + EMFStore as RAP application on Tomcat</title>
+	<guid isPermaLink="false">http://eclipsesource.com/blogs/?p=26654</guid>
+	<link>http://eclipsesource.com/blogs/2016/11/15/running-emf-client-platform-emfstore-as-rap-application-on-tomcat/</link>
+	<description>&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Building an application to view and edit data is really simple using the &lt;/span&gt;&lt;a href=&quot;https://www.eclipse.org/ecp/&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;EMF Client Platform&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;. This includes form-based editors based on &lt;/span&gt;&lt;a href=&quot;https://www.eclipse.org/ecp/emfforms/&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;EMF Forms&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;. Add &lt;/span&gt;&lt;a href=&quot;https://www.eclipse.org/emfstore/&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;EMFStore&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt; to the mix and you get collaborative editing and versioning. All of this is merely a matter of defining an &lt;/span&gt;&lt;a href=&quot;http://eclipsesource.com/blogs/tutorials/emf-tutorial/&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;EMF model for your data&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;If you want to run all this as a web application, you can use the &lt;/span&gt;&lt;a href=&quot;https://www.eclipse.org/rap/&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Remote Application Framework (RAP)&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;. EMF Client Platform, EMF Forms, and EMFStore support running on RAP without modifications.&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Recently Neil made another very useful contribution – a &lt;a href=&quot;http://eclipsesource.com/blogs/tutorials/how-to-run-ecp-rap-on-tomcat/&quot;&gt;tutorial on how to deploy and run a RAP application&lt;/a&gt; based on EMF Client Platform, EMF Forms and EMFStore on an &lt;/span&gt;&lt;a href=&quot;http://tomcat.apache.org/&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Apache Tomcat&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt; server. &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Sounds interesting to you? Have a look at the brand new tutorial &lt;a href=&quot;http://eclipsesource.com/blogs/tutorials/how-to-run-ecp-rap-on-tomcat/&quot;&gt;available here&lt;/a&gt;.&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;And again, thank you very much, Neil, for all your great contributions!&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;section&gt;
+&lt;div class=&quot;row&quot; style=&quot;padding: 0em;&quot;&gt;
+&lt;div class=&quot;col1&quot;&gt;&lt;a href=&quot;http://eclipsesource.com/blogs/wp-content/uploads/2016/05/neilMackenzie.jpg&quot;&gt;&lt;img alt=&quot;Foto&quot; class=&quot;alignnone size-full wp-image-23584&quot; height=&quot;140&quot; src=&quot;http://eclipsesource.com/blogs/wp-content/uploads/2016/05/neilMackenzie.jpg&quot; width=&quot;140&quot; /&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div class=&quot;col11&quot;&gt;&lt;strong&gt;Guest Blog Post&lt;/strong&gt;&lt;/div&gt;
+&lt;div class=&quot;col11&quot;&gt;Guest Author: Neil Mackenzie&lt;/div&gt;
+&lt;/div&gt;
+&lt;/section&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;&lt;div style=&quot;display: inline-block;&quot;&gt;&lt;a href=&quot;https://twitter.com/intent/tweet?source=webclient&amp;amp;text=Running+EMF+Client+Platform+%2B+EMFStore+as+RAP+application+on+Tomcat&amp;amp;via=eclipsesource&amp;amp;url=http://eclipsesource.com/blogs/2016/11/15/running-emf-client-platform-emfstore-as-rap-application-on-tomcat/&quot; style=&quot;margin-right: 5px;&quot; target=&quot;_blank&quot; title=&quot;Share on Twitter&quot;&gt;&lt;img alt=&quot;Twitter&quot; src=&quot;http://eclipsesource.com/blogs/wp-content/plugins/custom-about-author/images/social_media/twitter.png&quot; title=&quot;Twitter&quot; /&gt;&lt;/a&gt;&lt;a href=&quot;https://plus.google.com/share?url=http://eclipsesource.com/blogs/2016/11/15/running-emf-client-platform-emfstore-as-rap-application-on-tomcat/&quot; style=&quot;margin-right: 5px;&quot; target=&quot;_blank&quot; title=&quot;+1&quot;&gt;&lt;img alt=&quot;Google+&quot; src=&quot;http://eclipsesource.com/blogs/wp-content/plugins/custom-about-author/images/social_media/google_plus.png&quot; title=&quot;Google+&quot; /&gt;&lt;/a&gt;&lt;a href=&quot;http://www.linkedin.com/cws/share?url=http://eclipsesource.com/blogs/2016/11/15/running-emf-client-platform-emfstore-as-rap-application-on-tomcat/&quot; style=&quot;margin-right: 5px;&quot; target=&quot;_blank&quot; title=&quot;Share on LinkedIn&quot;&gt;&lt;img alt=&quot;LinkedIn&quot; src=&quot;http://eclipsesource.com/blogs/wp-content/plugins/custom-about-author/images/social_media/linkedin.png&quot; title=&quot;LinkedIn&quot; /&gt;&lt;/a&gt;&lt;a href=&quot;https://www.facebook.com/sharer/sharer.php?u=http://eclipsesource.com/blogs/2016/11/15/running-emf-client-platform-emfstore-as-rap-application-on-tomcat/&amp;amp;t=Running+EMF+Client+Platform+%2B+EMFStore+as+RAP+application+on+Tomcat&quot; style=&quot;margin-right: 5px;&quot; target=&quot;_blank&quot; title=&quot;Facebook&quot;&gt;&lt;img alt=&quot;Facebook&quot; src=&quot;http://eclipsesource.com/blogs/wp-content/plugins/custom-about-author/images/social_media/facebook.png&quot; title=&quot;Facebook&quot; /&gt;&lt;/a&gt;&lt;/div&gt;&lt;br /&gt;&lt;a href=&quot;http://eclipsesource.com/blogs/2016/11/15/running-emf-client-platform-emfstore-as-rap-application-on-tomcat/#respond&quot;&gt;Leave a Comment&lt;/a&gt;. Tagged with &lt;a href=&quot;http://eclipsesource.com/blogs/tag/ecp/&quot; title=&quot;ecp Tag&quot;&gt;ecp&lt;/a&gt;, &lt;a href=&quot;http://eclipsesource.com/blogs/tag/emf/&quot; title=&quot;emf Tag&quot;&gt;emf&lt;/a&gt;, &lt;a href=&quot;http://eclipsesource.com/blogs/tag/emf-forms/&quot; title=&quot;emf forms Tag&quot;&gt;emf forms&lt;/a&gt;, &lt;a href=&quot;http://eclipsesource.com/blogs/tag/emfstore/&quot; title=&quot;EMFStore Tag&quot;&gt;EMFStore&lt;/a&gt;, &lt;a href=&quot;http://eclipsesource.com/blogs/tag/rap/&quot; title=&quot;rap Tag&quot;&gt;rap&lt;/a&gt;, &lt;a href=&quot;http://eclipsesource.com/blogs/tag/rcp/&quot; title=&quot;rcp Tag&quot;&gt;rcp&lt;/a&gt;, &lt;a href=&quot;http://eclipsesource.com/blogs/tag/tomcat/&quot; title=&quot;tomcat Tag&quot;&gt;tomcat&lt;/a&gt;, &lt;a href=&quot;http://eclipsesource.com/blogs/tag/ecp/&quot; title=&quot;ecp Tag&quot;&gt;ecp&lt;/a&gt;, &lt;a href=&quot;http://eclipsesource.com/blogs/tag/emf/&quot; title=&quot;emf Tag&quot;&gt;emf&lt;/a&gt;, &lt;a href=&quot;http://eclipsesource.com/blogs/tag/emf-forms/&quot; title=&quot;emf forms Tag&quot;&gt;emf forms&lt;/a&gt;, &lt;a href=&quot;http://eclipsesource.com/blogs/tag/emfstore/&quot; title=&quot;EMFStore Tag&quot;&gt;EMFStore&lt;/a&gt;, &lt;a href=&quot;http://eclipsesource.com/blogs/tag/rap/&quot; title=&quot;rap Tag&quot;&gt;rap&lt;/a&gt;, &lt;a href=&quot;http://eclipsesource.com/blogs/tag/rcp/&quot; title=&quot;rcp Tag&quot;&gt;rcp&lt;/a&gt;, &lt;a href=&quot;http://eclipsesource.com/blogs/tag/tomcat/&quot; title=&quot;tomcat Tag&quot;&gt;tomcat&lt;/a&gt;&lt;p&gt;&lt;/p&gt;</description>
+	<pubDate>Tue, 15 Nov 2016 10:48:19 +0000</pubDate>
+</item>
+<item>
+	<title>Mikael Barbero: EclipseConverge 2017 Submissions are open</title>
+	<guid isPermaLink="true">https://mikael-barbero.tumblr.com/post/153209914535</guid>
+	<link>https://mikael-barbero.tumblr.com/post/153209914535</link>
+	<description>&lt;p&gt;The call for papers for &lt;a href=&quot;https://www.eclipseconverge.org/na2017/&quot;&gt;EclipseConverge 2017&lt;/a&gt; is open. It is the first step toward what ought to be another great Eclipse event. For those who may not know, Eclipse Converge is a new event for the Eclipse community. It is a one-day summit dedicated exclusively to Eclipse technologies, with the goal of allowing our North American developer community to meet and share ideas. &lt;/p&gt;&lt;p&gt;As you may know, I am leading the program committee this year as program chair. We worked hard to make the best call for papers we possibly could. We designed the tracks carefully so that anyone near or far from the core Eclipse community will feel welcome to submit a speaking proposal about all the inspiring, innovative and interesting stuff they are doing in or with Eclipse. By the way, you can see us on the &lt;a href=&quot;https://www.eclipseconverge.org/na2017/programcommittee&quot;&gt;PC page&lt;/a&gt; and contact us anytime via &lt;a href=&quot;mailto:speakers@eclipsecon.org&quot;&gt;email&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;This year, we will have four tracks:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Eclipse Platforms &amp;amp; Runtimes&lt;/b&gt;. Eclipse is an IDE and also a host for a lot of great open-source runtime technologies such as Equinox, RAP, RCP, and the Eclipse 4 Application Platform. New technologies from the vibrant Eclipse ecosystem as well as state-of-the-union talks go here.&lt;br /&gt;&lt;/li&gt;&lt;li&gt;&lt;b&gt;Languages &amp;amp; Tools&lt;/b&gt;. There are countless plugins and tools based on Eclipse to support developers in their daily work. Tell us about the best ones built on Eclipse, how you have built them, and/or what technologies they &lt;br /&gt;&lt;/li&gt;&lt;li&gt;&lt;b&gt;Web &amp;amp; Cloud&lt;/b&gt;. If you are implementing Web / JEE applications or want to share your experience with modern web frameworks such as AngularJS, Vaadin, or JSON Forms, your talk goes here. This is also the track for talks about cloud development and operation tools at Eclipse such as Orion, Che, Flux, Dirigible, or other ways to move tooling to the cloud, such as browser-based UIs for developer tools and next-generation &lt;br /&gt;&lt;/li&gt;&lt;li&gt;&lt;b&gt;Other Cool Stuff&lt;/b&gt;. Not everything will fit easily into one of these tracks. If your talk is one that’s hard to categorize, submit it here!&lt;br /&gt;&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;The submission deadline is &lt;b&gt;December 12, 2016, at 11:59 PM PST&lt;/b&gt;. There’s no time for procrastination! Go ahead and &lt;a href=&quot;https://www.eclipseconverge.org/na2017/propose-session&quot;&gt;submit yours now&lt;/a&gt;.&lt;/p&gt;</description>
+	<pubDate>Tue, 15 Nov 2016 09:45:09 +0000</pubDate>
+</item>
+<item>
 	<title>typefox.io: Eclipse LSP4J Is Here!</title>
 	<guid isPermaLink="false">http://typefox.io/?p=13926</guid>
 	<link>http://typefox.io/eclipse-lsp4j-is-here</link>
@@ -172,469 +548,6 @@ See you on December 5th in Berlin!</description>
       &lt;/div&gt;
       &lt;/div&gt;&lt;/div&gt;</description>
 	<pubDate>Thu, 10 Nov 2016 09:12:45 +0000</pubDate>
-</item>
-<item>
-	<title>Doug Schaefer: Using Eclipse CDT with MSYS2</title>
-	<guid isPermaLink="false">http://cdtdoug.ca/?p=786</guid>
-	<link>https://cdtdoug.ca/2016/11/08/using-eclipse-cdt-with-msys2/</link>
-	<description>&lt;p&gt;MSYS2 is a relatively new distribution to support the MinGW compiler on Windows. It’s actually grown beyond that and has a pretty rich set of packages that include CMake, clang and gcc, and a huge set of libraries including Qt and SDL. It’s kept reasonably up-to-date and I’m sure if we can grow the community even more, we could get things even faster (e.g. Qt is one minor release behind).&lt;/p&gt;
-&lt;p&gt;On Windows, the CDT loves MinGW and MSYS. As Eclipse is a native application, it really expects things like path names and such to be native Windows things. Cygwin, being a Linux emulation layer, and the recent Bash for Windows are actually hard for CDT to integrate with because they hide away the native.&lt;/p&gt;
-&lt;p&gt;For Eclipse Neon, CDT has added support for automatically detecting the MinGW compilers in an MSYS2 installation. This article will give a quick guide on how to set up MSYS2 with the proper set of packages to start building C++ projects on Windows.&lt;/p&gt;
-&lt;p&gt;First a quick rant about their choice of package manager, pacman. I’m sure people who use Arch Linux love pacman. It’s pretty powerful. But I worry that it’s a tough fit for Windows users. The problem gets worse as there are actually three sets of packages, msys (common), mingw32 (for 32-bit tools), and mingw64 (for 64-bit tools) and some packages are in multiple of those. pacman makes you pick each time you install a package. And it gets worse installing the toolchain since mingw32 and mingw64 each have toolchains that target 32-bit and 64-bit. Now you’re up to five combinations.&lt;/p&gt;
-&lt;p&gt;But it’s what we got so we’ll have to make due. Hopefully we can simplify this a bit.&lt;/p&gt;
-&lt;p&gt;First, most people are on 64-bit Windows these days and for that, just select the mingw64 packages and the x86_64 toolchains. If you are on 32-bit Windows, go mingw32 and i686 toolchain. If you are targeting both 32 and 64 bit, simply add the other toolchain. But also make sure you add all the libraries for that architecture too.&lt;/p&gt;
-&lt;p&gt;MSYS2 starts with a pretty decent installer. It’s available from &lt;a href=&quot;https://msys2.github.io/&quot;&gt;https://msys2.github.io/&lt;/a&gt;. The instructions on that page are a good description on how to do the initial setup. After finishing that, you still have no toolchains or libraries. To set up your development environment, run the following command. This gives you gcc and make, enough to build a hello world project.&lt;/p&gt;
-&lt;pre&gt;pacman -S make mingw64/mingw-w64-x86_64-gcc&lt;/pre&gt;
-&lt;p&gt;A couple of quick notes on that. The toolchain comes from the mingw-w64 project which produces both 32-bit and 64-bit compilers. Confusing? Yes. Also, pick the make from the default package set since it’s a more full featured make than the mingw32-make that comes with the mingw64 package set.&lt;/p&gt;
-&lt;p&gt;That should be enough to get started. Feel free to poke around and add library packages you’d like to use. Qt projects should just work with CDT’s new (and still very young) Qt plug-ins.&lt;/p&gt;
-&lt;p&gt;More later as we figure out the right configuration for CMake and for other libraries.&lt;/p&gt;</description>
-	<pubDate>Tue, 08 Nov 2016 19:46:36 +0000</pubDate>
-</item>
-<item>
-	<title>Maximilian and Jonas: Eclipse Democamp Munich, December 5th 2016 – Already sold out?</title>
-	<guid isPermaLink="false">http://eclipsesource.com/blogs/?p=27417</guid>
-	<link>http://eclipsesource.com/blogs/2016/11/08/eclipse-democamp-munich-december-5th-2016-already-sold-out/</link>
-	<description>&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Every year it is amazing to see how fast the &lt;/span&gt;&lt;a href=&quot;https://www.eventbrite.de/e/eclipse-democamp-december-2016-tickets-28833687335&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Eclipse DemoCamp in Munich&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt; sells out. To give everyone a fair chance to register, we have announced the time the registration opens in advance. This year, it took less than 24 hours, until the available 80 seats were fully booked. However, even if you did not get a seat, we still encourage you to register for the waiting list. You can register &lt;/span&gt;&lt;a href=&quot;https://www.eventbrite.de/e/eclipse-democamp-december-2016-tickets-28833687335&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;here&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;. There you’ll also find detailed information on the location, agenda, time and more. The democamp is in 4 weeks (December 5th 2016) and some of the 80 registrants will be forced to cancel. We remind all current registrants to double check their availability. We expect some people to unregister before the event. If and only if you are on the waiting list, you will be notified immediately, once a seat becomes available. We wish you good luck and we are looking forward to great demos and seeing you in December!&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;A big thanks to our sponsors: EclipseSource München GmbH, &lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;BSI Business Systems Integration AG&lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt; and Eclipse Foundation.&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;&lt;div style=&quot;display: inline-block;&quot;&gt;&lt;a href=&quot;https://twitter.com/intent/tweet?source=webclient&amp;amp;text=Eclipse+Democamp+Munich%2C+December+5th+2016+%E2%80%93+Already+sold+out%3F&amp;amp;via=eclipsesource&amp;amp;url=http://eclipsesource.com/blogs/2016/11/08/eclipse-democamp-munich-december-5th-2016-already-sold-out/&quot; style=&quot;margin-right: 5px;&quot; target=&quot;_blank&quot; title=&quot;Share on Twitter&quot;&gt;&lt;img alt=&quot;Twitter&quot; src=&quot;http://eclipsesource.com/blogs/wp-content/plugins/custom-about-author/images/social_media/twitter.png&quot; title=&quot;Twitter&quot; /&gt;&lt;/a&gt;&lt;a href=&quot;https://plus.google.com/share?url=http://eclipsesource.com/blogs/2016/11/08/eclipse-democamp-munich-december-5th-2016-already-sold-out/&quot; style=&quot;margin-right: 5px;&quot; target=&quot;_blank&quot; title=&quot;+1&quot;&gt;&lt;img alt=&quot;Google+&quot; src=&quot;http://eclipsesource.com/blogs/wp-content/plugins/custom-about-author/images/social_media/google_plus.png&quot; title=&quot;Google+&quot; /&gt;&lt;/a&gt;&lt;a href=&quot;http://www.linkedin.com/cws/share?url=http://eclipsesource.com/blogs/2016/11/08/eclipse-democamp-munich-december-5th-2016-already-sold-out/&quot; style=&quot;margin-right: 5px;&quot; target=&quot;_blank&quot; title=&quot;Share on LinkedIn&quot;&gt;&lt;img alt=&quot;LinkedIn&quot; src=&quot;http://eclipsesource.com/blogs/wp-content/plugins/custom-about-author/images/social_media/linkedin.png&quot; title=&quot;LinkedIn&quot; /&gt;&lt;/a&gt;&lt;a href=&quot;https://www.facebook.com/sharer/sharer.php?u=http://eclipsesource.com/blogs/2016/11/08/eclipse-democamp-munich-december-5th-2016-already-sold-out/&amp;amp;t=Eclipse+Democamp+Munich%2C+December+5th+2016+%E2%80%93+Already+sold+out%3F&quot; style=&quot;margin-right: 5px;&quot; target=&quot;_blank&quot; title=&quot;Facebook&quot;&gt;&lt;img alt=&quot;Facebook&quot; src=&quot;http://eclipsesource.com/blogs/wp-content/plugins/custom-about-author/images/social_media/facebook.png&quot; title=&quot;Facebook&quot; /&gt;&lt;/a&gt;&lt;/div&gt;&lt;br /&gt;&lt;a href=&quot;http://eclipsesource.com/blogs/2016/11/08/eclipse-democamp-munich-december-5th-2016-already-sold-out/#respond&quot;&gt;Leave a Comment&lt;/a&gt;. Tagged with &lt;a href=&quot;http://eclipsesource.com/blogs/tag/demo/&quot; title=&quot;demo Tag&quot;&gt;demo&lt;/a&gt;, &lt;a href=&quot;http://eclipsesource.com/blogs/tag/eclipse/&quot; title=&quot;eclipse Tag&quot;&gt;eclipse&lt;/a&gt;, &lt;a href=&quot;http://eclipsesource.com/blogs/tag/demo/&quot; title=&quot;demo Tag&quot;&gt;demo&lt;/a&gt;, &lt;a href=&quot;http://eclipsesource.com/blogs/tag/eclipse/&quot; title=&quot;eclipse Tag&quot;&gt;eclipse&lt;/a&gt;&lt;p&gt;&lt;/p&gt;</description>
-	<pubDate>Tue, 08 Nov 2016 10:46:34 +0000</pubDate>
-</item>
-<item>
-	<title>Eclipse Announcements: Eclipse Platform Turns 15 Today!</title>
-	<guid isPermaLink="true">http://feedproxy.google.com/~r/eclipse/fnews/~3/Akx2eMmJM10/pr.html</guid>
-	<link>http://feedproxy.google.com/~r/eclipse/fnews/~3/Akx2eMmJM10/pr.html</link>
-	<description>The Eclipse Platform source code was made available on this day in 2001. Happy Birthday! Read the original press release.&lt;img alt=&quot;&quot; height=&quot;1&quot; src=&quot;http://feeds.feedburner.com/~r/eclipse/fnews/~4/Akx2eMmJM10&quot; width=&quot;1&quot; /&gt;</description>
-	<pubDate>Mon, 07 Nov 2016 16:20:00 +0000</pubDate>
-</item>
-<item>
-	<title>Benjamin Cabe: Live demo of the MoDeS3 project at EclipseCon Europe 2016</title>
-	<guid isPermaLink="false">https://blog.benjamin-cabe.com/?p=2721</guid>
-	<link>http://feedproxy.google.com/~r/benjamin-cabe-planet-eclipse/~3/LNdKoP6EcD4/live-demo-of-the-modes3-project-at-eclipsecon-europe-2016</link>
-	<description>&lt;div class=&quot;&quot; id=&quot;watch-description-text&quot;&gt;
-&lt;p class=&quot;&quot; id=&quot;eow-description&quot;&gt;At EclipseCon Europe I spent a few minutes chatting with &lt;a href=&quot;https://twitter.com/istvanrath&quot; target=&quot;_blank&quot;&gt;István Ráth&lt;/a&gt; from IncQuery Labs. He was demoing a pretty awesome set of development tools for safety-critical domains (here: railway inter-locking system), and showing how to use them in combination with some cool &lt;a href=&quot;https://iot.eclipse.org&quot;&gt;Eclipse IoT&lt;/a&gt; Projects such as &lt;a href=&quot;https://eclipse.org/paho&quot;&gt;Eclipse Paho&lt;/a&gt; and &lt;a href=&quot;https://eclipse.org/mosquitto&quot;&gt;Eclipse Mosquitto&lt;/a&gt;.&lt;/p&gt;
-&lt;p class=&quot;&quot;&gt;On a related note, this project was a finalist in last year’s edition of the Open IoT Challenge. &lt;strong&gt;Don’t wait and &lt;a href=&quot;https://iot.eclipse.org/open-iot-challenge&quot; target=&quot;_blank&quot;&gt;enter this year’s before November 25&lt;/a&gt;&lt;/strong&gt;!&lt;/p&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;/p&gt;
- &lt;img alt=&quot;&quot; height=&quot;1&quot; src=&quot;http://feeds.feedburner.com/~r/benjamin-cabe-planet-eclipse/~4/LNdKoP6EcD4&quot; width=&quot;1&quot; /&gt;</description>
-	<pubDate>Mon, 07 Nov 2016 14:51:46 +0000</pubDate>
-</item>
-<item>
-	<title>Maximilian and Jonas: Eclipse Democamp Munich December 5th 2016 – Registration opens today!</title>
-	<guid isPermaLink="false">http://eclipsesource.com/blogs/?p=27409</guid>
-	<link>http://eclipsesource.com/blogs/2016/11/07/eclipse-democamp-munich-december-5th-2016-registration-opens-today/</link>
-	<description>&lt;p&gt;We are pleased to invite you to participate in the Eclipse DemoCamp Munich 2016. The DemoCamp Munich is one the biggest DemoCamps worldwide and therefore an excellent opportunity to showcase all the cool, new and interesting technology being built by the Eclipse community. This event is open to Eclipse enthusiasts who want to show demos of what they are doing with Eclipse.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://www.eventbrite.de/e/eclipse-democamp-december-2016-tickets-28833687335&quot;&gt;Registration&lt;/a&gt; will open today, November 7th at 2.00 pm&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Please click &lt;a href=&quot;https://www.eventbrite.de/e/eclipse-democamp-december-2016-tickets-28833687335&quot;&gt;here for detailed information and the registration&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Seating is limited, so please register soon if you plan to attend.&lt;/p&gt;
-&lt;p&gt;We look forward to welcoming you to the Eclipse DemoCamp 2016!&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;IMPORTANT NOTE&lt;/strong&gt;&lt;br /&gt;
-&lt;strong&gt; The last DemoCamps have always been sold out. Due to legal reasons, we have a fixed limit for the room and cannot overbook. However, every year some places unfortunately remain empty. Please unregister if you find you are unable to attend so we can invite participants from the waiting list. If you are not attending and have not unregistered, we kindly ask for a donation of 10 Euros to “Friends of Eclipse”. Thank you in advance for your understanding!&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;If the event is sold out, you will be placed on the waiting list. You will be informed if a place becomes available, and you will need to confirm your attendance after we contact you.&lt;br /&gt;
-If you are interested in giving a talk, please send your presentation proposal to &lt;a href=&quot;mailto:jhelming@eclipsesource.com&quot; rel=&quot;noreferrer nofollow&quot; target=&quot;_blank&quot;&gt;jhelming@eclipsesource.com&lt;/a&gt; for consideration. There are always more proposals than slots in the agenda, so we will make a selection from the submissions.&lt;/p&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;&lt;div style=&quot;display: inline-block;&quot;&gt;&lt;a href=&quot;https://twitter.com/intent/tweet?source=webclient&amp;amp;text=Eclipse+Democamp+Munich+December+5th+2016+%26%238211%3B+Registration+opens+today%21&amp;amp;via=eclipsesource&amp;amp;url=http://eclipsesource.com/blogs/2016/11/07/eclipse-democamp-munich-december-5th-2016-registration-opens-today/&quot; style=&quot;margin-right: 5px;&quot; target=&quot;_blank&quot; title=&quot;Share on Twitter&quot;&gt;&lt;img alt=&quot;Twitter&quot; src=&quot;http://eclipsesource.com/blogs/wp-content/plugins/custom-about-author/images/social_media/twitter.png&quot; title=&quot;Twitter&quot; /&gt;&lt;/a&gt;&lt;a href=&quot;https://plus.google.com/share?url=http://eclipsesource.com/blogs/2016/11/07/eclipse-democamp-munich-december-5th-2016-registration-opens-today/&quot; style=&quot;margin-right: 5px;&quot; target=&quot;_blank&quot; title=&quot;+1&quot;&gt;&lt;img alt=&quot;Google+&quot; src=&quot;http://eclipsesource.com/blogs/wp-content/plugins/custom-about-author/images/social_media/google_plus.png&quot; title=&quot;Google+&quot; /&gt;&lt;/a&gt;&lt;a href=&quot;http://www.linkedin.com/cws/share?url=http://eclipsesource.com/blogs/2016/11/07/eclipse-democamp-munich-december-5th-2016-registration-opens-today/&quot; style=&quot;margin-right: 5px;&quot; target=&quot;_blank&quot; title=&quot;Share on LinkedIn&quot;&gt;&lt;img alt=&quot;LinkedIn&quot; src=&quot;http://eclipsesource.com/blogs/wp-content/plugins/custom-about-author/images/social_media/linkedin.png&quot; title=&quot;LinkedIn&quot; /&gt;&lt;/a&gt;&lt;a href=&quot;https://www.facebook.com/sharer/sharer.php?u=http://eclipsesource.com/blogs/2016/11/07/eclipse-democamp-munich-december-5th-2016-registration-opens-today/&amp;amp;t=Eclipse+Democamp+Munich+December+5th+2016+%26%238211%3B+Registration+opens+today%21&quot; style=&quot;margin-right: 5px;&quot; target=&quot;_blank&quot; title=&quot;Facebook&quot;&gt;&lt;img alt=&quot;Facebook&quot; src=&quot;http://eclipsesource.com/blogs/wp-content/plugins/custom-about-author/images/social_media/facebook.png&quot; title=&quot;Facebook&quot; /&gt;&lt;/a&gt;&lt;/div&gt;&lt;br /&gt;&lt;a href=&quot;http://eclipsesource.com/blogs/2016/11/07/eclipse-democamp-munich-december-5th-2016-registration-opens-today/#respond&quot;&gt;Leave a Comment&lt;/a&gt;. Tagged with &lt;a href=&quot;http://eclipsesource.com/blogs/tag/democamp/&quot; title=&quot;democamp Tag&quot;&gt;democamp&lt;/a&gt;, &lt;a href=&quot;http://eclipsesource.com/blogs/tag/eclipse/&quot; title=&quot;eclipse Tag&quot;&gt;eclipse&lt;/a&gt;, &lt;a href=&quot;http://eclipsesource.com/blogs/tag/democamp/&quot; title=&quot;democamp Tag&quot;&gt;democamp&lt;/a&gt;, &lt;a href=&quot;http://eclipsesource.com/blogs/tag/eclipse/&quot; title=&quot;eclipse Tag&quot;&gt;eclipse&lt;/a&gt;&lt;p&gt;&lt;/p&gt;</description>
-	<pubDate>Mon, 07 Nov 2016 12:55:50 +0000</pubDate>
-</item>
-<item>
-	<title>itemis: Building Xtext DSLs with Gradle</title>
-	<guid isPermaLink="true">https://blogs.itemis.com/en/building-xtext-dsls-with-gradle</guid>
-	<link>https://blogs.itemis.com/en/building-xtext-dsls-with-gradle</link>
-	<description>&lt;p&gt;When it comes to picking a tool for building &lt;a href=&quot;https://www.itemis.com/en/xtext/&quot;&gt;Xtext&lt;/a&gt; projects many users still prefer &lt;a href=&quot;https://eclipse.org/tycho/&quot;&gt;Maven Tycho&lt;/a&gt;. With the rise of Gradle as the primary build tool for many companies the game is gradually changing and developers exposed to Gradle hardly want to turn back to Maven (&lt;a href=&quot;https://gradle.org/maven_vs_gradle/&quot;&gt;a full comparision between Gradle and Maven can be found &lt;/a&gt;&lt;a href=&quot;https://gradle.org/maven_vs_gradle/&quot;&gt;here&lt;/a&gt;). However, developers who are not familiar with it have reservations to learn Gradle as it feels a bit fuzzy at first.&lt;/p&gt;  
-&lt;p&gt;In this post I will show you how an Xtext project can be built using Gradle and give a short overview of the artifacts generated by Xtext’s new project wizard.&lt;/p&gt; 
-&lt;h2&gt;Creating an Xtext Gradle project&lt;/h2&gt; 
-&lt;p&gt;Xtext comes with a project wizard that can generate a basic project setup using Gradle. In the following an &lt;a href=&quot;http://www.eclipse.org/downloads/packages/eclipse-ide-java-and-dsl-developers/neonr&quot;&gt;Eclipse Neon DSL&lt;/a&gt; distribution with Xtext 2.10.0 is used.&lt;/p&gt; 
-&lt;p&gt;When calling “New Xtext Project” wizard, on the first page we need to enter some meta-data for the project itself. Use the following values:&lt;/p&gt; 
-&lt;ul&gt; 
- &lt;li&gt;Project name: &lt;code class=&quot;highlighter-rouge&quot;&gt;com.itemis.xtext.example.domainmodel&lt;/code&gt;&lt;/li&gt; 
- &lt;li&gt;Language name: &lt;code class=&quot;highlighter-rouge&quot;&gt;com.itemis.xtext.example.domainmodel.Domainmodel&lt;/code&gt;&lt;/li&gt; 
- &lt;li&gt;Language extensions: &lt;code class=&quot;highlighter-rouge&quot;&gt;dmodel&lt;/code&gt;&lt;/li&gt; 
-&lt;/ul&gt; 
-&lt;p&gt;&lt;img alt=&quot;new-wizard-page1-Xtext-DSL-Gradle.png&quot; height=&quot;631&quot; src=&quot;https://blogs.itemis.com/hs-fs/hubfs/blog-files/new_wizard_page1%202.png?t=1479137000185&amp;amp;width=531&amp;amp;height=631&amp;amp;name=new_wizard_page1%202.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;531&quot; /&gt;&lt;/p&gt; 
-&lt;p&gt;On the next page, select the following values:&lt;/p&gt; 
-&lt;ul&gt; 
- &lt;li&gt;Generic IDE Support&lt;/li&gt; 
- &lt;li&gt;Testing Support&lt;/li&gt; 
- &lt;li&gt;Preferred Build System: Gradle&lt;/li&gt; 
- &lt;li&gt;Source Layout: Maven/Gradle&lt;/li&gt; 
-&lt;/ul&gt; 
-&lt;p&gt;&lt;img alt=&quot;new-wizard-page2-Xtext-DSL-Gradle.png&quot; height=&quot;631&quot; src=&quot;https://blogs.itemis.com/hs-fs/hubfs/blog-files/new_wizard_page2%202.png?t=1479137000185&amp;amp;width=532&amp;amp;height=631&amp;amp;name=new_wizard_page2%202.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;532&quot; /&gt;&lt;/p&gt; 
-&lt;p&gt;After clicking &lt;em&gt;Finish&lt;/em&gt; the wizard will create a directory structure that looks like this:&lt;/p&gt; 
-&lt;div class=&quot;highlighter-rouge&quot;&gt; 
- &lt;pre class=&quot;prettyprint&quot;&gt;└── com.itemis.xtext.example.domainmodel.parent
-    ├── com.itemis.xtext.example.domainmodel
-    │   ├── build.gradle
-    │   └── src
-    │       └── ...
-    ├── com.itemis.xtext.example.domainmodel.ide
-    │   ├── build.gradle
-    │   └── src
-    │       └── ...
-    ├── gradle
-    │   ├── maven-deployment.gradle
-    │   ├── source-layout.gradle
-    │   └── wrapper
-    │       ├── gradle-wrapper.jar
-    │       └── gradle-wrapper.properties
-    ├── build.gradle
-    ├── gradlew
-    ├── gradlew.bat
-    └── settings.gradle
-&lt;/pre&gt; 
-&lt;/div&gt; 
-&lt;p&gt;The root project &lt;code class=&quot;highlighter-rouge&quot;&gt;com.itemis.xtext.example.domainmodel.parent&lt;/code&gt; wraps the subprojects together, which consist in this example of the runtime and the generic IDE project. At this point, building Eclipse plugins is not yet supported by the generator of the wizard. It works for IntelliJ and the web integration, though.&lt;/p&gt; 
-&lt;p&gt;The artifacts that differ from the Maven Tycho setting can be separated into two parts – the Gradle Wrapper (&lt;code class=&quot;highlighter-rouge&quot;&gt;gradlew&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;gradlew.bat&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;gradle/wrapper/*&lt;/code&gt;) and the Gradle build scripts (&lt;code class=&quot;highlighter-rouge&quot;&gt;*.gradle&lt;/code&gt;) – and will be discussed separately in the following.&lt;/p&gt; 
-&lt;h2&gt;The Gradle Wrapper&lt;/h2&gt; 
-&lt;p&gt;The &lt;a href=&quot;https://docs.gradle.org/current/userguide/gradle_wrapper.html&quot;&gt;Gradle Wrapper&lt;/a&gt; is a wonderful tool that gets rid of the pain that comes with installing a build tool and keeping it in sync across a team of developers. It is the preferred way of starting a Gradle build and has two main advantages:&lt;/p&gt; 
-&lt;ul&gt; 
- &lt;li&gt;Everyone can build your project, no need to install Gradle upfront&lt;/li&gt; 
- &lt;li&gt;Everyone in your team is using the same version of Gradle, including your CI server&lt;/li&gt; 
-&lt;/ul&gt; 
-&lt;p&gt;Try it yourself with the generated Xtext project. Simply navigate to &lt;code class=&quot;highlighter-rouge&quot;&gt;com.itemis.xtext.example.domainmodel.parent&lt;/code&gt; and execute &lt;code class=&quot;highlighter-rouge&quot;&gt;./gradlew build&lt;/code&gt; (on Unix-like platforms) or &lt;code class=&quot;highlighter-rouge&quot;&gt;gradlew build&lt;/code&gt; (on Windows).&lt;/p&gt; 
-&lt;p&gt;The script will automatically download the configured Gradle distribution and execute a build. The files that belong to the Gradle Wrapper are:&lt;/p&gt; 
-&lt;div class=&quot;highlighter-rouge&quot;&gt; 
- &lt;pre class=&quot;prettyprint&quot;&gt;└── com.itemis.xtext.example.domainmodel.parent
-    ├── gradle
-    │   └── wrapper
-    │       ├── gradle-wrapper.jar
-    │       └── gradle-wrapper.properties
-    ├── gradlew
-    └── gradlew.bat
-&lt;/pre&gt; 
-&lt;/div&gt; 
-&lt;p&gt;At the root level &lt;code class=&quot;highlighter-rouge&quot;&gt;gradlew&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;gradlew.bat&lt;/code&gt; are the scripts that are platform dependent and run the Gradle Wrapper that resides in the &lt;code class=&quot;highlighter-rouge&quot;&gt;gradle-wrapper.jar&lt;/code&gt;. The &lt;code class=&quot;highlighter-rouge&quot;&gt;gradle-wrapper.properties&lt;/code&gt; configures the Gradle distribution that is used e.g. the version. You can find &lt;a href=&quot;https://docs.gradle.org/current/userguide/gradle_wrapper.html&quot;&gt;more information in chapter 5 of the Gradle Wrapper user guide&lt;/a&gt;.&lt;/p&gt; 
-&lt;p&gt;&lt;strong&gt;Pro tip 1:&lt;/strong&gt; Instead of typing &lt;code class=&quot;highlighter-rouge&quot;&gt;./gradlew&lt;/code&gt; all the time try &lt;a href=&quot;http://blog.franzbecker.io/2016/03/28/gradle-bash-function/&quot;&gt;defining a bash function&lt;/a&gt;.&lt;/p&gt; 
-&lt;p&gt;&lt;strong&gt;Pro tip 2:&lt;/strong&gt; If you’re on Windows please help your colleagues and CI system by adding the executable flag to &lt;code class=&quot;highlighter-rouge&quot;&gt;gradlew&lt;/code&gt; by calling &lt;code class=&quot;highlighter-rouge&quot;&gt;git update-index --chmod=+x gradlew&lt;/code&gt;&lt;/p&gt; 
-&lt;h2&gt;Gradle build scripts&lt;/h2&gt; 
-&lt;p&gt;The build scripts (&lt;code class=&quot;highlighter-rouge&quot;&gt;*.gradle&lt;/code&gt;) define the Gradle build for the project. They may contain configuration but also executable code. Conceptually, one can think of Gradle as in between Ant and Maven. Everything is scriptable, but for most tasks there are useful plugins that need little to no configuration in order to work properly (convention over configuration).&lt;/p&gt; 
-&lt;p&gt;The scripts generated by the wizard are:&lt;/p&gt; 
-&lt;div class=&quot;highlighter-rouge&quot;&gt; 
- &lt;pre class=&quot;prettyprint&quot;&gt;└── com.itemis.xtext.example.domainmodel.parent
-    ├── com.itemis.xtext.example.domainmodel
-    │   └── build.gradle
-    ├── com.itemis.xtext.example.domainmodel.ide
-    │   └── build.gradle
-    ├── gradle
-    │   ├── maven-deployment.gradle
-    │   └── source-layout.gradle
-    ├── build.gradle
-    └── settings.gradle
-&lt;/pre&gt; 
-&lt;/div&gt; 
-&lt;p&gt;The main script for each project / subproject is the &lt;code class=&quot;highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt;. Unlike Maven’s &lt;code class=&quot;highlighter-rouge&quot;&gt;pom.xml&lt;/code&gt;, the &lt;code class=&quot;highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt; is optional for subprojects if no additional information is required. Subprojects are configured in the &lt;code class=&quot;highlighter-rouge&quot;&gt;settings.gradle&lt;/code&gt;.&lt;/p&gt; 
-&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;settings.gradle&lt;/code&gt; can be used to configure certain properties upfront and is evaluated by Gradle before the &lt;code class=&quot;highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt;. Subprojects are defined by using the following syntax:&lt;/p&gt; 
-&lt;div class=&quot;highlighter-rouge&quot;&gt; 
- &lt;pre class=&quot;prettyprint&quot;&gt;include 'com.itemis.xtext.example.domainmodel'
-include 'com.itemis.xtext.example.domainmodel.ide'
-&lt;/pre&gt; 
-&lt;/div&gt; 
-&lt;p&gt;In Gradle build logic can be extracted easily into separate build scripts and plugins. To include them into a project the &lt;code class=&quot;highlighter-rouge&quot;&gt;apply&lt;/code&gt; syntax can be used:&lt;/p&gt; 
-&lt;div class=&quot;highlighter-rouge&quot;&gt; 
- &lt;pre class=&quot;prettyprint&quot;&gt;apply plugin: 'java'
-apply plugin: 'org.xtext.xtend'
-apply from: &quot;${rootDir}/gradle/source-layout.gradle&quot;
-apply from: &quot;${rootDir}/gradle/maven-deployment.gradle&quot;
-&lt;/pre&gt; 
-&lt;/div&gt; 
-&lt;p&gt;This should give you enough information about the structure of the build to go on and understand the remaining details yourself. &lt;/p&gt; 
-&lt;p&gt;One more remark: there is no need to keep the shown artifacts below &lt;code class=&quot;highlighter-rouge&quot;&gt;com.itemis.xtext.example.domainmodel.parent&lt;/code&gt;. You can move everything up one level without the need to change any build logic.&lt;/p&gt; 
-&lt;h2&gt;Summary&lt;/h2&gt; 
-&lt;p&gt;This blog post explained how an Xtext project can be set up with Gradle as a build system and gave a short overview of the artifacts that are generated by Xtext’s project wizard. &lt;span&gt;To learn more about Gradle you can check their excellent &lt;/span&gt;&lt;a href=&quot;https://docs.gradle.org/current/userguide/userguide.html&quot;&gt;user guide&lt;/a&gt;&lt;span&gt;.&lt;/span&gt;&lt;/p&gt;  
-&lt;img alt=&quot;&quot; height=&quot;1&quot; src=&quot;http://track.hubspot.com/__ptq.gif?a=761475&amp;amp;k=14&amp;amp;r=https%3A%2F%2Fblogs.itemis.com%2Fen%2Fbuilding-xtext-dsls-with-gradle&amp;amp;bu=https%253A%252F%252Fblogs.itemis.com&amp;amp;bvt=rss&quot; style=&quot;width: 1px!important;&quot; width=&quot;1&quot; /&gt;</description>
-	<pubDate>Mon, 07 Nov 2016 08:15:13 +0000</pubDate>
-	<author>franz.becker@itemis.de (Franz Becker)</author>
-</item>
-<item>
-	<title>Kai Toedter: Deploying Spring Boot Apps to Heroku using Docker</title>
-	<guid isPermaLink="false">http://toedter.com/?p=1477</guid>
-	<link>http://toedter.com/2016/11/05/deploying-spring-boot-apps-to-heroku-using-docker/</link>
-	<description>&lt;p&gt;I am using &lt;a href=&quot;http://heroku.com&quot;&gt;Heroku&lt;/a&gt; for a long time now. The usual deployment method for me was to push a Git repository to Heroku, then build and run the software in their cloud. Since a long time, Heroku supports also Docker deployment, but in the past I found it a bit to restrictive. Now it is possible to deploy web applications as Docker images very easily. As an example I have a continuous delivery pipeline (using &lt;a href=&quot;https://travis-ci.org&quot;&gt;Travis CI&lt;/a&gt;) up and running that deploys the same docker image to both DockerHub and Heroku. As base I take my Open Source Playground &lt;a href=&quot;https://github.com/toedter/chatty&quot;&gt;Chatty&lt;/a&gt;. In this blog I explain how this is done.&lt;/p&gt;
-&lt;p&gt;One restriction of the Heroku Docker deployment is that the web server has to run on a port specified by the environment variable PORT. In Spring there are many ways for doing this. I decided to manually override Springs’s server.port property, when the application finds out at run-time that it is running in an Heroku environment, checking the environment variables DYNO and PORT:&lt;/p&gt;
-&lt;pre class=&quot;brush: java; title: ; notranslate&quot;&gt;public static void main(String[] args) throws Exception {
-
-    String ENV_PORT = System.getenv().get(&quot;PORT&quot;);
-    String ENV_DYNO = System.getenv().get(&quot;DYNO&quot;);
-    if(ENV_PORT != null &amp;amp;&amp;amp; ENV_DYNO != null) {
-        System.getProperties().put(&quot;server.port&quot;, ENV_PORT);
-    }
-
-    SpringApplication.run(Chatty.class, args);
-}
-&lt;/pre&gt;
-&lt;p&gt;To do a Docker deployment, you have to login into the Heroku registry first. For that you need to know the your Heroku auth token. The easiest way to get it is to login to Heroku using the CLI and then type&lt;/p&gt;
-&lt;pre class=&quot;brush: bash; gutter: false; title: ; notranslate&quot;&gt;heroku auth:token
-&lt;/pre&gt;
-&lt;p&gt;This will return a token like ea405d9e-76ff-4881-acbd-327c28efa3be. Now you can login to the Heroku Docker registry with&lt;/p&gt;
-&lt;pre class=&quot;brush: bash; gutter: false; title: ; notranslate&quot;&gt;docker login --email=_ --username=_ --password=&quot;ea405d9e-76ff-4881-acbd-327c28efa3be&quot; registry.heroku.com
-&lt;/pre&gt;
-&lt;p&gt;Then you have to tag your Docker image like&lt;/p&gt;
-&lt;pre class=&quot;brush: plain; gutter: false; title: ; notranslate&quot;&gt;docker tag &amp;lt;image&amp;gt; registry.heroku.com/&amp;lt;app&amp;gt;/&amp;lt;process-type&amp;gt;, e.g.
-docker tag kaitoedter/chatty registry.heroku.com/chatty42/web
-&lt;/pre&gt;
-&lt;p&gt;You could simply put the scripting in a .travis.yml file and hide the Heroku auth token in an environment variable, like&lt;/p&gt;
-&lt;pre class=&quot;brush: bash; gutter: false; title: ; notranslate&quot;&gt;  - docker login --email=_ --username=_ --password=&quot;$HEROKU_AUTH_TOKEN&quot; registry.heroku.com
-  - docker tag kaitoedter/chatty registry.heroku.com/chatty42/web
-  - docker push registry.heroku.com/chatty42/web
-&lt;/pre&gt;
-&lt;p&gt;You find the Chatty .travis.yml &lt;a href=&quot;https://github.com/toedter/chatty/blob/master/.travis.yml&quot;&gt;here&lt;/a&gt;.&lt;br /&gt;
-A running container is always available at &lt;a href=&quot;https://chatty42.herokuapp.com&quot;&gt;https://chatty42.herokuapp.com&lt;/a&gt;&lt;br /&gt;
-Since Heroku is shutting down the service when there are no users, please give it a bit of time to start up.&lt;/p&gt;
-&lt;p&gt;As conclusion I find the deployment of custom Docker images to Heroku even easier than the previous git deployment.&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;http://toedter.com/?flattrss_redirect&amp;amp;id=1477&amp;amp;md5=f283b6cb40f47289939b61a4f87c67a3&quot;&gt;&lt;img alt=&quot;Flattr this!&quot; src=&quot;http://toedter.com/wp-content/plugins/flattr/img/flattr-badge-white.png&quot; /&gt;&lt;/a&gt;&lt;/p&gt;</description>
-	<pubDate>Sat, 05 Nov 2016 17:38:12 +0000</pubDate>
-</item>
-<item>
-	<title>Fabio Zadrozny: LiClipse 3.2.1</title>
-	<guid isPermaLink="false">tag:blogger.com,1999:blog-7855001383687474475.post-2620458055770009520</guid>
-	<link>http://liclipse.blogspot.com/2016/11/liclipse-321.html</link>
-	<description>The new LiClipse release is out.&lt;br /&gt;&lt;br /&gt;The major updates were actually to PyDev, which has fixes such as a regression added on 5.3.0 where &lt;b&gt;Ctrl+1&lt;/b&gt; was not properly resolving symbols from dependent projects, code analysis on a particular case with &lt;b&gt;PEP 448&lt;/b&gt; (list unpacking), auto-indents &lt;b&gt;async&lt;/b&gt; and &lt;b&gt;await &lt;/b&gt;blocks, highlights &lt;b&gt;async &lt;/b&gt;and &lt;b&gt;await &lt;/b&gt;blocks and fixes an issue in the code completion using from..import..as aliases.&lt;br /&gt;&lt;br /&gt;It does have one new feature in which &lt;b&gt;Ctrl+Shift+O&lt;/b&gt; (which fixes unresolved tokens by adding the needed imports) uses the improved sorting also used for the code-completion (so that tokens from the project appear before tokens from other projects, which in turn appear before tokens from the standard library). Also, the &lt;b&gt;substring completion&lt;/b&gt; is now &lt;b&gt;on by default&lt;/b&gt; (it may be turned off in the code-completion preferences).&lt;br /&gt;&lt;div&gt;&lt;br /&gt;&lt;/div&gt;&lt;div&gt;Still, besides the updates to PyDev, the stock LiClipse themes were improved so that the current selected tab colors (on the active or inactive views) can be configured (&lt;b&gt;selectedTabInitialBackground &lt;/b&gt;and &lt;b&gt;selectedTabActiveInitialBackground&lt;/b&gt; in the theme preferences) and some colors were changed to have better defaults in a number of themes.&lt;/div&gt;</description>
-	<pubDate>Fri, 04 Nov 2016 09:28:06 +0000</pubDate>
-	<author>noreply@blogger.com (Fabio Zadrozny)</author>
-</item>
-<item>
-	<title>Pascal Rapicault: 5 reasons to use EGerrit - #2, Compare against workspace</title>
-	<guid isPermaLink="false">tag:blogger.com,1999:blog-27225531.post-6272363565809586389</guid>
-	<link>http://prapicault.blogspot.com/2016/11/5-reasons-to-use-egerrit-2-compare.html</link>
-	<description>To celebrate the release of &lt;a href=&quot;http://wiki.eclipse.org/EGerrit/New_and_Noteworthy/1.1.1&quot;&gt;EGerrit 1.1&lt;/a&gt;, we are enumerating the &lt;a href=&quot;http://prapicault.blogspot.ca/2016/10/5-reasons-to-use-egerrit-5-being-in.html&quot;&gt;top&lt;/a&gt; &lt;a href=&quot;http://prapicault.blogspot.com/2016/10/5-reasons-to-use-egerrit-4-simple.html&quot;&gt;5&lt;/a&gt; &lt;a href=&quot;http://5-reasons-to-use-egerrit-3-in-place.html/&quot;&gt;features&lt;/a&gt; of the tool.&lt;br /&gt;&lt;br /&gt;&lt;h2&gt;&lt;b&gt;Reason #2, Compare against workspace.&lt;/b&gt;&lt;/h2&gt;When you’ve authored a review and are receiving feedback, your next duty is to take this feedback into account. In order to make that as simple as possible, the compare editor offers the ability to show on one side the patchset that contains the comments, and on the other the files from the workspace in which you can directly code your changes (see picture).&lt;br /&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; class=&quot;tr-caption-container&quot; style=&quot;float: left; text-align: center;&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td style=&quot;text-align: center;&quot;&gt;&lt;a href=&quot;http://1.bp.blogspot.com/-ikF68j28e6g/WA97-X-WAiI/AAAAAAAAAUk/uikMhNeRtZgjnnRbc2sj8vS1n_0YkFZIQCK4B/s1600/ReplyToComment.png&quot; style=&quot;margin-left: auto; margin-right: auto;&quot;&gt;&lt;img alt=&quot;Taking comments into accounts&quot; border=&quot;0&quot; height=&quot;249&quot; src=&quot;https://1.bp.blogspot.com/-ikF68j28e6g/WA97-X-WAiI/AAAAAAAAAUk/uikMhNeRtZgjnnRbc2sj8vS1n_0YkFZIQCK4B/s640/ReplyToComment.png&quot; title=&quot;Taking comments into accounts&quot; width=&quot;640&quot; /&gt;&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td class=&quot;tr-caption&quot; style=&quot;text-align: center;&quot;&gt;Taking comments into account.&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;h3&gt;&lt;b&gt;How to make that work?&lt;/b&gt;&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Download the review (so the most recent revision is now in your workspace);&lt;/li&gt;&lt;li&gt;open the compare editor;&lt;/li&gt;&lt;li&gt;and set the revision with comments on the left side of the compare editor and the workspace on the right side.&lt;/li&gt;&lt;/ul&gt;Now, as you are going through the comments, you can directly take them into account without even going back to a full blown editor. Pretty slick isn’t it?&lt;br /&gt;&lt;br /&gt;Comparing a patchset to the files in the workspace has additional benefits:&lt;br /&gt;&lt;ul&gt;&lt;li&gt;Gauge the impact of an incoming review on your on-going work. Let’s say that while you are working on a new feature, someone publishes a new review touching some of the files you are modifying. Using the compare with workspace feature, you can quickly see if and how the changes in the new review overlaps with your on-going work;&lt;/li&gt;&lt;li&gt;Measure the impact of an additional change you would like to do on the current review. Let’s imagine that you would like to perform additional changes in the code under review, then you could simply start editing the code and then see how much extra changes it creates on top of the existing one. &lt;/li&gt;&lt;/ul&gt;&lt;br /&gt;You can download EGerrit from the &lt;a href=&quot;http://download.eclipse.org/releases/neon&quot; target=&quot;_blank&quot;&gt;Neon release &lt;/a&gt;repo or from the &lt;a href=&quot;http://marketplace.eclipse.org/content/egerrit&quot; target=&quot;_blank&quot;&gt;Eclipse Marketplace&lt;/a&gt;. For questions, you can connect with us on &lt;a href=&quot;https://dev.eclipse.org/mailman/listinfo/egerrit-dev&quot;&gt;egerrit-dev@eclipse.org&lt;/a&gt;; and for bugs or to take a peek at the future you can see our &lt;a href=&quot;https://tuleap.eclipse.org/plugins/agiledashboard/?group_id=102&amp;amp;action=showKanban&amp;amp;id=6#/kanban&quot; target=&quot;_blank&quot;&gt;Kanban board&lt;/a&gt;.</description>
-	<pubDate>Fri, 04 Nov 2016 05:30:14 +0000</pubDate>
-	<author>noreply@blogger.com (Pascal)</author>
-</item>
-<item>
-	<title>VIATRA: VIATRA 1.4.1 released</title>
-	<guid isPermaLink="false">5614faafe4b03f677dc3822b:56153118e4b022593e35e24b:581b70a99de4bba71073db68</guid>
-	<link>https://viatra.net/news/2016/11/viatra-141-released</link>
-	<description>&lt;p&gt;The &lt;a href=&quot;http://eclipse.org/viatra&quot; target=&quot;_blank&quot;&gt;VIATRA project&lt;/a&gt; is happy to report that the service release 1.4.1 is now available, with some &lt;a href=&quot;https://projects.eclipse.org/projects/modeling.viatra/releases/1.4.1/bugs&quot; target=&quot;_blank&quot;&gt;hotfixes&lt;/a&gt; for our 1.4.0 version. These fixes handles regressions with regards to tooling and runtime components as well. Furthermore, this release widens the compatibility with Xtext versions, making this version available in Eclipse releases from Mars to Oxygen.&lt;/p&gt;&lt;p&gt;All downloads are available now from the &lt;a href=&quot;https://www.eclipse.org/viatra/downloads.php&quot; target=&quot;_blank&quot;&gt;downloads area&lt;/a&gt; or the &lt;a href=&quot;http://marketplace.eclipse.org/content/viatra&quot; target=&quot;_blank&quot;&gt;marketplace&lt;/a&gt;. All existing users are recommended to upgrade.&lt;/p&gt;&lt;p&gt;Feel free to reach out on the Eclipse Forums of VIATRA or the developer mailing list if you have questions or request &lt;a href=&quot;http://incquerylabs.com/&quot; target=&quot;_blank&quot;&gt;industrial support&lt;/a&gt; for more advanced issues.&lt;/p&gt;</description>
-	<pubDate>Thu, 03 Nov 2016 17:29:42 +0000</pubDate>
-</item>
-<item>
-	<title>Doug Schaefer: EclipseCon Europe 2016 So Glad to be Back</title>
-	<guid isPermaLink="false">http://cdtdoug.ca/?p=783</guid>
-	<link>https://cdtdoug.ca/2016/11/03/eclipsecon-europe-2016-so-glad-to-be-back/</link>
-	<description>&lt;p&gt;I spent a good chunk of the week trying to figure out the last time I was at EclipseCon Europe. The last thing I remember was spending a night in the Nestor bar until 5 a.m. with a handful of attendees, including Torkild, with the honored presence of Dave Thomas, the spiritual founder of Eclipse. That was 2008! It’s been eight years! I’ve missed so much. But I’m so glad that things in my life have cleared up to enable me to attend and I don’t expect I’ll miss another one for a while.&lt;/p&gt;
-&lt;p&gt;My biggest take away from the conference is simply the diversity of the people interested in Eclipse and the diversity of things happening at Eclipse. There’s still a large chunk of it related to the RCP platform and the IDE we build on top of it. But there’s really cool things happening with the Science and IoT groups as well. And the OSGi lego train display was mesmerizing but really showed off OSGi’s roots in the industrial space.&lt;/p&gt;
-&lt;p&gt;The week started with the CDT Summit on Monday. We had a good representation from different companies who build tools based on the CDT. We had a mini demo camp where they had the opportunity to show off what they’re doing. There’s some really cool stuff happening. It’s great to see them trying to make the complex world of embedded development simpler to understand through some great visualizations. We also noticed a couple of areas where the different vendors are building the same functionality. Those are great opportunities to collaborate in the open and the CDT project is very welcoming to new things. Finally it was very interesting to see how all the vendors really rely on our managed build GUI to simplify compiler and other build settings for users. That’s something we’ll need to carry forward into the new Core Build system (which I still need to blog about, stay tuned for that).&lt;/p&gt;
-&lt;p&gt;On Tuesday, I had my talk where I showed off Eclipse for embedded. It’s really a showcase of all the hard work we’ve done to simplify CDT for embedded development and to support open frameworks that users are using today, including Arduino, Qt, CMake, ESP8266, etc. It also shows why Eclipse is so important to us in the embedded world. IoT is a marketing buzzword, but it’s also an architecture that many of us have used in the past and which is growing thanks to accessible cloud platforms. These days, you need to program both your Arduino and your cloud service and Eclipse lets you do those things with a single IDE.&lt;/p&gt;
-&lt;p&gt;The rest of the week was spent chatting with my open source collegues, building relationships, getting a feel for the current state of the Eclipse IDE and where we need to go in the future. The Visual Studio Code keynote from Dirk Baeumer we very eye opening. I’ve been studying VS.Code for a few months trying to get a sense of what it’s appeal is and whether a desktop IDE based on a Web frontend is the new modern way of building IDEs. Now VS.Code isn’t an IDE, or at least it’s not as much an IDE as the Eclipse IDE is. We have a lot of tools that render different sorts of data visually in Eclipse and those high value things need to carry forward in any new world. But it’s food for thought and I’m going to invest some time to see what can be done there.&lt;/p&gt;
-&lt;p&gt;As Mike loves to say in his keynotes, Eclipse is many things. I think first and foremost, it’s a community. Technologies come and go, and individual people come and go, but there always seems to be a great energy when we come together. The task for us is to carry that energy forward into our day-to-day work and keep momentum going on all the great things we talked about. It’s not easy, but it’s why we need to be there.&lt;/p&gt;</description>
-	<pubDate>Thu, 03 Nov 2016 14:58:02 +0000</pubDate>
-</item>
-<item>
-	<title>Jens von Pilgrim: BoF @ ECE2016: Eclipse and AsciiDoc</title>
-	<guid isPermaLink="false">tag:blogger.com,1999:blog-4884093826755448868.post-2808276505353226707</guid>
-	<link>http://jevopisdeveloperblog.blogspot.com/2016/11/bof-ece2016-eclipse-and-asciidoc.html</link>
-	<description>&lt;p&gt;
-At &lt;a href=&quot;http://www.numberfour.eu/&quot;&gt;NumberFour&lt;/a&gt;, we use AsciiDoc for our specifications and documentation. We are even working on producing AsciiDoc API documentation from &lt;a href=&quot;http://usejsdoc.org/&quot;&gt;JSDoc-like&lt;/a&gt; comments (similar to JavaDoc) for our JavaScript language &lt;a href=&quot;http://numberfour.github.io/n4js/&quot;&gt;N4JS&lt;/a&gt;. Since we ran into a couple of problems with AsciiDoctor, I thought that it might be interesting to learn what other people in the Eclipse Community think about AsciiDoc(tor) and if we might be able to &quot;join forces&quot; to overcome certain obstacles. So I organized a &quot;Birds of Feather&quot; about &quot;Documentation with AsciiDoc and Eclipse&quot; at &lt;a href=&quot;https://www.eclipsecon.org/europe2016/&quot;&gt;EclipseCon 2016 Europe&lt;/a&gt;. We were about 10 participants and this blog post serves more or less as a kind of meeting minutes of this BoF combined with our findings at NumberFour.
-&lt;/p&gt;
-
-&lt;p&gt;
-AsciiDoc is a lightweight markup language, similar to Markdown. The original &lt;a href=&quot;http://www.methods.co.nz/asciidoc/&quot;&gt;AsciiDoc&lt;/a&gt; was written in Python, but &lt;a href=&quot;http://asciidoctor.org/&quot;&gt;Asciidoctor&lt;/a&gt;, probably the most popular tool nowadays, is written in Ruby with a variant &lt;a href=&quot;https://github.com/asciidoctor/asciidoctorj&quot;&gt;AsciidoctorJ&lt;/a&gt; which provides Java support (via JRuby) and &lt;a href=&quot;https://github.com/asciidoctor/asciidoctor.js&quot;&gt;Asciidoctor.js&lt;/a&gt; for JavaScript (via &lt;a href=&quot;http://opalrb.org/&quot;&gt;Opal&lt;/a&gt;). From an Asciidoc document (.adoc) you can either create HTML, PDF or even EPub. Unfortunately, the PDF support is lacking some major features (e.g., footnotes are not supported yet), but there is a common workaround to produce DocBook XML files from AsciiDoctor and then use FOP to eventually create a beautiful PDF. Lars Vogel wrote a nice &lt;a href=&quot;http://www.vogella.com/tutorials/AsciiDoc/article.html&quot;&gt;tutorial about AsciiDoc and AsciiDoctor&lt;/a&gt;. One of the great things about AsciiDoc is that &lt;a href=&quot;http://asciidoctor.org/news/2013/01/30/asciidoc-returns-to-github/&quot;&gt;GitHub provides basic support for AsciiDoc&lt;/a&gt; as well!
-&lt;/p&gt;
-
-&lt;h2&gt;Writing AsciiDoc&lt;/h2&gt;
-&lt;p&gt;
-The first question is how to write AsciiDoc. One solution is to use stand-alone editors such as Sublime (there is an &lt;a href=&quot;https://github.com/asciidoctor/sublimetext-asciidoc&quot;&gt;AsciiDoc plug-in&lt;/a&gt; for syntax highlighting and coce completion which, together with the &lt;a href=&quot;https://github.com/timonwong/OmniMarkupPreviewer&quot;&gt;preview plug-in&lt;/a&gt;, is a really great solution). 
-&lt;/p&gt;
-
-&lt;p&gt;
-But usually, you do not want to switch editors when you are already using Eclipse. Fortunately, there's an existing &lt;a href=&quot;https://wiki.eclipse.org/Mylyn/WikiText/AsciiDoc&quot;&gt;AsciiDoc editor&lt;/a&gt; which is part of &lt;a href=&quot;https://wiki.eclipse.org/Mylyn/WikiText&quot;&gt;Mylyn Wiki Text&lt;/a&gt;. This editor has some syntax highlighting, an outline view and even a preview.
-&lt;/p&gt;
-&lt;p&gt;
-This editor seems to be a good starting point for further support of AsciiDoc on the Eclipse platform, although it might have some shortcomings with regard to features and design. Regardless, the BoF participants (including Torkild, a Mylyn Docs committer) decided to use the &lt;a href=&quot;https://dev.eclipse.org/mailman/listinfo/mylyn-docs-dev&quot;&gt;mylyn-docs developers mailing list&lt;/a&gt; for further communication about AsciiDoc and Eclipse.
-&lt;/p&gt;
-&lt;p&gt;
-Apparently, having a good editor, possibly even with &lt;a href=&quot;https://en.wikipedia.org/wiki/WYSIWYG&quot;&gt;WYSIWYG&lt;/a&gt; or at least &lt;a href=&quot;https://en.wikipedia.org/wiki/WYSIWYM&quot;&gt;WYSIWYM&lt;/a&gt; support is one of the most important things required.
-&lt;/p&gt;
-&lt;h2&gt;Building AsciiDoc&lt;/h2&gt;
-&lt;p&gt;
-There are several ways of building AsciiDoc. The most simple one is about using the AsciiDoctor tools directly from the command line. There is also a &lt;a href=&quot;http://asciidoctor.org/docs/  asciidoctor-maven-plugin/&quot;&gt;Maven plugin&lt;/a&gt; provided by the AsciiDoctor project.
-&lt;/p&gt;
-&lt;p&gt;
-We haven't discussed that topic any further though. It seems as if the existing tools are sufficient even though there are some shortcomings when using custom macros as described below. You may have a look at the N4JS &lt;a href=&quot;https://github.com/NumberFour/n4js/blob/master/docs/eu.numberfour.n4js.doc/pom.xml&quot;&gt;documentation pom.xml&lt;/a&gt; to get an idea of how this could look like.
-&lt;/p&gt;
-
-&lt;h2&gt;Converting to AsciiDoc&lt;/h2&gt;
-&lt;p&gt;
-During the BoF, the question came up how to convert existing documentation written in other formats to Asciidoc. One solution for that is &lt;a href=&quot;http://pandoc.org/&quot;&gt;Pandoc&lt;/a&gt;, which we (at NumberFour) are using to convert our LaTeX specification to Asciidoc.
-
-Jeremie Bresson has already &lt;a href=&quot;http://jmini.github.io/blog/2016/2016-10-28_from_mediawiki_to_asciidoc.html&quot;&gt;blogged about the BoF&lt;/a&gt; and even provided a solution for using Mylyn Wikitext to convert Eclipse MediaWiki to Asciidoc. Thank you very much, Jeremie!
-
-&lt;/p&gt;&lt;h2&gt;Using AsciiDoc as a Single Source&lt;/h2&gt;
-&lt;p&gt;
-I already mentioned above that you can generate HTML and PDF from AsciiDoc. However, HTML is not HTML. We use AsciiDoc to generate
-&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;the public web site (i.e., gh-pages)&lt;/li&gt;
-&lt;li&gt;the Eclipse help&lt;/li&gt;
-&lt;li&gt;the PDF specification&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;
-from a single asciidoc file. To give you an idea, have a look at an &lt;a href=&quot;https://github.com/NumberFour/n4js/blob/master/docs/eu.numberfour.n4js.doc/src/features/dependency-injection.adoc&quot;&gt;adoc source file&lt;/a&gt; and the &lt;a href=&quot;http://numberfour.github.io/n4js/features/dependency-injection.html&quot;&gt;generated web page&lt;/a&gt;. If you download the &lt;a href=&quot;http://numberfour.github.io/n4js/index.html#getting-started&quot;&gt;N4JS IDE&lt;/a&gt;, you can also have a look at the &lt;a href=&quot;https://github.com/NumberFour/n4js/blob/master/docs/eu.numberfour.n4js.doc/dist/eclipse-html/features/dependency-injection.html&quot;&gt;generated Eclipse help&lt;/a&gt; containing the same content. The PDF is not publicly available yet, we are currently working on migrating our language specification from LaTeX to AsciiDoc.
-&lt;/p&gt;
-&lt;p&gt;
-In order to generate Eclipse help, a table of contents file is required. At the moment, we generate them via the &lt;a href=&quot;https://github.com/jmini/geneclipsetoc&quot;&gt;geneclipsetoc-maven-plugin&lt;/a&gt; Maven plugin, see our &lt;a href=&quot;https://github.com/NumberFour/n4js/blob/master/docs/eu.numberfour.n4js.doc/pom.xml#L255&quot;&gt;pom.xml&lt;/a&gt; for our configuration.
-&lt;/p&gt;
-&lt;p&gt;
-You may also use the Mylyn Docs to generate code, which is described in the &lt;a href=&quot;http:// help.eclipse.org/luna/index.jsp?topic=%2Forg.eclipse.mylyn.wikitext.help.ui%2Fhelp%2FMarkup-Generation.html&quot;&gt;Mylyn Docs Eclipse help&lt;/a&gt;. This also provides support for &lt;a href=&quot;https://wiki.eclipse.org/Mylyn/Docs/EPUB&quot;&gt;generating EPub&lt;/a&gt;, the first steps towards this support has already been described 2011 in &lt;a href=&quot;https://resheim.net/2011/11/getting-to-epub-support-in-eclipse.html&quot;&gt;Torkild's blog&lt;/a&gt;!
-It’s now a stable part of Mylyn Docs and has been for a few years. Currently it is in maintenance mode as there are few bugs and there is not much to add – apart for EPUB 3.0 support. You can find an EPUB examples (and presentations about Mylyn Docs in general) on &lt;a href=&quot;https://github.com/turesheim/mylyn-docs-examples&quot;&gt;Torkild's GitHub page&lt;/a&gt;.
-&lt;/p&gt;
-
-
-&lt;h2&gt;Customizing AsciiDoc&lt;/h2&gt;
-&lt;p&gt;
-Although AsciiDoc provides a lot of features (&quot;macros&quot; in Asciidoc terminology) for technical documentation, such as source blocks, warning blocks etc., we (at NumberFour) missed some functionality. We required additional support for 
-&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;definitions -- a typical feature required in specifications&lt;/li&gt;
-&lt;li&gt;BibTex cites and bibliographies -- we already have a large BibTex database which we want to reuse&lt;/li&gt;
-&lt;li&gt;todos -- well, also a typical feature required in specifications and documentations&lt;/li&gt;
-&lt;li&gt;links to source code -- e.g., for adding links to either GitHub, or, in case of Eclipse help, to the files in the workspace&lt;/li&gt;
-&lt;li&gt;larger documents, e.g., includes similar to &lt;a href=&quot;https://www.ctan.org/tex-archive/macros/latex/contrib/chapterfolder?lang=en&quot;&gt;LaTeX's chapter folders&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;
-One problem we found is that Ruby-based custom macros calling native code cannot be used with AscidoctorJ. E.g., there already exists a &lt;a href=&quot;https://github.com/asciidoctor/asciidoctor-bibtex&quot;&gt;custom Ruby macro&lt;/a&gt; which provides support for BibTex, but this does not work with AscidoctorJ. We want to write the macros in Java, since we plan to provide some editor support in Eclipse as well -- and then Java would be the better solution. Thus we already wrote our own Java-based, BibTex macro (&lt;a href=&quot;https://github.com/asciidoctor/asciidoctorj/pull/509&quot;&gt;fixing some&lt;/a&gt; smaller AsciidoctorJ problems on the way) and we are also working on solutions for the other topics. If you are interested in that, or if you have written Java-based macros for AsciiDoc as well -- let me know! We haven't open sourced our custom macros yet since they are still under (heavy) development. But we will probably do that once they are in a state to make them public.
-&lt;/p&gt;
-
-
-&lt;p&gt;
-&lt;i&gt;Edit: Updated description of EPUB support -- thank you Torkild for the information!&lt;/i&gt;
-&lt;/p&gt;</description>
-	<pubDate>Thu, 03 Nov 2016 13:00:45 +0000</pubDate>
-	<author>noreply@blogger.com (Jens v.P.)</author>
-</item>
-<item>
-	<title>Benjamin Cabe: Live demo of AutoFOCUS at EclipseCon Europe 2016</title>
-	<guid isPermaLink="false">https://blog.benjamin-cabe.com/?p=2718</guid>
-	<link>http://feedproxy.google.com/~r/benjamin-cabe-planet-eclipse/~3/DTG3YU-63G8/live-demo-of-autofocus-at-eclipsecon-europe-2016</link>
-	<description>&lt;p&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;AF3 (AutoFOCUS3)&lt;/strong&gt; is an open-source, model-based, development tool for distributed, reactive, embedded software systems.&lt;br /&gt;
-At EclipseCon Europe 2016, I spent a few minutes chatting with Johannes Eder and Thomas Böhm from the project team to learn more about the project.&lt;/p&gt;
-&lt;p&gt;You can check out the project website at &lt;a href=&quot;http://af3.fortiss.org&quot;&gt;http://af3.fortiss.org&lt;/a&gt;&lt;/p&gt;
- &lt;img alt=&quot;&quot; height=&quot;1&quot; src=&quot;http://feeds.feedburner.com/~r/benjamin-cabe-planet-eclipse/~4/DTG3YU-63G8&quot; width=&quot;1&quot; /&gt;</description>
-	<pubDate>Thu, 03 Nov 2016 11:26:39 +0000</pubDate>
-</item>
-<item>
-	<title>itemis: Language development on .NET with Xtext – Part 2: Creating a .NET assembly from an Xtext DSL</title>
-	<guid isPermaLink="true">https://blogs.itemis.com/en/language-development-on-.net-with-xtext-part-2-creating-a-dotnet-assembly-from-an-xtext-dsl</guid>
-	<link>https://blogs.itemis.com/en/language-development-on-.net-with-xtext-part-2-creating-a-dotnet-assembly-from-an-xtext-dsl</link>
-	<description>&lt;h2&gt;Introduction&lt;/h2&gt; 
-&lt;p&gt;In the first part of this blog series we have introduced an &lt;a href=&quot;https://hosting.itemis.de/en/language-development-on-.net-with-xtext-part-1-overview&quot;&gt;example use case of integrating an Xtext DSL in a C# command-line calculator&lt;/a&gt;. This post will go into the details of how to use Maven to create a .NET assembly containing the DSL and Xtext runtime classes which are necessary for writing the calculator application.&lt;/p&gt;  
-&lt;p&gt;&lt;span&gt;After starting with an overview of the project structure, we will focus on how to create a .NET assembly by first constructing an Uber JAR that includes all dependencies and then converting it to an assembly using IKVM.NET. &lt;/span&gt;The &lt;a href=&quot;https://github.com/stadlerb/ikvm-arithmetics-cli&quot;&gt;source code&lt;/a&gt; of the project is available on GitHub.&lt;/p&gt; 
-&lt;h2&gt;Project structure&lt;/h2&gt; 
-&lt;p&gt;As build tool &lt;a href=&quot;https://www.itemis.com/en/xtext/&quot;&gt;Xtext&lt;/a&gt; offers the choice between &lt;a href=&quot;https://maven.apache.org&quot;&gt;Maven&lt;/a&gt; and &lt;a href=&quot;https://gradle.org&quot;&gt;Gradle&lt;/a&gt;. In this example, Maven is employed as the Gradle build has only been added recently and the Maven build is more stable.&lt;/p&gt; 
-&lt;p&gt;The basic project structure conforms to Xtext's default Maven layout and consists of the root project &lt;code&gt;org.eclipse.xtext.example.arithmetics.parent&lt;/code&gt; and the Xtext DSL project &lt;code&gt;org.eclipse.xtext.example.arithmetics&lt;/code&gt;, which are generated by Xtext's New Project wizard.&lt;br /&gt;&lt;br /&gt;The root project is used as a parent project to specify shared configuration items and serves as an aggregator project that provides a single build for all sub-projects. The Xtext DSL project is essentially the Xtext Simple Arithmetics example, adapted for Maven and with a few improvements for the CLI calculator application. The &lt;code&gt;org.eclipse.example.arithmetics.dotnet&lt;/code&gt; project was manually created and is responsible for creating a .NET assembly (a &lt;code&gt;dll&lt;/code&gt; file) that can be used to consume the DSL in C#.&lt;/p&gt; 
-&lt;p&gt;The project structure consisting of the root project and the child projects &lt;code&gt;org.eclipse.example.arithmetics&lt;/code&gt; and &lt;code&gt;org.eclipse.example.arithmetics.dotnet&lt;/code&gt; is summarized in the figure below:&lt;/p&gt; 
-&lt;p&gt;&lt;img alt=&quot;Project structure&quot; src=&quot;https://github.com/itemis/itemis-blog/raw/ikvm-xtext-standalone/ikvm-xtext-standalone/project-structure.png&quot; style=&quot;width: 519px; display: block; margin-left: auto; margin-right: auto;&quot; title=&quot;Project structure&quot; width=&quot;519&quot; /&gt;&lt;/p&gt; 
-&lt;h2&gt;Creating a .NET assembly for consuming the DSL in C#&lt;/h2&gt; 
-&lt;p&gt;Now that we have an overview of the project structure, we can direct our attention to the actual creation of the DLL, which consists of two steps: First creating an Uber JAR from all transitive dependencies of the &lt;code&gt;org.eclipse.example.arithmetics.dotnet&lt;/code&gt; project using the Maven Shade plugin and then converting the Uber JAR to a DLL as the project's main artifact using IKVM.NET.&lt;/p&gt; 
-&lt;p&gt;In the following subsections we will provide a more detailed description of the DLL creation process.&lt;/p&gt; 
-&lt;h2&gt;Creating a Uber JAR with the Shade plugin&lt;/h2&gt; 
-&lt;p&gt;An Uber JAR is a JAR that includes a project and its direct and indirect dependencies and is produced by merging the JARs of the project and all its dependencies into a single, &quot;fat&quot; JAR.&lt;br /&gt;In order to create an Uber JAR from the dependencies of the dotnet project, we include the Shade plugin in the POM of the project, which performs the merging of all Maven dependencies into a Uber JAR.&lt;/p&gt; 
-&lt;pre class=&quot;prettyprint linenums norowcolors hl8&quot;&gt;&amp;lt;plugin&amp;gt;
-  &amp;lt;groupId&amp;gt;org.apache.maven.plugins&amp;lt;/groupId&amp;gt;
-  &amp;lt;artifactId&amp;gt;maven-shade-plugin&amp;lt;/artifactId&amp;gt;
-  &amp;lt;executions&amp;gt;
-    &amp;lt;execution&amp;gt;
-      &amp;lt;id&amp;gt;ikvmShade&amp;lt;/id&amp;gt;
-      &amp;lt;goals&amp;gt;
-        &amp;lt;goal&amp;gt;shade&amp;lt;/goal&amp;gt;
-      &amp;lt;/goals&amp;gt;
-      &amp;lt;configuration&amp;gt;
-        &amp;lt;artifactSet&amp;gt;
-          &amp;lt;excludes&amp;gt;
-            &amp;lt;exclude&amp;gt;org.eclipse.xtext.example.arithmetics:org.eclipse.xtext.example.arithmetics.dotnet&amp;lt;/exclude&amp;gt;
-          &amp;lt;/excludes&amp;gt;
-        &amp;lt;/artifactSet&amp;gt;
-        &amp;lt;createDependencyReducedPom&amp;gt;false&amp;lt;/createDependencyReducedPom&amp;gt;
-        &amp;lt;outputFile&amp;gt;${project.build.directory}/${project.build.finalName}-shaded.jar&amp;lt;/outputFile&amp;gt;
-        &amp;lt;filters&amp;gt;
-          &amp;lt;filter&amp;gt;
-            &amp;lt;artifact&amp;gt;*:*&amp;lt;/artifact&amp;gt;
-            &amp;lt;excludes&amp;gt;
-              &amp;lt;exclude&amp;gt;META-INF/*.SF&amp;lt;/exclude&amp;gt;
-              &amp;lt;exclude&amp;gt;META-INF/*.DSA&amp;lt;/exclude&amp;gt;
-              &amp;lt;exclude&amp;gt;META-INF/*.RSA&amp;lt;/exclude&amp;gt;
-            &amp;lt;/excludes&amp;gt;
-          &amp;lt;/filter&amp;gt;
-        &amp;lt;/filters&amp;gt;
-      &amp;lt;/configuration&amp;gt;
-    &amp;lt;/execution&amp;gt;
-  &amp;lt;/executions&amp;gt;
-&amp;lt;/plugin&amp;gt;&lt;/pre&gt; 
-&lt;p&gt;As shown in the figure above, we need to exclude the signature files from the creation of the Uber JAR, in order to avoid &lt;code&gt;SecurityException&lt;/code&gt;s that would be thrown at runtime because the signatures don't match anymore. The &lt;code&gt;&amp;lt;exclude&amp;gt;&lt;/code&gt; element for the &lt;code&gt;org.eclipse.example.arithmetics.dotnet&lt;/code&gt; project is added to prevent the Shade plugin from producing an error because it can't find the project's own JAR. This JAR doesn't exist due to the &lt;code&gt;pom&lt;/code&gt; packaging, which will be explained further below.&lt;/p&gt; 
-&lt;p&gt;Now, in order to include the DSL project in the Uber JAR, we need to specify it as a dependency of the &lt;code&gt;org.eclipse.example.arithmetics.dotnet&lt;/code&gt; project, as illustrated in the following figure:&lt;/p&gt; 
-&lt;pre class=&quot;prettyprint&quot;&gt;&amp;lt;dependency&amp;gt;
-  &amp;lt;groupId&amp;gt;org.eclipse.xtext.example.arithmetics&amp;lt;/groupId&amp;gt;
-  &amp;lt;artifactId&amp;gt;org.eclipse.xtext.example.arithmetics&amp;lt;/artifactId&amp;gt;
-  &amp;lt;version&amp;gt;${project.version}&amp;lt;/version&amp;gt;
-  &amp;lt;optional&amp;gt;true&amp;lt;/optional&amp;gt;
-&amp;lt;/dependency&amp;gt;&lt;/pre&gt; 
-&lt;p&gt;The &lt;code&gt;org.eclipse.example.arithmetics&lt;/code&gt; dependency is declared as optional because otherwise, the JARs of all of its dependencies would be downloaded unnecessarily when building Maven projects that depend on the &lt;code&gt;org.eclipse.example.arithmetics.dotnet&lt;/code&gt; project.&lt;/p&gt; 
-&lt;h2&gt;Converting the Uber JAR to a .NET assembly with IKVM&lt;/h2&gt; 
-&lt;p&gt;After creating the Uber JAR in the previous step, we can use IKVM.NET to convert it to a .NET assembly. As there is no currently maintained (or working) Maven plugin for IKVM.NET, we use the &lt;code&gt;exec-maven-plugin&lt;/code&gt; in order to invoke the IKVM.NET compiler.&lt;/p&gt; 
-&lt;p&gt;As a preparation for this to work, we need to download the &lt;a href=&quot;http://weblog.ikvm.net/2015/08/26/IKVMNET81ReleaseCandidate0.aspx&quot;&gt;latest release of IKVM.NET&lt;/a&gt; and extract it to some location.&lt;/p&gt; 
-&lt;p&gt;By default, we use the directory &lt;code&gt;ikvm&lt;/code&gt; in the user's home folder, so that &lt;code&gt;ikvmc.exe&lt;/code&gt; would be available under &lt;code&gt;C:\Users\&amp;lt;username&amp;gt;\ikvm\bin\ikvmc.exe&lt;/code&gt; on Windows systems.&lt;br /&gt;By defining the IKVM.NET location as a Maven property as illustrated below, this default location can be overridden using &lt;code&gt;-Dikvm.home=&amp;lt;directory&amp;gt;&lt;/code&gt; later during the invocation of Maven:&lt;/p&gt; 
-&lt;pre class=&quot;prettyprint&quot;&gt;&amp;lt;properties&amp;gt;
-  &amp;lt;ikvm.home&amp;gt;${user.home}/ikvm&amp;lt;/ikvm.home&amp;gt;
-  &amp;lt;ikvm.dlls.dir&amp;gt;${ikvm.home}/bin&amp;lt;/ikvm.dlls.dir&amp;gt;
-  &amp;lt;ikvm.path&amp;gt;${ikvm.home}/bin/ikvmc.exe&amp;lt;/ikvm.path&amp;gt;
-&amp;lt;/properties&amp;gt;
-&lt;/pre&gt; 
-&lt;p&gt;Based on this, we can specify the execution of &lt;code&gt;ikvmc.exe&lt;/code&gt; using the &lt;code&gt;exec&lt;/code&gt; goal of the &lt;code&gt;exec-maven-plugin&lt;/code&gt; plugin.&lt;/p&gt; 
-&lt;pre class=&quot;prettyprint&quot;&gt;&amp;lt;plugin&amp;gt;
-  &amp;lt;groupId&amp;gt;org.codehaus.mojo&amp;lt;/groupId&amp;gt;
-  &amp;lt;artifactId&amp;gt;exec-maven-plugin&amp;lt;/artifactId&amp;gt;
-  &amp;lt;executions&amp;gt;
-    &amp;lt;execution&amp;gt;
-      &amp;lt;id&amp;gt;ikvmCompile&amp;lt;/id&amp;gt;
-      &amp;lt;phase&amp;gt;package&amp;lt;/phase&amp;gt;
-      &amp;lt;goals&amp;gt;
-        &amp;lt;goal&amp;gt;exec&amp;lt;/goal&amp;gt;
-      &amp;lt;/goals&amp;gt;
-      &amp;lt;configuration&amp;gt;
-        &amp;lt;executable&amp;gt;${ikvm.path}&amp;lt;/executable&amp;gt;
-        &amp;lt;workingDirectory&amp;gt;${project.build.directory}&amp;lt;/workingDirectory&amp;gt;
-        &amp;lt;arguments&amp;gt;
-          &amp;lt;argument&amp;gt;-target:library&amp;lt;/argument&amp;gt;
-          &amp;lt;argument&amp;gt;-out:${project.artifactId}.dll&amp;lt;/argument&amp;gt;
-          &amp;lt;argument&amp;gt;${project.build.finalName}-shaded.jar&amp;lt;/argument&amp;gt;
-        &amp;lt;/arguments&amp;gt;
-      &amp;lt;/configuration&amp;gt;
-    &amp;lt;/execution&amp;gt;
-  &amp;lt;/executions&amp;gt;
-&amp;lt;/plugin&amp;gt;
-&lt;/pre&gt; 
-&lt;p&gt;We specify the project's &lt;code&gt;target&lt;/code&gt; directory as working directory and pass parameters to create a DLL from the JAR.&lt;/p&gt; 
-&lt;h2&gt;.NET Assembly as Maven artifact&lt;/h2&gt; 
-&lt;p&gt;As the DLL is the &lt;code&gt;org.eclipse.example.arithmetics.dotnet&lt;/code&gt; project's main artifact, but Maven has no built-in support specific for .NET assemblies, we have to use a workaround:&lt;br /&gt;&lt;br /&gt;We specify the project's packaging to be &lt;code&gt;pom&lt;/code&gt;, which means that technically the &lt;code&gt;pom.xml&lt;/code&gt; itself is the project's primary artifact, and then use the the &lt;code&gt;attach-artifact&lt;/code&gt; goal of the &lt;code&gt;build-helper-maven-plugin&lt;/code&gt; to tell Maven to attach the DLL as a supplementary artifact. On this way, the DLL gets installed in the Maven repository when the Maven &lt;code&gt;install&lt;/code&gt; goal is built and can be used by other projects by adding &lt;code&gt;&amp;lt;type&amp;gt;dll&amp;lt;/type&amp;gt;&lt;/code&gt; to the dependency declaration.&lt;/p&gt; 
-&lt;p&gt;The resulting plugin configuration is illustrated below:&lt;/p&gt; 
-&lt;pre class=&quot;prettyprint&quot;&gt;&amp;lt;plugin&amp;gt;
-  &amp;lt;groupId&amp;gt;org.codehaus.mojo&amp;lt;/groupId&amp;gt;
-  &amp;lt;artifactId&amp;gt;build-helper-maven-plugin&amp;lt;/artifactId&amp;gt;
-  &amp;lt;executions&amp;gt;
-    &amp;lt;execution&amp;gt;
-      &amp;lt;id&amp;gt;ikvmAttach&amp;lt;/id&amp;gt;
-      &amp;lt;goals&amp;gt;
-        &amp;lt;goal&amp;gt;attach-artifact&amp;lt;/goal&amp;gt;
-      &amp;lt;/goals&amp;gt;
-      &amp;lt;configuration&amp;gt;
-        &amp;lt;artifacts&amp;gt;
-          &amp;lt;artifact&amp;gt;
-            &amp;lt;file&amp;gt;${project.build.directory}/${project.artifactId}.dll&amp;lt;/file&amp;gt;
-            &amp;lt;type&amp;gt;dll&amp;lt;/type&amp;gt;
-          &amp;lt;/artifact&amp;gt;
-        &amp;lt;/artifacts&amp;gt;
-      &amp;lt;/configuration&amp;gt;
-    &amp;lt;/execution&amp;gt;
-  &amp;lt;/executions&amp;gt;
-&amp;lt;/plugin&amp;gt;&lt;/pre&gt; 
-&lt;h2&gt;Running the build&lt;/h2&gt; 
-&lt;p&gt;Now, we can run the build using the MS Build command prompt from the parent directory:&lt;/p&gt; 
-&lt;pre class=&quot;prettyprint&quot;&gt;mvn clean install&lt;/pre&gt; 
-&lt;p&gt;There may be several warnings regarding missing classes, which can be safely ignored.&lt;br /&gt;The resulting DLL will be placed in the &lt;code&gt;target&lt;/code&gt; directory.&lt;/p&gt; 
-&lt;h2&gt;Conclusion&lt;/h2&gt; 
-&lt;p&gt;In this part of the series, we have described how to transform an Xtext DSL project into a .NET assembly which is ready for use in a C# application.&lt;/p&gt; 
-&lt;p&gt;The next blog entry will demonstrate how to use this assembly to create a command-line calculator application.&lt;/p&gt;  
-&lt;img alt=&quot;&quot; height=&quot;1&quot; src=&quot;http://track.hubspot.com/__ptq.gif?a=761475&amp;amp;k=14&amp;amp;r=https%3A%2F%2Fblogs.itemis.com%2Fen%2Flanguage-development-on-.net-with-xtext-part-2-creating-a-dotnet-assembly-from-an-xtext-dsl&amp;amp;bu=https%253A%252F%252Fblogs.itemis.com&amp;amp;bvt=rss&quot; style=&quot;width: 1px!important;&quot; width=&quot;1&quot; /&gt;</description>
-	<pubDate>Thu, 03 Nov 2016 07:48:44 +0000</pubDate>
-	<author>stadler@itemis.de (Bernhard Stadler)</author>
 </item>
 
 </channel>

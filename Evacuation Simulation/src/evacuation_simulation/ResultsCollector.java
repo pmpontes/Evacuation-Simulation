@@ -10,13 +10,13 @@ import sajas.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.wrapper.ControllerException;
-import serviceConsumerProviderVis.onto.EvacueeStats;
-import serviceConsumerProviderVis.onto.EvacueeStats;
-import serviceConsumerProviderVis.onto.ServiceOntology;
 
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
+
+import evacuation_simulation.onto.EvacueeStats;
+import evacuation_simulation.onto.ServiceOntology;
 
 public class ResultsCollector extends Agent {
 
