@@ -1,5 +1,3 @@
-specification/specs.aux
-specification/specs.log
-specification/specs.out
-specification/specs.synctex.gz
-specification/specs.toc
+.metadata/*
+.recommenders/*
+
