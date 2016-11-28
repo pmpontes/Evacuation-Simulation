@@ -43,7 +43,7 @@ public class PathwayGraph {
 				if( nodeA != nodeB ) {
 					if( nodeA.getY() < height-1 ){
 						if( ( nodeA.getY() == nodeB.getY() && nodeA.getX() == nodeB.getX()+1 ) || ( nodeA.getX() == nodeB.getX() && nodeA.getY() == nodeB.getY()-1 ) ) {
-							nodeA.addNeighbour(nodeB);
+							nodeA.addNeighbour(nodeB, 'E');
 							maxInstanceCounter--;
 						}
 					}

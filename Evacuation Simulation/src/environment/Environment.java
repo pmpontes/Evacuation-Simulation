@@ -2,6 +2,8 @@ package environment;
 
 import java.util.List;
 
+import entity.Exit;
+import entity.Wall;
 import evacuation_simulation.Person;
 import repast.simphony.context.Context;
 import repast.simphony.context.space.grid.GridFactory;
@@ -23,8 +25,11 @@ public class Environment {
 	
 	private ContinuousSpace<Object> space;
 	private Grid<Object> grid;
+	private SurfaceMap map;
 
-	public Environment(Context<Object> context){
+	public Environment(Context<Object> context, String fileName){
+		
+		map = new SurfaceMap(fileName);
 		
 		GridFactory gridFactory = GridFactoryFinder.createGridFactory(null);
 
@@ -34,24 +39,33 @@ public class Environment {
 						false, X_DIMENSION, Y_DIMENSION));
 	}
 	
-	public void place(Object obj){
-		NdPoint pt = space.getLocation(obj);
-		grid.moveTo(obj,  (int)pt.getX(), (int)pt.getY());
-	}
-	
-	public void getMostPopulatedCardinalDirection( GridPoint point, int radius ) {
-		int x0 = 0, y0 = 0;
-		int north = 0, south = 0, east = 0, west = 0;
-		
-		GridCellNgh<Object> neighbourhood = new GridCellNgh(grid, point, Person.class, radius, radius);
-		List<GridCell<Object>> listCells = neighbourhood.getNeighborhood(false);
-		
-		//In progress
-		
-		
+	public void placeEntities(){
+		for(int y = 0; y < map.getHeight(); y++){
+			for(int x = 0; x < map.getWidth(); x++){
+				switch(map.getObjectAt(x, y)){
+				case 'E':
+					Exit exit = new Exit(x,y);
+					place(exit, x, y);
+					break;
+				case 'W':
+					Wall wall = new Wall(x,y);
+					place(wall, x, y);
+					break;					
+				}
+			}
+		}
 	}
 	
 	public boolean cellEmpty( GridCell<Object> cell ) {
 		return ( cell.size() == 0 ) ? true : false;
+	}
+	
+	public void place(Object object, int x, int y){
+		grid.getAdder().add(grid, object);
+		grid.moveTo(object, x, y);
+	}
+	
+	public void move(Object object, int x, int y){
+		grid.moveTo(object, x, y);
 	}
 }

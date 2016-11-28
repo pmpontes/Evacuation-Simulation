@@ -60,6 +60,10 @@ public class MapParser {
 		if( content == 'W' || content == ' ' || content == 'F' || content == 'E' )
 			mappedSurface.get(y).set(x, content);
 	}
+	
+	public ArrayList<ArrayList<Character>> getMap(){
+		return mappedSurface;
+	}
 
 
 }
