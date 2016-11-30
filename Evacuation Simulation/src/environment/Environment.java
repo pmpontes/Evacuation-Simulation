@@ -1,17 +1,18 @@
 package environment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import entity.Exit;
 import entity.Wall;
 import evacuation_simulation.Person;
+import jade.core.AID;
 import repast.simphony.context.Context;
 import repast.simphony.context.space.grid.GridFactory;
 import repast.simphony.context.space.grid.GridFactoryFinder;
 import repast.simphony.query.space.grid.GridCell;
 import repast.simphony.query.space.grid.GridCellNgh;
 import repast.simphony.space.continuous.ContinuousSpace;
-import repast.simphony.space.continuous.NdPoint;
 import repast.simphony.space.grid.Grid;
 import repast.simphony.space.grid.GridBuilderParameters;
 import repast.simphony.space.grid.GridPoint;
@@ -67,5 +68,19 @@ public class Environment {
 	
 	public void move(Object object, int x, int y){
 		grid.moveTo(object, x, y);
+	}
+	
+	public ArrayList<AID> findNear(Agent myAgent, int distance){
+		ArrayList<AID> neighboursList = new ArrayList<AID>();
+		
+		GridCellNgh<Person> neighbourhood = new GridCellNgh<Person>(grid, grid.getLocation(myAgent), Person.class, distance);
+		List<GridCell<Person>> nghPoints = neighbourhood.getNeighborhood(false);
+		
+		
+		
+		
+		
+		
+		return null;
 	}
 }
