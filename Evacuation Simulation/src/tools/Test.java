@@ -9,20 +9,7 @@ public class Test {
 		System.out.println("Begin tests");
 		
 		System.out.println("Initiating input map testing");
-		testParser();
-		System.out.print("\n");
 		testDistance();
-	}
-	
-	
-	protected static void testParser(){
-		MapParser map = new MapParser("maps/testMap.map");
-		for(int y = 0; y < map.getMap().size(); y++){
-			for(int x = 0; x < map.getMap().get(0).size(); x++){
-				System.out.print(map.getCellContent(x, y));
-			}
-			System.out.print("\n");
-		}
 	}
 	
 	protected static void testDistance(){

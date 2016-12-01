@@ -15,16 +15,15 @@ import repast.simphony.query.space.grid.GridCellNgh;
 import repast.simphony.space.continuous.ContinuousSpace;
 import repast.simphony.space.grid.Grid;
 import repast.simphony.space.grid.GridBuilderParameters;
-import repast.simphony.space.grid.GridPoint;
 import repast.simphony.space.grid.SimpleGridAdder;
 import repast.simphony.space.grid.WrapAroundBorders;
+import sajas.core.Agent;
 
 public class Environment {
 	
 	public static int X_DIMENSION = 50;
 	public static int Y_DIMENSION = 50;
 	
-	private ContinuousSpace<Object> space;
 	private Grid<Object> grid;
 	private SurfaceMap map;
 
@@ -70,17 +69,33 @@ public class Environment {
 		grid.moveTo(object, x, y);
 	}
 	
+	public ArrayList<AID> findNear(Agent myAgent){
+		return findNear(myAgent, 1);
+	}
+	
 	public ArrayList<AID> findNear(Agent myAgent, int distance){
 		ArrayList<AID> neighboursList = new ArrayList<AID>();
 		
 		GridCellNgh<Person> neighbourhood = new GridCellNgh<Person>(grid, grid.getLocation(myAgent), Person.class, distance);
 		List<GridCell<Person>> nghPoints = neighbourhood.getNeighborhood(false);
 		
+		for(GridCell<Person> person : nghPoints){
+			if(person.size() > 0){
+				Iterable<Person> iterable = person.items();
+				for(Person agent : iterable){
+					neighboursList.add(agent.getAID());
+				}
+			}
+		}
 		
-		
-		
-		
-		
-		return null;
+		return neighboursList;
+	}
+	
+	public SurfaceMap getMap(){
+		return map;
+	}
+
+	public Grid<Object> getGrid(){
+		return grid;
 	}
 }

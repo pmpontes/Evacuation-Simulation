@@ -2,6 +2,8 @@ package evacuation_simulation;
 
 import java.util.ArrayList;
 
+import environment.Environment;
+import environment.Pair;
 import jade.content.lang.Codec;
 import jade.content.lang.sl.SLCodec;
 import jade.content.onto.Ontology;
@@ -21,7 +23,6 @@ import sajas.core.behaviours.SimpleBehaviour;
 import sajas.core.behaviours.WakerBehaviour;
 import serviceConsumerProviderVis.onto.EvacueeStats;
 import serviceConsumerProviderVis.onto.ServiceOntology;
-import environment.Environment;
 
 public class Person extends Agent{
 	public static final int PANIC_VARIATION = 10;
@@ -108,6 +109,8 @@ public class Person extends Agent{
 			maxSpeed -= 10;
 
 		currentSpeed = maxSpeed  / 3;
+		
+		addBehaviour(new MovementBehaviour(4, 4));
 	}
 
 	/**
@@ -794,5 +797,41 @@ public class Person extends Agent{
 		public boolean done() {
 			return nAttempts <= 0 || newDirections || ((Person) myAgent).isExitReached();
 		}
+	}
+	
+	/*
+	 * Movement behaviour
+	 */
+	class MovementBehaviour extends SimpleBehaviour {
+		private static final long serialVersionUID = 1L;
+		private int x;
+		private int y;
+		
+		public MovementBehaviour(int x, int y){
+			super();
+			this.x = x;
+			this.y = y;
+			environment.place(this, x, y);
+		}
+
+		@Override
+		public void action() {
+			ArrayList<Pair<Integer,Integer>> orderedPaths = environment.getMap().getBestPathFromCell(x, y);
+			
+			if(orderedPaths.size() > 0){
+				x = orderedPaths.get(0).getX();
+				y = orderedPaths.get(0).getY();
+				
+				environment.move(this, x, y);
+			}
+			
+		}
+
+		@Override
+		public boolean done() {
+			exitReached = true;
+			return environment.getMap().getObjectAt(x, y) == 'E';
+		}
+		
 	}
 }

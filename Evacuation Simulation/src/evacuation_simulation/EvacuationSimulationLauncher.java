@@ -1,6 +1,7 @@
 package evacuation_simulation;
 
 import cern.jet.random.Binomial;
+import environment.Environment;
 import jade.core.AID;
 import jade.core.Profile;
 import jade.core.ProfileImpl;
@@ -8,11 +9,11 @@ import jade.wrapper.StaleProxyException;
 import repast.simphony.context.Context;
 import repast.simphony.context.space.graph.NetworkBuilder;
 import repast.simphony.random.RandomHelper;
+import repast.simphony.space.grid.Grid;
 import sajas.core.Agent;
 import sajas.core.Runtime;
 import sajas.sim.repasts.RepastSLauncher;
 import sajas.wrapper.ContainerController;
-import environment.Environment;
 
 public class EvacuationSimulationLauncher extends RepastSLauncher {
 
@@ -42,6 +43,7 @@ public class EvacuationSimulationLauncher extends RepastSLauncher {
 	private ContainerController mainContainer;
 	private ContainerController agentContainer;
 	private Environment environment;
+	private Grid<Object> grid;
 
 	public static Agent getAgent(Context<?> context, AID aid) {
 		for(Object obj : context.getObjects(Agent.class)) {
@@ -195,6 +197,7 @@ public class EvacuationSimulationLauncher extends RepastSLauncher {
 		//context.setId("evacuation"); ????
 
 		environment = new Environment(context, "maps/testMap.map");
+		grid = environment.getGrid();
 
 		NetworkBuilder<Object> netBuilder = new NetworkBuilder<Object>("Evacuation network", context, true);
 		netBuilder.buildNetwork();

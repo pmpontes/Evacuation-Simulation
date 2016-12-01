@@ -51,16 +51,7 @@ public class MapParser {
 		}
 	}
 	
-	public char getCellContent(int x, int y) {
-		return mappedSurface.get(y).get(x).charValue();
-		
-	}
-	
-	public void setCellContent(int x, int y, char content){
-		if( content == 'W' || content == ' ' || content == 'F' || content == 'E' )
-			mappedSurface.get(y).set(x, content);
-	}
-	
+
 	public ArrayList<ArrayList<Character>> getMap(){
 		return mappedSurface;
 	}
