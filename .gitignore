@@ -1,3 +1,13 @@
 .metadata/*
 .recommenders/*
+final-report/report/final-report.aux
+final-report/report/final-report.log
+final-report/report/final-report.out
+final-report/report/final-report.synctex.gz
+final-report/report/final-report.toc
+specification/report/specs.aux
+specification/report/specs.log
+specification/report/specs.out
+specification/report/specs.synctex.gz
+specification/report/specs.toc
 

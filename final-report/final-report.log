@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.10.21)  14 NOV 2016 13:00
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.10.21)  1 DEC 2016 16:29
 entering extended mode
-**"./final report.tex"
-("final report.tex"
+**./final-report.tex
+(final-report.tex
 LaTeX2e <2016/03/31> patch level 3
 Babel <3.9r> and hyphenation patterns for 75 language(s) loaded.
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\article.cls"
@@ -800,26 +800,33 @@ Package: enumitem 2011/09/28 v3.5.2 Customized lists
 (C:\Users\pedro\AppData\Roaming\MiKTeX\2.9\tex\latex\listings\lstlang1.sty
 File: lstlang1.sty 2015/06/04 1.6 listings language file
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 97.
+Package hyperref Info: Option `colorlinks' set `true' on input line 99.
 
-("final report.aux")
-\openout1 = `"final report.aux"'.
+(final-report.aux
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 99.
-LaTeX Font Info:    ... okay on input line 99.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 99.
-LaTeX Font Info:    ... okay on input line 99.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 99.
-LaTeX Font Info:    ... okay on input line 99.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 99.
-LaTeX Font Info:    ... okay on input line 99.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 99.
-LaTeX Font Info:    ... okay on input line 99.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 99.
-LaTeX Font Info:    ... okay on input line 99.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 99.
-LaTeX Font Info:    ... okay on input line 99.
-LaTeX Font Info:    Try loading font information for T1+lmr on input line 99.
+LaTeX Warning: Label `uml' multiply defined.
+
+
+LaTeX Warning: Label `uml' multiply defined.
+
+)
+\openout1 = `final-report.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Try loading font information for T1+lmr on input line 101.
  ("C:\Program Files\MiKTeX 2.9\tex\latex\lm\t1lmr.fd"
 File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
@@ -849,10 +856,10 @@ Package grfext Info: Graphics extension search list:
 G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 456.
 )
-Package ragged2e Info: ABD: executing \RaggedRight on input line 99.
+Package ragged2e Info: ABD: executing \RaggedRight on input line 101.
 
 ABD: EverySelectfont initializing macros
-LaTeX Info: Redefining \selectfont on input line 99.
+LaTeX Info: Redefining \selectfont on input line 101.
 \c@lstlisting=\count137
 
 *geometry* driver: auto-detecting
@@ -890,7 +897,7 @@ LaTeX Info: Redefining \selectfont on input line 99.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 \AtBeginShipoutBox=\box34
-Package hyperref Info: Link coloring ON on input line 99.
+Package hyperref Info: Link coloring ON on input line 101.
 ("C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\nameref.sty"
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 
@@ -899,61 +906,61 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count138
 )
-LaTeX Info: Redefining \ref on input line 99.
-LaTeX Info: Redefining \pageref on input line 99.
-LaTeX Info: Redefining \nameref on input line 99.
+LaTeX Info: Redefining \ref on input line 101.
+LaTeX Info: Redefining \pageref on input line 101.
+LaTeX Info: Redefining \nameref on input line 101.
 
-("final report.out") ("final report.out")
+(final-report.out) (final-report.out)
 \@outlinefile=\write3
-\openout3 = `"final report.out"'.
+\openout3 = `final-report.out'.
 
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
 
-<images/feup.jpg, id=59, 168.02776pt x 151.16475pt>
+<images/feup.jpg, id=75, 168.02776pt x 151.16475pt>
 File: images/feup.jpg Graphic file (type jpg)
  <use images/feup.jpg>
-Package pdftex.def Info: images/feup.jpg used on input line 111.
+Package pdftex.def Info: images/feup.jpg used on input line 113.
 (pdftex.def)             Requested size: 168.02734pt x 151.16437pt.
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 114.
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 116.
 
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\lm\ot1lmr.fd"
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 114.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 116.
 
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\lm\omllmm.fd"
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 114
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 116
 .
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\lm\omslmsy.fd"
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 114
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 116
 .
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\lm\omxlmex.fd"
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <14.4> on input line 114.
+(Font)              <14.4> on input line 116.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 114.
+(Font)              <10> on input line 116.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 114.
+(Font)              <7> on input line 116.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 147.
+(babel)             in language  on input line 149.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 147.
+(babel)             in language  on input line 149.
  [1
 
 {C:/Users/pedro/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <./images/fe
 up.jpg>]
-("final report.toc"
+(final-report.toc
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <12> on input line 4.
 LaTeX Font Info:    External font `lmex10' loaded for size
@@ -962,101 +969,202 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <6> on input line 4.
 )
 \tf@toc=\write4
-\openout4 = `"final report.toc"'.
+\openout4 = `final-report.toc'.
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 151.
+(babel)             in language  on input line 153.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 151.
+(babel)             in language  on input line 153.
  [2
 
 ]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 157.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 173.
+(babel)             in language  on input line 159.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 175.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 182.
+(babel)             in language  on input line 177.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 187.
+(babel)             in language  on input line 186.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 191.
+(babel)             in language  on input line 194.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 191.
+(babel)             in language  on input line 194.
  [3
 
 ]
-LaTeX Font Info:    Try loading font information for OMS+lmr on input line 191.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 195.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 196.
+
+Overfull \hbox (1.07pt too wide) in paragraph at lines 239--240
+[]\T1/lmr/m/n/12 Em fun-ção dos atri-bu-tos de in-de-pen-dên-cia e de co-nhe-ci
+-mento da área, considerou-
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 269.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 269.
+[4]
+Overfull \hbox (2.10892pt too wide) in paragraph at lines 279--295
+ [][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 298.
+
+Underfull \hbox (badness 10000) in paragraph at lines 302--303
+
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 303.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 303.
+[5]
+LaTeX Font Info:    Try loading font information for T1+lmtt on input line 305.
+
+ ("C:\Program Files\MiKTeX 2.9\tex\latex\lm\t1lmtt.fd"
+File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Try loading font information for OMS+lmr on input line 319.
 
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\lm\omslmr.fd"
 File: omslmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `OMS/lmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 191.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 197.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 207.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 208.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 250.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 250.
- [4]
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 252.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 273.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 276.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 276.
- [5]
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 291.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 303.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 304.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 307.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 312.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 312.
- [6]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 313.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 313.
+(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 319.
 
-("final report.aux")
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 313.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 313.
-Package rerunfilecheck Info: File `"final report".out' has not changed.
-(rerunfilecheck)             Checksum: 77BDF36E8384AC4BA87890B92F9645EF;794.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 313.
+Underfull \hbox (badness 10000) in paragraph at lines 323--324
+
+ []
+
+<images/terror-behaviour.jpg, id=124, 740.7675pt x 270.00874pt>
+File: images/terror-behaviour.jpg Graphic file (type jpg)
+
+<use images/terror-behaviour.jpg>
+Package pdftex.def Info: images/terror-behaviour.jpg used on input line 327.
+(pdftex.def)             Requested size: 370.38284pt x 135.00403pt.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 338.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 338.
+ [6 <./images/terror-behaviour.jpg>]
+<images/help-behaviour.jpg, id=138, 973.6375pt x 429.605pt>
+File: images/help-behaviour.jpg Graphic file (type jpg)
+
+<use images/help-behaviour.jpg>
+Package pdftex.def Info: images/help-behaviour.jpg used on input line 342.
+(pdftex.def)             Requested size: 389.44809pt x 171.83894pt.
+
+<images/directions-behaviour.jpg, id=139, 716.6775pt x 442.65375pt>
+File: images/directions-behaviour.jpg Graphic file (type jpg)
+
+<use images/directions-behaviour.jpg>
+Package pdftex.def Info: images/directions-behaviour.jpg used on input line 355
+.
+(pdftex.def)             Requested size: 358.33788pt x 221.32632pt.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 359.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 359.
+ [7 <./images/help-behaviour.jpg>]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 369.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 369.
+
+[8 <./images/directions-behaviour.jpg>]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 370.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 371.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 388.
+
+Underfull \hbox (badness 10000) in paragraph at lines 389--391
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 396--398
+
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 407.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 411.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 412.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 415.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 415.
+[9]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 415.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 415.
+ [10]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 416.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 472.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 472.
+ [11]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 473.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 485.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 486.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 496.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 503.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 503.
+ [12]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 504.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 504.
+ (final-report.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 504.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 504.
+Package rerunfilecheck Info: File `final-report.out' has not changed.
+(rerunfilecheck)             Checksum: 4645E81B9FA34E04C6A0F419C5D0137A;1057.
+
+
+LaTeX Warning: There were multiply-defined labels.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 504.
  ) 
 Here is how much of TeX's memory you used:
- 10768 strings out of 493334
- 157281 string characters out of 3139251
- 291491 words of memory out of 3000000
- 14087 multiletter control sequences out of 15000+200000
- 71741 words of font info for 49 fonts, out of 3000000 for 9000
+ 11184 strings out of 493334
+ 161474 string characters out of 3139251
+ 291447 words of memory out of 3000000
+ 14472 multiletter control sequences out of 15000+200000
+ 75368 words of font info for 52 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 36i,16n,40p,529b,595s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathsy.enc}{C:/Program Fil
-es/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc}<C:/Program Files/MiKTeX 2.9/fonts/t
-ype1/public/lm/lmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lm
-bxi10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmcsc10.pfb><C:/Pr
-ogram Files/MiKTeX 2.9/fonts/type1/public/lm/lmr12.pfb><C:/Program Files/MiKTeX
- 2.9/fonts/type1/public/lm/lmri12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/
-public/lm/lmsy10.pfb>
-Output written on "final report.pdf" (6 pages, 170162 bytes).
+ 36i,16n,40p,622b,1301s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc}{C:/Program Files/M
+iKTeX 2.9/fonts/enc/dvips/lm/lm-rm.enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/d
+vips/lm/lm-mathit.enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathsy
+.enc}<C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmbx12.pfb><C:/Program 
+Files/MiKTeX 2.9/fonts/type1/public/lm/lmbxi10.pfb><C:/Program Files/MiKTeX 2.9
+/fonts/type1/public/lm/lmcsc10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/pub
+lic/lm/lmmi12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmr12.pfb>
+<C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmri12.pfb><C:/Program Files
+/MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts
+/type1/public/lm/lmtt10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/
+lmtt12.pfb>
+Output written on final-report.pdf (12 pages, 341912 bytes).
 PDF statistics:
- 142 PDF objects out of 1000 (max. 8388607)
- 29 named destinations out of 1000 (max. 500000)
- 118 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 231 PDF objects out of 1000 (max. 8388607)
+ 51 named destinations out of 1000 (max. 500000)
+ 165 words of extra memory for PDF output out of 10000 (max. 10000000)
 

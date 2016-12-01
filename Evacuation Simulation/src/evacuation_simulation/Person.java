@@ -47,7 +47,7 @@ public class Person extends Agent{
 	protected Context<?> context;
 	protected Network<Object> net;
 
-	/*
+	/**
 	 * Human attributes
 	 */
 	protected int areaKnowledge;	 /* [0, 100] */
@@ -504,7 +504,7 @@ public class Person extends Agent{
 		}
 	}
 
-	/*
+	/**
 	 * Scream behaviour
 	 */
 	class ScreamBehaviour extends SimpleBehaviour {
@@ -519,8 +519,6 @@ public class Person extends Agent{
 		public void action() {
 			// find people in the surrounding area
 			ArrayList<AID> peopleNear = environment.findNear(myAgent);
-
-			// ask for directions
 			if(peopleNear.isEmpty()) {
 				return;
 			}
@@ -763,18 +761,22 @@ public class Person extends Agent{
 		private static final int MAX_ATTEMPTS = 5;
 		private static final long serialVersionUID = 1L;
 		private boolean newDirections;
+		private ArrayList<AID> previousReplies;
 		private int nAttempts;
 
 		public DirectionsRequestBehaviour(Agent a) {
 			super(a);
 			newDirections = false;
 			nAttempts = MAX_ATTEMPTS;
+			previousReplies = new ArrayList<AID>();
 		}
 
 		// TODO check if AID should be sajas or jade
 		public void action() {
 			// find people in the surrounding area
 			ArrayList<AID> peopleNear = environment.findNear(myAgent, 1);
+			peopleNear.removeAll(previousReplies);
+			SimUtilities.shuffle(peopleNear,  RandomHelper.getUniform());
 
 			if(peopleNear.isEmpty()) {
 				nAttempts--;
@@ -783,7 +785,6 @@ public class Person extends Agent{
 
 			// ask a random person for directions
 			ACLMessage directionsRequest = new ACLMessage(ACLMessage.CFP);			
-			SimUtilities.shuffle(peopleNear,  RandomHelper.getUniform());
 			directionsRequest.addReceiver(peopleNear.get(0));		
 			directionsRequest.setLanguage(codec.getName());
 			directionsRequest.setOntology(serviceOntology.getName());
@@ -800,8 +801,10 @@ public class Person extends Agent{
 			// wait for a response
 			ACLMessage msg = blockingReceive();
 
-			String reply = msg.getContent();
 			if(msg.getPerformative() == ACLMessage.INFORM) {
+				previousReplies.add(msg.getSender());
+				
+				int previousKnowledge = areaKnowledge;
 				int knowledgeReceived = -1;
 				try {
 					knowledgeReceived = ((DirectionsReply) getContentManager().extractContent(msg)).getKnowkledge();
@@ -810,11 +813,13 @@ public class Person extends Agent{
 					e.printStackTrace();
 				}
 
-				System.out.println("Directions received.");
-				newDirections = true;
-
 				// update areaKnowledge to 80% of the knowledge of the person answering, if it is greater than the current value
 				setAreaKnowledge(Integer.max((int) (knowledgeReceived * 0.8), areaKnowledge));
+				
+				if(previousKnowledge > areaKnowledge){
+					System.out.println("Directions received.");
+					newDirections = true;
+				}
 			}
 		}
 
