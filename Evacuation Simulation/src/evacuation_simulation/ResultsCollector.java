@@ -54,11 +54,26 @@ public class ResultsCollector extends Agent {
 		addBehaviour(new ResultsListener());
 	}
 	
-	// TODO
 	protected void calculateResults() {
 		long took = System.currentTimeMillis() - startTime;
 		
+		long mediumEvacuationTime = 0;
+		long maximumEvacuationTime = 0;
+		long minimumEvacuationTime = Long.MAX_VALUE;
 		
+		for(EvacueeStats stat: evacuationResults){
+			mediumEvacuationTime += stat.getEvacuatedAt();
+			
+			if(stat.getEvacuatedAt() < minimumEvacuationTime){
+				minimumEvacuationTime = stat.getEvacuatedAt(); 
+			}
+			
+			if(stat.getEvacuatedAt() > maximumEvacuationTime){
+				maximumEvacuationTime = stat.getEvacuatedAt(); 
+			}
+		}
+		
+		// TODO export stats
 	}
 	
 	// TODO

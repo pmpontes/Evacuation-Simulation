@@ -433,6 +433,9 @@ public class Person extends Agent{
 		// add behaviours
 		// waker behaviour for starting CNets
 		//addBehaviour(new StartCNets(this, 2000));
+		
+		addBehaviour(new PanicHandler(this));
+		addBehaviour(new HelperBehaviour(this));
 	}
 
 	@Override
@@ -507,7 +510,7 @@ public class Person extends Agent{
 
 		public void action() {
 			ACLMessage msg = blockingReceive();
-			if(msg.getPerformative() == ACLMessage.PROPAGATE) {
+			if(msg!= null && msg.getPerformative() == ACLMessage.PROPAGATE) {
 				System.out.println(getLocalName() + " heard a scream!");
 
 				if(msg.getContent().equals(SCREAM_MESSAGE)){
@@ -531,7 +534,7 @@ public class Person extends Agent{
 
 		public void action() {
 			// find people in the surrounding area
-			ArrayList<AID> peopleNear = environment.findNear(myAgent);
+			ArrayList<AID> peopleNear = environment.findNear(myAgent, 4);
 			if(peopleNear.isEmpty()) {
 				return;
 			}
