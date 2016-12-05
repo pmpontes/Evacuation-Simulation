@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.10.21)  1 DEC 2016 16:29
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.10.21)  1 DEC 2016 18:37
 entering extended mode
 **./final-report.tex
 (final-report.tex
@@ -809,6 +809,12 @@ LaTeX Warning: Label `uml' multiply defined.
 
 LaTeX Warning: Label `uml' multiply defined.
 
+
+LaTeX Warning: Label `uml' multiply defined.
+
+
+LaTeX Warning: Label `uml' multiply defined.
+
 )
 \openout1 = `final-report.aux'.
 
@@ -917,7 +923,7 @@ LaTeX Info: Redefining \nameref on input line 101.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
 
-<images/feup.jpg, id=75, 168.02776pt x 151.16475pt>
+<images/feup.jpg, id=79, 168.02776pt x 151.16475pt>
 File: images/feup.jpg Graphic file (type jpg)
  <use images/feup.jpg>
 Package pdftex.def Info: images/feup.jpg used on input line 113.
@@ -1042,7 +1048,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 323--324
 
  []
 
-<images/terror-behaviour.jpg, id=124, 740.7675pt x 270.00874pt>
+<images/terror-behaviour.jpg, id=129, 740.7675pt x 270.00874pt>
 File: images/terror-behaviour.jpg Graphic file (type jpg)
 
 <use images/terror-behaviour.jpg>
@@ -1053,14 +1059,14 @@ Package babel Info: Redefining portuges shorthand "|
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 338.
  [6 <./images/terror-behaviour.jpg>]
-<images/help-behaviour.jpg, id=138, 973.6375pt x 429.605pt>
+<images/help-behaviour.jpg, id=143, 973.6375pt x 429.605pt>
 File: images/help-behaviour.jpg Graphic file (type jpg)
 
 <use images/help-behaviour.jpg>
 Package pdftex.def Info: images/help-behaviour.jpg used on input line 342.
 (pdftex.def)             Requested size: 389.44809pt x 171.83894pt.
 
-<images/directions-behaviour.jpg, id=139, 716.6775pt x 442.65375pt>
+<images/directions-behaviour.jpg, id=144, 716.6775pt x 442.65375pt>
 File: images/directions-behaviour.jpg Graphic file (type jpg)
 
 <use images/directions-behaviour.jpg>
@@ -1096,59 +1102,73 @@ Underfull \hbox (badness 10000) in paragraph at lines 396--398
 
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 407.
+<images/packages.jpg, id=158, 375.4025pt x 299.1175pt>
+File: images/packages.jpg Graphic file (type jpg)
+
+<use images/packages.jpg>
+Package pdftex.def Info: images/packages.jpg used on input line 414.
+(pdftex.def)             Requested size: 187.70079pt x 149.55838pt.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 411.
+(babel)             in language  on input line 418.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 412.
+(babel)             in language  on input line 418.
+ [9]
+<images/communication.jpg, id=169, 174.6525pt x 296.10625pt>
+File: images/communication.jpg Graphic file (type jpg)
+
+<use images/communication.jpg>
+Package pdftex.def Info: images/communication.jpg used on input line 421.
+(pdftex.def)             Requested size: 87.32603pt x 148.05275pt.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 415.
+(babel)             in language  on input line 426.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 415.
-[9]
+(babel)             in language  on input line 427.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 415.
+(babel)             in language  on input line 430.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 415.
- [10]
+(babel)             in language  on input line 433.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 416.
+(babel)             in language  on input line 433.
+ [10 <./images/packages.jpg> <./images/communication.jpg>]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 472.
+(babel)             in language  on input line 434.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 472.
+(babel)             in language  on input line 490.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 490.
  [11]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 473.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 485.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 486.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 496.
+(babel)             in language  on input line 491.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 503.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 503.
+(babel)             in language  on input line 504.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 514.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 521.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 521.
  [12]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 504.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 504.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 522.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 522.
  (final-report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 504.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 504.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 522.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 522.
 Package rerunfilecheck Info: File `final-report.out' has not changed.
-(rerunfilecheck)             Checksum: 4645E81B9FA34E04C6A0F419C5D0137A;1057.
+(rerunfilecheck)             Checksum: 83EC6EB0FDB1F39F5373CCFE67FCCDA6;1125.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 504.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 522.
  ) 
 Here is how much of TeX's memory you used:
- 11184 strings out of 493334
- 161474 string characters out of 3139251
+ 11199 strings out of 493334
+ 161801 string characters out of 3139251
  291447 words of memory out of 3000000
- 14472 multiletter control sequences out of 15000+200000
- 75368 words of font info for 52 fonts, out of 3000000 for 9000
+ 14482 multiletter control sequences out of 15000+200000
+ 79639 words of font info for 53 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  36i,16n,40p,622b,1301s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc}{C:/Program Files/M
@@ -1162,9 +1182,9 @@ lic/lm/lmmi12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmr12.pfb>
 /MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts
 /type1/public/lm/lmtt10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/
 lmtt12.pfb>
-Output written on final-report.pdf (12 pages, 341912 bytes).
+Output written on final-report.pdf (12 pages, 367634 bytes).
 PDF statistics:
- 231 PDF objects out of 1000 (max. 8388607)
- 51 named destinations out of 1000 (max. 500000)
- 165 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 240 PDF objects out of 1000 (max. 8388607)
+ 54 named destinations out of 1000 (max. 500000)
+ 183 words of extra memory for PDF output out of 10000 (max. 10000000)
 
