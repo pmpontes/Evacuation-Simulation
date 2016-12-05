@@ -21,10 +21,10 @@ import sajas.wrapper.ContainerController;
 
 public class EvacuationSimulationLauncher extends RepastSLauncher{
 
-	private static int N_KNOWLEDGEABLE = 2;
+	private static int N_KNOWLEDGEABLE = 5;
 	private static int N_INDEPENDENT = 0;
 	private static int N_INDEPENDENT_KNOWLEDGEABLE = 0;
-	private static int N_DEPENDENT_UNKNOWLEDGEABLE = 0;
+	private static int N_DEPENDENT_UNKNOWLEDGEABLE = 3;
 	private static int N_SECURITY_OFFICER = 0;
 	
 	public static final boolean USE_RESULTS_COLLECTOR = true;
@@ -165,7 +165,8 @@ public class EvacuationSimulationLauncher extends RepastSLauncher{
 					x = uniform.nextIntFromTo(0, environment.getX_DIMENSION()-1);
 					y = uniform.nextIntFromTo(0, environment.getY_DIMENSION()-1);
 				}while(busyCells.contains(new Pair<Integer,Integer>(x, y)));
-				
+				busyCells.add(new Pair<Integer,Integer>(x, y));
+
 				DependentUnknowledgeable newAgent = new DependentUnknowledgeable(resultsCollectorAID, environment, currentContext, x, y);
 				agentContainer.acceptNewAgent("DependentUnknowledgeable_" + i, newAgent).start();
 //				currentContext.add(newAgent);
@@ -177,7 +178,8 @@ public class EvacuationSimulationLauncher extends RepastSLauncher{
 					x = uniform.nextIntFromTo(0, environment.getX_DIMENSION()-1);
 					y = uniform.nextIntFromTo(0, environment.getY_DIMENSION()-1);
 				}while(busyCells.contains(new Pair<Integer,Integer>(x, y)));
-				
+				busyCells.add(new Pair<Integer,Integer>(x, y));
+
 				Independent newAgent = new Independent(resultsCollectorAID, environment, currentContext, x, y);
 				agentContainer.acceptNewAgent("Independent_" + i, newAgent).start();
 //				currentContext.add(newAgent);
@@ -189,7 +191,8 @@ public class EvacuationSimulationLauncher extends RepastSLauncher{
 					x = uniform.nextIntFromTo(0, environment.getX_DIMENSION()-1);
 					y = uniform.nextIntFromTo(0, environment.getY_DIMENSION()-1);
 				}while(busyCells.contains(new Pair<Integer,Integer>(x, y)));
-				
+				busyCells.add(new Pair<Integer,Integer>(x, y));
+
 				IndependentKnowledgeable newAgent = new IndependentKnowledgeable(resultsCollectorAID, environment, currentContext, x, y);
 				agentContainer.acceptNewAgent("IndependentKnowledgeable_" + i, newAgent).start();
 //				currentContext.add(newAgent);
@@ -201,11 +204,13 @@ public class EvacuationSimulationLauncher extends RepastSLauncher{
 					x = uniform.nextIntFromTo(0, environment.getX_DIMENSION()-1);
 					y = uniform.nextIntFromTo(0, environment.getY_DIMENSION()-1);
 				}while(busyCells.contains(new Pair<Integer,Integer>(x, y)));
-				
+				busyCells.add(new Pair<Integer,Integer>(x, y));
+
 				Knowledgeable newAgent = new Knowledgeable(resultsCollectorAID, environment, currentContext, x, y);
 				agentContainer.acceptNewAgent("Knowledgeable_" + i, newAgent).start();
 //				currentContext.add(newAgent);
 			}
+			
 
 //			// SecurityOfficer
 //			for (int i = 0; i < N_SECURITY_OFFICER; i++) {
