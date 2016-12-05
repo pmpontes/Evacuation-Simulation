@@ -123,7 +123,7 @@ public class Person extends Agent{
 	 * @return the helpee
 	 */
 	public AID getHelpee() {
-		return helpee;
+		return helpee; 
 	}
 
 	/**
