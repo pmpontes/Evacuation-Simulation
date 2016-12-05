@@ -1,6 +1,8 @@
 package entity;
 
-public class Exit {
+import sajas.core.Agent;
+
+public class Exit extends Agent{
 private int x, y;
 	
 	public Exit(int x, int y){

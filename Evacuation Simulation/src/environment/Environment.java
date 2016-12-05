@@ -1,6 +1,7 @@
 package environment;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import entity.Exit;
@@ -21,22 +22,30 @@ import sajas.core.Agent;
 
 public class Environment {
 	
-	public static int X_DIMENSION = 50;
-	public static int Y_DIMENSION = 50;
+	public static int X_DIMENSION;
+	public static int Y_DIMENSION;
 	
 	private Grid<Object> grid;
 	private SurfaceMap map;
+	private Context<Object> context;
+	
+	private ArrayList<Pair<Integer,Integer>> busyEntityCells;
 
 	public Environment(Context<Object> context, String fileName){
+		this.context = context;
+		this.busyEntityCells = new ArrayList<Pair<Integer,Integer>>();
 		
 		map = new SurfaceMap(fileName);
+		X_DIMENSION = map.getWidth();
+		Y_DIMENSION = map.getHeight();
 		
 		GridFactory gridFactory = GridFactoryFinder.createGridFactory(null);
 
-		grid = gridFactory.createGrid("grid", context,
+		grid = gridFactory.createGrid("mapgrid", context,
 				new GridBuilderParameters<Object>(new WrapAroundBorders(),
 						new SimpleGridAdder<Object>(),
-						false, X_DIMENSION, Y_DIMENSION));
+						true, X_DIMENSION, Y_DIMENSION));
+		placeEntities();
 	}
 	
 	public void placeEntities(){
@@ -45,11 +54,15 @@ public class Environment {
 				switch(map.getObjectAt(x, y)){
 				case 'E':
 					Exit exit = new Exit(x,y);
+					context.add(exit);
 					place(exit, x, y);
+					busyEntityCells.add(new Pair<Integer,Integer>(x,y));
 					break;
 				case 'W':
 					Wall wall = new Wall(x,y);
+					context.add(wall);
 					place(wall, x, y);
+					busyEntityCells.add(new Pair<Integer,Integer>(x,y));
 					break;					
 				}
 			}
@@ -62,11 +75,11 @@ public class Environment {
 	
 	public void place(Object object, int x, int y){
 		grid.getAdder().add(grid, object);
-		grid.moveTo(object, x, y);
+		grid.moveTo(object, x, map.getHeight()-y-1);
 	}
 	
 	public void move(Object object, int x, int y){
-		grid.moveTo(object, x, y);
+		grid.moveTo(object, x, map.getHeight()-y-1);
 	}
 	
 	public ArrayList<AID> findNear(Agent myAgent){
@@ -98,4 +111,52 @@ public class Environment {
 	public Grid<Object> getGrid(){
 		return grid;
 	}
+	
+	public ArrayList<Pair<Integer, Integer>> getBestPathFromCell(int x, int y){
+		ArrayList<Pair<Integer,Integer>> neighbourCells = new ArrayList<Pair<Integer,Integer>>();
+		
+		if(x > 0 && map.getDistanceAt(x-1, y) != -1 && userFreeCell(x-1, y))
+			neighbourCells.add(new Pair<Integer, Integer>(x-1, y));
+		
+		if(y > 0 && map.getDistanceAt(x, y-1) != -1 && userFreeCell(x, y-1))
+			neighbourCells.add(new Pair<Integer, Integer>(x, y-1));
+		
+		if(x < map.getWidth() - 1 && map.getDistanceAt(x+1, y) != -1 && userFreeCell(x+1, y))
+			neighbourCells.add(new Pair<Integer, Integer>(x+1, y));
+		
+		if(y < map.getHeight() - 1 && map.getDistanceAt(x, y+1) != -1 && userFreeCell(x, y+1))
+			neighbourCells.add(new Pair<Integer, Integer>(x, y+1));
+		
+		Collections.sort(neighbourCells, map.getDistanceComparator());
+		
+		return neighbourCells;
+	}
+	
+	public boolean userFreeCell(int x, int y){
+		y = map.getHeight() - y - 1;
+		boolean isExit = false;
+		boolean hasPerson = false;
+		Iterable<Object> cellContents = grid.getObjectsAt(x, y);
+		for(Object cell : cellContents){
+			if(cell instanceof Person)
+				hasPerson = true;
+			if(cell instanceof Exit)
+				isExit = true;
+		}
+		return (isExit || !hasPerson);
+	}
+	
+	public ArrayList<Pair<Integer,Integer>> getBusyEntityCells(){
+		return busyEntityCells;
+	}
+
+	public static int getX_DIMENSION() {
+		return X_DIMENSION;
+	}
+
+	public static int getY_DIMENSION() {
+		return Y_DIMENSION;
+	}
+	
+	
 }

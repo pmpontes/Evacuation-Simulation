@@ -77,11 +77,17 @@ public class Person extends Agent{
 	private Codec codec;
 	private Ontology serviceOntology;	
 	protected ACLMessage myCfp;
+	
+	private Person selfReference;
+	private Context<Object> simulationContext;
 
 
-	public Person(AID resultsCollector, Environment environment){
+	public Person(AID resultsCollector, Environment environment, Context<Object> context, int x, int y){
 		this.resultsCollector = resultsCollector;		
 		this.environment = environment;
+		this.selfReference = this;
+		this.simulationContext = context;
+		this.simulationContext.add(this);
 
 		exitReached = false;
 
@@ -110,7 +116,7 @@ public class Person extends Agent{
 
 		currentSpeed = maxSpeed  / 3;
 		
-		addBehaviour(new MovementBehaviour(4, 4));
+		addBehaviour(new MovementBehaviour(x, y));
 	}
 
 	/**
@@ -504,7 +510,11 @@ public class Person extends Agent{
 	}
 
 
-
+	/*
+	 * 
+	 * Behaviour definition
+	 * 
+	 */
 	
 
 	/**
@@ -811,18 +821,18 @@ public class Person extends Agent{
 			super();
 			this.x = x;
 			this.y = y;
-			environment.place(this, x, y);
+			environment.place(selfReference, x, y);
 		}
 
 		@Override
 		public void action() {
-			ArrayList<Pair<Integer,Integer>> orderedPaths = environment.getMap().getBestPathFromCell(x, y);
+			ArrayList<Pair<Integer,Integer>> orderedPaths = environment.getBestPathFromCell(x, y);
 			
 			if(orderedPaths.size() > 0){
 				x = orderedPaths.get(0).getX();
 				y = orderedPaths.get(0).getY();
 				
-				environment.move(this, x, y);
+				environment.move(selfReference, x, y);
 			}
 			
 		}

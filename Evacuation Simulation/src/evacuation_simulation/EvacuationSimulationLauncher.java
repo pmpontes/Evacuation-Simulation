@@ -1,7 +1,11 @@
 package evacuation_simulation;
 
-import cern.jet.random.Binomial;
+import java.util.ArrayList;
+import java.util.Random;
+
+import cern.jet.random.Uniform;
 import environment.Environment;
+import environment.Pair;
 import jade.core.AID;
 import jade.core.Profile;
 import jade.core.ProfileImpl;
@@ -15,13 +19,13 @@ import sajas.core.Runtime;
 import sajas.sim.repasts.RepastSLauncher;
 import sajas.wrapper.ContainerController;
 
-public class EvacuationSimulationLauncher extends RepastSLauncher {
+public class EvacuationSimulationLauncher extends RepastSLauncher{
 
-	private static int N_KNOWLEDGEABLE = 10;
-	private static int N_INDEPENDENT = 30;
-	private static int N_INDEPENDENT_KNOWLEDGEABLE = 20;
-	private static int N_DEPENDENT_UNKNOWLEDGEABLE = 20;
-	private static int N_SECURITY_OFFICER = 5;
+	private static int N_KNOWLEDGEABLE = 2;
+	private static int N_INDEPENDENT = 0;
+	private static int N_INDEPENDENT_KNOWLEDGEABLE = 0;
+	private static int N_DEPENDENT_UNKNOWLEDGEABLE = 0;
+	private static int N_SECURITY_OFFICER = 0;
 
 	/**
 	 * @return the n_SECURITY_OFFICER
@@ -44,6 +48,7 @@ public class EvacuationSimulationLauncher extends RepastSLauncher {
 	private ContainerController agentContainer;
 	private Environment environment;
 	private Grid<Object> grid;
+	private Context<Object> currentContext;
 
 	public static Agent getAgent(Context<?> context, AID aid) {
 		for(Object obj : context.getObjects(Agent.class)) {
@@ -130,7 +135,7 @@ public class EvacuationSimulationLauncher extends RepastSLauncher {
 		}
 
 		/////////////////////////////////////////testing only
-		RandomHelper.init();
+		/*RandomHelper.init();
 		Binomial bin = RandomHelper.getBinomial();
 		System.out.println(bin);
 		for(int i=0; i<20; i++){
@@ -138,7 +143,7 @@ public class EvacuationSimulationLauncher extends RepastSLauncher {
 		}
 
 		System.err.println("Done!!");
-		
+		*/
 		///////////////////////////////////////testing only
 		
 		
@@ -148,6 +153,12 @@ public class EvacuationSimulationLauncher extends RepastSLauncher {
 	private void createAgents() {
 
 		try {
+			int x = 0;
+			int y = 0;
+			ArrayList<Pair<Integer,Integer>> busyCells = new ArrayList<Pair<Integer, Integer>>();
+			busyCells.addAll(environment.getBusyEntityCells());
+			Uniform uniform = RandomHelper.createUniform();
+			
 
 			AID resultsCollectorAID = null;
 			if(USE_RESULTS_COLLECTOR) {
@@ -162,22 +173,50 @@ public class EvacuationSimulationLauncher extends RepastSLauncher {
 			// create population
 			// DependentUnknowledgeable
 			for (int i = 0; i < N_DEPENDENT_UNKNOWLEDGEABLE; i++) {
-				agentContainer.acceptNewAgent("DependentUnknowledgeable_" + i, new DependentUnknowledgeable(resultsCollectorAID, environment)).start();
+				do{
+					x = uniform.nextIntFromTo(0, environment.getX_DIMENSION()-1);
+					y = uniform.nextIntFromTo(0, environment.getY_DIMENSION()-1);
+				}while(busyCells.contains(new Pair<Integer,Integer>(x, y)));
+				
+				DependentUnknowledgeable newAgent = new DependentUnknowledgeable(resultsCollectorAID, environment, currentContext, x, y);
+				agentContainer.acceptNewAgent("DependentUnknowledgeable_" + i, newAgent).start();
+//				currentContext.add(newAgent);
 			}
 
 			// Independent
 			for (int i = 0; i < N_INDEPENDENT; i++) {
-				agentContainer.acceptNewAgent("Independent_" + i, new Independent(resultsCollectorAID, environment)).start();
+				do{
+					x = uniform.nextIntFromTo(0, environment.getX_DIMENSION()-1);
+					y = uniform.nextIntFromTo(0, environment.getY_DIMENSION()-1);
+				}while(busyCells.contains(new Pair<Integer,Integer>(x, y)));
+				
+				Independent newAgent = new Independent(resultsCollectorAID, environment, currentContext, x, y);
+				agentContainer.acceptNewAgent("Independent_" + i, newAgent).start();
+//				currentContext.add(newAgent);
 			}
 
 			// IndependentKnowledgeable
 			for (int i = 0; i < N_INDEPENDENT_KNOWLEDGEABLE; i++) {
-				agentContainer.acceptNewAgent("IndependentKnowledgeable_" + i, new IndependentKnowledgeable(resultsCollectorAID, environment)).start();
+				do{
+					x = uniform.nextIntFromTo(0, environment.getX_DIMENSION()-1);
+					y = uniform.nextIntFromTo(0, environment.getY_DIMENSION()-1);
+				}while(busyCells.contains(new Pair<Integer,Integer>(x, y)));
+				
+				IndependentKnowledgeable newAgent = new IndependentKnowledgeable(resultsCollectorAID, environment, currentContext, x, y);
+				agentContainer.acceptNewAgent("IndependentKnowledgeable_" + i, newAgent).start();
+//				currentContext.add(newAgent);
 			}
 
 			// Knowledgeable
 			for (int i = 0; i < N_KNOWLEDGEABLE; i++) {
-				agentContainer.acceptNewAgent("Knowledgeable_" + i, new Knowledgeable(resultsCollectorAID, environment)).start();
+				do{
+					x = uniform.nextIntFromTo(0, environment.getX_DIMENSION()-1);
+					y = uniform.nextIntFromTo(0, environment.getY_DIMENSION()-1);
+				}while(busyCells.contains(new Pair<Integer,Integer>(x, y)));
+				
+				Knowledgeable newAgent = new Knowledgeable(resultsCollectorAID, environment, currentContext, x, y);
+				agentContainer.acceptNewAgent("Knowledgeable_" + i, newAgent).start();
+//				currentContext.add(newAgent);
 			}
 
 //			// SecurityOfficer
@@ -194,10 +233,11 @@ public class EvacuationSimulationLauncher extends RepastSLauncher {
 	@Override
 	public Context build(Context<Object> context) {
 		// http://repast.sourceforge.net/docs/RepastJavaGettingStarted.pdf
-		//context.setId("evacuation"); ????
+		context.setId("Evacuation Simulation");
 
 		environment = new Environment(context, "maps/testMap.map");
 		grid = environment.getGrid();
+		currentContext = context;
 
 		NetworkBuilder<Object> netBuilder = new NetworkBuilder<Object>("Evacuation network", context, true);
 		netBuilder.buildNetwork();

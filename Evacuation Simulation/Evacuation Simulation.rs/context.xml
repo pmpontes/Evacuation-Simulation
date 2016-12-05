@@ -1,3 +1,4 @@
 <context id="Evacuation Simulation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://repast.org/scenario/context">
-  	<projection type="grid" id="grid"/>
+  	<projection type="grid" id="mapgrid"/>
+  	<projection type="network" id="Evacuation network"/>
 </context>

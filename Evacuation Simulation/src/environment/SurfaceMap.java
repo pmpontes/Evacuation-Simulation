@@ -134,6 +134,7 @@ public class SurfaceMap {
 	}
 
 	private void generateFreeCellsList() {
+		freeCells = new ArrayList<Pair<Integer,Integer>>();
 		for(int y = 0; y < physicalMap.size(); y++){
 			for(int x = 0; x < physicalMap.get(0).size(); x++){
 				if(physicalMap.get(y).get(x) == ' ')
@@ -167,24 +168,8 @@ public class SurfaceMap {
 		return distanceMap.get(y).get(x);
 	}
 	
-	public ArrayList<Pair<Integer, Integer>> getBestPathFromCell(int x, int y){
-		ArrayList<Pair<Integer,Integer>> neighbourCells = new ArrayList<Pair<Integer,Integer>>();
-		
-		if(x > 0 && getDistanceAt(x-1, y) != -1)
-			neighbourCells.add(new Pair<Integer, Integer>(x-1, y));
-		
-		if(y > 0 && getDistanceAt(x, y-1) != -1)
-			neighbourCells.add(new Pair<Integer, Integer>(x, y-1));
-		
-		if(x < width - 1 && getDistanceAt(x+1, y) != -1)
-			neighbourCells.add(new Pair<Integer, Integer>(x+1, y));
-		
-		if(y < height - 1 && getDistanceAt(x, y+1) != -1)
-			neighbourCells.add(new Pair<Integer, Integer>(x, y+1));
-		
-		Collections.sort(neighbourCells, distanceComparator);
-		
-		return neighbourCells;
+	public Comparator<Pair<Integer,Integer>> getDistanceComparator(){
+		return distanceComparator;
 	}
 
 	public ArrayList<Pair<Integer, Integer>> listAvailableSpots(){

@@ -1,6 +1,8 @@
 package entity;
 
-public class Wall {
+import sajas.core.Agent;
+
+public class Wall extends Agent {
 	private int x, y;
 	
 	public Wall(int x, int y){
