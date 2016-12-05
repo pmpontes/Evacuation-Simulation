@@ -1,6 +1,8 @@
 package evacuation_simulation;
 
 import java.util.ArrayList;
+
+import cern.jet.random.Uniform;
 import environment.Environment;
 import environment.Pair;
 import evacuation_simulation.onto.DirectionsReply;
@@ -849,12 +851,19 @@ public class Person extends Agent{
 		private static final long serialVersionUID = 1L;
 		private int x;
 		private int y;
+		private int lastX;
+		private int lastY;
+		private int currentWeight;
+		private Uniform uniform = RandomHelper.createUniform();
 		
 		public MovementBehaviour(int x, int y){
 			super();
 			this.x = x;
 			this.y = y;
+			this.lastX = x;
+			this.lastY = y;
 			environment.place(selfReference, x, y);
+			currentWeight = environment.getMap().getDistanceAt(x, y);
 		}
 
 		@Override
@@ -862,18 +871,47 @@ public class Person extends Agent{
 			ArrayList<Pair<Integer,Integer>> orderedPaths = environment.getBestPathFromCell(x, y);
 			
 			if(orderedPaths.size() > 0){
-				x = orderedPaths.get(0).getX();
-				y = orderedPaths.get(0).getY();
+				getAreaKnowledge();
+				int prob = uniform.nextIntFromTo(0, 100);
+				if(prob <= getAreaKnowledge() || orderedPaths.size() == 1){
+					int tempX = orderedPaths.get(0).getX();
+					int tempY = orderedPaths.get(0).getY();
+					
+					if(environment.getMap().getDistanceAt(tempX, tempY) <= currentWeight){
+						lastX = x;
+						lastY = y;
+						x = tempX;
+						y = tempY;
+						environment.move(selfReference, x, y);
+						currentWeight = environment.getMap().getDistanceAt(x, y);
+					}
+				} else {
+					int path = uniform.nextIntFromTo(0, orderedPaths.size()-1);
+					int tempX = orderedPaths.get(path).getX();
+					int tempY = orderedPaths.get(path).getY();
+					
+					while(lastX == tempX && lastY == tempY){
+						path = uniform.nextIntFromTo(0, orderedPaths.size()-1);
+						tempX = orderedPaths.get(path).getX();
+						tempY = orderedPaths.get(path).getY();
+					}
+					
+					lastX=x;
+					lastY=y;
+					x = tempX;
+					y = tempY;
+					environment.move(selfReference, x, y);
+					currentWeight = environment.getMap().getDistanceAt(x, y);
+				}
 				
-				environment.move(selfReference, x, y);
 			}
 			
 		}
 
 		@Override
 		public boolean done() {
-			exitReached = true;
-			return environment.getMap().getObjectAt(x, y) == 'E';
+			exitReached = environment.getMap().getObjectAt(x, y) == 'E';
+			return exitReached;
 		}
 		
 	}
