@@ -1,14 +1,21 @@
 package evacuation_simulation;
 
 import java.util.ArrayList;
-
 import environment.Environment;
 import environment.Pair;
+import evacuation_simulation.onto.DirectionsReply;
+import evacuation_simulation.onto.DirectionsRequest;
+import evacuation_simulation.onto.EvacueeStats;
+import evacuation_simulation.onto.HelpConfirmation;
+import evacuation_simulation.onto.HelpReply;
+import evacuation_simulation.onto.HelpRequest;
+import evacuation_simulation.onto.ServiceOntology;
 import jade.content.lang.Codec;
+import jade.content.lang.Codec.CodecException;
 import jade.content.lang.sl.SLCodec;
 import jade.content.onto.Ontology;
+import jade.content.onto.OntologyException;
 import jade.core.AID;
-import jade.domain.FIPANames;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import repast.simphony.context.Context;
@@ -21,8 +28,6 @@ import sajas.core.Agent;
 import sajas.core.behaviours.CyclicBehaviour;
 import sajas.core.behaviours.SimpleBehaviour;
 import sajas.core.behaviours.WakerBehaviour;
-import serviceConsumerProviderVis.onto.EvacueeStats;
-import serviceConsumerProviderVis.onto.ServiceOntology;
 
 public class Person extends Agent{
 	public static final int PANIC_VARIATION = 10;
@@ -36,23 +41,14 @@ public class Person extends Agent{
 	public static final int MIN_SCALE= 0;
 
 	public static final String SCREAM_MESSAGE = "AHHHHHHHHHHHHHHH!";
-	
-	public static final String DIRECTIONS_REPLY_OK_MESSAGE = "Sure.";
-	public static final String DIRECTIONS_REPLY_NO_MESSAGE = "Nope, I'm in a hurry.";
-	public static final String DIRECTIONS_REQUEST_MESSAGE = "I need directions!!! Can you help?";
-	
-	public static final String HELP_REPLY_MESSAGE = "I will help you.";
-	public static final String HELP_REQUEST_MESSAGE = "I need help!!!";
-	public static final String HELP_ACCEPT_MESSAGE = "Thank you so very much!!!";
 
 	protected AID resultsCollector;
 
-	//////////////////////////////////////////////////////////////////////////
 	protected Environment environment;
 	protected Context<?> context;
 	protected Network<Object> net;
 
-	/*
+	/**
 	 * Human attributes
 	 */
 	protected int areaKnowledge;	 /* [0, 100] */
@@ -71,16 +67,14 @@ public class Person extends Agent{
 
 	protected boolean exitReached;
 	protected AID helper;
-	protected AID helpee;
+	protected AID helped;
 
-	//???????????????????????????
 	private Codec codec;
 	private Ontology serviceOntology;	
 	protected ACLMessage myCfp;
 	
 	private Person selfReference;
 	private Context<Object> simulationContext;
-
 
 	public Person(AID resultsCollector, Environment environment, Context<Object> context, int x, int y){
 		this.resultsCollector = resultsCollector;		
@@ -120,17 +114,17 @@ public class Person extends Agent{
 	}
 
 	/**
-	 * @return the helpee
+	 * @return the helped
 	 */
 	public AID getHelpee() {
-		return helpee; 
+		return helped;
 	}
 
 	/**
-	 * @param helpee the helpee to set
+	 * @param helped the helped to set
 	 */
-	public void setHelpee(AID helpee) {
-		this.helpee = helpee;
+	public void setHelpee(AID helped) {
+		this.helped = helped;
 	}
 
 	/**
@@ -315,7 +309,7 @@ public class Person extends Agent{
 		}
 
 		setPanic((int) (panic + variation));		
-		
+
 		if(panic >= (3/4) * MAX_SCALE){
 			addBehaviour(new ScreamBehaviour(this));
 		}
@@ -375,7 +369,7 @@ public class Person extends Agent{
 		}
 
 		// people helping people get tired faster and recover slowly
-		if(helpee != null || helper != null){
+		if(helped != null || helper != null){
 			if(isIncrease){
 				variation *= 1.1;	
 			}else{
@@ -430,29 +424,13 @@ public class Person extends Agent{
 
 	@Override
 	public void setup() {
-
-		// TODO understand what this does!!!!!!!!!
-
 		// register language and ontology
 		codec = new SLCodec();
 		serviceOntology = ServiceOntology.getInstance();
 		getContentManager().registerLanguage(codec);
 		getContentManager().registerOntology(serviceOntology);
 
-		// prepare cfp message
-		myCfp = new ACLMessage(ACLMessage.CFP);
-		myCfp.setLanguage(codec.getName());
-		myCfp.setOntology(serviceOntology.getName());
-		myCfp.setProtocol(FIPANames.InteractionProtocol.FIPA_CONTRACT_NET);
-
-		//		//
-		//		ServiceProposalRequest serviceProposalRequest = new ServiceProposalRequest(requiredService);
-		//		try {
-		//			getContentManager().fillContent(myCfp, serviceProposalRequest);
-		//		} catch (CodecException | OntologyException e) {
-		//			e.printStackTrace();
-		//		}
-
+		// add behaviours
 		// waker behaviour for starting CNets
 		//addBehaviour(new StartCNets(this, 2000));
 	}
@@ -488,6 +466,7 @@ public class Person extends Agent{
 		increaseFatigue();
 	}
 
+	// TODO probably useless....
 	private class StartCNets extends WakerBehaviour {
 
 		private static final long serialVersionUID = 1L;
@@ -515,7 +494,6 @@ public class Person extends Agent{
 	 * Behaviour definition
 	 * 
 	 */
-	
 
 	/**
 	 * PanicHandler behaviour
@@ -539,7 +517,7 @@ public class Person extends Agent{
 		}
 	}
 
-	/*
+	/**
 	 * Scream behaviour
 	 */
 	class ScreamBehaviour extends SimpleBehaviour {
@@ -554,8 +532,6 @@ public class Person extends Agent{
 		public void action() {
 			// find people in the surrounding area
 			ArrayList<AID> peopleNear = environment.findNear(myAgent);
-
-			// ask for directions
 			if(peopleNear.isEmpty()) {
 				return;
 			}
@@ -575,7 +551,7 @@ public class Person extends Agent{
 			return screamed;
 		}
 	}
-	
+
 	/**
 	 * Helper behaviour
 	 */
@@ -583,7 +559,7 @@ public class Person extends Agent{
 		private static final int HELP_OFFER_TIMEOUT = 2000;
 
 		private static final long serialVersionUID = 1L;
-		
+
 		private boolean handlingHelpRequest;
 
 		public HelperBehaviour(Agent a) {
@@ -593,26 +569,35 @@ public class Person extends Agent{
 
 		public void action() {
 			ACLMessage msg = null;
-			
+
 			if(handlingHelpRequest){
 				msg = blockingReceive(HELP_OFFER_TIMEOUT);
 			}else{
 				msg = blockingReceive();
 			}
-			
-			if(msg != null && msg.getPerformative() == ACLMessage.CFP 
+
+			if(msg != null && (msg.getPerformative() == ACLMessage.CFP 
 					|| msg.getPerformative() == ACLMessage.ACCEPT_PROPOSAL 
-					|| msg.getPerformative() == ACLMessage.REJECT_PROPOSAL) {
-				
+					|| msg.getPerformative() == ACLMessage.REJECT_PROPOSAL)) {
+
 				System.out.println(getLocalName() + ": heard " + msg.getContent());
 
-				if(msg.getContent().equals(HELP_REQUEST_MESSAGE)) {
+				Class messageType = null;
+
+				try {
+					messageType = getContentManager().extractContent(msg).getClass();
+				} catch (CodecException | OntologyException e) {
+					e.printStackTrace();
+					return;
+				}
+
+				if(messageType.equals(HelpRequest.class)) {
 					handleHelpRequest(msg);					
 				}
-				else if(msg.getContent().contains(HELP_ACCEPT_MESSAGE)) {
-					handleHelpAcceptance(msg);						
+				else if(messageType.equals(HelpConfirmation.class)) {
+					handleHelpConfirmation(msg);						
 				}
-				else if(msg.getContent().contains(DIRECTIONS_REQUEST_MESSAGE)) {
+				else if(messageType.equals(DirectionsRequest.class)) {
 					handleDirectionsRequest(msg);						
 				}
 			}
@@ -623,45 +608,51 @@ public class Person extends Agent{
 
 		/**
 		 * Handle a help acceptance, by 'sharing' its mobility with the other person. 
-		 * Requests are ignored if the person is helping.
+		 * Requests are ignored if the person is helping someone already.
 		 * @param request
 		 */
-		private void handleHelpAcceptance(ACLMessage msg) {
-			if(helpee != null){
+		private void handleHelpConfirmation(ACLMessage msg) {
+			if(helped != null){
 				return;
 			}
-			
-			String reply = msg.getContent();
 
-			// update mobility
-			reply = reply.replace(HELP_REPLY_MESSAGE + ":", " ");
-			reply = reply.trim();
+			int mobilityReceived = -1;
+			try {
+				mobilityReceived = ((HelpReply) getContentManager().extractContent(msg)).getMobility();
+				shareMobility(mobilityReceived);
 
-			shareMobility(Integer.parseInt(reply));
-
-			// update reference to helper
-			setHelpee(msg.getSender());
+				// update reference to helper
+				setHelpee(msg.getSender());
+			} catch (CodecException | OntologyException e) {
+				e.printStackTrace();
+			}
 		}
-		
+
 		/**
 		 * Handle a help request, by making a help offer. 
 		 * Requests are ignored if the person is helping or has offered to help another.
 		 * @param request
 		 */
 		private void handleHelpRequest(ACLMessage request){
-			if(helpee != null || handlingHelpRequest){
+			if(helped != null || handlingHelpRequest){
 				return;
 			}
-			
+
 			handlingHelpRequest = true;
-			
+
 			// send reply
 			ACLMessage reply = request.createReply();
-			reply.setPerformative(ACLMessage.PROPOSE);
-			reply.setContent(HELP_REPLY_MESSAGE + ":" + mobility);
-			send(reply);
+			reply.setPerformative(ACLMessage.PROPOSE);			
+			HelpReply replyMessage = new HelpReply(mobility);
+			try {
+				// send reply
+				getContentManager().fillContent(reply, replyMessage);
+				send(reply);
+			} catch (CodecException | OntologyException e) {
+				e.printStackTrace();
+			}
 		}
-		
+
 		/**
 		 * Handle a request for direction, by 'sharing' areaKnowledge. 
 		 * Requests are ignored according to one's altruism.
@@ -669,18 +660,20 @@ public class Person extends Agent{
 		 */
 		private void handleDirectionsRequest(ACLMessage request) {
 			ACLMessage reply = request.createReply();
-			
-			if(RandomHelper.nextIntFromTo(MIN_SCALE, MAX_SCALE) > altruism) {
-				reply.setPerformative(ACLMessage.REFUSE);
-				reply.setContent(DIRECTIONS_REPLY_NO_MESSAGE);
-			}
-			else {
+
+
+			if(RandomHelper.nextIntFromTo(MIN_SCALE, MAX_SCALE) < altruism) {
 				reply.setPerformative(ACLMessage.INFORM);
-				reply.setContent(DIRECTIONS_REPLY_OK_MESSAGE + ":" + areaKnowledge);
-			}
-			
-			// send reply
-			send(reply);
+
+				DirectionsReply replyMessage = new DirectionsReply(areaKnowledge);
+				try {
+					// send reply
+					getContentManager().fillContent(reply, replyMessage);
+					send(reply);
+				} catch (CodecException | OntologyException e) {
+					e.printStackTrace();
+				}
+			}	
 		}
 
 		/**
@@ -715,37 +708,56 @@ public class Person extends Agent{
 			}
 
 			// ask for help
-			ACLMessage msg = new ACLMessage(ACLMessage.CFP);
+			ACLMessage helpRequest = new ACLMessage(ACLMessage.CFP);
 			for(AID person : peopleNear)
-				msg.addReceiver(person);
+				helpRequest.addReceiver(person);
 
-			msg.setContent(HELP_REQUEST_MESSAGE);
-			send(msg);
+			helpRequest.setLanguage(codec.getName());
+			helpRequest.setOntology(serviceOntology.getName());
+
+			HelpRequest requestMessage = new HelpRequest();
+			try {
+				getContentManager().fillContent(helpRequest, requestMessage);
+			} catch (CodecException | OntologyException e) {
+				e.printStackTrace();
+			}
+
+			send(helpRequest);
 
 			// wait for responses
 			MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.PROPOSE);
-			msg = blockingReceive(mt);
+			ACLMessage msg = blockingReceive(mt);
 
-			String reply = msg.getContent();
-			if(reply.contains(HELP_REPLY_MESSAGE)) {
-				System.out.println("Help proposal recived.");
+			int mobilityReceived = -1;
+
+			try {
+				mobilityReceived = ((HelpReply) getContentManager().extractContent(msg)).getMobility();
+				System.out.println("Help proposal received.");
 
 				// send reply
 				ACLMessage confirmation = msg.createReply();
 				confirmation.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
-				confirmation.setContent(HELP_ACCEPT_MESSAGE + ":" + mobility);
+				helpRequest.setLanguage(codec.getName());
+				helpRequest.setOntology(serviceOntology.getName());
+
+				HelpConfirmation confirmationMessage = new HelpConfirmation(mobility);
+				try {
+					getContentManager().fillContent(helpRequest, confirmationMessage);
+				} catch (CodecException | OntologyException e) {
+					e.printStackTrace();
+				}
 				send(confirmation);
 
-				// update mobility
-				reply = reply.replace(HELP_REPLY_MESSAGE + ":", " ");
-				reply = reply.trim();
-
-				shareMobility(Integer.parseInt(reply));
+				shareMobility(mobilityReceived);
 
 				// update reference to helper
 				setHelper(msg.getSender());
 
 				beingHelped = true;
+
+			} catch (CodecException | OntologyException e) {
+				System.out.println("Not a help reply.");
+				e.printStackTrace();
 			}
 		}
 
@@ -762,44 +774,65 @@ public class Person extends Agent{
 		private static final int MAX_ATTEMPTS = 5;
 		private static final long serialVersionUID = 1L;
 		private boolean newDirections;
+		private ArrayList<AID> previousReplies;
 		private int nAttempts;
 
 		public DirectionsRequestBehaviour(Agent a) {
 			super(a);
 			newDirections = false;
 			nAttempts = MAX_ATTEMPTS;
+			previousReplies = new ArrayList<AID>();
 		}
 
 		// TODO check if AID should be sajas or jade
 		public void action() {
 			// find people in the surrounding area
 			ArrayList<AID> peopleNear = environment.findNear(myAgent, 1);
-			
+			peopleNear.removeAll(previousReplies);
+			SimUtilities.shuffle(peopleNear,  RandomHelper.getUniform());
+
 			if(peopleNear.isEmpty()) {
 				nAttempts--;
 				return;
 			}
 
 			// ask a random person for directions
-			ACLMessage msg = new ACLMessage(ACLMessage.CFP);
-			SimUtilities.shuffle(peopleNear,  RandomHelper.getUniform());
-			msg.addReceiver(peopleNear.get(0));
-			msg.setContent(DIRECTIONS_REQUEST_MESSAGE);
-			send(msg);
+			ACLMessage directionsRequest = new ACLMessage(ACLMessage.CFP);			
+			directionsRequest.addReceiver(peopleNear.get(0));		
+			directionsRequest.setLanguage(codec.getName());
+			directionsRequest.setOntology(serviceOntology.getName());
 
-			// wait for responses
-			msg = blockingReceive();
+			DirectionsRequest requestMessage = new DirectionsRequest();
+			try {
+				getContentManager().fillContent(directionsRequest, requestMessage);
+			} catch (CodecException | OntologyException e) {
+				e.printStackTrace();
+			}
 
-			String reply = msg.getContent();
-			if(msg.getPerformative() == ACLMessage.INFORM && reply.contains(DIRECTIONS_REPLY_OK_MESSAGE)) {
-				System.out.println("Directions received.");
+			send(directionsRequest);
 
-				// update areaKnowledge...
-				reply = reply.replace(DIRECTIONS_REPLY_OK_MESSAGE + ":", " ");
-				reply = reply.trim();
+			// wait for a response
+			ACLMessage msg = blockingReceive();
 
-				// ...to 90% of the knowledge of the person answering, if it is greater than the current value
-				setAreaKnowledge(Integer.max((int) (Integer.parseInt(reply) * 0.9), areaKnowledge));
+			if(msg.getPerformative() == ACLMessage.INFORM) {
+				previousReplies.add(msg.getSender());
+				
+				int previousKnowledge = areaKnowledge;
+				int knowledgeReceived = -1;
+				try {
+					knowledgeReceived = ((DirectionsReply) getContentManager().extractContent(msg)).getKnowkledge();
+				} catch (CodecException | OntologyException e) {
+					System.out.println("Not a direction reply.");
+					e.printStackTrace();
+				}
+
+				// update areaKnowledge to 80% of the knowledge of the person answering, if it is greater than the current value
+				setAreaKnowledge(Integer.max((int) (knowledgeReceived * 0.8), areaKnowledge));
+				
+				if(previousKnowledge > areaKnowledge){
+					System.out.println("Directions received.");
+					newDirections = true;
+				}
 			}
 		}
 

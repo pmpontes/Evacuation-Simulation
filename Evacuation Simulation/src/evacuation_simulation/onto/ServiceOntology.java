@@ -1,4 +1,4 @@
-package serviceConsumerProviderVis.onto;
+package evacuation_simulation.onto;
 
 import jade.content.onto.BeanOntology;
 import jade.content.onto.BeanOntologyException;
@@ -23,10 +23,11 @@ public class ServiceOntology extends BeanOntology {
 		super(ONTOLOGY_NAME);
 		
 		try {
-			// add all Concept, Predicate and AgentAction
-			add(ServiceProposal.class);
-			add(ServiceProposalRequest.class);
-			add(ServiceExecutionRequest.class);
+			add(DirectionsRequest.class);
+			add(DirectionsReply.class);
+			add(HelpRequest.class);
+			add(HelpReply.class);
+			add(HelpConfirmation.class);
 			add(EvacueeStats.class);
 			
 		} catch(BeanOntologyException boe) {

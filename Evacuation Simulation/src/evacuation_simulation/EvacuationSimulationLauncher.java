@@ -26,21 +26,7 @@ public class EvacuationSimulationLauncher extends RepastSLauncher{
 	private static int N_INDEPENDENT_KNOWLEDGEABLE = 0;
 	private static int N_DEPENDENT_UNKNOWLEDGEABLE = 0;
 	private static int N_SECURITY_OFFICER = 0;
-
-	/**
-	 * @return the n_SECURITY_OFFICER
-	 */
-	public static int getN_SECURITY_OFFICER() {
-		return N_SECURITY_OFFICER;
-	}
-
-	/**
-	 * @param n_SECURITY_OFFICER the n_SECURITY_OFFICER to set
-	 */
-	public static void setN_SECURITY_OFFICER(int n_SECURITY_OFFICER) {
-		N_SECURITY_OFFICER = n_SECURITY_OFFICER;
-	}
-
+	
 	public static final boolean USE_RESULTS_COLLECTOR = true;
 	public static final boolean SEPARATE_CONTAINERS = false;
 
@@ -115,6 +101,21 @@ public class EvacuationSimulationLauncher extends RepastSLauncher{
 		N_KNOWLEDGEABLE = n_KNOWLEDGEABLE;
 	}
 
+	/**
+	 * @return the n_SECURITY_OFFICER
+	 */
+	public static int getN_SECURITY_OFFICER() {
+		return N_SECURITY_OFFICER;
+	}
+
+	/**
+	 * @param n_SECURITY_OFFICER the n_SECURITY_OFFICER to set
+	 */
+	public static void setN_SECURITY_OFFICER(int n_SECURITY_OFFICER) {
+		N_SECURITY_OFFICER = n_SECURITY_OFFICER;
+	}
+
+	
 	@Override
 	public String getName() {
 		return "Emergency Evacuation -- SAJaS RepastS Simulation";
@@ -132,20 +133,7 @@ public class EvacuationSimulationLauncher extends RepastSLauncher{
 			agentContainer = rt.createAgentContainer(p2);
 		} else {
 			agentContainer = mainContainer;
-		}
-
-		/////////////////////////////////////////testing only
-		/*RandomHelper.init();
-		Binomial bin = RandomHelper.getBinomial();
-		System.out.println(bin);
-		for(int i=0; i<20; i++){
-			System.out.println(bin.nextInt(5, 65));
-		}
-
-		System.err.println("Done!!");
-		*/
-		///////////////////////////////////////testing only
-		
+		}		
 		
 		createAgents();
 	}
