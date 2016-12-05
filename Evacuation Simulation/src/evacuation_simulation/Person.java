@@ -1,7 +1,8 @@
 package evacuation_simulation;
 
 import java.util.ArrayList;
-
+import environment.Environment;
+import environment.Pair;
 import evacuation_simulation.onto.DirectionsReply;
 import evacuation_simulation.onto.DirectionsRequest;
 import evacuation_simulation.onto.EvacueeStats;
@@ -70,10 +71,17 @@ public class Person extends Agent{
 
 	private Codec codec;
 	private Ontology serviceOntology;	
+	protected ACLMessage myCfp;
+	
+	private Person selfReference;
+	private Context<Object> simulationContext;
 
-	public Person(AID resultsCollector, Environment environment){
+	public Person(AID resultsCollector, Environment environment, Context<Object> context, int x, int y){
 		this.resultsCollector = resultsCollector;		
 		this.environment = environment;
+		this.selfReference = this;
+		this.simulationContext = context;
+		this.simulationContext.add(this);
 
 		exitReached = false;
 
@@ -101,6 +109,8 @@ public class Person extends Agent{
 			maxSpeed -= 10;
 
 		currentSpeed = maxSpeed  / 3;
+		
+		addBehaviour(new MovementBehaviour(x, y));
 	}
 
 	/**
@@ -479,8 +489,11 @@ public class Person extends Agent{
 	}
 
 
-
-
+	/*
+	 * 
+	 * Behaviour definition
+	 * 
+	 */
 
 	/**
 	 * PanicHandler behaviour
@@ -827,5 +840,41 @@ public class Person extends Agent{
 		public boolean done() {
 			return nAttempts <= 0 || newDirections || ((Person) myAgent).isExitReached();
 		}
+	}
+	
+	/*
+	 * Movement behaviour
+	 */
+	class MovementBehaviour extends SimpleBehaviour {
+		private static final long serialVersionUID = 1L;
+		private int x;
+		private int y;
+		
+		public MovementBehaviour(int x, int y){
+			super();
+			this.x = x;
+			this.y = y;
+			environment.place(selfReference, x, y);
+		}
+
+		@Override
+		public void action() {
+			ArrayList<Pair<Integer,Integer>> orderedPaths = environment.getBestPathFromCell(x, y);
+			
+			if(orderedPaths.size() > 0){
+				x = orderedPaths.get(0).getX();
+				y = orderedPaths.get(0).getY();
+				
+				environment.move(selfReference, x, y);
+			}
+			
+		}
+
+		@Override
+		public boolean done() {
+			exitReached = true;
+			return environment.getMap().getObjectAt(x, y) == 'E';
+		}
+		
 	}
 }
