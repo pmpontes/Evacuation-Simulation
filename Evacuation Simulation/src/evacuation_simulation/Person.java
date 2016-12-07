@@ -1,6 +1,7 @@
 package evacuation_simulation;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import cern.jet.random.Normal;
 import cern.jet.random.Uniform;
@@ -966,26 +967,56 @@ public class Person extends Agent{
 						currentWeight = environment.getMap().getDistanceAt(x, y);
 					}
 				} else {
-					int path = uniform.nextIntFromTo(0, orderedPaths.size()-1);
-					int tempX = orderedPaths.get(path).getX();
-					int tempY = orderedPaths.get(path).getY();
-
-					while(lastX == tempX && lastY == tempY){
-						path = uniform.nextIntFromTo(0, orderedPaths.size()-1);
-						tempX = orderedPaths.get(path).getX();
-						tempY = orderedPaths.get(path).getY();
+					prob = uniform.nextIntFromTo(0, 100);
+					if(prob > getIndependence()){
+						int path = uniform.nextIntFromTo(0, orderedPaths.size()-1);
+						int tempX = orderedPaths.get(path).getX();
+						int tempY = orderedPaths.get(path).getY();
+	
+						while(lastX == tempX && lastY == tempY){
+							path = uniform.nextIntFromTo(0, orderedPaths.size()-1);
+							tempX = orderedPaths.get(path).getX();
+							tempY = orderedPaths.get(path).getY();
+						}
+	
+						lastX=x;
+						lastY=y;
+						x = tempX;
+						y = tempY;
+						environment.move(selfReference, x, y);
+						currentWeight = environment.getMap().getDistanceAt(x, y);
+					} else {
+						Pair<Integer, Integer> path = massFollowingCell(orderedPaths);
+						if(!environment.userFreeCell(path.getX(), path.getY())){
+							lastX=x;
+							lastY=y;
+							x = path.getX();
+							y = path.getY();
+							environment.move(selfReference, x, y);
+							currentWeight = environment.getMap().getDistanceAt(x, y);
+						}
+						
 					}
-
-					lastX=x;
-					lastY=y;
-					x = tempX;
-					y = tempY;
-					environment.move(selfReference, x, y);
-					currentWeight = environment.getMap().getDistanceAt(x, y);
 				}
 
 			}
 			
+			updateDirection();
+		}
+
+		@Override
+		public boolean done() {
+			exitReached = environment.getMap().getObjectAt(x, y) == 'E';
+
+			if(exitReached){
+				takeDown();
+			}
+
+			return exitReached;
+		}
+
+		
+		private void updateDirection(){
 			int xdiff = x - lastX;
 			int ydiff = y - lastY;
 			switch(xdiff){
@@ -1008,19 +1039,52 @@ public class Person extends Agent{
 					break;
 				}
 			}
-
 		}
 
-		@Override
-		public boolean done() {
-			exitReached = environment.getMap().getObjectAt(x, y) == 'E';
-
-			if(exitReached){
-				takeDown();
+		private Pair<Integer, Integer> massFollowingCell(ArrayList<Pair<Integer,Integer>> orderedPaths){
+			Pair<Integer, Integer> cellN = new Pair<Integer, Integer>(x, y-1);
+			Pair<Integer, Integer> cellW = new Pair<Integer, Integer>(x-1, y);
+			Pair<Integer, Integer> cellE = new Pair<Integer, Integer>(x+1, y);
+			Pair<Integer, Integer> cellS = new Pair<Integer, Integer>(x, y+1);
+			Pair<Integer, Integer> stay = new Pair<Integer, Integer>(x, y);
+			
+			HashMap<Character, Integer> directionProb = environment.mostCommonDirections(myAgent, 2);
+			int probN=-1, probW=-1, probE=-1, probS=-1, total=0;
+			if(orderedPaths.contains(cellN)){
+				probN = directionProb.get('N');
+				total += probN;
 			}
-
-			return exitReached;
+			if(orderedPaths.contains(cellW)){
+				probW = directionProb.get('W') + total;
+				total = probW;
+			}
+			if(orderedPaths.contains(cellS)){
+				probS = directionProb.get('S') + total;
+				total = probS;
+			}
+			if(orderedPaths.contains(cellN)){
+				probE = directionProb.get('E') + total;
+				total = probE;
+			}
+				
+			int prob = uniform.nextIntFromTo(0, total);
+			
+			if(prob < probN && probN >= 0){
+				return cellN;
+			} else {
+				if(prob < probW && probW >= 0){
+					return cellW;
+				} else {
+					if(prob < probS && probS >= 0){
+						return cellS;
+					} else {
+						if(prob < probE && probE >= 0)
+							return cellE;
+					}
+				}
+			}
+			
+			return stay;
 		}
-
 	}
 }
