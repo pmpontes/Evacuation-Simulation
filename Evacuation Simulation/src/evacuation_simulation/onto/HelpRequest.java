@@ -7,15 +7,10 @@ public class HelpRequest implements Predicate {
 	private static final long serialVersionUID = 1L;
 
 	private String message = "Can you carry me to the exit?";
-	private int mobility;
 	
 	public HelpRequest() {
 	}
 	
-	public HelpRequest(int mobility) {
-		this.mobility = mobility;
-	}
-
 	/**
 	 * @return the message
 	 */
@@ -28,19 +23,5 @@ public class HelpRequest implements Predicate {
 	 */
 	public void setMessage(String message) {
 		this.message = message;
-	}
-
-	/**
-	 * @return the mobility
-	 */
-	public int getMobility() {
-		return mobility;
-	}
-
-	/**
-	 * @param mobility the mobility to set
-	 */
-	public void setMobility(int mobility) {
-		this.mobility = mobility;
 	}
 }

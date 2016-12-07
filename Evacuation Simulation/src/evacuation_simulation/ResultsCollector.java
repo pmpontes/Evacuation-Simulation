@@ -82,6 +82,14 @@ public class ResultsCollector extends Agent {
 		System.out.println("Each person took an average of " + mediumEvacuationTime + " to reach an exit.");
 		System.out.println("Some took only " + minimumEvacuationTime);
 		System.out.println(nCtriticalInjuries + (nCtriticalInjuries == 1 ? " was" : " were") + " critically injuried. ");
+		
+		System.out.println();
+		System.out.println("Detailed results:");
+		for(EvacueeStats stats : evacuationResults){
+			System.out.println(stats.getId() + ": Helped->" + stats.getHelpee() + "; evacTime->" + stats.getEvacuationTime() + "; Age->" + stats.getAge() + "; areaKnowledge->" + 
+					stats.getAreaKnowledge() + "; altruism->" + stats.getAltruism() + "; independence->" + stats.getIndependence() +
+					"; mobility->" + stats.getPhysicalCondition() + "; panic->" + stats.getPanic());
+		}
 	}
 
 	
