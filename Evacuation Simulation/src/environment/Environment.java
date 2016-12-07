@@ -13,7 +13,6 @@ import repast.simphony.context.space.grid.GridFactory;
 import repast.simphony.context.space.grid.GridFactoryFinder;
 import repast.simphony.query.space.grid.GridCell;
 import repast.simphony.query.space.grid.GridCellNgh;
-import repast.simphony.space.continuous.ContinuousSpace;
 import repast.simphony.space.grid.Grid;
 import repast.simphony.space.grid.GridBuilderParameters;
 import repast.simphony.space.grid.SimpleGridAdder;
@@ -89,7 +88,7 @@ public class Environment {
 	public ArrayList<AID> findNear(Agent myAgent, int distance){
 		ArrayList<AID> neighboursList = new ArrayList<AID>();
 		
-		GridCellNgh<Person> neighbourhood = new GridCellNgh<Person>(grid, grid.getLocation(myAgent), Person.class, distance);
+		GridCellNgh<Person> neighbourhood = new GridCellNgh<Person>(grid, grid.getLocation(myAgent), Person.class, distance, distance);
 		List<GridCell<Person>> nghPoints = neighbourhood.getNeighborhood(false);
 		
 		for(GridCell<Person> person : nghPoints){

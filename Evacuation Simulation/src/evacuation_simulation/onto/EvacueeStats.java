@@ -16,11 +16,14 @@ public class EvacueeStats implements Predicate {
 	private int physicalCondition;
 	private int panic;
 	
+	private static long startTime = System.currentTimeMillis();
+	private long evacuationTime; 
 	
-	private long evacuatedAt; 
+	public EvacueeStats() {
+	}
 	
 	public EvacueeStats(Gender gender, int age, int areaKnowledge, int altruism, int independence, int fatigue, int mobility, int panic) {
-		this.evacuatedAt = System.currentTimeMillis();
+		this.evacuationTime = System.currentTimeMillis() - startTime;
 		this.gender = gender;
 		this.age = age;
 		this.areaKnowledge = areaKnowledge;
@@ -39,10 +42,10 @@ public class EvacueeStats implements Predicate {
 	}
 
 	/**
-	 * @return the evacuatedAt
+	 * @return the evacuationTime
 	 */
-	public long getEvacuatedAt() {
-		return evacuatedAt;
+	public long getEvacuationTime() {
+		return evacuationTime;
 	}
 
 	/**
@@ -153,8 +156,8 @@ public class EvacueeStats implements Predicate {
 	/**
 	 * @param evacuatedAt the evacuatedAt to set
 	 */
-	public void setEvacuatedAt(long evacuatedAt) {
-		this.evacuatedAt = evacuatedAt;
+	public void setEvacuationTime(long evacuatedAt) {
+		this.evacuationTime = evacuatedAt;
 	}
 	
 }

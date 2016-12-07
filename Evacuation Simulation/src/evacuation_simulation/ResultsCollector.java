@@ -1,34 +1,33 @@
 package evacuation_simulation;
 
+import java.util.ArrayList;
+
+import evacuation_simulation.onto.EvacueeStats;
+import evacuation_simulation.onto.ServiceOntology;
 import jade.content.lang.Codec;
 import jade.content.lang.Codec.CodecException;
 import jade.content.lang.sl.SLCodec;
 import jade.content.onto.Ontology;
 import jade.content.onto.OntologyException;
-import sajas.core.Agent;
-import sajas.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.wrapper.ControllerException;
-
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.TreeMap;
-
-import evacuation_simulation.onto.EvacueeStats;
-import evacuation_simulation.onto.ServiceOntology;
+import sajas.core.Agent;
+import sajas.core.behaviours.CyclicBehaviour;
 
 public class ResultsCollector extends Agent {
 
 	private static final long serialVersionUID = 1L;
 	
 	/* Relevant metrics */
+	private int nCtriticalInjuries = 0;
+	private int nDead = 0;
+	private long mediumEvacuationTime = 0;
+	private long maximumEvacuationTime = 0;
+	private long minimumEvacuationTime = Long.MAX_VALUE;
+	
 	private int nEvacuees;
 	private int nEvacuated;
-	private int nInjuries;
-	private int nDead;
-
-	private long startTime = System.currentTimeMillis();
 	
 	private ArrayList<EvacueeStats> evacuationResults = new ArrayList<EvacueeStats>();
 	
@@ -54,34 +53,35 @@ public class ResultsCollector extends Agent {
 		addBehaviour(new ResultsListener());
 	}
 	
-	protected void calculateResults() {
-		long took = System.currentTimeMillis() - startTime;
-		
-		long mediumEvacuationTime = 0;
-		long maximumEvacuationTime = 0;
-		long minimumEvacuationTime = Long.MAX_VALUE;
-		
-		for(EvacueeStats stat: evacuationResults){
-			mediumEvacuationTime += stat.getEvacuatedAt();
+	private void calculateResults() {		
+		for(EvacueeStats stat: evacuationResults){			
+
+			mediumEvacuationTime += stat.getEvacuationTime();
 			
-			if(stat.getEvacuatedAt() < minimumEvacuationTime){
-				minimumEvacuationTime = stat.getEvacuatedAt(); 
+			if(stat.getEvacuationTime() < minimumEvacuationTime){
+				minimumEvacuationTime = stat.getEvacuationTime(); 
 			}
 			
-			if(stat.getEvacuatedAt() > maximumEvacuationTime){
-				maximumEvacuationTime = stat.getEvacuatedAt(); 
+			if(stat.getEvacuationTime() > maximumEvacuationTime){
+				maximumEvacuationTime = stat.getEvacuationTime(); 
+			}
+			
+			if(stat.getPhysicalCondition() < Person.MAX_SCALE / 10){
+				nCtriticalInjuries++;
 			}
 		}
 		
-		// TODO export stats
+		if(!evacuationResults.isEmpty()) {
+			mediumEvacuationTime /= evacuationResults.size(); 
+		}
 	}
 	
-	// TODO
-	protected void printResults() {
-		System.out.println("Took: \t");
-		
-		
-		
+	private void printResults() {
+		System.out.println("Evacuation statistics:");
+		System.out.println(nEvacuated + " were evacuated in " + maximumEvacuationTime);
+		System.out.println("Each person took an average of " + mediumEvacuationTime + " to reach an exit.");
+		System.out.println("Some took only " + minimumEvacuationTime);
+		System.out.println(nCtriticalInjuries + (nCtriticalInjuries == 1 ? " was" : " were") + " critically injuried. ");
 	}
 
 	

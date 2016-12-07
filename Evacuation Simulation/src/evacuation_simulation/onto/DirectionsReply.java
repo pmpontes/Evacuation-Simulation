@@ -1,8 +1,8 @@
 package evacuation_simulation.onto;
 
-import jade.content.AgentAction;
+import jade.content.Predicate;
 
-public class DirectionsReply implements AgentAction {
+public class DirectionsReply implements Predicate {
 	
 	private static final long serialVersionUID = 1L;
 	
