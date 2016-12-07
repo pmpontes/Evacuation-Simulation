@@ -1,13 +1,13 @@
 package evacuation_simulation.onto;
 
-import evacuation_simulation.Gender;
 import jade.content.Predicate;
 
 public class EvacueeStats implements Predicate {
 
 	private static final long serialVersionUID = 1L;
 	
-	private Gender gender;
+	private String id;
+	private String helpee;
 	private int age;
 	private int areaKnowledge;
 	private int altruism;
@@ -16,15 +16,20 @@ public class EvacueeStats implements Predicate {
 	private int physicalCondition;
 	private int panic;
 	
-	private static long startTime = System.currentTimeMillis();
+	private static long startTime;
 	private long evacuationTime; 
 	
 	public EvacueeStats() {
 	}
 	
-	public EvacueeStats(Gender gender, int age, int areaKnowledge, int altruism, int independence, int fatigue, int mobility, int panic) {
+	public static void setStartTime(){
+		startTime = System.currentTimeMillis();
+	}
+	
+	public EvacueeStats(String id, String helpee, int age, int areaKnowledge, int altruism, int independence, int fatigue, int mobility, int panic) {
 		this.evacuationTime = System.currentTimeMillis() - startTime;
-		this.gender = gender;
+		this.id = id;
+		this.helpee = helpee;
 		this.age = age;
 		this.areaKnowledge = areaKnowledge;
 		this.altruism = altruism;
@@ -32,6 +37,34 @@ public class EvacueeStats implements Predicate {
 		this.fatigue = fatigue;
 		this.physicalCondition = mobility;
 		this.panic = panic;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public String getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return the helpee
+	 */
+	public String getHelpee() {
+		return helpee;
+	}
+
+	/**
+	 * @param helpee the helpee to set
+	 */
+	public void setHelpee(String helpee) {
+		this.helpee = helpee;
 	}
 
 	/**
@@ -46,20 +79,6 @@ public class EvacueeStats implements Predicate {
 	 */
 	public long getEvacuationTime() {
 		return evacuationTime;
-	}
-
-	/**
-	 * @return the gender
-	 */
-	public Gender getGender() {
-		return gender;
-	}
-
-	/**
-	 * @param gender the gender to set
-	 */
-	public void setGender(Gender gender) {
-		this.gender = gender;
 	}
 
 	/**

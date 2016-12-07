@@ -31,7 +31,6 @@ public class ResultsCollector extends Agent {
 	
 	private ArrayList<EvacueeStats> evacuationResults = new ArrayList<EvacueeStats>();
 	
-	
 	public ResultsCollector(int nEvacuees) {
 		this.nEvacuees = nEvacuees;
 		this.nEvacuated = 0;
@@ -55,7 +54,11 @@ public class ResultsCollector extends Agent {
 	
 	private void calculateResults() {		
 		for(EvacueeStats stat: evacuationResults){			
-
+			if(stat.getPhysicalCondition() < Person.DEATH_LEVEL){
+				nDead++;
+				continue;
+			}
+			
 			mediumEvacuationTime += stat.getEvacuationTime();
 			
 			if(stat.getEvacuationTime() < minimumEvacuationTime){
@@ -66,22 +69,31 @@ public class ResultsCollector extends Agent {
 				maximumEvacuationTime = stat.getEvacuationTime(); 
 			}
 			
-			if(stat.getPhysicalCondition() < Person.MAX_SCALE / 10){
+			if(stat.getPhysicalCondition() < Person.DEATH_LEVEL * 2){
 				nCtriticalInjuries++;
 			}
 		}
 		
 		if(!evacuationResults.isEmpty()) {
-			mediumEvacuationTime /= evacuationResults.size(); 
+			mediumEvacuationTime /= (evacuationResults.size() - nDead); 
 		}
 	}
 	
 	private void printResults() {
 		System.out.println("Evacuation statistics:");
-		System.out.println(nEvacuated + " were evacuated in " + maximumEvacuationTime);
+		System.out.println(nEvacuated - nDead + " were evacuated in " + maximumEvacuationTime);
 		System.out.println("Each person took an average of " + mediumEvacuationTime + " to reach an exit.");
 		System.out.println("Some took only " + minimumEvacuationTime);
 		System.out.println(nCtriticalInjuries + (nCtriticalInjuries == 1 ? " was" : " were") + " critically injuried. ");
+		System.out.println(nDead + " died. ");
+		
+		System.out.println();
+		System.out.println("Detailed results:");
+		for(EvacueeStats stats : evacuationResults){
+			System.out.println(stats.getId() + ": Helped->" + stats.getHelpee() + "; evacTime->" + stats.getEvacuationTime() + "; Age->" + stats.getAge() + "; areaKnowledge->" + 
+					stats.getAreaKnowledge() + "; altruism->" + stats.getAltruism() + "; independence->" + stats.getIndependence() +
+					"; mobility->" + stats.getPhysicalCondition() + "; panic->" + stats.getPanic());
+		}
 	}
 
 	

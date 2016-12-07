@@ -6,6 +6,7 @@ import java.util.Random;
 import cern.jet.random.Uniform;
 import environment.Environment;
 import environment.Pair;
+import evacuation_simulation.onto.EvacueeStats;
 import jade.core.AID;
 import jade.core.Profile;
 import jade.core.ProfileImpl;
@@ -25,6 +26,7 @@ public class EvacuationSimulationLauncher extends RepastSLauncher{
 	private static int N_INDEPENDENT = 0;
 	private static int N_INDEPENDENT_KNOWLEDGEABLE = 1;
 	private static int N_DEPENDENT_UNKNOWLEDGEABLE = 10;
+	
 	private static int N_SECURITY_OFFICER = 0;
 	
 	public static final boolean USE_RESULTS_COLLECTOR = true;
@@ -146,6 +148,8 @@ public class EvacuationSimulationLauncher extends RepastSLauncher{
 				ResultsCollector resultsCollector = new ResultsCollector(nEvacuees);
 				mainContainer.acceptNewAgent("ResultsCollector", resultsCollector).start();
 				resultsCollectorAID = resultsCollector.getAID();
+				
+				EvacueeStats.setStartTime();
 			}
 
 			// create population
