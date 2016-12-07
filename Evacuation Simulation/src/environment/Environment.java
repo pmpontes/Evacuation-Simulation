@@ -23,6 +23,7 @@ public class Environment {
 	
 	public static int X_DIMENSION;
 	public static int Y_DIMENSION;
+	public static final char EXIT = 'E';
 	
 	private Grid<Object> grid;
 	private SurfaceMap map;
@@ -134,16 +135,16 @@ public class Environment {
 	public ArrayList<Pair<Integer, Integer>> getBestPathFromCell(int x, int y){
 		ArrayList<Pair<Integer,Integer>> neighbourCells = new ArrayList<Pair<Integer,Integer>>();
 		
-		if(x > 0 && map.getDistanceAt(x-1, y) != -1 && userFreeCell(x-1, y))
+		if(x > 0 && map.getDistanceAt(x-1, y) != -1)
 			neighbourCells.add(new Pair<Integer, Integer>(x-1, y));
 		
-		if(y > 0 && map.getDistanceAt(x, y-1) != -1 && userFreeCell(x, y-1))
+		if(y > 0 && map.getDistanceAt(x, y-1) != -1)
 			neighbourCells.add(new Pair<Integer, Integer>(x, y-1));
 		
-		if(x < map.getWidth() - 1 && map.getDistanceAt(x+1, y) != -1 && userFreeCell(x+1, y))
+		if(x < map.getWidth() - 1 && map.getDistanceAt(x+1, y) != -1)
 			neighbourCells.add(new Pair<Integer, Integer>(x+1, y));
 		
-		if(y < map.getHeight() - 1 && map.getDistanceAt(x, y+1) != -1 && userFreeCell(x, y+1))
+		if(y < map.getHeight() - 1 && map.getDistanceAt(x, y+1) != -1)
 			neighbourCells.add(new Pair<Integer, Integer>(x, y+1));
 		
 		Collections.sort(neighbourCells, map.getDistanceComparator());
@@ -163,6 +164,17 @@ public class Environment {
 				isExit = true;
 		}
 		return (isExit || !hasPerson);
+	}
+	
+	public Person userInCell(int x, int y){
+		y = map.getHeight() - y - 1;
+		
+		Iterable<Object> cellContents = grid.getObjectsAt(x, y);
+		for(Object cell : cellContents){
+			if(cell instanceof Person)
+				return (Person) cell;
+		}
+		return null;
 	}
 	
 	public ArrayList<Pair<Integer,Integer>> getBusyEntityCells(){

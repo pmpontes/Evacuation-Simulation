@@ -22,8 +22,8 @@ import sajas.wrapper.ContainerController;
 
 public class EvacuationSimulationLauncher extends RepastSLauncher{
 
-	private static int N_KNOWLEDGEABLE = 0;
-	private static int N_INDEPENDENT = 4;
+	private static int N_KNOWLEDGEABLE = 5;
+	private static int N_INDEPENDENT = 0;
 	private static int N_INDEPENDENT_KNOWLEDGEABLE = 0;
 	private static int N_DEPENDENT_UNKNOWLEDGEABLE = 0;
 	private static int N_SECURITY_OFFICER = 0;

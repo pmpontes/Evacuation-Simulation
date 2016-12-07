@@ -1,12 +1,8 @@
 package evacuation_simulation;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
-import java.util.List;
-
-import tools.Log;
 
 import cern.jet.random.Normal;
 import cern.jet.random.Uniform;
@@ -33,6 +29,7 @@ import repast.simphony.space.graph.Network;
 import repast.simphony.util.SimUtilities;
 import sajas.core.Agent;
 import sajas.core.behaviours.SimpleBehaviour;
+import tools.Log;
 
 public class Person extends Agent{
 	public static final int PANIC_VARIATION = 10;
@@ -44,6 +41,8 @@ public class Person extends Agent{
 
 	public static final int MAX_SCALE= 100;
 	public static final int MIN_SCALE= 0;
+	public static final int DEATH_LEVEL=  MAX_SCALE/10;
+	public static final int MOVING_LEVEL=  MAX_SCALE/5;
 	protected static final Normal upperDistribution = RandomHelper.createNormal(MAX_SCALE *3 / 4 , (MAX_SCALE - MIN_SCALE)/10);
 	protected static final Normal lowerDistribution = RandomHelper.createNormal(MAX_SCALE / 4 , (MAX_SCALE - MIN_SCALE)/10);
 	protected static final Normal normalDistribution = RandomHelper.createNormal(MAX_SCALE / 2 , (MAX_SCALE - MIN_SCALE)/5);
@@ -98,7 +97,7 @@ public class Person extends Agent{
 		setAltruism(normalDistribution.nextInt()); 
 
 		fatigue = MIN_SCALE;
-		setMobility(normalDistribution.nextInt());
+		mobility = normalDistribution.nextInt();
 		setPanic((int) (lowerDistribution.nextInt()*.5)); // panic should start at lower levels
 
 		gender = (RandomHelper.nextIntFromTo(0, 1) == 1) ? Gender.MALE : Gender.FEMALE;
@@ -158,6 +157,13 @@ public class Person extends Agent{
 	 */
 	public void setExitReached(boolean exitReached) {
 		this.exitReached = exitReached;
+	}
+
+	/**
+	 * @return true if the agent has very low mobility, false otherwise
+	 */
+	public boolean isDead(){
+		return mobility < DEATH_LEVEL;
 	}
 
 	/**
@@ -224,10 +230,17 @@ public class Person extends Agent{
 	}
 
 	/**
+	 * Sets the mobility to the specified value, ensuring it is within MIN_SCALE and MAX_SCALE.
+	 * If the new mobility is lower than DEATH_LEVEL, notifies the ResultsCollector.
 	 * @param mobility the mobility to set
 	 */
 	public void setMobility(int mobility) {
 		this.mobility = enforceBounds(mobility);
+
+		if(isDead()){
+			Log.detail(getLocalName() + " has died.");
+			notifyResultsCollector();
+		}
 	}
 
 	/**
@@ -291,6 +304,13 @@ public class Person extends Agent{
 	}
 
 	/**
+	 * @return altruism - panic / 5
+	 */
+	public int getUsableKnowledge() {
+		return altruism - panic / 5;
+	}
+
+	/**
 	 * Updates the panic level.
 	 * Independent people are less influenced by panic.
 	 * Younger and older people are more prone to panic variations.
@@ -298,7 +318,7 @@ public class Person extends Agent{
 	 * @param isIncrease  
 	 */
 	private void generatePanicVariation(boolean isIncrease) {
-		float variation = (float) (PANIC_VARIATION * (isIncrease ? 1 : -1) * (1.1 - independence));
+		float variation = PANIC_VARIATION * (isIncrease ? 1 : -1);
 
 		// younger and older people are more prone to panic variations 
 		if(age < MAX_AGE / 3 || age > 2 * MAX_AGE / 3){
@@ -312,7 +332,9 @@ public class Person extends Agent{
 				variation *= 0.8;
 			}
 		}
+		variation -= independence * .2;
 
+		Log.detail("Panic variation: " + variation);
 		setPanic((int) (panic + variation));		
 
 		if(panic >= (3/4) * MAX_SCALE){
@@ -394,11 +416,11 @@ public class Person extends Agent{
 	public void decreaseMobility() {
 		float variation = -MOBILITY_VARIATION;
 
-		// younger and older people are more prone to fatigue variations 
+		// younger and older people are more prone to mobility variations 
 		if(age < MAX_AGE / 3 || age > 2 * MAX_AGE / 3){
 			variation *= 1.2;	
 		}
-
+		Log.detail("Mobility variation: " + variation);
 		setMobility((int) (mobility + variation));		
 	}
 
@@ -435,6 +457,8 @@ public class Person extends Agent{
 		getContentManager().registerLanguage(codec);
 		getContentManager().registerOntology(serviceOntology);
 
+		setMobility(mobility);		
+		
 		// add behaviours
 		addBehaviour(new PanicHandler(this));
 		addBehaviour(new HelperBehaviour(this));
@@ -445,6 +469,15 @@ public class Person extends Agent{
 		Log.info(getLocalName() + " terminating.");
 
 		// notify results collector
+		if(!isDead()){
+			notifyResultsCollector();
+		}
+	}
+
+	/**
+	 * notifyResultsCollector
+	 */
+	private void notifyResultsCollector() {
 		if(resultsCollector != null) {
 			ACLMessage inform = new ACLMessage(ACLMessage.INFORM);
 			inform.addReceiver(resultsCollector);
@@ -494,7 +527,7 @@ public class Person extends Agent{
 
 		@Override
 		public boolean done() {
-			return exitReached;
+			return exitReached || isDead();
 		}
 	}
 
@@ -532,7 +565,7 @@ public class Person extends Agent{
 		}
 
 		public boolean done() {
-			return screamed || exitReached;
+			return screamed || exitReached || isDead();
 		}
 	}
 
@@ -633,7 +666,7 @@ public class Person extends Agent{
 
 		/**
 		 * Handle a help request, by making a help offer. 
-		 * Requests are ignored if the person is helping or has offered to help another.
+		 * Requests are ignored if the person is helping, has offered to help another or is not feeling altruistic.
 		 * @param request
 		 */
 		private void handleHelpRequest(ACLMessage request){
@@ -641,7 +674,7 @@ public class Person extends Agent{
 				return;
 			}
 
-			if(RandomHelper.nextIntFromTo(MIN_SCALE, MAX_SCALE) < altruism) {
+			if(RandomHelper.nextIntFromTo(MIN_SCALE, MAX_SCALE) < altruism - panic / 5) {
 				// send reply
 				ACLMessage reply = request.createReply();
 				reply.setPerformative(ACLMessage.PROPOSE);			
@@ -659,19 +692,19 @@ public class Person extends Agent{
 					e.printStackTrace();
 				}
 			}
-			
+
 			Log.detail("HelpRequest ignored by" + getLocalName());
 		}
 
 		/**
 		 * Handle a request for direction, by 'sharing' areaKnowledge. 
-		 * Requests are ignored according to one's altruism.
+		 * Requests are ignored  if the person is not feeling altruistic.
 		 * @param request
 		 */
 		private void handleDirectionsRequest(ACLMessage request) {
 			ACLMessage reply = request.createReply();
 
-			if(RandomHelper.nextIntFromTo(MIN_SCALE, MAX_SCALE) < altruism) {
+			if(RandomHelper.nextIntFromTo(MIN_SCALE, MAX_SCALE) < altruism - panic / 5) {
 				reply.setPerformative(ACLMessage.INFORM);
 			}else{
 				reply.setPerformative(ACLMessage.REFUSE);
@@ -691,11 +724,11 @@ public class Person extends Agent{
 		}
 
 		/**
-		 * Stop helping others if mobility is reduced to MAX_SCALE/10, if the person has no altruism or if the exit has been reached.
+		 * Stop helping others if mobility is reduced to MAX_SCALE/10, if the person is not feeling altruistic or if the exit has been reached.
 		 * @see sajas.core.behaviours.Behaviour#done()
 		 */
 		public boolean done() {
-			return (mobility <= ((int) (MAX_SCALE / 10))) || altruism == MIN_SCALE || exitReached;
+			return (mobility <= MAX_SCALE / 5) || (getUsableKnowledge() <= MIN_SCALE / 10) || exitReached || isDead();
 		}
 	}
 
@@ -748,15 +781,15 @@ public class Person extends Agent{
 					}else{
 						int valueR1 = (r1.getAreaKnowledge() + r1.getMobility()) / 2;
 						int valueR2 = (r2.getAreaKnowledge() + r2.getMobility()) / 2;
-						
+
 						return valueR1 - valueR2;
 					}
-                }	
+				}	
 			});
-			
+
 			HelpReply bestProposal = proposals.get(0);
 			proposals.remove(bestProposal);
-			
+
 			// send confirmation
 			ACLMessage confirmation = new ACLMessage(ACLMessage.ACCEPT_PROPOSAL);
 			confirmation.addReceiver(bestProposal.getProposerAID());
@@ -787,7 +820,7 @@ public class Person extends Agent{
 				for(HelpReply proposal: proposals) {
 					rejection.addReceiver(proposal.getProposerAID());
 				}
-				
+
 				send(rejection);
 				Log.detail(getLocalName() +  ": rejections sent");
 			}
@@ -860,7 +893,7 @@ public class Person extends Agent{
 
 		@Override
 		public boolean done() {
-			return beingHelped || exitReached;
+			return beingHelped || exitReached || isDead();
 		}
 	}
 
@@ -993,77 +1026,129 @@ public class Person extends Agent{
 	/*
 	 * Movement behaviour
 	 */
+	private int x;
+	private int y;
+	private int lastX;
+	private int lastY;
+	private int currentWeight;
+
 	class MovementBehaviour extends SimpleBehaviour {
 		private static final long serialVersionUID = 1L;
-		private int x;
-		private int y;
-		private int lastX;
-		private int lastY;
-		private int currentWeight;
 		private Uniform uniform = RandomHelper.createUniform();
 
-		public MovementBehaviour(int x, int y){
+		public MovementBehaviour(int startX, int startY) {
 			super();
-			this.x = x;
-			this.y = y;
-			this.lastX = x;
-			this.lastY = y;
+
+			x = startX;
+			y = startY;
+			lastX = x;
+			lastY = y;
 			environment.place(selfReference, x, y);
 			currentWeight = environment.getMap().getDistanceAt(x, y);
 		}
 
 		@Override
-		public void action() {
+		public void action() {			
 			ArrayList<Pair<Integer,Integer>> orderedPaths = environment.getBestPathFromCell(x, y);
 
 			if(orderedPaths.size() > 0){
 
-				int prob = uniform.nextIntFromTo(0, 100);
+				int prob = uniform.nextIntFromTo(MIN_SCALE, MAX_SCALE);
+
 				if(prob <= getAreaKnowledge() || orderedPaths.size() == 1 || environment.findNearExits(myAgent, 4).size() > 0){
 					int tempX = orderedPaths.get(0).getX();
 					int tempY = orderedPaths.get(0).getY();
 
-					if(environment.getMap().getDistanceAt(tempX, tempY) <= currentWeight){
-						lastX = x;
-						lastY = y;
-						x = tempX;
-						y = tempY;
-						environment.move(selfReference, x, y);
-						currentWeight = environment.getMap().getDistanceAt(x, y);
+					if(!environment.userFreeCell(tempX, tempY)) {// && uniform.nextIntFromTo(MIN_SCALE, MAX_SCALE) < panic) {
+						Log.error(getLocalName() + "PUSHED!!!!"); 
+						push(tempX, tempY);
+					}else{					
+						while(!environment.userFreeCell(tempX, tempY)) {
+							orderedPaths.remove(0);
+
+							if(orderedPaths.isEmpty()) {
+								return;
+							}
+
+							tempX = orderedPaths.get(0).getX();
+							tempY = orderedPaths.get(0).getY();
+						}
 					}
+
+					if(environment.getMap().getDistanceAt(tempX, tempY) <= currentWeight) {
+						moveTo(selfReference, tempX, tempY);
+					}
+
 				} else {
+					
+					// TODO add push effect
+					
 					int path = uniform.nextIntFromTo(0, orderedPaths.size()-1);
 					int tempX = orderedPaths.get(path).getX();
 					int tempY = orderedPaths.get(path).getY();
 
 					while(lastX == tempX && lastY == tempY){
+						orderedPaths.remove(path);
+
+						if(orderedPaths.isEmpty()) {
+							return;
+						}
+
 						path = uniform.nextIntFromTo(0, orderedPaths.size()-1);
 						tempX = orderedPaths.get(path).getX();
 						tempY = orderedPaths.get(path).getY();
 					}
 
-					lastX=x;
-					lastY=y;
-					x = tempX;
-					y = tempY;
-					environment.move(selfReference, x, y);
-					currentWeight = environment.getMap().getDistanceAt(x, y);
+					moveTo(selfReference, tempX, tempY);
 				}
 
 			}
+		}
 
+		/**
+		 * Push the person at the specified position, taking its place. 
+		 * Both the mobility and the panic level of the person pushed is decreased.
+		 * @param selectedX
+		 * @param selectedY
+		 */
+		private void push(int selectedX, int selectedY) {
+			Person person = environment.userInCell(selectedX, selectedY);
+
+			if(person == null){
+				return;
+			}
+
+			person.decreaseMobility();
+			person.increasePanic();
+			moveTo(person, x, y);
+			moveTo(selfReference, selectedX, selectedY);
+		}
+
+		/**
+		 * Move the specified person to the new position.
+		 * @param person
+		 * @param selectedX
+		 * @param selectedY
+		 */
+		private void moveTo(Person person, int selectedX, int selectedY) {
+			lastX = x;
+			lastY = y;
+			x = selectedX;
+			y = selectedY;
+
+			environment.move(person, x, y);
+			currentWeight = environment.getMap().getDistanceAt(x, y);
 		}
 
 		@Override
 		public boolean done() {
-			exitReached = environment.getMap().getObjectAt(x, y) == 'E';
+			exitReached = environment.getMap().getObjectAt(x, y) == Environment.EXIT;
 
 			if(exitReached){
 				takeDown();
 			}
 
-			return exitReached;
+			return exitReached || isDead();
 		}
-
 	}
 }
