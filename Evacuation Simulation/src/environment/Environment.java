@@ -81,11 +81,11 @@ public class Environment {
 		grid.moveTo(object, x, map.getHeight()-y-1);
 	}
 	
-	public ArrayList<AID> findNear(Agent myAgent){
-		return findNear(myAgent, 1);
+	public ArrayList<AID> findNearAgents(Agent myAgent){
+		return findNearAgents(myAgent, 1);
 	}
 	
-	public ArrayList<AID> findNear(Agent myAgent, int distance){
+	public ArrayList<AID> findNearAgents(Agent myAgent, int distance){
 		ArrayList<AID> neighboursList = new ArrayList<AID>();
 		
 		GridCellNgh<Person> neighbourhood = new GridCellNgh<Person>(grid, grid.getLocation(myAgent), Person.class, distance, distance);
@@ -95,12 +95,32 @@ public class Environment {
 			if(person.size() > 0){
 				Iterable<Person> iterable = person.items();
 				for(Person agent : iterable){
-					neighboursList.add(agent.getAID());
+					if(map.elementVisible(grid.getLocation(myAgent).getCoord(0), grid.getLocation(myAgent).getCoord(1), grid.getLocation(agent).getCoord(0), grid.getLocation(agent).getCoord(1)))
+						neighboursList.add(agent.getAID());
 				}
 			}
 		}
 		
 		return neighboursList;
+	}
+	
+	public ArrayList<AID> findNearExits(Agent myAgent, int distance){
+		ArrayList<AID> exitsList = new ArrayList<AID>();
+		
+		GridCellNgh<Exit> neighbourhood = new GridCellNgh<Exit>(grid, grid.getLocation(myAgent), Exit.class, distance, distance);
+		List<GridCell<Exit>> nghPoints = neighbourhood.getNeighborhood(false);
+		
+		for(GridCell<Exit> Exit : nghPoints){
+			if(Exit.size() > 0){
+				Iterable<Exit> iterable = Exit.items();
+				for(Exit agent : iterable){
+					if(map.elementVisible(grid.getLocation(myAgent).getCoord(0), grid.getLocation(myAgent).getCoord(1), grid.getLocation(agent).getCoord(0), grid.getLocation(agent).getCoord(1)))
+						exitsList.add(agent.getAID());
+				}
+			}
+		}
+		
+		return exitsList;
 	}
 	
 	public SurfaceMap getMap(){

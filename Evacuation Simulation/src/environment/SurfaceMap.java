@@ -185,12 +185,12 @@ public class SurfaceMap {
 	 * @param y2
 	 * @return
 	 */
-	boolean exitVisible(int x1, int y1, int x2, int y2){        
+	boolean elementVisible(int x1, int y1, int x2, int y2){        
         int slope;
         int dx, dy, incE, incNE, d, x, y;
         // Onde inverte a linha x1 > x2       
         if (x1 > x2){
-            return exitVisible(x2, y2, x1, y1);
+            return elementVisible(x2, y2, x1, y1);
         }        
         dx = x2 - x1;
         dy = y2 - y1;
