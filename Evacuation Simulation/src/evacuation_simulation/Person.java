@@ -433,8 +433,8 @@ public class Person extends Agent{
 		// waker behaviour for starting CNets
 		//addBehaviour(new StartCNets(this, 2000));
 
-
-		
+		addBehaviour(new PanicHandler(this));
+		addBehaviour(new HelperBehaviour(this));
 	}
 
 	@Override
