@@ -3,4 +3,20 @@
 
 	<parameter name="randomSeed" displayName="Default Random Seed" type="int" defaultValue="__NULL__" />
 
+	<parameter name="N_KNOWLEDGEABLE" displayName="N_KNOWLEDGEABLE"
+		type="int" defaultValue="10" isReadOnly="false"
+		converter="repast.simphony.parameter.StringConverterFactory$IntConverter" />
+
+	<parameter name="N_INDEPENDENT" displayName="N_INDEPENDENT"
+		type="int" defaultValue="10" isReadOnly="false"
+		converter="repast.simphony.parameter.StringConverterFactory$IntConverter" />
+
+	<parameter name="N_INDEPENDENT_KNOWLEDGEABLE" displayName="N_INDEPENDENT_KNOWLEDGEABLE"
+		type="int" defaultValue="10" isReadOnly="false"
+		converter="repast.simphony.parameter.StringConverterFactory$IntConverter" />
+
+	<parameter name="N_DEPENDENT_UNKNOWLEDGEABLE" displayName="N_DEPENDENT_UNKNOWLEDGEABLE"
+		type="int" defaultValue="10" isReadOnly="false"
+		converter="repast.simphony.parameter.StringConverterFactory$IntConverter" />
+
 </parameters>
