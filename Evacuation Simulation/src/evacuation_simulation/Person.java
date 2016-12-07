@@ -77,6 +77,13 @@ public class Person extends Agent{
 
 	private Person selfReference;
 	private Context<Object> simulationContext;
+	
+	// Positions
+	private int x;
+	private int y;
+	private int lastX;
+	private int lastY;
+	private char direction;
 
 	public Person(AID resultsCollector, Environment environment, Context<Object> context, int x, int y){
 		this.resultsCollector = resultsCollector;		
@@ -111,6 +118,17 @@ public class Person extends Agent{
 
 		addBehaviour(new MovementBehaviour(x, y));
 	}
+	
+	/**
+	 * 
+	 * @return direction the agent is heading
+	 */
+	public char getDirection() {
+		return direction;
+	}
+	
+
+
 
 	/**
 	 * @return the helped
@@ -913,19 +931,17 @@ public class Person extends Agent{
 	 */
 	class MovementBehaviour extends SimpleBehaviour {
 		private static final long serialVersionUID = 1L;
-		private int x;
-		private int y;
-		private int lastX;
-		private int lastY;
+		
 		private int currentWeight;
 		private Uniform uniform = RandomHelper.createUniform();
 
 		public MovementBehaviour(int x, int y){
 			super();
-			this.x = x;
-			this.y = y;
-			this.lastX = x;
-			this.lastY = y;
+			Person.this.x = x;
+			Person.this.y = y;
+			Person.this.lastX = x;
+			Person.this.lastY = y;
+			Person.this.direction = ' ';
 			environment.place(selfReference, x, y);
 			currentWeight = environment.getMap().getDistanceAt(x, y);
 		}
@@ -968,6 +984,29 @@ public class Person extends Agent{
 					currentWeight = environment.getMap().getDistanceAt(x, y);
 				}
 
+			}
+			
+			int xdiff = x - lastX;
+			int ydiff = y - lastY;
+			switch(xdiff){
+			case 1:
+				direction = 'E';
+				break;
+			case -1:
+				direction = 'W';
+				break;
+			case 0:
+				switch(ydiff){
+				case 1:
+					direction = 'S';
+					break;
+				case -1:
+					direction = 'N';
+					break;
+				case 0:
+					direction = ' ';
+					break;
+				}
 			}
 
 		}
