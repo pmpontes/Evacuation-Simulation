@@ -533,7 +533,7 @@ public class Person extends Agent{
 
 		public void action() {
 			// find people in the surrounding area
-			ArrayList<AID> peopleNear = environment.findNear(myAgent);
+			ArrayList<AID> peopleNear = environment.findNearAgents(myAgent);
 			if(peopleNear.isEmpty()) {
 				return;
 			}
@@ -702,7 +702,7 @@ public class Person extends Agent{
 		// TODO check if AID should be sajas or jade
 		public void action() {
 			// find people in the surrounding area
-			ArrayList<AID> peopleNear = environment.findNear(myAgent);
+			ArrayList<AID> peopleNear = environment.findNearAgents(myAgent);
 
 			// ask for directions
 			if(peopleNear.isEmpty()) {
@@ -789,7 +789,7 @@ public class Person extends Agent{
 		// TODO check if AID should be sajas or jade
 		public void action() {
 			// find people in the surrounding area
-			ArrayList<AID> peopleNear = environment.findNear(myAgent, 1);
+			ArrayList<AID> peopleNear = environment.findNearAgents(myAgent, 1);
 			peopleNear.removeAll(previousReplies);
 			SimUtilities.shuffle(peopleNear,  RandomHelper.getUniform());
 
@@ -873,7 +873,7 @@ public class Person extends Agent{
 			if(orderedPaths.size() > 0){
 				getAreaKnowledge();
 				int prob = uniform.nextIntFromTo(0, 100);
-				if(prob <= getAreaKnowledge() || orderedPaths.size() == 1){
+				if(prob <= getAreaKnowledge() || orderedPaths.size() == 1 || environment.findNearExits(myAgent, 4).size() > 0){
 					int tempX = orderedPaths.get(0).getX();
 					int tempY = orderedPaths.get(0).getY();
 					

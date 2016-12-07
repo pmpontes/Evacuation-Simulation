@@ -21,7 +21,7 @@ import sajas.wrapper.ContainerController;
 
 public class EvacuationSimulationLauncher extends RepastSLauncher{
 
-	private static int N_KNOWLEDGEABLE = 5;
+	private static int N_KNOWLEDGEABLE = 0;
 	private static int N_INDEPENDENT = 0;
 	private static int N_INDEPENDENT_KNOWLEDGEABLE = 0;
 	private static int N_DEPENDENT_UNKNOWLEDGEABLE = 3;
@@ -228,7 +228,7 @@ public class EvacuationSimulationLauncher extends RepastSLauncher{
 		// http://repast.sourceforge.net/docs/RepastJavaGettingStarted.pdf
 		context.setId("Evacuation Simulation");
 
-		environment = new Environment(context, "maps/testMap.map");
+		environment = new Environment(context, "maps/testMap_wall.map");
 		grid = environment.getGrid();
 		currentContext = context;
 
