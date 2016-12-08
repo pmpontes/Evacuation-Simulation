@@ -33,10 +33,10 @@ import sajas.core.behaviours.SimpleBehaviour;
 import tools.Log;
 
 public class Person extends Agent{
-	public static final int PANIC_VARIATION = 10;
-	public static final int FATIGUE_VARIATION = 5;
-	public static final int MOBILITY_VARIATION = 15;
-	public static final int PATIENCE_VARIATION = 20;
+	public static int PANIC_VARIATION = 10;
+	public static int MOBILITY_VARIATION = 15;
+	public static int PATIENCE_VARIATION = 20;
+	public static double KNOWLEDGE_ACQUISITION_FACTOR = 0.9;
 
 	public static final int MAX_AGE = 65;
 	public static final int MIN_AGE = 5;
@@ -45,7 +45,7 @@ public class Person extends Agent{
 	public static final int MIN_SCALE= 0;
 	public static final int DEATH_LEVEL=  MAX_SCALE/10;
 	public static final int MOVING_LEVEL=  MAX_SCALE/5;
-	public static final int PATIENCE_THRESHOLD = MAX_SCALE / 5 + 1;
+	public static int PATIENCE_THRESHOLD = MAX_SCALE / 5 + 1;
 	public static final int HELP_REQUEST_MEDIUM_THRESHOLD = MAX_SCALE / 2;
 	public static final int HELP_REQUEST_LOWER_THRESHOLD = MAX_SCALE / 4;
 		
@@ -67,11 +67,11 @@ public class Person extends Agent{
 	protected int altruism;			 /* [0, 100] */
 	protected int independence;	 	 /* [0, 100] */
 
-	protected int fatigue;	 	 	 /* [0, 100] */
 	protected int mobility;			 /* [0, 100] */
 	protected int originalMobility;	 /* [0, 100] */
 	protected int panic;		 	 /* [0, 100] */
 	protected int patience;			 /* [0, 100] */
+	protected int patienceVariation;
 
 	protected Gender gender; 		 /* MALE / FEMALE */
 	protected int age;				 /* [5, 65] */
@@ -106,28 +106,74 @@ public class Person extends Agent{
 		independence = MAX_SCALE / 2;
 		setAltruism(normalDistribution.nextInt()); 
 
-		fatigue = MIN_SCALE;
 		originalMobility = mobility = MAX_SCALE;
 		setPanic((int) (lowerDistribution.nextInt()*.5)); // panic should start at low levels
 
 		patience = MAX_SCALE;
+		patienceVariation = PATIENCE_VARIATION;
 
 		gender = (RandomHelper.nextIntFromTo(0, 1) == 1) ? Gender.MALE : Gender.FEMALE;
 		age = RandomHelper.nextIntFromTo(MIN_AGE, MAX_AGE);
-
 		addBehaviour(new MovementBehaviour(x, y));
 	}
 
+	
+	
 	/**
-	 * 
+	 * @param pANIC_VARIATION the pANIC_VARIATION to set
+	 */
+	public static void setPANIC_VARIATION(int pANIC_VARIATION) {
+		PANIC_VARIATION = pANIC_VARIATION;
+	}
+
+	/**
+	 * @param mOBILITY_VARIATION the mOBILITY_VARIATION to set
+	 */
+	public static void setMOBILITY_VARIATION(int mOBILITY_VARIATION) {
+		MOBILITY_VARIATION = mOBILITY_VARIATION;
+	}
+
+	/**
+	 * @param pATIENCE_VARIATION the pATIENCE_VARIATION to set
+	 */
+	public static void setPATIENCE_VARIATION(int pATIENCE_VARIATION) {
+		PATIENCE_VARIATION = pATIENCE_VARIATION;
+	}
+
+	/**
+	 * @param pATIENCE_THRESHOLD the pATIENCE_THRESHOLD to set
+	 */
+	public static void setPATIENCE_THRESHOLD(int pATIENCE_THRESHOLD) {
+		PATIENCE_THRESHOLD = pATIENCE_THRESHOLD;
+	}
+
+	/**
+	 * @param kNOWLEDGE_ACQUISITION_FACTOR the kNOWLEDGE_ACQUISITION_FACTOR to set
+	 */
+	public static void setKNOWLEDGE_ACQUISITION_FACTOR(double kNOWLEDGE_ACQUISITION_FACTOR) {
+		KNOWLEDGE_ACQUISITION_FACTOR = kNOWLEDGE_ACQUISITION_FACTOR;
+	}
+	
+	/**
+	 * @return the patienceVariation
+	 */
+	public int getPatienceVariation() {
+		return patienceVariation;
+	}
+
+	/**
+	 * @param patienceVariation the patienceVariation to set
+	 */
+	public void setPatienceVariation(int patienceVariation) {
+		this.patienceVariation = patienceVariation;
+	}
+
+	/**
 	 * @return direction the agent is heading
 	 */
 	public char getDirection() {
 		return direction;
 	}
-
-
-
 
 	/**
 	 * @param age the age to set
@@ -248,20 +294,6 @@ public class Person extends Agent{
 	}
 
 	/**
-	 * @return the fatigue
-	 */
-	public int getFatigue() {
-		return fatigue;
-	}
-
-	/**
-	 * @param fatigue the fatigue to set
-	 */
-	public void setFatigue(int fatigue) {
-		this.fatigue = enforceBounds(fatigue);
-	}
-
-	/**
 	 * @return the mobility
 	 */
 	public int getMobility() {
@@ -327,11 +359,11 @@ public class Person extends Agent{
 	}
 
 	public void decreasePatience(){
-		patience = enforceBounds(patience - PATIENCE_VARIATION);
+		patience = enforceBounds(patience - patienceVariation);
 	}
 
 	public void increasePatience(){
-		patience = enforceBounds(patience + PATIENCE_VARIATION);
+		patience = enforceBounds(patience + patienceVariation);
 	}
 
 	/**
@@ -393,56 +425,6 @@ public class Person extends Agent{
 	 */
 	public void decreasePanic() {
 		generatePanicVariation(false);
-	}
-
-	/**
-	 * increaseFatigue.
-	 */	
-	public void increaseFatigue() {
-		generateFatigueVariation(true);
-	}
-
-	/**
-	 * decreaseFatigue.
-	 */
-	public void decreaseFatigue() {
-		generateFatigueVariation(false);
-	}
-
-	/*
-	 * generateFatigueVariation.
-	 * Updates the fatigue level.
-	 * Younger and older people are more prone to fatigue variations.
-	 * The fatigue increases faster than it decreases when recovering.
-	 * Those helping others will get tired faster and recover slowly.
-	 * @param isIncrease  
-	 */
-	public void generateFatigueVariation(boolean isIncrease) {
-		float variation = FATIGUE_VARIATION * (isIncrease ? 1 : -1);
-
-		// younger and older people are more prone to fatigue variations 
-		if(age < MAX_AGE / 3 || age > 2 * MAX_AGE / 3){
-			if(isIncrease){
-				variation *= 1.2;	
-			}else{
-				variation *= 0.8;
-			}
-		}else{
-			if(!isIncrease){
-				variation *= 0.8;
-			}
-		}
-
-		// people helping people get tired faster and recover slowly
-		if(helped != null || helper != null){
-			if(isIncrease){
-				variation *= 1.1;	
-			}else{
-				variation *= 0.9;
-			}
-		}
-
-		setFatigue((int) (fatigue + variation));		
 	}
 
 	/*
@@ -523,7 +505,7 @@ public class Person extends Agent{
 			inform.setLanguage(codec.getName());
 			inform.setOntology(serviceOntology.getName());
 
-			EvacueeStats result = new EvacueeStats(getLocalName(), helped != null ? helped.getLocalName() : "none", age, areaKnowledge, altruism, independence, fatigue, mobility, panic);
+			EvacueeStats result = new EvacueeStats(getLocalName(), helped != null ? helped.getLocalName() : "none", age, areaKnowledge, altruism, independence, mobility, panic);
 
 			try {
 				getContentManager().fillContent(inform, result);
@@ -1008,7 +990,7 @@ public class Person extends Agent{
 				}
 
 				// update areaKnowledge to 90% of the knowledge of the person answering, if it is greater than the current value
-				setAreaKnowledge(Integer.max((int) (knowledgeReceived * 0.9), areaKnowledge));
+				setAreaKnowledge(Integer.max((int) (knowledgeReceived * KNOWLEDGE_ACQUISITION_FACTOR), areaKnowledge));
 
 				Log.detail(getLocalName() + " received directions from " + msg.getSender().getLocalName());
 				if(previousKnowledge < areaKnowledge){

@@ -30,7 +30,8 @@ public class ScenarioBuilder {
 
 	ScenarioBuilder(Context<Object> context){
 		this.currentContext = context;
-		this.environment = new Environment(currentContext, environmentFile);
+
+		readSettings();
 	}
 
 	/**
@@ -46,6 +47,47 @@ public class ScenarioBuilder {
 	public void setAgentContainer(ContainerController agentContainer) {
 		this.agentContainer = agentContainer;
 	}
+	
+	public void createEnvironment(){
+		environment = new Environment(currentContext, environmentFile);
+	}
+
+	private void readSettings() {
+		try {
+			File fXmlFile = new File(populationFile);
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(fXmlFile);
+
+			doc.getDocumentElement().normalize();
+
+			Element root = (Element) doc.getElementsByTagName("scenario").item(0);
+
+			if(!root.getAttribute("panicVariation").equals("")){
+				Person.setPANIC_VARIATION(Integer.parseInt(root.getAttribute("panicVariation")));
+			}
+			if(!root.getAttribute("mobilityVariation").equals("")){
+				Person.setMOBILITY_VARIATION(Integer.parseInt(root.getAttribute("mobilityVariation")));
+			}
+			if(!root.getAttribute("patienceVariation").equals("")){
+				Person.setPATIENCE_VARIATION(Integer.parseInt(root.getAttribute("mobilityVariation")));
+			}
+			if(!root.getAttribute("patienceThreshold").equals("")){
+				Person.setPATIENCE_THRESHOLD(Integer.parseInt(root.getAttribute("patienceThreshold")));
+			}
+			if(!root.getAttribute("knowledgeAcquisitionFactor").equals("")){
+				Person.setKNOWLEDGE_ACQUISITION_FACTOR(Double.parseDouble(root.getAttribute("knowledgeAcquisitionFactor")));
+			}
+			if(!root.getAttribute("map").equals("")){
+				environmentFile = root.getAttribute("map");
+			}else{
+				Log.error("Map not specified; attempting to use default..."); 
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			Log.error("Unable to configure scenario.");
+		}
+	}
 
 	/**
 	 * Reads from a configuration file the specification for the population. 
@@ -59,7 +101,7 @@ public class ScenarioBuilder {
 			Document doc = dBuilder.parse(fXmlFile);
 
 			doc.getDocumentElement().normalize();
-
+			
 			NodeList nList = doc.getElementsByTagName("scenario").item(0).getChildNodes();
 
 			ArrayList<Pair<Integer,Integer>> busyCells = new ArrayList<Pair<Integer, Integer>>();
@@ -69,7 +111,6 @@ public class ScenarioBuilder {
 			for (int i = 0; i < nList.getLength(); i++) {
 				try{
 					Node nNode = nList.item(i);
-					System.err.println(nNode);
 
 					if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 
@@ -78,7 +119,11 @@ public class ScenarioBuilder {
 						int areaKnowledge = Integer.parseInt(eElement.getElementsByTagName("areaKnowledge").item(0).getTextContent());
 						int altruism = Integer.parseInt(eElement.getElementsByTagName("altruism").item(0).getTextContent());
 						int independence = Integer.parseInt(eElement.getElementsByTagName("independence").item(0).getTextContent());
-						int fatigue = Integer.parseInt(eElement.getElementsByTagName("fatigue").item(0).getTextContent());
+						int patienceVariation = -1;
+						if(eElement.getElementsByTagName("patienceVariation").getLength() > 0) {
+							patienceVariation = Integer.parseInt(eElement.getElementsByTagName("patienceVariation").item(0).getTextContent());
+						}
+						
 						int mobility = Integer.parseInt(eElement.getElementsByTagName("mobility").item(0).getTextContent());
 						int panic = Integer.parseInt(eElement.getElementsByTagName("panic").item(0).getTextContent());
 						int age = Integer.parseInt(eElement.getElementsByTagName("age").item(0).getTextContent());
@@ -118,10 +163,10 @@ public class ScenarioBuilder {
 							Log.error("Invalid configuration for Person.");
 						}
 
+						newAgent.setPatienceVariation(patienceVariation);
 						newAgent.setAreaKnowledge(areaKnowledge);
 						newAgent.setIndependence(independence);
 						newAgent.setAltruism(altruism);
-						newAgent.setFatigue(fatigue);
 						newAgent.setAge(age);
 						newAgent.setMobility(mobility);
 						newAgent.setPanic(panic);
@@ -145,6 +190,4 @@ public class ScenarioBuilder {
 			return false;
 		}
 	}
-
-
 }

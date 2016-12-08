@@ -67,6 +67,7 @@ public class EvacuationSimulationLauncher extends RepastSLauncher{
 		context.setId("Evacuation Simulation");
 
 		scenarioBuilder = new ScenarioBuilder(context);
+		scenarioBuilder.createEnvironment();
 
 		NetworkBuilder<Object> netBuilder = new NetworkBuilder<Object>("Evacuation network", context, true);
 		netBuilder.buildNetwork();

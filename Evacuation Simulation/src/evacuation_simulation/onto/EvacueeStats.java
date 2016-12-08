@@ -12,7 +12,6 @@ public class EvacueeStats implements Predicate {
 	private int areaKnowledge;
 	private int altruism;
 	private int independence;
-	private int fatigue;
 	private int physicalCondition;
 	private int panic;
 	
@@ -26,7 +25,7 @@ public class EvacueeStats implements Predicate {
 		startTime = System.currentTimeMillis();
 	}
 	
-	public EvacueeStats(String id, String helpee, int age, int areaKnowledge, int altruism, int independence, int fatigue, int mobility, int panic) {
+	public EvacueeStats(String id, String helpee, int age, int areaKnowledge, int altruism, int independence, int mobility, int panic) {
 		this.evacuationTime = System.currentTimeMillis() - startTime;
 		this.id = id;
 		this.helpee = helpee;
@@ -34,7 +33,6 @@ public class EvacueeStats implements Predicate {
 		this.areaKnowledge = areaKnowledge;
 		this.altruism = altruism;
 		this.independence = independence;
-		this.fatigue = fatigue;
 		this.physicalCondition = mobility;
 		this.panic = panic;
 	}
@@ -135,20 +133,6 @@ public class EvacueeStats implements Predicate {
 	 */
 	public void setIndependence(int independence) {
 		this.independence = independence;
-	}
-
-	/**
-	 * @return the fatigue
-	 */
-	public int getFatigue() {
-		return fatigue;
-	}
-
-	/**
-	 * @param fatigue the fatigue to set
-	 */
-	public void setFatigue(int fatigue) {
-		this.fatigue = fatigue;
 	}
 
 	/**

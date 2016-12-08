@@ -1,9 +1,17 @@
-<scenario>
+<scenario 
+    panicVariation="10"
+    mobilityVariation="10"
+    knowledgeAcquisitionFactor=".9"
+    patienceVariation="10"
+    patienceThreshold="10"
+    map="maps/testMap_wall.map"
+>
     <person>
+        <position x="2" y="2"/><!--optional-->
         <areaKnowledge>100</areaKnowledge>
         <altruism>90</altruism>
         <independence>90</independence>
-        <fatigue>0</fatigue>
+        <patienceVariation>10</patienceVariation>
         <mobility>90</mobility>
         <panic>10</panic>
         <age>25</age>
@@ -12,7 +20,6 @@
         <areaKnowledge>100</areaKnowledge>
         <altruism>90</altruism>
         <independence>90</independence>
-        <fatigue>0</fatigue>
         <mobility>90</mobility>
         <panic>10</panic>
         <age>25</age>
@@ -21,7 +28,6 @@
         <areaKnowledge>100</areaKnowledge>
         <altruism>90</altruism>
         <independence>90</independence>
-        <fatigue>0</fatigue>
         <mobility>90</mobility>
         <panic>10</panic>
         <age>25</age>
@@ -30,7 +36,6 @@
         <areaKnowledge>100</areaKnowledge>
         <altruism>90</altruism>
         <independence>90</independence>
-        <fatigue>0</fatigue>
         <mobility>90</mobility>
         <panic>10</panic>
         <age>25</age>
