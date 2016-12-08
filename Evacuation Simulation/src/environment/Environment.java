@@ -199,7 +199,6 @@ public class Environment {
 	}
 
 	public HashMap<Character,Integer> mostCommonDirections(Agent myAgent, int distance){
-		ArrayList<AID> neighboursList = new ArrayList<AID>();
 		HashMap<Character,Integer> directions = new HashMap<Character,Integer>();
 		int total= 0;
 

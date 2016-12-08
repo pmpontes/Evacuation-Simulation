@@ -7,18 +7,26 @@
     map="maps/testMap_wall.map"
 >
     <person>
-        <position x="2" y="2"/><!--optional-->
-        <areaKnowledge>100</areaKnowledge>
-        <altruism>90</altruism>
+        <areaKnowledge>90</areaKnowledge>
+        <altruism>10</altruism>
         <independence>90</independence>
         <patienceVariation>10</patienceVariation>
         <mobility>90</mobility>
-        <panic>10</panic>
+        <panic>0</panic>
+        <age>25</age>
+    </person>
+    <person>
+        <areaKnowledge>90</areaKnowledge>
+        <altruism>10</altruism>
+        <independence>90</independence>
+        <patienceVariation>10</patienceVariation>
+        <mobility>90</mobility>
+        <panic>0</panic>
         <age>25</age>
     </person>
     <person>
         <areaKnowledge>100</areaKnowledge>
-        <altruism>90</altruism>
+        <altruism>20</altruism>
         <independence>90</independence>
         <mobility>90</mobility>
         <panic>10</panic>
