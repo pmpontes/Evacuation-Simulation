@@ -36,8 +36,7 @@ public class Person extends Agent{
 	public static final int PANIC_VARIATION = 10;
 	public static final int FATIGUE_VARIATION = 5;
 	public static final int MOBILITY_VARIATION = 15;
-	public static final int PATIENCE_VARIANCE = 20;
-	public static final int PATIENCE_THRESHOLD = 21;
+	public static final int PATIENCE_VARIATION = 20;
 
 	public static final int MAX_AGE = 65;
 	public static final int MIN_AGE = 5;
@@ -46,15 +45,17 @@ public class Person extends Agent{
 	public static final int MIN_SCALE= 0;
 	public static final int DEATH_LEVEL=  MAX_SCALE/10;
 	public static final int MOVING_LEVEL=  MAX_SCALE/5;
+	public static final int PATIENCE_THRESHOLD = MAX_SCALE / 5 + 1;
+	public static final int HELP_REQUEST_MEDIUM_THRESHOLD = MAX_SCALE / 2;
+	public static final int HELP_REQUEST_LOWER_THRESHOLD = MAX_SCALE / 4;
+		
 	protected static final Normal upperDistribution = RandomHelper.createNormal(MAX_SCALE *3 / 4 , (MAX_SCALE - MIN_SCALE)/10);
 	protected static final Normal lowerDistribution = RandomHelper.createNormal(MAX_SCALE / 4 , (MAX_SCALE - MIN_SCALE)/10);
 	protected static final Normal normalDistribution = RandomHelper.createNormal(MAX_SCALE / 2 , (MAX_SCALE - MIN_SCALE)/5);
 
 	public static final String SCREAM_MESSAGE = "AHHHHHHHHHHHHHHH!";
 
-
 	protected AID resultsCollector;
-
 	protected Environment environment;
 	protected Context<?> context;
 	protected Network<Object> net;
@@ -68,27 +69,28 @@ public class Person extends Agent{
 
 	protected int fatigue;	 	 	 /* [0, 100] */
 	protected int mobility;			 /* [0, 100] */
+	protected int originalMobility;	 /* [0, 100] */
 	protected int panic;		 	 /* [0, 100] */
 	protected int patience;			 /* [0, 100] */
 
 	protected Gender gender; 		 /* MALE / FEMALE */
 	protected int age;				 /* [5, 65] */
 
-	protected float maxSpeed;		 	 	
-	protected float currentSpeed;
-
-	protected boolean exitReached;
-	protected AID helper;
-	protected AID helped;
+	private boolean exitReached;
+	private boolean requestingDirections;
+	private boolean requestingHelp;
+	private Person helper;
+	private Person helped;
 
 	private Codec codec;
 	private Ontology serviceOntology;	
 	protected ACLMessage myCfp;
 
+
 	private Person selfReference;
 	private Context<Object> simulationContext;
-	
-	
+
+
 	public Person(AID resultsCollector, Environment environment, Context<Object> context, int x, int y){
 		this.resultsCollector = resultsCollector;		
 		this.environment = environment;
@@ -97,34 +99,25 @@ public class Person extends Agent{
 		this.simulationContext.add(this);
 
 		exitReached = false;
+		requestingDirections = false;
+		requestingHelp = false;
 
 		areaKnowledge = MAX_SCALE / 2;
 		independence = MAX_SCALE / 2;
 		setAltruism(normalDistribution.nextInt()); 
 
 		fatigue = MIN_SCALE;
-		mobility = MAX_SCALE;
-		setPanic((int) (lowerDistribution.nextInt()*.5)); // panic should start at lower levels
-		
+		originalMobility = mobility = MAX_SCALE;
+		setPanic((int) (lowerDistribution.nextInt()*.5)); // panic should start at low levels
+
 		patience = MAX_SCALE;
 
 		gender = (RandomHelper.nextIntFromTo(0, 1) == 1) ? Gender.MALE : Gender.FEMALE;
 		age = RandomHelper.nextIntFromTo(MIN_AGE, MAX_AGE);
 
-		////////////////////////////////////
-		maxSpeed = gender.getMaxSpeed();
-		if(age < 18 || age >35)
-			maxSpeed -= 10;
-
-		if(age>45)
-			maxSpeed -= 10;
-
-		currentSpeed = maxSpeed  / 3;
-		////////////////////////////////////
-
 		addBehaviour(new MovementBehaviour(x, y));
 	}
-	
+
 	/**
 	 * 
 	 * @return direction the agent is heading
@@ -132,7 +125,7 @@ public class Person extends Agent{
 	public char getDirection() {
 		return direction;
 	}
-	
+
 
 
 
@@ -146,29 +139,44 @@ public class Person extends Agent{
 	/**
 	 * @return the helped
 	 */
-	public AID getHelpee() {
+	public Person getHelpee() {
 		return helped;
 	}
 
 	/**
 	 * @param helped the helped to set
 	 */
-	public void setHelpee(AID helped) {
+	public void setHelpee(Person helped) {
 		this.helped = helped;
+		
+		if(helped == null) {
+			mobility = originalMobility;
+		}
 	}
 
 	/**
 	 * @return the helper
 	 */
-	public AID getHelper() {
+	public Person getHelper() {
 		return helper;
 	}
 
 	/**
+	 * Set the person that will be helping the person to the exit.
+	 * If the helper is null, the movement behaviour is started. 
 	 * @param helper the helper to set
 	 */
-	public void setHelper(AID helper) {
+	public void setHelper(Person helper) {
+		if(helper == null) {
+			mobility = originalMobility;
+		}
+		
+		boolean previousHelper = this.helper != null;		
 		this.helper = helper;
+		
+		if(previousHelper){
+			addBehaviour(new MovementBehaviour(x, y));
+		}
 	}
 
 	/**
@@ -186,9 +194,14 @@ public class Person extends Agent{
 	}
 
 	/**
+	 * Checks if the person is alive. If the person is dead, it does not need any more help.
 	 * @return true if the agent has very low mobility, false otherwise
 	 */
 	public boolean isDead(){
+		if(helper != null && mobility < DEATH_LEVEL) {
+			helper.setHelpee(null);
+		}
+		
 		return mobility < DEATH_LEVEL;
 	}
 
@@ -263,7 +276,7 @@ public class Person extends Agent{
 	public void setMobility(int mobility) {
 		this.mobility = enforceBounds(mobility);
 	}
-	
+
 	/**
 	 * Sets the mobility to the specified value, ensuring it is within MIN_SCALE and MAX_SCALE.
 	 * If the new mobility is lower than DEATH_LEVEL, notifies the ResultsCollector.
@@ -291,25 +304,7 @@ public class Person extends Agent{
 	public void setPanic(int panic) {
 		this.panic = enforceBounds(panic);
 	}
-
-	/**
-	 * @return the currentSpeed
-	 */
-	public float getCurrentSpeed() {
-		return currentSpeed;
-	}
-
-	/**
-	 * @param currentSpeed the currentSpeed to set
-	 */
-	public void setCurrentSpeed(float currentSpeed) {
-		if(currentSpeed > maxSpeed){
-			this.currentSpeed = currentSpeed;
-		}else{
-			this.currentSpeed = maxSpeed;
-		}
-	}
-
+	
 	/**
 	 * @return the gender
 	 */
@@ -325,35 +320,18 @@ public class Person extends Agent{
 	}
 
 	/**
-	 * 
 	 * @return the patience
 	 */
 	public int getPatience(){
 		return patience;
 	}
-	
-	public void losePatience(){
-		if(patience >= PATIENCE_VARIANCE)
-			patience -= PATIENCE_VARIANCE;
-	}
-	
-	public void recoverPatience(){
-		if(patience <= 100 - PATIENCE_VARIANCE)
-			patience += PATIENCE_VARIANCE;
-	}
-	
-	/**
-	 * @return the maxSpeed
-	 */
-	public float getMaxSpeed() {
-		return maxSpeed;
+
+	public void decreasePatience(){
+		patience = enforceBounds(patience - PATIENCE_VARIATION);
 	}
 
-	/**
-	 * @param maxSpeed the maxSpeed to set
-	 */
-	public void setMaxSpeed(float maxSpeed) {
-		this.maxSpeed = maxSpeed;
+	public void increasePatience(){
+		patience = enforceBounds(patience + PATIENCE_VARIATION);
 	}
 
 	/**
@@ -362,7 +340,7 @@ public class Person extends Agent{
 	public int getAltruisticFeeling() {
 		return altruism - panic / 5;
 	}
-	
+
 	/**
 	 * @return knowledge - panic/5
 	 */
@@ -481,7 +459,7 @@ public class Person extends Agent{
 			variation *= 1.2;	
 		}
 		Log.detail("Mobility variation: " + variation);
-		updateMobility((int) (mobility + variation));		
+		updateMobility((int) (mobility + variation));
 	}
 
 	/*
@@ -490,6 +468,7 @@ public class Person extends Agent{
 	 * @param otherPersonMobility the mobility of the person helping or being helped
 	 */
 	public void shareMobility(int otherPersonMobility) {
+		originalMobility = mobility;
 		updateMobility((otherPersonMobility + mobility) / 2);
 	}
 
@@ -518,7 +497,7 @@ public class Person extends Agent{
 		getContentManager().registerOntology(serviceOntology);
 
 		updateMobility(mobility);		
-		
+
 		// add behaviours
 		addBehaviour(new PanicHandler(this));
 		addBehaviour(new HelperBehaviour(this));
@@ -708,7 +687,7 @@ public class Person extends Agent{
 				setAreaKnowledge(Integer.max(areaKnowledge, confirmation.getAreaKnowledge()));
 
 				// update reference to helper
-				setHelpee(msg.getSender());
+				setHelpee(environment.findAgent(msg.getSender()));
 
 				Log.detail("Helping agent " + getLocalName());
 			} catch (Exception e) {
@@ -865,7 +844,8 @@ public class Person extends Agent{
 			send(confirmation);
 
 			// update reference to helper
-			setHelper(bestProposal.getProposerAID());
+			setHelper(environment.findAgent(bestProposal.getProposerAID()));
+			
 			shareMobility(bestProposal.getMobility());		
 			setAreaKnowledge(Integer.max(areaKnowledge, bestProposal.getAreaKnowledge()));
 			beingHelped = true;
@@ -953,7 +933,15 @@ public class Person extends Agent{
 
 		@Override
 		public boolean done() {
-			return beingHelped || exitReached || isDead();
+			requestingHelp = !(beingHelped || exitReached || isDead());
+			return !requestingHelp;
+		}
+	}
+	
+	private void askHelp(){
+		if(!requestingHelp) {
+			requestingHelp = true;
+			addBehaviour(new HelpRequestBehaviour(this));
 		}
 	}
 
@@ -1079,10 +1067,19 @@ public class Person extends Agent{
 		 * Give up when MAX_ATTEMPTS have been achieved, new directions have been provided or the exit has been reached.
 		 */
 		public boolean done() {
-			return nAttempts > MAX_ATTEMPTS || newDirections || exitReached;
+			requestingDirections = !(nAttempts > MAX_ATTEMPTS || newDirections || exitReached);
+			return !requestingDirections;
 		}
 	}
 
+	private void askDirections(){
+		if(!requestingDirections) {
+			requestingDirections = true;
+			addBehaviour(new DirectionsRequestBehaviour(this));
+		}
+	}
+	
+	
 	/*
 	 * Movement behaviour
 	 */
@@ -1090,7 +1087,6 @@ public class Person extends Agent{
 	private int y;
 	private int lastX;
 	private int lastY;
-	private int currentWeight;
 	private char direction;
 
 	class MovementBehaviour extends SimpleBehaviour {
@@ -1105,114 +1101,173 @@ public class Person extends Agent{
 			lastX = x;
 			lastY = y;
 			direction = ' ';
-			
+
 			environment.place(selfReference, x, y);
-			currentWeight = environment.getMap().getDistanceAt(x, y);
 		}
 
 		@Override
 		public void action() {			
-			ArrayList<Pair<Integer,Integer>> orderedPaths = environment.getBestPathFromCell(x, y);
+			if(helper != null){
+				return;
+			}
 			
+			ArrayList<Pair<Integer,Integer>> orderedPaths = environment.getBestPathFromCell(x, y);
+
 			int prob = uniform.nextIntFromTo(MIN_SCALE, MAX_SCALE);
 
+			// try to make a move if there are valid paths and according to current mobility  
 			if(orderedPaths.size() > 0 && prob <= getMobility()){
 
 				prob = uniform.nextIntFromTo(MIN_SCALE, MAX_SCALE);
 
-				if(prob <= getUsableKnowledge() || orderedPaths.size() == 1 || environment.findNearExits(myAgent, 4).size() > 0){
-					int tempX = orderedPaths.get(0).getX();
-					int tempY = orderedPaths.get(0).getY();
-
-					if(!environment.userFreeCell(tempX, tempY)) {// && uniform.nextIntFromTo(MIN_SCALE, MAX_SCALE) < panic) {
-						
-						if(prob < getPanic()){
-							Log.error(getLocalName() + "PUSHED!!!!"); 
-							push(tempX, tempY);
-						} else {
-							if(getPatience() > PATIENCE_THRESHOLD){
-								losePatience();
-							} else {
-								for(int i = 1; i < orderedPaths.size(); i++){
-									tempX = orderedPaths.get(1).getX();
-									tempY = orderedPaths.get(1).getY();
-									
-									if(environment.userFreeCell(tempX, tempY) && tempX != lastX && tempY != lastY){
-										moveTo(selfReference, tempX, tempY);
-										break;
-									}
-								}
-								
-							}
-						}
-					}else{					
-						while(!environment.userFreeCell(tempX, tempY)) {
-							orderedPaths.remove(0);
-
-							if(orderedPaths.isEmpty()) {
-								return;
-							}
-
-							tempX = orderedPaths.get(0).getX();
-							tempY = orderedPaths.get(0).getY();
-						}
-						
-						if(environment.getMap().getDistanceAt(tempX, tempY) <= currentWeight) {
-							moveTo(selfReference, tempX, tempY);
-						}
-						recoverPatience();
-					}
-
+				// select best path, according to the person's knowledge, or if it is the only available path or if there is an exit nearby 
+				if(prob <= getUsableKnowledge() || orderedPaths.size() == 1 || !environment.findNearExits(myAgent, 4).isEmpty()){
+					tryMakeBestMove(orderedPaths);
 				} else {
-					prob = uniform.nextIntFromTo(0, 100);
+					prob = uniform.nextIntFromTo(MIN_SCALE, MAX_SCALE);
+
 					if(prob < getIndependence()){
-						int path = uniform.nextIntFromTo(0, orderedPaths.size()-1);
-						int tempX = orderedPaths.get(path).getX();
-						int tempY = orderedPaths.get(path).getY();
-
-						while(lastX == tempX && lastY == tempY){
-							orderedPaths.remove(path);
-
-							if(orderedPaths.isEmpty()) {
-								return;
-							}
-
-							path = uniform.nextIntFromTo(0, orderedPaths.size()-1);
-							tempX = orderedPaths.get(path).getX();
-							tempY = orderedPaths.get(path).getY();
-						}
-						
-						if(environment.userFreeCell(tempX, tempY))
-							moveTo(selfReference, tempX, tempY);
-						else{
-							prob = uniform.nextIntFromTo(0, 100);
-							if(prob < getPanic()){
-								Log.error(getLocalName() + "PUSHED!!!!"); 
-								push(tempX, tempY);
-							}
-						}
+						tryRandomMove(orderedPaths);
 					} else {
-						Pair<Integer, Integer> path = massFollowingCell(orderedPaths);
-						
-						if(environment.userFreeCell(path.getX(), path.getY()))
-							moveTo(selfReference, path.getX(), path.getY());
-						else{
-							prob = uniform.nextIntFromTo(0, 100);
-							if(prob < getPanic()){
-								push(path.getX(), path.getY());
-							}
-						}
-						
+						tryFollowOthers(orderedPaths);
 					}
-					recoverPatience();
 				}
+				updateDirection();
+			}
+			
+			prob = uniform.nextIntFromTo(MIN_SCALE, MAX_SCALE);
+			if(prob > areaKnowledge) {
+				askDirections();
+			}
+			
+			prob = uniform.nextIntFromTo(MIN_SCALE, MAX_SCALE);
+			if(prob > mobility && mobility < HELP_REQUEST_MEDIUM_THRESHOLD || mobility <= HELP_REQUEST_LOWER_THRESHOLD) {
+				askHelp();
+			}			
+		}
 
+		/**
+		 * Attempts to make a valid move, in the direction that most people nearby are following.
+		 * If the a path is occupied by a person, a push may be occur if the person is in a panic.
+		 * @param orderedPaths
+		 * @return true upon success, false otherwise
+		 */
+		private void tryFollowOthers(ArrayList<Pair<Integer, Integer>> orderedPaths) {
+			Pair<Integer, Integer> path = massFollowingCell(orderedPaths);
+
+			if(environment.userFreeCell(path.getX(), path.getY())){
+				moveTo(selfReference, path.getX(), path.getY());
+				increasePatience();
+			}else{
+				if(uniform.nextIntFromTo(MIN_SCALE, MAX_SCALE) < getPanic()){
+					push(path.getX(), path.getY());
+				}
 			}
 		}
 
 		/**
+		 * Attempts to make a valid move, randomly.
+		 * If the selected path is occupied by a person, a push may occur if the person is in a panic.
+		 * @param orderedPaths
+		 * @return true upon success, false otherwise
+		 */
+		private boolean tryRandomMove(ArrayList<Pair<Integer, Integer>> orderedPaths) {
+
+			SimUtilities.shuffle(orderedPaths,  uniform);
+			int tempX = orderedPaths.get(0).getX();
+			int tempY = orderedPaths.get(0).getY();			
+
+			while(lastX == tempX && lastY == tempY){
+				orderedPaths.remove(0);
+
+				if(orderedPaths.isEmpty()) {
+					return false;
+				}
+
+				tempX = orderedPaths.get(0).getX();
+				tempY = orderedPaths.get(0).getY();
+			}
+
+			if(environment.userFreeCell(tempX, tempY)){
+				moveTo(selfReference, tempX, tempY);
+				increasePatience();
+			}else{
+				if(uniform.nextIntFromTo(MIN_SCALE, MAX_SCALE) < getPanic()){
+					Log.error(getLocalName() + "PUSHED!!!!"); 
+					push(tempX, tempY);
+				}
+			}
+
+			return true;
+		}
+
+		/**
+		 * Attempts to make the best possible move available.
+		 * If the best path is occupied by a person, a push may occur if the person is in a panic or impatient.
+		 * A path different than the best path may be selected, if the person is impatient.
+		 * If a move other than a push is performed, the patience level is increased.
+		 * @param orderedPaths
+		 * @return true upon success, false otherwise
+		 */
+		private boolean tryMakeBestMove(ArrayList<Pair<Integer, Integer>> orderedPaths) {
+			int prob = uniform.nextIntFromTo(MIN_SCALE, MAX_SCALE);
+			int tempX = orderedPaths.get(0).getX();
+			int tempY = orderedPaths.get(0).getY();
+
+			if(!environment.userFreeCell(tempX, tempY)) {
+
+				// if the person is in panic, push the person in front
+				if(prob < getPanic()){
+					Log.error(getLocalName() + "PUSHED!!!!"); 
+					push(tempX, tempY);
+				} else {
+					// if the person is impatient, try a different path
+					if(getPatience() <= PATIENCE_THRESHOLD){
+						orderedPaths.remove(0);
+
+						if(tryMakeMove(orderedPaths)){
+							return true;
+						}
+					} 								
+					decreasePatience();	// lose patience as no move was made valid
+					return false;
+				}
+			}else{	
+				moveTo(selfReference, tempX, tempY);
+				increasePatience();
+			}
+
+			return true;
+		}
+
+		/**
+		 * Attempts to make a move to an empty cell, different than the last.
+		 * If the given paths are ordered, the best valid move is made. 
+		 * It is not possible to push anyone.
+		 * If a move is performed, the patience level is increased.
+		 * @param paths
+		 * @return true upon success, false otherwise
+		 */
+		private boolean tryMakeMove(ArrayList<Pair<Integer, Integer>> paths) {
+			for(int i = 0; i < paths.size(); i++){
+				int tempX = paths.get(i).getX();
+				int tempY = paths.get(i).getY();
+
+				if(environment.userFreeCell(tempX, tempY) && tempX != lastX && tempY != lastY){
+					moveTo(selfReference, tempX, tempY);
+					increasePatience();
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		/**
 		 * Push the person at the specified position, taking its place. 
+		 * If this person is helping someone, it stops doing so and vice-versa.
 		 * Both the mobility and the panic level of the person pushed is decreased.
+		 * The patience of the person pushed may also be decreased.
 		 * @param selectedX
 		 * @param selectedY
 		 */
@@ -1223,28 +1278,54 @@ public class Person extends Agent{
 				return;
 			}
 
+			if(person.getHelpee() != null){
+				person.getHelpee().setHelper(null);
+				setHelpee(null);
+			}else if(person.getHelper() != null){
+				person.getHelper().setHelpee(null);
+				setHelper(null);
+			}
+			
 			person.decreaseMobility();
 			person.increasePanic();
+
+			if(RandomHelper.nextIntFromTo(MIN_SCALE, MAX_SCALE) > altruism) {
+				person.decreasePatience();
+			}
+
 			moveTo(person, x, y);
 			moveTo(selfReference, selectedX, selectedY);
 		}
 
 		/**
 		 * Move the specified person to the new position.
+		 * When helping another, pull that person to my previous position.
 		 * @param person
 		 * @param selectedX
 		 * @param selectedY
 		 */
 		private void moveTo(Person person, int selectedX, int selectedY) {
+			Person helpee = null;
+			
+			if(helped != null){
+				helpee = environment.userInCell(lastX, lastY);
+			}
+			
 			lastX = x;
 			lastY = y;
 			x = selectedX;
 			y = selectedY;
 
 			environment.move(person, x, y);
-			currentWeight = environment.getMap().getDistanceAt(x, y);
+
+			if(helpee != null){
+				moveTo(helpee, lastX, lastY);
+			}
 		}
 
+		/**
+		 * The behaviour ends when the exit is reached, the person is being helped by another or dead.
+		 */
 		@Override
 		public boolean done() {
 			exitReached = environment.getMap().getObjectAt(x, y) == Environment.EXIT;
@@ -1253,10 +1334,9 @@ public class Person extends Agent{
 				takeDown();
 			}
 
-			return exitReached || isDead();
+			return exitReached || helper!= null || isDead();
 		}
 
-		
 		private void updateDirection(){
 			int xdiff = x - lastX;
 			int ydiff = y - lastY;
@@ -1288,7 +1368,7 @@ public class Person extends Agent{
 			Pair<Integer, Integer> cellE = new Pair<Integer, Integer>(x+1, y);
 			Pair<Integer, Integer> cellS = new Pair<Integer, Integer>(x, y+1);
 			Pair<Integer, Integer> stay = new Pair<Integer, Integer>(x, y);
-			
+
 			HashMap<Character, Integer> directionProb = environment.mostCommonDirections(myAgent, 2);
 			int probN=-1, probW=-1, probE=-1, probS=-1, total=0;
 			if(orderedPaths.contains(cellN)){
@@ -1307,9 +1387,9 @@ public class Person extends Agent{
 				probE = directionProb.get('E') + total;
 				total = probE;
 			}
-				
+
 			int prob = uniform.nextIntFromTo(0, total);
-			
+
 			if(prob < probN && probN >= 0){
 				return cellN;
 			} else {
@@ -1324,7 +1404,7 @@ public class Person extends Agent{
 					}
 				}
 			}
-			
+
 			return stay;
 		}
 	}

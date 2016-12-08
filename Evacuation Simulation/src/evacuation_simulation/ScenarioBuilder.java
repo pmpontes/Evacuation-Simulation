@@ -60,7 +60,7 @@ public class ScenarioBuilder {
 
 			doc.getDocumentElement().normalize();
 
-			NodeList nList = doc.getElementsByTagName("scenario");
+			NodeList nList = doc.getElementsByTagName("scenario").item(0).getChildNodes();
 
 			ArrayList<Pair<Integer,Integer>> busyCells = new ArrayList<Pair<Integer, Integer>>();
 			busyCells.addAll(environment.getBusyEntityCells());
@@ -69,6 +69,7 @@ public class ScenarioBuilder {
 			for (int i = 0; i < nList.getLength(); i++) {
 				try{
 					Node nNode = nList.item(i);
+					System.err.println(nNode);
 
 					if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 

@@ -95,7 +95,7 @@ public class ResultsCollector extends Agent {
 	
 	private void printResults() {
 		System.out.println("Evacuation statistics:");
-		System.out.println(nEvacuated - nDead + " were evacuated in " + maximumEvacuationTime);
+		System.out.println(nEvacuated - nDead +(nEvacuated - nDead == 1 ? " was" : " were") +" evacuated in " + maximumEvacuationTime);
 		System.out.println("Each person took an average of " + mediumEvacuationTime + " to reach an exit.");
 		System.out.println("Some took only " + minimumEvacuationTime);
 		System.out.println(nCtriticalInjuries + (nCtriticalInjuries == 1 ? " was" : " were") + " critically injuried. ");
