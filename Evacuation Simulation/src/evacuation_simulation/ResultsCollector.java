@@ -28,16 +28,30 @@ public class ResultsCollector extends Agent {
 	
 	private int nEvacuees;
 	private int nEvacuated;
+
+	private Codec codec;
+	private Ontology serviceOntology;
 	
 	private ArrayList<EvacueeStats> evacuationResults = new ArrayList<EvacueeStats>();
 	
-	public ResultsCollector(int nEvacuees) {
-		this.nEvacuees = nEvacuees;
+	public ResultsCollector() {
+		this.nEvacuees = 0;
 		this.nEvacuated = 0;
 	}
 	
-	private Codec codec;
-	private Ontology serviceOntology;
+	/**
+	 * @return the nEvacuees
+	 */
+	public int getnEvacuees() {
+		return nEvacuees;
+	}
+
+	/**
+	 * @param nEvacuees the nEvacuees to set
+	 */
+	public void setnEvacuees(int nEvacuees) {
+		this.nEvacuees = nEvacuees;
+	}
 	
 	@Override
 	public void setup() {

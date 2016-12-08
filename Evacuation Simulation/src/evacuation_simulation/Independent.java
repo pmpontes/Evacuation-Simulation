@@ -13,5 +13,8 @@ public class Independent extends Person{
 		setAreaKnowledge(lowerDistribution.nextInt());
 	}
 	
-	
+	public static boolean validAttributes(int areaKnowledge, int independence){
+		return (areaKnowledge >= MIN_SCALE && areaKnowledge <= MAX_SCALE /2) &&
+				(independence <= MAX_SCALE && independence >= MAX_SCALE /2);
+	}
 }

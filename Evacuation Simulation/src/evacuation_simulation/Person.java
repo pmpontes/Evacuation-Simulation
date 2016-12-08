@@ -118,6 +118,13 @@ public class Person extends Agent{
 	}
 
 	/**
+	 * @param age the age to set
+	 */
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	/**
 	 * @return the helped
 	 */
 	public AID getHelpee() {
@@ -235,6 +242,15 @@ public class Person extends Agent{
 	 * @param mobility the mobility to set
 	 */
 	public void setMobility(int mobility) {
+		this.mobility = enforceBounds(mobility);
+	}
+	
+	/**
+	 * Sets the mobility to the specified value, ensuring it is within MIN_SCALE and MAX_SCALE.
+	 * If the new mobility is lower than DEATH_LEVEL, notifies the ResultsCollector.
+	 * @param mobility the mobility to set
+	 */
+	public void updateMobility(int mobility) {
 		this.mobility = enforceBounds(mobility);
 
 		if(isDead()){
@@ -421,7 +437,7 @@ public class Person extends Agent{
 			variation *= 1.2;	
 		}
 		Log.detail("Mobility variation: " + variation);
-		setMobility((int) (mobility + variation));		
+		updateMobility((int) (mobility + variation));		
 	}
 
 	/*
@@ -430,7 +446,7 @@ public class Person extends Agent{
 	 * @param otherPersonMobility the mobility of the person helping or being helped
 	 */
 	public void shareMobility(int otherPersonMobility) {
-		setMobility((otherPersonMobility + mobility) / 2);
+		updateMobility((otherPersonMobility + mobility) / 2);
 	}
 
 	/*
@@ -457,7 +473,7 @@ public class Person extends Agent{
 		getContentManager().registerLanguage(codec);
 		getContentManager().registerOntology(serviceOntology);
 
-		setMobility(mobility);		
+		updateMobility(mobility);		
 		
 		// add behaviours
 		addBehaviour(new PanicHandler(this));

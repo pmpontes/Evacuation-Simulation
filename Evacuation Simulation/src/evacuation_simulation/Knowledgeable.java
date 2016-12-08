@@ -13,5 +13,8 @@ public class Knowledgeable extends Person{
 		setAreaKnowledge(upperDistribution.nextInt());
 	}
 	
-	
+	public static boolean validAttributes(int areaKnowledge, int independence){
+		return (areaKnowledge <= MAX_SCALE && areaKnowledge >= MAX_SCALE / 2) &&
+				(independence >= MIN_SCALE && independence <= MAX_SCALE /2);
+	}
 }

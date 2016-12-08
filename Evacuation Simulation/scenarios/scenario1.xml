@@ -1,0 +1,12 @@
+<scenario>
+    <person>
+        <position x="2" y="2" /><!--optional-->
+        <areaKnowledge>100</areaKnowledge>
+        <altruism>90</altruism>
+        <independence>90</independence>
+        <fatigue>0</fatigue>
+        <mobility>90</mobility>
+        <panic>10</panic>
+        <age>25</age>
+    </person>
+</scenario>
