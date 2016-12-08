@@ -1,6 +1,7 @@
 package evacuation_simulation;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Comparator;
 import java.util.HashSet;
 
@@ -35,6 +36,8 @@ public class Person extends Agent{
 	public static final int PANIC_VARIATION = 10;
 	public static final int FATIGUE_VARIATION = 5;
 	public static final int MOBILITY_VARIATION = 15;
+	public static final int PATIENCE_VARIANCE = 20;
+	public static final int PATIENCE_THRESHOLD = 21;
 
 	public static final int MAX_AGE = 65;
 	public static final int MIN_AGE = 5;
@@ -48,6 +51,7 @@ public class Person extends Agent{
 	protected static final Normal normalDistribution = RandomHelper.createNormal(MAX_SCALE / 2 , (MAX_SCALE - MIN_SCALE)/5);
 
 	public static final String SCREAM_MESSAGE = "AHHHHHHHHHHHHHHH!";
+
 
 	protected AID resultsCollector;
 
@@ -65,6 +69,7 @@ public class Person extends Agent{
 	protected int fatigue;	 	 	 /* [0, 100] */
 	protected int mobility;			 /* [0, 100] */
 	protected int panic;		 	 /* [0, 100] */
+	protected int patience;			 /* [0, 100] */
 
 	protected Gender gender; 		 /* MALE / FEMALE */
 	protected int age;				 /* [5, 65] */
@@ -82,7 +87,8 @@ public class Person extends Agent{
 
 	private Person selfReference;
 	private Context<Object> simulationContext;
-
+	
+	
 	public Person(AID resultsCollector, Environment environment, Context<Object> context, int x, int y){
 		this.resultsCollector = resultsCollector;		
 		this.environment = environment;
@@ -97,8 +103,10 @@ public class Person extends Agent{
 		setAltruism(normalDistribution.nextInt()); 
 
 		fatigue = MIN_SCALE;
-		mobility = normalDistribution.nextInt();
+		mobility = MAX_SCALE;
 		setPanic((int) (lowerDistribution.nextInt()*.5)); // panic should start at lower levels
+		
+		patience = MAX_SCALE;
 
 		gender = (RandomHelper.nextIntFromTo(0, 1) == 1) ? Gender.MALE : Gender.FEMALE;
 		age = RandomHelper.nextIntFromTo(MIN_AGE, MAX_AGE);
@@ -116,6 +124,17 @@ public class Person extends Agent{
 
 		addBehaviour(new MovementBehaviour(x, y));
 	}
+	
+	/**
+	 * 
+	 * @return direction the agent is heading
+	 */
+	public char getDirection() {
+		return direction;
+	}
+	
+
+
 
 	/**
 	 * @param age the age to set
@@ -306,6 +325,24 @@ public class Person extends Agent{
 	}
 
 	/**
+	 * 
+	 * @return the patience
+	 */
+	public int getPatience(){
+		return patience;
+	}
+	
+	public void losePatience(){
+		if(patience >= PATIENCE_VARIANCE)
+			patience -= PATIENCE_VARIANCE;
+	}
+	
+	public void recoverPatience(){
+		if(patience <= 100 - PATIENCE_VARIANCE)
+			patience += PATIENCE_VARIANCE;
+	}
+	
+	/**
 	 * @return the maxSpeed
 	 */
 	public float getMaxSpeed() {
@@ -322,8 +359,15 @@ public class Person extends Agent{
 	/**
 	 * @return altruism - panic / 5
 	 */
-	public int getUsableKnowledge() {
+	public int getAltruisticFeeling() {
 		return altruism - panic / 5;
+	}
+	
+	/**
+	 * @return knowledge - panic/5
+	 */
+	public int getUsableKnowledge() {
+		return areaKnowledge - panic / 5;
 	}
 
 	/**
@@ -740,11 +784,11 @@ public class Person extends Agent{
 		}
 
 		/**
-		 * Stop helping others if mobility is reduced to MAX_SCALE/10, if the person is not feeling altruistic or if the exit has been reached.
+		 * Stop helping others if mobility is reduced to MAX_SCALE/5, if the person is not feeling altruistic or if the exit has been reached.
 		 * @see sajas.core.behaviours.Behaviour#done()
 		 */
 		public boolean done() {
-			return (mobility <= MAX_SCALE / 5) || (getUsableKnowledge() <= MIN_SCALE / 10) || exitReached || isDead();
+			return (mobility <= MAX_SCALE / 5) || (getAltruisticFeeling() <= MIN_SCALE / 10) || exitReached || isDead();
 		}
 	}
 
@@ -1047,6 +1091,7 @@ public class Person extends Agent{
 	private int lastX;
 	private int lastY;
 	private int currentWeight;
+	private char direction;
 
 	class MovementBehaviour extends SimpleBehaviour {
 		private static final long serialVersionUID = 1L;
@@ -1059,6 +1104,8 @@ public class Person extends Agent{
 			y = startY;
 			lastX = x;
 			lastY = y;
+			direction = ' ';
+			
 			environment.place(selfReference, x, y);
 			currentWeight = environment.getMap().getDistanceAt(x, y);
 		}
@@ -1066,18 +1113,38 @@ public class Person extends Agent{
 		@Override
 		public void action() {			
 			ArrayList<Pair<Integer,Integer>> orderedPaths = environment.getBestPathFromCell(x, y);
+			
+			int prob = uniform.nextIntFromTo(MIN_SCALE, MAX_SCALE);
 
-			if(orderedPaths.size() > 0){
+			if(orderedPaths.size() > 0 && prob <= getMobility()){
 
-				int prob = uniform.nextIntFromTo(MIN_SCALE, MAX_SCALE);
+				prob = uniform.nextIntFromTo(MIN_SCALE, MAX_SCALE);
 
-				if(prob <= getAreaKnowledge() || orderedPaths.size() == 1 || environment.findNearExits(myAgent, 4).size() > 0){
+				if(prob <= getUsableKnowledge() || orderedPaths.size() == 1 || environment.findNearExits(myAgent, 4).size() > 0){
 					int tempX = orderedPaths.get(0).getX();
 					int tempY = orderedPaths.get(0).getY();
 
 					if(!environment.userFreeCell(tempX, tempY)) {// && uniform.nextIntFromTo(MIN_SCALE, MAX_SCALE) < panic) {
-						Log.error(getLocalName() + "PUSHED!!!!"); 
-						push(tempX, tempY);
+						
+						if(prob < getPanic()){
+							Log.error(getLocalName() + "PUSHED!!!!"); 
+							push(tempX, tempY);
+						} else {
+							if(getPatience() > PATIENCE_THRESHOLD){
+								losePatience();
+							} else {
+								for(int i = 1; i < orderedPaths.size(); i++){
+									tempX = orderedPaths.get(1).getX();
+									tempY = orderedPaths.get(1).getY();
+									
+									if(environment.userFreeCell(tempX, tempY) && tempX != lastX && tempY != lastY){
+										moveTo(selfReference, tempX, tempY);
+										break;
+									}
+								}
+								
+							}
+						}
 					}else{					
 						while(!environment.userFreeCell(tempX, tempY)) {
 							orderedPaths.remove(0);
@@ -1089,33 +1156,55 @@ public class Person extends Agent{
 							tempX = orderedPaths.get(0).getX();
 							tempY = orderedPaths.get(0).getY();
 						}
-					}
-
-					if(environment.getMap().getDistanceAt(tempX, tempY) <= currentWeight) {
-						moveTo(selfReference, tempX, tempY);
+						
+						if(environment.getMap().getDistanceAt(tempX, tempY) <= currentWeight) {
+							moveTo(selfReference, tempX, tempY);
+						}
+						recoverPatience();
 					}
 
 				} else {
-					
-					// TODO add push effect
-					
-					int path = uniform.nextIntFromTo(0, orderedPaths.size()-1);
-					int tempX = orderedPaths.get(path).getX();
-					int tempY = orderedPaths.get(path).getY();
+					prob = uniform.nextIntFromTo(0, 100);
+					if(prob < getIndependence()){
+						int path = uniform.nextIntFromTo(0, orderedPaths.size()-1);
+						int tempX = orderedPaths.get(path).getX();
+						int tempY = orderedPaths.get(path).getY();
 
-					while(lastX == tempX && lastY == tempY){
-						orderedPaths.remove(path);
+						while(lastX == tempX && lastY == tempY){
+							orderedPaths.remove(path);
 
-						if(orderedPaths.isEmpty()) {
-							return;
+							if(orderedPaths.isEmpty()) {
+								return;
+							}
+
+							path = uniform.nextIntFromTo(0, orderedPaths.size()-1);
+							tempX = orderedPaths.get(path).getX();
+							tempY = orderedPaths.get(path).getY();
 						}
-
-						path = uniform.nextIntFromTo(0, orderedPaths.size()-1);
-						tempX = orderedPaths.get(path).getX();
-						tempY = orderedPaths.get(path).getY();
+						
+						if(environment.userFreeCell(tempX, tempY))
+							moveTo(selfReference, tempX, tempY);
+						else{
+							prob = uniform.nextIntFromTo(0, 100);
+							if(prob < getPanic()){
+								Log.error(getLocalName() + "PUSHED!!!!"); 
+								push(tempX, tempY);
+							}
+						}
+					} else {
+						Pair<Integer, Integer> path = massFollowingCell(orderedPaths);
+						
+						if(environment.userFreeCell(path.getX(), path.getY()))
+							moveTo(selfReference, path.getX(), path.getY());
+						else{
+							prob = uniform.nextIntFromTo(0, 100);
+							if(prob < getPanic()){
+								push(path.getX(), path.getY());
+							}
+						}
+						
 					}
-
-					moveTo(selfReference, tempX, tempY);
+					recoverPatience();
 				}
 
 			}
@@ -1165,6 +1254,78 @@ public class Person extends Agent{
 			}
 
 			return exitReached || isDead();
+		}
+
+		
+		private void updateDirection(){
+			int xdiff = x - lastX;
+			int ydiff = y - lastY;
+			switch(xdiff){
+			case 1:
+				direction = 'E';
+				break;
+			case -1:
+				direction = 'W';
+				break;
+			case 0:
+				switch(ydiff){
+				case 1:
+					direction = 'S';
+					break;
+				case -1:
+					direction = 'N';
+					break;
+				case 0:
+					direction = ' ';
+					break;
+				}
+			}
+		}
+
+		private Pair<Integer, Integer> massFollowingCell(ArrayList<Pair<Integer,Integer>> orderedPaths){
+			Pair<Integer, Integer> cellN = new Pair<Integer, Integer>(x, y-1);
+			Pair<Integer, Integer> cellW = new Pair<Integer, Integer>(x-1, y);
+			Pair<Integer, Integer> cellE = new Pair<Integer, Integer>(x+1, y);
+			Pair<Integer, Integer> cellS = new Pair<Integer, Integer>(x, y+1);
+			Pair<Integer, Integer> stay = new Pair<Integer, Integer>(x, y);
+			
+			HashMap<Character, Integer> directionProb = environment.mostCommonDirections(myAgent, 2);
+			int probN=-1, probW=-1, probE=-1, probS=-1, total=0;
+			if(orderedPaths.contains(cellN)){
+				probN = directionProb.get('N');
+				total += probN;
+			}
+			if(orderedPaths.contains(cellW)){
+				probW = directionProb.get('W') + total;
+				total = probW;
+			}
+			if(orderedPaths.contains(cellS)){
+				probS = directionProb.get('S') + total;
+				total = probS;
+			}
+			if(orderedPaths.contains(cellN)){
+				probE = directionProb.get('E') + total;
+				total = probE;
+			}
+				
+			int prob = uniform.nextIntFromTo(0, total);
+			
+			if(prob < probN && probN >= 0){
+				return cellN;
+			} else {
+				if(prob < probW && probW >= 0){
+					return cellW;
+				} else {
+					if(prob < probS && probS >= 0){
+						return cellS;
+					} else {
+						if(prob < probE && probE >= 0)
+							return cellE;
+					}
+				}
+			}
+			
+			return stay;
 		}
 	}
 }

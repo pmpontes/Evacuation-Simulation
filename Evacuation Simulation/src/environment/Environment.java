@@ -2,6 +2,7 @@ package environment;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 import entity.Exit;
@@ -189,5 +190,39 @@ public class Environment {
 		return Y_DIMENSION;
 	}
 	
+	public HashMap<Character,Integer> mostCommonDirections(Agent myAgent, int distance){
+		ArrayList<AID> neighboursList = new ArrayList<AID>();
+		HashMap<Character,Integer> directions = new HashMap<Character,Integer>();
+		int total= 0;
+		
+		GridCellNgh<Person> neighbourhood = new GridCellNgh<Person>(grid, grid.getLocation(myAgent), Person.class, distance, distance);
+		List<GridCell<Person>> nghPoints = neighbourhood.getNeighborhood(false);
+		
+		directions.put('W', 0);
+		directions.put('N', 0);
+		directions.put('S', 0);
+		directions.put('E', 0);
+		directions.put(' ', 0);
+		
+		for(GridCell<Person> person : nghPoints){
+			if(person.size() > 0){
+				Iterable<Person> iterable = person.items();
+				for(Person agent : iterable){
+					if(map.elementVisible(grid.getLocation(myAgent).getCoord(0), grid.getLocation(myAgent).getCoord(1), grid.getLocation(agent).getCoord(0), grid.getLocation(agent).getCoord(1))){
+						char direction = agent.getDirection();
+						int count = 1;
+						
+						count += directions.get(direction);
+						directions.remove(direction);
+						directions.put(direction, count);
+						
+						total++;
+					}
+				}
+			}
+		}
+		directions.put('T', total);
+		return directions;
+	}
 	
 }
