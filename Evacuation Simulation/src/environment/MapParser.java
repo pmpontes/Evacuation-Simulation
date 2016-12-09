@@ -25,10 +25,18 @@ public class MapParser {
 			    for( int i = 0; i < array.length; i++ ){
 			    	
 			    	if( array[i] != 'W' && array[i] != 'F' && array[i] != ' ' && array[i] != 'E' ){
-			    		System.out.println("Parser ran into unexpected token \"" + array[i] + "\"");
-			    		return;
+			    		if( i == 0 || i == previousLength-1 || previousLength == 0) {
+				    		array[i] = 'W';
+			    		} else {
+			    			System.out.println("Parser ran into unexpected token \"" + array[i] + "\", considering it a whitespace");
+			    			array[i] = ' ';
+			    		}
+			    		
 			    	}
-
+			    	
+			    	if( (i == 0 || i == previousLength-1 || previousLength == 0) && array[i] != 'W' && array[i] != 'E')
+			    		array[i] = 'W';
+			    	
 			    	mapLine.add(array[i]);
 			    }
 			    mappedSurface.add(mapLine);
@@ -41,6 +49,19 @@ public class MapParser {
 			    		return;
 			    	}
 			}
+			
+			// Make sure the last line of the map only consists of wall and exit entities
+			ArrayList<Character> lastLine = new ArrayList<Character>();
+			for(int i = 0; i < mappedSurface.get(mappedSurface.size() - 1).size(); i++){
+				char currentChar = mappedSurface.get(mappedSurface.size()-1).get(i);
+				if(currentChar != 'W' && currentChar != 'E'){
+					 lastLine.add('W');
+				} else {
+					lastLine.add(currentChar);
+				}
+			}
+			mappedSurface.remove(mappedSurface.size() - 1);
+			mappedSurface.add(lastLine);
 			
 		} catch (FileNotFoundException e) {
 			System.out.println("File could not be found");

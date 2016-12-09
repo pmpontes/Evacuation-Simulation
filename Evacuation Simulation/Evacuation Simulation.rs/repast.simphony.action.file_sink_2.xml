@@ -1,0 +1,18 @@
+<repast.simphony.data2.engine.FileSinkDescriptor>
+  <name>PopulationDataSet FileSink</name>
+  <dataSet>PopulationDataSet</dataSet>
+  <delimiter>,</delimiter>
+  <format>LINE</format>
+  <sourceIds class="linked-hash-set">
+    <string>AvgAltruism</string>
+    <string>AvgAreaKnowledge</string>
+    <string>AvgIndependence</string>
+    <string>AvgMobility</string>
+    <string>AvgPanic</string>
+    <string>AvgPatience</string>
+    <string>DeathCount</string>
+    <string>EscapeeCount</string>
+  </sourceIds>
+  <fileName>DataCapture/run.txt</fileName>
+  <addTimeStamp>true</addTimeStamp>
+</repast.simphony.data2.engine.FileSinkDescriptor>

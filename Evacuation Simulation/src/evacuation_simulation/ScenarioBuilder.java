@@ -15,6 +15,7 @@ import environment.Environment;
 import environment.Pair;
 import jade.core.AID;
 import repast.simphony.context.Context;
+import repast.simphony.context.space.graph.NetworkBuilder;
 import repast.simphony.random.RandomHelper;
 import sajas.wrapper.ContainerController;
 import tools.Log;
@@ -48,6 +49,9 @@ public class ScenarioBuilder {
 		this.agentContainer = agentContainer;
 	}
 
+	/**
+	 * Create environment from file whose filename was present in the scenario xml
+	 */
 	public void createEnvironment(){
 		environment = new Environment(currentContext, environmentFile);
 		Log.detail("New environment created.");
@@ -176,12 +180,12 @@ public class ScenarioBuilder {
 							resultsCollectorAID = resultsCollector.getAID();
 						}
 
-						if(Knowledgeable.validAttributes(areaKnowledge, independence)){
-							newAgent = new Knowledgeable(resultsCollectorAID, environment, currentContext, x, y);
+						if(DependentKnowledgeable.validAttributes(areaKnowledge, independence)){
+							newAgent = new DependentKnowledgeable(resultsCollectorAID, environment, currentContext, x, y);
 						}else if(IndependentKnowledgeable.validAttributes(areaKnowledge, independence)){
 							newAgent = new IndependentKnowledgeable(resultsCollectorAID, environment, currentContext, x, y);
-						}else if(Independent.validAttributes(areaKnowledge, independence)){
-							newAgent = new Independent(resultsCollectorAID, environment, currentContext, x, y);
+						}else if(IndependentUnknowledgeable.validAttributes(areaKnowledge, independence)){
+							newAgent = new IndependentUnknowledgeable(resultsCollectorAID, environment, currentContext, x, y);
 						}else if(DependentUnknowledgeable.validAttributes(areaKnowledge, independence)){
 							newAgent = new DependentUnknowledgeable(resultsCollectorAID, environment, currentContext, x, y);
 						}else{

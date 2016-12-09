@@ -1,5 +1,5 @@
 <repast.simphony.visualization.editedStyle.DefaultEditedStyleData2D>
-  <shapeWkt>star</shapeWkt>
+  <shapeWkt>X</shapeWkt>
   <size>15.0</size>
   <sizeMax>15.0</sizeMax>
   <sizeMin>1.0</sizeMin>
@@ -17,8 +17,8 @@
     <float>0.0</float>
   </labelColor>
   <color>
-    <float>0.4</float>
-    <float>1.0</float>
+    <float>0.2</float>
+    <float>0.8</float>
     <float>0.0</float>
   </color>
   <colorMax>

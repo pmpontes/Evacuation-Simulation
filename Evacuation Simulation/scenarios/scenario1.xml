@@ -12,7 +12,7 @@
         <independence>90</independence>
         <patienceVariation>10</patienceVariation>
         <mobility>90</mobility>
-        <panic>0</panic>
+        <panic>100</panic>
         <age>25</age>
     </person>
     <person>
@@ -21,7 +21,7 @@
         <independence>90</independence>
         <patienceVariation>10</patienceVariation>
         <mobility>90</mobility>
-        <panic>0</panic>
+        <panic>100</panic>
         <age>25</age>
     </person>
     <person>
@@ -29,7 +29,7 @@
         <altruism>20</altruism>
         <independence>90</independence>
         <mobility>90</mobility>
-        <panic>10</panic>
+        <panic>100</panic>
         <age>25</age>
     </person>
     <person>
@@ -37,7 +37,7 @@
         <altruism>90</altruism>
         <independence>90</independence>
         <mobility>90</mobility>
-        <panic>10</panic>
+        <panic>100</panic>
         <age>25</age>
     </person>
     <person>
@@ -45,7 +45,31 @@
         <altruism>90</altruism>
         <independence>90</independence>
         <mobility>90</mobility>
-        <panic>10</panic>
+        <panic>100</panic>
+        <age>25</age>
+    </person>
+    <person>
+        <areaKnowledge>20</areaKnowledge>
+        <altruism>90</altruism>
+        <independence>20</independence>
+        <mobility>90</mobility>
+        <panic>100</panic>
+        <age>25</age>
+    </person>
+    <person>
+        <areaKnowledge>0</areaKnowledge>
+        <altruism>90</altruism>
+        <independence>90</independence>
+        <mobility>90</mobility>
+        <panic>100</panic>
+        <age>25</age>
+    </person>
+    <person>
+        <areaKnowledge>90</areaKnowledge>
+        <altruism>90</altruism>
+        <independence>10</independence>
+        <mobility>90</mobility>
+        <panic>100</panic>
         <age>25</age>
     </person>
 </scenario>
