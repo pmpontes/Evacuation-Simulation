@@ -1,5 +1,5 @@
 <repast.simphony.visualization.engine.CartesianDisplayDescriptor>
-  <name>New Display</name>
+  <name>Display</name>
   <type>2D</type>
   <styles>
     <entry>
@@ -16,7 +16,15 @@
     </entry>
     <entry>
       <string>evacuation_simulation.IndependentKnowledgeable</string>
-      <string>repast.simphony.visualizationOGL2D.DefaultStyleOGL2D</string>
+      <string>repast.simphony.visualization.editedStyle.EditedStyle2D</string>
+    </entry>
+    <entry>
+      <string>evacuation_simulation.DependentKnowledgeable</string>
+      <string>repast.simphony.visualization.editedStyle.EditedStyle2D</string>
+    </entry>
+    <entry>
+      <string>evacuation_simulation.IndependentUnknowledgeable</string>
+      <string>repast.simphony.visualization.editedStyle.EditedStyle2D</string>
     </entry>
   </styles>
   <editedStyles>
@@ -34,7 +42,15 @@
     </entry>
     <entry>
       <string>evacuation_simulation.IndependentKnowledgeable</string>
-      <null/>
+      <string>evacuation_simulation.IndependentKnowledgeable.style_1.xml</string>
+    </entry>
+    <entry>
+      <string>evacuation_simulation.DependentKnowledgeable</string>
+      <string>evacuation_simulation.DependentKnowledgeable.style_1.xml</string>
+    </entry>
+    <entry>
+      <string>evacuation_simulation.IndependentUnknowledgeable</string>
+      <string>evacuation_simulation.IndependentUnknowledgeable.style_0.xml</string>
     </entry>
   </editedStyles>
   <netStyles/>
@@ -47,7 +63,7 @@
     <pType>LAST</pType>
     <duration>-1.0</duration>
     <frequency>REPEAT</frequency>
-    <hashCode>-103133586</hashCode>
+    <hashCode>1953476541</hashCode>
   </schedParams>
   <layoutClassName>foo.bar.baz</layoutClassName>
   <layoutProjection>mapgrid</layoutProjection>
@@ -55,19 +71,27 @@
   <layerOrder>
     <entry>
       <string>entity.Wall</string>
-      <int>2</int>
+      <int>4</int>
     </entry>
     <entry>
       <string>evacuation_simulation.DependentUnknowledgeable</string>
-      <int>0</int>
+      <int>2</int>
     </entry>
     <entry>
       <string>entity.Exit</string>
-      <int>3</int>
+      <int>5</int>
     </entry>
     <entry>
       <string>evacuation_simulation.IndependentKnowledgeable</string>
+      <int>3</int>
+    </entry>
+    <entry>
+      <string>evacuation_simulation.DependentKnowledgeable</string>
       <int>1</int>
+    </entry>
+    <entry>
+      <string>evacuation_simulation.IndependentUnknowledgeable</string>
+      <int>0</int>
     </entry>
   </layerOrder>
   <projections>

@@ -48,6 +48,7 @@ public class Person extends Agent{
 	public static int PATIENCE_THRESHOLD = MAX_SCALE / 5 + 1;
 	public static final int HELP_REQUEST_MEDIUM_THRESHOLD = MAX_SCALE / 2;
 	public static final int HELP_REQUEST_LOWER_THRESHOLD = MAX_SCALE / 4;
+	public static final int HELP_RESPONSE_THRESHOLD = MAX_SCALE - 25;
 		
 	protected static final Normal upperDistribution = RandomHelper.createNormal(MAX_SCALE *3 / 4 , (MAX_SCALE - MIN_SCALE)/10);
 	protected static final Normal lowerDistribution = RandomHelper.createNormal(MAX_SCALE / 4 , (MAX_SCALE - MIN_SCALE)/10);
@@ -238,6 +239,14 @@ public class Person extends Agent{
 	public void setExitReached(boolean exitReached) {
 		this.exitReached = exitReached;
 	}
+	
+	/**
+	 * @return integer representation of the exitReached boolean for use in Repast's text sink
+	 */
+	public int intExitReached(){
+		int result = exitReached ? 1 : 0;
+		return result;
+	}
 
 	/**
 	 * Checks if the person is alive. If the person is dead, it does not need any more help.
@@ -249,6 +258,14 @@ public class Person extends Agent{
 		}
 		
 		return mobility < DEATH_LEVEL;
+	}
+	
+	/**
+	 * @return integer representation of the isDead boolean function for use in Repast's text sink
+	 */
+	public int intIsDead(){
+		int result = isDead() ? 1 : 0;
+		return result;
 	}
 
 	/**
@@ -388,7 +405,7 @@ public class Person extends Agent{
 	 * @param isIncrease  
 	 */
 	private void generatePanicVariation(boolean isIncrease) {
-		float variation = PANIC_VARIATION * (isIncrease ? 1 : -1);
+		float variation = PANIC_VARIATION * ((isIncrease) ? 1 : -1);
 
 		// younger and older people are more prone to panic variations 
 		if(age < MAX_AGE / 3 || age > 2 * MAX_AGE / 3){
@@ -402,9 +419,10 @@ public class Person extends Agent{
 				variation *= 0.8;
 			}
 		}
-		variation -= independence * .2;
+		variation *= independence * .2;
 
 		Log.detail("Panic variation: " + variation);
+		
 		setPanic((int) (panic + variation));		
 
 		if(panic >= (3/4) * MAX_SCALE){
@@ -695,7 +713,7 @@ public class Person extends Agent{
 				return;
 			}
 
-			if(RandomHelper.nextIntFromTo(MIN_SCALE, MAX_SCALE) < altruism - panic / 5) {
+			if(RandomHelper.nextIntFromTo(MIN_SCALE, MAX_SCALE) < getAltruisticFeeling()) {
 				// send reply
 				ACLMessage reply = request.createReply();
 				reply.setPerformative(ACLMessage.PROPOSE);			
@@ -725,7 +743,7 @@ public class Person extends Agent{
 		private void handleDirectionsRequest(ACLMessage request) {
 			ACLMessage reply = request.createReply();
 
-			if(RandomHelper.nextIntFromTo(MIN_SCALE, MAX_SCALE) < altruism - panic / 5) {
+			if(RandomHelper.nextIntFromTo(MIN_SCALE, MAX_SCALE) < getAltruisticFeeling()) {
 				reply.setPerformative(ACLMessage.INFORM);
 			}else{
 				reply.setPerformative(ACLMessage.REFUSE);
