@@ -15,6 +15,7 @@ import environment.Environment;
 import environment.Pair;
 import jade.core.AID;
 import repast.simphony.context.Context;
+import repast.simphony.context.space.graph.NetworkBuilder;
 import repast.simphony.random.RandomHelper;
 import sajas.wrapper.ContainerController;
 import tools.Log;
@@ -48,6 +49,9 @@ public class ScenarioBuilder {
 		this.agentContainer = agentContainer;
 	}
 
+	/**
+	 * Create environment from file whose filename was present in the scenario xml
+	 */
 	public void createEnvironment(){
 		environment = new Environment(currentContext, environmentFile);
 		Log.detail("New environment created.");

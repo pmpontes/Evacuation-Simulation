@@ -68,7 +68,8 @@ public class EvacuationSimulationLauncher extends RepastSLauncher{
 
 		scenarioBuilder = new ScenarioBuilder(context);
 		scenarioBuilder.createEnvironment();
-
+		
+		// Create agent interaction network
 		NetworkBuilder<Object> netBuilder = new NetworkBuilder<Object>("Evacuation network", context, true);
 		netBuilder.buildNetwork();
 

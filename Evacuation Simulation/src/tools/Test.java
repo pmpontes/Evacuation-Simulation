@@ -13,7 +13,7 @@ public class Test {
 	}
 	
 	protected static void testDistance(){
-		SurfaceMap map = new SurfaceMap("maps/testMap.map");
+		SurfaceMap map = new SurfaceMap("maps/testMap_noWalls.map");
 		for(int y = 0; y < map.getDistanceMap().size(); y++){
 			System.out.print("|");
 			for(int x = 0; x < map.getDistanceMap().get(0).size(); x++){
