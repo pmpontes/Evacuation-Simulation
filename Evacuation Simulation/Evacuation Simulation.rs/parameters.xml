@@ -5,6 +5,6 @@
 	
 	<parameter name="scenarioFilename" displayName="Scenario File Name" type="string" defaultValue="scenarios/scenario1.xml" />
 	
-	<parameter name="environmentFilename" displayName="Environment File Name" type="string" defaultValue="maps/testMap_wall.map" />
+	<parameter name="environmentFilename" displayName="Environment File Name" type="string" defaultValue="maps/map_2016_12_10_19_25_05.map" />
 
 </parameters>
