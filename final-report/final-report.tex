@@ -393,7 +393,7 @@ A implementação do projeto executou-se em diferentes etapas:
 \end{enumerate}
 
 \subsection{Ambiente de Desenvolvimento e Ferramentas}
-O desenvolvimento decorreu em ambiente Windows 10 e usando a versão Neon do \textit{IDE Eclipse}, tendo-se feito uso das ferramentas \textit{JADE}, \textit{Repast Simphony} e \textit{SAJaS}.
+O desenvolvimento decorreu em ambiente Windows 10 e usando a versão \textit{Neon} do \textit{IDE Eclipse}, tendo-se feito uso das ferramentas \textit{JADE}, \textit{Repast Simphony} e \textit{SAJaS}.
 \newline
 
 \textbf{\textit{JADE}:} Definição de agentes.
@@ -533,7 +533,7 @@ Esta experiência consistiu na colocação, numa dada posição de um espaço pr
 	\label{directions_log}
 	\end{figure}
 
-	Como esperado, observou-se que o agente com menor conhecimento da área efetuou um pedido de direções, que levou a uma resposta por parte do outro agente, conforme a especificação deste tipo de interação.	
+	Como esperado, observou-se que o agente com menor conhecimento da área efetuou um pedido de direções, que despoleta uma resposta por parte do outro agente. Recebendo esta resposta, o agente que efetuou o pedido atualiza o seu conhecimento da área com base na informação que contém e num fator de aquisição de conhecimento, como detalhado. Na Figura \ref{directions_graph} é possível verificar o aumento do conhecimento médio.
 
 	\begin{figure}[H]
 	\centering
@@ -541,8 +541,6 @@ Esta experiência consistiu na colocação, numa dada posição de um espaço pr
 	\caption{Variação dos atributos dos agentes do cenário.}
 	\label{directions_graph}
 \end{figure}
-	
-
 	
 	
 %----------------------------------------------------------------------------------------

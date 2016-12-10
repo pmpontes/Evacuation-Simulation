@@ -1190,7 +1190,7 @@ public class Person extends Agent{
 			}
 
 			prob = uniform.nextIntFromTo(MIN_SCALE, MAX_SCALE);
-			if(prob > mobility && mobility < HELP_REQUEST_MEDIUM_THRESHOLD || mobility <= HELP_REQUEST_LOWER_THRESHOLD) {
+			if(helped==null && (prob > mobility && mobility < HELP_REQUEST_MEDIUM_THRESHOLD || mobility <= HELP_REQUEST_LOWER_THRESHOLD)) {
 				askHelp();
 			}	
 
