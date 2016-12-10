@@ -447,7 +447,7 @@ public class Person extends Agent{
 	/**
 	 * @return Threshold for accepting a help request
 	 */
-	public int getHELP_RESPONSE_THRESHOLD(){
+	public int getMobilityHelpResponseThreshold(){
 		return (MAX_SCALE*3/5) + (getAltruism()/5);
 	}
 	
@@ -1093,6 +1093,8 @@ public class Person extends Agent{
 	private int y;
 	private int lastX;
 	private int lastY;
+	private int lastDiffX;
+	private int lastDiffY;
 	private char direction;
 
 	class MovementBehaviour extends SimpleBehaviour {
@@ -1106,6 +1108,8 @@ public class Person extends Agent{
 			y = startY;
 			lastX = x;
 			lastY = y;
+			lastDiffX = x;
+			lastDiffY = y;
 			direction = ' ';
 
 			environment.place(selfReference, x, y);
@@ -1126,7 +1130,7 @@ public class Person extends Agent{
 
 				prob = uniform.nextIntFromTo(MIN_SCALE, MAX_SCALE);
 
-				// select best path, according to the person's knowledge, or if it is the only available path or if there is an exit nearby 
+				// select best path, according to the person's knowledge, or if it is the only available path or if there is a visible exit nearby 
 				if(prob <= getUsableKnowledge() || orderedPaths.size() == 1 || !environment.findNearExits(myAgent, 4).isEmpty()){
 					tryMakeBestMove(orderedPaths);
 				} else {
@@ -1321,11 +1325,16 @@ public class Person extends Agent{
 			lastY = y;
 			x = selectedX;
 			y = selectedY;
+			
+			if(lastX != x && lastY != y){
+				lastDiffX = lastX;
+				lastDiffY = lastY;
+			}
 
 			environment.move(person, x, y);
 
 			if(helpee != null){
-				moveTo(helpee, lastX, lastY);
+				moveTo(helpee, lastDiffX, lastDiffY);
 			}
 		}
 
