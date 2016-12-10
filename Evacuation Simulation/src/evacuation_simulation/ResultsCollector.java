@@ -17,8 +17,6 @@ import sajas.core.behaviours.CyclicBehaviour;
 
 public class ResultsCollector extends Agent {
 
-	private static final long serialVersionUID = 1L;
-	
 	/* Relevant metrics */
 	private int nCtriticalInjuries = 0;
 	private int nDead = 0;

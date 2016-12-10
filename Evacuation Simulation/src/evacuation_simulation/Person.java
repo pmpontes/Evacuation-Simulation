@@ -56,10 +56,15 @@ public class Person extends Agent{
 
 	public static final String SCREAM_MESSAGE = "AHHHHHHHHHHHHHHH!";
 
+	protected Person selfReference;
 	protected AID resultsCollector;
 	protected Environment environment;
 	protected Context<?> context;
 	protected Network<Object> net;
+	protected Codec codec;
+	protected Ontology serviceOntology;	
+	protected ACLMessage myCfp;	
+	protected Context<Object> simulationContext;
 
 	/**
 	 * Human attributes
@@ -82,15 +87,6 @@ public class Person extends Agent{
 	private boolean requestingHelp;
 	private Person helper;
 	private Person helped;
-
-	private Codec codec;
-	private Ontology serviceOntology;	
-	protected ACLMessage myCfp;
-
-
-	private Person selfReference;
-	private Context<Object> simulationContext;
-
 
 	public Person(AID resultsCollector, Environment environment, Context<Object> context, int x, int y){
 		this.resultsCollector = resultsCollector;		
@@ -421,7 +417,8 @@ public class Person extends Agent{
 
 		setPanic((int) (panic + variation));		
 
-		if(panic >= (3/4) * MAX_SCALE){
+		if(panic >= (3 * MAX_SCALE / 4)){
+			Log.error((3/4) * MAX_SCALE + " mmm");
 			addBehaviour(new ScreamBehaviour(this));
 		}
 	}
@@ -610,6 +607,8 @@ public class Person extends Agent{
 		}
 	}
 
+	boolean handlingHelpRequest = false;
+
 	/**
 	 * Helper behaviour
 	 */
@@ -624,7 +623,7 @@ public class Person extends Agent{
 
 		private static final long serialVersionUID = 1L;
 
-		private boolean handlingHelpRequest;
+		//private boolean handlingHelpRequest;
 
 		public HelperBehaviour(Agent a) {
 			super(a);
@@ -689,10 +688,13 @@ public class Person extends Agent{
 				return;
 			}
 
+			handlingHelpRequest = false;
+
 			try {
 				HelpConfirmation confirmation = (HelpConfirmation) getContentManager().extractContent(msg);
 
 				if(confirmation.getMobility() < DEATH_LEVEL){
+					Log.error("HelpRequest from dead " + msg.getSender().getLocalName());
 					return;
 				}
 
@@ -700,9 +702,16 @@ public class Person extends Agent{
 				setAreaKnowledge(Integer.max(areaKnowledge, confirmation.getAreaKnowledge()));
 
 				// update reference to helper
-				setHelpee(environment.findAgent(msg.getSender()));
+				Person helpee = environment.findAgent(msg.getSender());
+				if(helpee == null){
+					Log.error(msg.getSender().getLocalName() + " was not found");
+					return;
+				}
+				Log.error("HEREEEEE " + helpee);
 
-				Log.detail("Helping agent " + getLocalName());
+				setHelpee(helpee);
+
+				Log.detail("Helping agent " + msg.getSender().getLocalName());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -771,7 +780,7 @@ public class Person extends Agent{
 				// send reply
 				getContentManager().fillContent(reply, replyMessage);
 				send(reply);
-				
+
 			} catch (CodecException | OntologyException e) {
 				e.printStackTrace();
 			}
@@ -790,10 +799,12 @@ public class Person extends Agent{
 	 * HelpRequest behaviour
 	 */
 	class HelpRequestBehaviour extends SimpleBehaviour {
-		private static final int HELP_PROPOSALS_TIMEOUT = 800;
+		private static final int MAX_ATTEMPTS = 20;
 		private static final long serialVersionUID = 1L;
+		private final MessageTemplate template = MessageTemplate.MatchPerformative(ACLMessage.PROPOSE);
 		private boolean helpRequestSent;
 		private boolean beingHelped;
+		private int nAttempts;
 		private ArrayList<HelpReply> proposals;
 
 		public HelpRequestBehaviour(Agent a) {
@@ -801,18 +812,16 @@ public class Person extends Agent{
 			Log.detail(a.getLocalName() + " is requesting help.");
 			helpRequestSent = false;
 			beingHelped = false;
+			nAttempts = 0;
 			proposals = new ArrayList<HelpReply>();
 		}
 
 		public void action() {
-			if(!helpRequestSent) {
-				if(sendRequest()) {
-					block(HELP_PROPOSALS_TIMEOUT);
-				}
+			if(!helpRequestSent && !sendRequest()){
 				return;
 			}
 
-			if(!receiveReplies()){
+			if(receiveReplies()){
 				acceptBestProposal();
 			}
 		}
@@ -823,7 +832,6 @@ public class Person extends Agent{
 		 * Decreases the state of panic.
 		 */
 		private void acceptBestProposal() {
-			Log.info("accepting best proposal?");
 			if(proposals.isEmpty()) {
 				helpRequestSent = false;
 				return;
@@ -862,7 +870,12 @@ public class Person extends Agent{
 			decreasePanic();
 
 			// update reference to helper
-			setHelper(environment.findAgent(bestProposal.getProposerAID()));
+			Person helper = environment.findAgent(bestProposal.getProposerAID());
+			if(helper == null){
+				Log.error(bestProposal.getProposerAID() + " not found.");
+				return;
+			}
+			setHelper(helper);
 
 			shareMobility(bestProposal.getMobility());		
 			setAreaKnowledge(Integer.max(areaKnowledge, bestProposal.getAreaKnowledge()));
@@ -887,11 +900,11 @@ public class Person extends Agent{
 		/**
 		 * receiveReplies.
 		 * Attempts to receive replies of type PROPOSAL.
+		 * @return false, if waiting for more proposals, true otherwise
 		 */
 		private boolean receiveReplies() {
 			// wait for responses
-			MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.PROPOSE);
-			ACLMessage msg = receive(mt);
+			ACLMessage msg = receive(template);
 
 			System.err.println(msg);
 
@@ -904,14 +917,13 @@ public class Person extends Agent{
 
 					Log.detail("Help proposal form " + msg.getSender().getLocalName() + " received.");
 				}else{
-					return !proposals.isEmpty();
+					nAttempts++;
 				}
 			} catch (CodecException | OntologyException e) {
 				Log.detail("Not a help reply.");
 			}
 
-			block(HELP_PROPOSALS_TIMEOUT);
-			return true;
+			return nAttempts < MAX_ATTEMPTS;
 		}
 
 		/**
@@ -951,7 +963,7 @@ public class Person extends Agent{
 
 		@Override
 		public boolean done() {
-			requestingHelp = !(beingHelped || exitReached);
+			requestingHelp = !(beingHelped || nAttempts >= MAX_ATTEMPTS || exitReached);
 			return !requestingHelp || isDead();
 		}
 	}
@@ -1084,12 +1096,35 @@ public class Person extends Agent{
 	}
 
 	private void askDirections(){
-		if(!requestingDirections) {
+		if(!requestingDirections && !requestingHelp) {
 			requestingDirections = true;
 			addBehaviour(new DirectionsRequestBehaviour(this));
 		}
 	}
 
+	/**
+	 * Move the person to the new position.
+	 * When helping another, pull that person to my previous position.
+	 * @param selectedX
+	 * @param selectedY
+	 */
+	private void moveTo(int selectedX, int selectedY) {
+		lastX = x;
+		lastY = y;
+		x = selectedX;
+		y = selectedY;
+
+		if(lastX != x && lastY != y){
+			lastDiffX = lastX;
+			lastDiffY = lastY;
+		}
+
+		environment.move(this, x, y);
+
+		if(helped != null){
+			helped.moveTo(lastDiffX, lastDiffY);
+		}
+	}
 
 	/*
 	 * Movement behaviour
@@ -1122,9 +1157,11 @@ public class Person extends Agent{
 
 		@Override
 		public void action() {			
-			if(helper != null){
+			Log.info("moving?? with " + helped + " /by " + helper);
+			if(helper != null || handlingHelpRequest || requestingHelp){
 				return;
 			}
+			Log.info("yes");
 
 			ArrayList<Pair<Integer,Integer>> orderedPaths = environment.getBestPathFromCell(x, y);
 
@@ -1152,14 +1189,14 @@ public class Person extends Agent{
 			}
 
 			prob = uniform.nextIntFromTo(MIN_SCALE, MAX_SCALE);
+			if(prob > mobility && mobility < HELP_REQUEST_MEDIUM_THRESHOLD || mobility <= HELP_REQUEST_LOWER_THRESHOLD) {
+				askHelp();
+			}	
+
+			prob = uniform.nextIntFromTo(MIN_SCALE, MAX_SCALE);
 			if(prob > areaKnowledge && areaKnowledge < DIRECTIONS_REQUEST_THRESHOLD) {
 				askDirections();
 			}
-
-			prob = uniform.nextIntFromTo(MIN_SCALE, MAX_SCALE);
-			if(prob > mobility && mobility < HELP_REQUEST_MEDIUM_THRESHOLD || mobility <= HELP_REQUEST_LOWER_THRESHOLD) {
-				askHelp();
-			}			
 		}
 
 		/**
@@ -1172,7 +1209,7 @@ public class Person extends Agent{
 			Pair<Integer, Integer> path = massFollowingCell(orderedPaths);
 
 			if(environment.userFreeCell(path.getX(), path.getY())){
-				moveTo(selfReference, path.getX(), path.getY());
+				moveTo(path.getX(), path.getY());
 				increasePatience();
 			}else{
 				if(uniform.nextIntFromTo(MIN_SCALE, MAX_SCALE) < getPanic()){
@@ -1205,7 +1242,7 @@ public class Person extends Agent{
 			}
 
 			if(environment.userFreeCell(tempX, tempY)){
-				moveTo(selfReference, tempX, tempY);
+				moveTo(tempX, tempY);
 				increasePatience();
 			}else{
 				if(uniform.nextIntFromTo(MIN_SCALE, MAX_SCALE) < getPanic()){
@@ -1247,7 +1284,7 @@ public class Person extends Agent{
 					return false;
 				}
 			}else{	
-				moveTo(selfReference, tempX, tempY);
+				moveTo(tempX, tempY);
 				increasePatience();
 			}
 
@@ -1268,7 +1305,7 @@ public class Person extends Agent{
 				int tempY = paths.get(i).getY();
 
 				if(environment.userFreeCell(tempX, tempY) && tempX != lastX && tempY != lastY){
-					moveTo(selfReference, tempX, tempY);
+					moveTo(tempX, tempY);
 					increasePatience();
 					return true;
 				}
@@ -1292,59 +1329,32 @@ public class Person extends Agent{
 				return;
 			}
 
-			Log.info(getLocalName() + " pushed " + person.getLocalName());
+			boolean isPush = helped!=null ? !person.getAID().equals(helped.getAID()) : true;
 
-			if(person.getHelper() != null){
-				person.getHelper().setHelpee(null);
-				setHelper(null);
-			}else{
-				if(person.getHelpee() != null){
-					person.getHelpee().setHelper(null);
-					setHelpee(null);
+			if(isPush){
+				Log.info(getLocalName() + " pushed " + person.getLocalName());
+
+				if(person.getHelper() != null){
+					person.getHelper().setHelpee(null);
+					setHelper(null);
+				}else{
+					if(person.getHelpee() != null){
+						person.getHelpee().setHelper(null);
+						setHelpee(null);
+					}	
+
+					person.increasePanic();
 				}	
-
-				person.increasePanic();
-			}
-
-			person.decreaseMobility();			
+				
+				person.decreaseMobility();
+			}			
 
 			if(RandomHelper.nextIntFromTo(MIN_SCALE, MAX_SCALE) > altruism) {
 				person.decreasePatience();
 			}
 
-			moveTo(person, x, y);
-			moveTo(selfReference, selectedX, selectedY);
-		}
-
-		/**
-		 * Move the specified person to the new position.
-		 * When helping another, pull that person to my previous position.
-		 * @param person
-		 * @param selectedX
-		 * @param selectedY
-		 */
-		private void moveTo(Person person, int selectedX, int selectedY) {
-			Person helpee = null;
-
-			if(helped != null){
-				helpee = environment.userInCell(lastX, lastY);
-			}
-
-			lastX = x;
-			lastY = y;
-			x = selectedX;
-			y = selectedY;
-			
-			if(lastX != x && lastY != y){
-				lastDiffX = lastX;
-				lastDiffY = lastY;
-			}
-
-			environment.move(person, x, y);
-
-			if(helpee != null){
-				moveTo(helpee, lastDiffX, lastDiffY);
-			}
+			person.moveTo(x, y);
+			moveTo(selectedX, selectedY);
 		}
 
 		/**
