@@ -413,12 +413,9 @@ public class Person extends Agent{
 		}
 		variation *= independence / MAX_SCALE; 
 
-		Log.detail("Panic variation: " + variation);
-
 		setPanic((int) (panic + variation));		
 
 		if(panic >= (3 * MAX_SCALE / 4)){
-			Log.error((3/4) * MAX_SCALE + " mmm");
 			addBehaviour(new ScreamBehaviour(this));
 		}
 	}
@@ -690,6 +687,7 @@ public class Person extends Agent{
 
 			handlingHelpRequest = false;
 
+			Log.error(msg +"");
 			try {
 				HelpConfirmation confirmation = (HelpConfirmation) getContentManager().extractContent(msg);
 
@@ -707,7 +705,6 @@ public class Person extends Agent{
 					Log.error(msg.getSender().getLocalName() + " was not found");
 					return;
 				}
-				Log.error("HEREEEEE " + helpee);
 
 				setHelpee(helpee);
 
@@ -734,7 +731,7 @@ public class Person extends Agent{
 			if(helped != null || handlingHelpRequest){
 				return;
 			}
-
+			
 			if(RandomHelper.nextIntFromTo(MIN_SCALE, MAX_SCALE) < getAltruisticFeeling() 
 					&& getMobility() > getMobilityHelpResponseThreshold()) {
 				// send reply
@@ -923,7 +920,8 @@ public class Person extends Agent{
 				Log.detail("Not a help reply.");
 			}
 
-			return nAttempts < MAX_ATTEMPTS;
+			//return nAttempts < MAX_ATTEMPTS;
+			return !proposals.isEmpty(); // use first response
 		}
 
 		/**
@@ -1161,7 +1159,6 @@ public class Person extends Agent{
 			if(helper != null || handlingHelpRequest || requestingHelp){
 				return;
 			}
-			Log.info("yes");
 
 			ArrayList<Pair<Integer,Integer>> orderedPaths = environment.getBestPathFromCell(x, y);
 
@@ -1169,7 +1166,7 @@ public class Person extends Agent{
 
 			// try to make a move if there are valid paths and according to current mobility  
 			if(orderedPaths.size() > 0 && prob <= getMobility()){
-
+				Log.info("yes");
 				prob = uniform.nextIntFromTo(MIN_SCALE, MAX_SCALE);
 
 				// select best path, according to the person's knowledge, or if it is the only available path or if there is a visible exit nearby 
@@ -1189,7 +1186,7 @@ public class Person extends Agent{
 			}
 
 			prob = uniform.nextIntFromTo(MIN_SCALE, MAX_SCALE);
-			if(prob > mobility && mobility < HELP_REQUEST_MEDIUM_THRESHOLD || mobility <= HELP_REQUEST_LOWER_THRESHOLD) {
+			if(helped==null && (prob > mobility && mobility < HELP_REQUEST_MEDIUM_THRESHOLD || mobility <= HELP_REQUEST_LOWER_THRESHOLD)) {
 				askHelp();
 			}	
 

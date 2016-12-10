@@ -5,6 +5,6 @@
 	
 	<parameter name="scenarioFilename" displayName="Scenario File Name" type="string" defaultValue="scenarios/exp4.xml" />
 	
-	<parameter name="environmentFilename" displayName="Environment File Name" type="string" defaultValue="maps/testMap_wall.map" />
+	<parameter name="environmentFilename" displayName="Environment File Name" type="string" defaultValue="maps/testMap.map" />
 
 </parameters>

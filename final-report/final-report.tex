@@ -393,7 +393,7 @@ A implementação do projeto executou-se em diferentes etapas:
 \end{enumerate}
 
 \subsection{Ambiente de Desenvolvimento e Ferramentas}
-O desenvolvimento decorreu em ambiente Windows 10 e usando a versão Neon do \textit{IDE Eclipse}, tendo-se feito uso das ferramentas \textit{JADE}, \textit{Repast Simphony} e \textit{SAJaS}.
+O desenvolvimento decorreu em ambiente \textit{Windows} 10 e usando a versão \textit{Neon} do \textit{IDE Eclipse}, tendo-se feito uso das ferramentas \textit{JADE}, \textit{Repast Simphony} e \textit{SAJaS}.
 \newline
 
 \textbf{\textit{JADE}:} Definição de agentes.
@@ -433,6 +433,47 @@ Estrutura da aplicação, módulos, diagrama de classes...
 \subsection{Detalhes}
 \subsubsection{Agentes}
 Detalhes de implementação sobre o agentes
+
+\begin{itemize}
+	
+\item \textbf{Atributos}
+
+Conforme descrito na especificação, os agentes encontram-se definidos por um conjunto de atributos.
+Na definição da variação de alguns dos atributos usados, partiu-se de alguns pressupostos:
+
+\begin{itemize}
+\item Pânico
+
+Assumiu-se que o pânico de uma pessoa pode aumentar - por exemplo, como resultado de um empurrão - ou diminuir - por exemplo, quando recebe ajuda por parte de outra pessoa. 
+
+Mais ainda, tem-se que o pânico aumenta mais depressa do que diminui e, no cálculo dessa variação considerou-se que as pessoas mais independentes têm uma reação mais moderada, i.e., veem o seu nível de pânico variar de forma mais comedida. Pelo contrário, jovens e pessoas de idade mais avançada reagem de forma mais pronunciada, isto é, veem o seu nível de pânico variar de forma errática.
+
+Numa tentativa de aproximar a simulação daquilo que seria observável numa situação real, considerou-se que o pânico condiciona a capacidade de uma pessoa usar o seu conhecimento da área e escolher um caminho até à saída. Por outro lado, fez-se igualmente depender do estado de pânico de uma pessoa a probabilidade de empurrar alguém que se encontre no caminho que pretende seguir.\newline
+
+
+\item Mobilidade
+
+No que diz respeito à mobilidade, consideram-se apenas variações negativas - por exemplo, provocadas por empurrões -, sendo que aquelas mais jovens ou de idade mais avançada verão a sua mobilidade diminuir de forma mais rapidamente.
+
+Não obstante, a mobilidade de uma pessoa pode ser temporariamente aumentada, sempre que uma pessoa for ajudada por outra. Se, por motivo de empurrão ou morte, essa ajuda terminar, a mobilidade da pessoa é restaurada para o seu valor anterior.
+
+Da mobilidade de uma pessoa depende a probabilidade de, a cada instante, uma pessoa se mover. A mobilidade constringe, ainda, o altruísmo de uma pessoa, limitando a resposta a pedidos de ajuda recebidos.\newline
+
+\item Paciência
+
+Considerou-se que a paciência de uma pessoa oscila, aumentando ou diminuindo com um valor predefinido e configurável.
+
+\end{itemize}
+
+\item Movimento
+
+\item Direções
+
+\item Ajuda
+
+\item Outros
+
+\end{itemize}
 
 \subsubsection{Ambiente}
 Detalhes de implementação sobre o ambiente/espaço.
@@ -533,7 +574,7 @@ Esta experiência consistiu na colocação, numa dada posição de um espaço pr
 	\label{directions_log}
 	\end{figure}
 
-	Como esperado, observou-se que o agente com menor conhecimento da área efetuou um pedido de direções, que levou a uma resposta por parte do outro agente, conforme a especificação deste tipo de interação.	
+	Como esperado, observou-se que o agente com menor conhecimento da área efetuou um pedido de direções, que despoleta uma resposta por parte do outro agente. Recebendo esta resposta, o agente que efetuou o pedido atualiza o seu conhecimento da área com base na informação que contém e num fator de aquisição de conhecimento, como detalhado. Na Figura \ref{directions_graph} é possível verificar o aumento do conhecimento médio.
 
 	\begin{figure}[H]
 	\centering
@@ -541,8 +582,6 @@ Esta experiência consistiu na colocação, numa dada posição de um espaço pr
 	\caption{Variação dos atributos dos agentes do cenário.}
 	\label{directions_graph}
 \end{figure}
-	
-
 	
 	
 %----------------------------------------------------------------------------------------
