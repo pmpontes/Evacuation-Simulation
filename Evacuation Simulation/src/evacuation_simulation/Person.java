@@ -448,7 +448,7 @@ public class Person extends Agent{
 	 * @return Threshold for accepting a help request
 	 */
 	public int getMobilityHelpResponseThreshold(){
-		return (MAX_SCALE*3/5) + (getAltruism()/5);
+		return enforceBounds((MAX_SCALE/2) + (getAltruisticFeeling()/5));
 	}
 	
 	/*
@@ -719,7 +719,7 @@ public class Person extends Agent{
 				return;
 			}
 
-			if(RandomHelper.nextIntFromTo(MIN_SCALE, MAX_SCALE) < getAltruisticFeeling()) {
+			if(RandomHelper.nextIntFromTo(MIN_SCALE, MAX_SCALE) < getAltruisticFeeling() && getMobility() > getMobilityHelpResponseThreshold()) {
 				// send reply
 				ACLMessage reply = request.createReply();
 				reply.setPerformative(ACLMessage.PROPOSE);			
