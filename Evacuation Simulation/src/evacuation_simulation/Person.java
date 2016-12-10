@@ -444,8 +444,8 @@ public class Person extends Agent{
 	/**
 	 * @return Threshold for accepting a help request
 	 */
-	public int getHELP_RESPONSE_THRESHOLD(){
-		return (MAX_SCALE*3/5) + (getAltruism()/5);
+	public int getMobilityHelpResponseThreshold(){
+		return enforceBounds((MAX_SCALE/2) + (getAltruisticFeeling()/5));
 	}
 
 	/*
@@ -726,7 +726,8 @@ public class Person extends Agent{
 				return;
 			}
 
-			if(RandomHelper.nextIntFromTo(MIN_SCALE, MAX_SCALE) < getAltruisticFeeling()) {
+			if(RandomHelper.nextIntFromTo(MIN_SCALE, MAX_SCALE) < getAltruisticFeeling() 
+					&& getMobility() > getMobilityHelpResponseThreshold()) {
 				// send reply
 				ACLMessage reply = request.createReply();
 				reply.setPerformative(ACLMessage.PROPOSE);			
@@ -759,6 +760,7 @@ public class Person extends Agent{
 
 			if(RandomHelper.nextIntFromTo(MIN_SCALE, MAX_SCALE) < getAltruisticFeeling()) {
 				reply.setPerformative(ACLMessage.INFORM);
+				Log.detail(getLocalName() + " sent directions to " + request.getSender().getLocalName());
 			}else{
 				reply.setPerformative(ACLMessage.REFUSE);
 				Log.detail(getLocalName() + " refused directions to " + request.getSender().getLocalName());
@@ -769,9 +771,7 @@ public class Person extends Agent{
 				// send reply
 				getContentManager().fillContent(reply, replyMessage);
 				send(reply);
-
-
-				Log.detail(getLocalName() + " sent directions to " + request.getSender().getLocalName());
+				
 			} catch (CodecException | OntologyException e) {
 				e.printStackTrace();
 			}
@@ -1098,6 +1098,8 @@ public class Person extends Agent{
 	private int y;
 	private int lastX;
 	private int lastY;
+	private int lastDiffX;
+	private int lastDiffY;
 	private char direction;
 
 	class MovementBehaviour extends SimpleBehaviour {
@@ -1111,6 +1113,8 @@ public class Person extends Agent{
 			y = startY;
 			lastX = x;
 			lastY = y;
+			lastDiffX = x;
+			lastDiffY = y;
 			direction = ' ';
 
 			environment.place(selfReference, x, y);
@@ -1131,7 +1135,7 @@ public class Person extends Agent{
 
 				prob = uniform.nextIntFromTo(MIN_SCALE, MAX_SCALE);
 
-				// select best path, according to the person's knowledge, or if it is the only available path or if there is an exit nearby 
+				// select best path, according to the person's knowledge, or if it is the only available path or if there is a visible exit nearby 
 				if(prob <= getUsableKnowledge() || orderedPaths.size() == 1 || !environment.findNearExits(myAgent, 4).isEmpty()){
 					tryMakeBestMove(orderedPaths);
 				} else {
@@ -1329,11 +1333,16 @@ public class Person extends Agent{
 			lastY = y;
 			x = selectedX;
 			y = selectedY;
+			
+			if(lastX != x && lastY != y){
+				lastDiffX = lastX;
+				lastDiffY = lastY;
+			}
 
 			environment.move(person, x, y);
 
 			if(helpee != null){
-				moveTo(helpee, lastX, lastY);
+				moveTo(helpee, lastDiffX, lastDiffY);
 			}
 		}
 

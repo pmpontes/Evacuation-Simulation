@@ -140,12 +140,20 @@ public class ResultsCollector extends Agent {
 					calculateResults();			
 					printResults();
 					
-					// shutdown
-					try {
-						myAgent.getContainerController().getPlatformController().kill();
-					} catch (ControllerException e) {
-						e.printStackTrace();
-					}
+					// Allow for some time to pass before terminating the simulation
+					// This prevents the graph in the Repast GUI from displaying incorrect final information
+					
+					(new Thread() {
+						  public void run() {
+							// shutdown
+								try {
+									Thread.sleep(10);
+									myAgent.getContainerController().getPlatformController().kill();
+								} catch (ControllerException | InterruptedException e) {
+									e.printStackTrace();
+								}
+						  }
+					}).start();
 				}
 			} else {
 				block();

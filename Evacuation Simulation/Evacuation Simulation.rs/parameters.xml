@@ -3,7 +3,7 @@
 
 	<parameter name="randomSeed" displayName="Default Random Seed" type="int" defaultValue="__NULL__" />
 	
-	<parameter name="scenarioFilename" displayName="Scenario File Name" type="string" defaultValue="scenarios/scenarioKnowledgeTrade.xml" />
+	<parameter name="scenarioFilename" displayName="Scenario File Name" type="string" defaultValue="scenarios/scenario1.xml" />
 	
 	<parameter name="environmentFilename" displayName="Environment File Name" type="string" defaultValue="maps/testMap_wall.map" />
 
