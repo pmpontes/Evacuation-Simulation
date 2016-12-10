@@ -247,16 +247,20 @@ Em função dos atributos de independência e de conhecimento da área, consider
 			\textbf{Atributos} \\
 			independence & areaKnowledge\end{tabular}\\ \toprule
 		\rowcolor[HTML]{FFFFFF} 
+		\includegraphics[scale=0.1]{independentKnowledgeable.png}
 		IndependentKnowledgeable &
 		\begin{tabular}{@{}lll@{}}
 			 [50, 100] & \hspace{.8cm} [50, 100] \end{tabular}\\ \midrule 
 		 \rowcolor[HTML]{FFFFFF} 
+		 \includegraphics[scale=0.1]{independentUnknowledgeable.png}
 		 IndependentUnknowledgeable &
 		 \begin{tabular}{@{}lll@{}}
 		 	[50, 100] & \hspace{.8cm} [0, 50] \end{tabular}\\ \midrule 
+	 	\includegraphics[scale=0.1]{dependentKnowledgeable.png}
 		 DependentKnowledgeable &
 		 \begin{tabular}{@{}lll@{}}
 		 	[0, 50] & \hspace{1.2cm} [50, 100] \end{tabular}\\ \midrule 
+	 			 \includegraphics[scale=0.1]{dependentUnknowledgeable.png}
 		DependentUnknowledgeable &
  		\begin{tabular}{@{}lll@{}}
  			[0, 50] & \hspace{1.2cm} [0, 50] \end{tabular}\\ \midrule 
@@ -448,32 +452,98 @@ Ao longo do processo de desenvolvimento foram levadas a cabo múltiplas experiê
 \textbf{Objetivo:} 
                                                                                                                                   	Testar se um agente é capaz de atingir a saída.
 	
-Esta experiência consistiu na colocação, num espaço pré-definido, de um agente de um determinado tipo, tendo-se analisado o seu comportamento e medido o tempo que decorreu até que chegasse à saída.
+Esta experiência consistiu na colocação, numa dada posição de um espaço pré-definido, de um agente de um certo tipo, tendo-se analisado o seu comportamento e medido o tempo que decorreu até que chegassem à saída.
 	
 \setlength{\tabcolsep}{20pt}
 \renewcommand{\arraystretch}{1.3}
 \begin{table}[H]
 	\centering
+	\caption{Tempos de evacuação em função do tipo de agente usado.}
 	\begin{tabular}{@{}lll@{}}
 		\toprule
 		\rowcolor[HTML]{FFFFFF} 
-		\textbf{Tipo de agente}  & \textbf{Tempo de evacuação}                                                                                                                                   \\ \toprule
+		\textbf{Tipo de agente}  & \textbf{Tempo de evacuação}\\
+		\toprule
 		\rowcolor[HTML]{FFFFFF} 
-		IndependentKnowledgeable &
-		????\\ \midrule 
+		IndependentKnowledgeable & 16.73s \\ \midrule 
 		\rowcolor[HTML]{FFFFFF} 
-		Independent &
-		?????\\ \midrule 
-		Knowledgeable &
-		??????\\ \midrule 
+		IndependentUnknowledgeable & 34.79s \\ \midrule 
+		DependentKnowledgeable & 17.71s \\ \midrule 
 		DependentUnknowledgeable &
-		?????\\ \midrule 
+		50.12s \\ \midrule 
 	\end{tabular}
 \end{table}
 	
 	Como esperado, observou-se que os agentes com maior conhecimento da área demoraram menos tempo a chega à saída.
 	
-	Dado que, nesta fase, se utilizou apenas um agente de cada tipo, o atributo independência não se reflete no desempenho do agente.
+	Dado que, nesta fase, se utilizou apenas um agente de cada tipo em cada simulação, o atributo independência não se reflete no desempenho do agente, tendo-se observado tempos de evacuação semelhantes para os agentes dos tipos \textit{IndependentKnowledgeable} e \textit{DependentKnowledgeable}. 
+	
+	O mesmo não foi observado no caso dos agentes de tipos \textit{DependentKnowledgeable} e \textit{DependentUnknowledgeable}, devido ao caráter estocástico das simulações.
+
+	%----------------------------------------------------------------------------------------
+	
+	\item \textbf{Mecanismo de pânico}
+	
+	\textbf{Objetivo:} 
+	Testar o mecanismo de pânico.
+	
+	Esta experiência consistiu na colocação, em posições adjacentes de um espaço pré-definido, de dois agentes, sendo que um deles caracterizado por um elevado nível de pânico. No caso, ambos os agentes são do tipo \textit{IndependentKnowledgeable}, embora tal não seja relevante para o objetivo desta experiência, podendo, de facto, ter-se usado agentes de qualquer um dos tipos definidos.
+	
+	Procedeu-se à análise dos seus comportamentos e, no final, verificaram-se os seus níveis de pânico. 
+		Como esperado, observou-se que um agente em pânico «emite um grito», conforme a especificação deste tipo de interação. O outro agente «ouve o grito» e aumenta o seu nível de pânico - como se pode observar na Figura \ref{panic_log}.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics{panic_log.png}
+		\caption{Excerto do registo de execução de uma simulação do cenário descrito.}
+		\label{panic_log}
+	\end{figure}
+
+	Em algumas das execuções, como nesta, observaram-se «empurrões», devido ao facto de se encontrarem em posições adjacentes e ao facto de os agentes estarem num estado de pânico. 
+	
+	No caso, um dos agentes «empurrou» o outro, o que produziu o primeiro aumento do nível de pânico, visível no gráfico da Figura \ref{panic_graph}. 
+	
+	Seguiu-se um novo «empurrão», desta vez, por parte do agente que tinha sido «empurrado» antes, causando um novo aumento do nível de pânico. 
+	
+	O terceiro aumento do pânico observado fica a dever-se ao «grito» que o agente em pânico lançou ao ser empurrado, e reflete a reação do agente que o empurrou a esse mesmo «grito». 
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics{panic_test.png}
+		\caption{Variação dos atributos dos agentes do cenário.}
+		\label{panic_graph}
+	\end{figure}
+	
+	Salienta-se, ainda, a diminuição da mobilidade verificada a cada «empurrão», observável na Figura \ref{panic_graph}.\newline
+	
+	
+	%----------------------------------------------------------------------------------------
+		
+	\item \textbf{Pedido de direções}
+	
+	\textbf{Objetivo:} 
+	Testar a partilha de conhecimento entre dois agentes.
+	
+	Esta experiência consistiu na colocação, em posições adjacentes de um espaço pré-definido, de um agente do tipo \textit{IndependentKnowledgeable}, com um elevado nível de altruísmo, e de um agente do tipo \textit{DependentUnknowledgeable}, com um conhecimento da área reduzido.
+	
+	\begin{figure}[H]
+	\centering
+	\includegraphics[scale=.8]{directions_log.png}
+	\caption{Excerto do registo de execução de uma simulação do cenário descrito.}
+	\label{directions_log}
+	\end{figure}
+
+	Como esperado, observou-se que o agente com menor conhecimento da área efetuou um pedido de direções, que levou a uma resposta por parte do outro agente, conforme a especificação deste tipo de interação.	
+
+	\begin{figure}[H]
+	\centering
+	\includegraphics{directions_test.png}
+	\caption{Variação dos atributos dos agentes do cenário.}
+	\label{directions_graph}
+\end{figure}
+	
+
+	
 	
 %----------------------------------------------------------------------------------------
 %	EXP end
@@ -485,10 +555,10 @@ Esta experiência consistiu na colocação, num espaço pré-definido, de um age
 Terminada a fase de desenvolvimento, foram avaliados diferentes cenários.
 \begin{itemize}
 	\item diferentes configurações para o local do acidente, variando o número e localização de saídas de emergência e obstáculos;
-	\item diferentes combinações de agentes a evacuar, variando o seu tipo, número ou localização.
+	\item diferentes combinações de agentes a evacuar, variando o seu tipo, número e localização.
 \end{itemize}
 
-Deste modo, será possível observar-se como estas variações se refletem em métricas como o tempo médio e máximo de evacuação ou o número de feridos.
+Deste modo, foi possível observar-se como estas variações se refletem em métricas como o tempo médio e máximo de evacuação ou o número de feridos.
 
 \newpage
 \section{Conclusão}
@@ -499,7 +569,11 @@ Consideram-se atingidos os objetivos definidos: desenvolver um programa que perm
 
 Da análise dos resultados das experiências levadas a cabo
 Do desenvolvimento do trabalho e aplicabilidade de SMA ao cenário proposto
-Trabalho futuro
+
+\section{Melhorias}
+
+Primeiramente, considera-se que seria útil a possibilidade de poder definir o espaço usando um \textit{GUI}.
+No que respeita a melhorias da simulação propriamente dita, uma possível melhoria, seria a introdução de um elemento fogo no espaço. Tal poderia ser implementado, por exemplo, usando um agente com a capacidade de se replicar ao longo do tempo para posições adjacentes, simulando a propagação de um incêndio. Agentes na proximidade poderiam queimar-se, vendo a sua mobilidade reduzida ou mesmo morrendo.
 
 
 

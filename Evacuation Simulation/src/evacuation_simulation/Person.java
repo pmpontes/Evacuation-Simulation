@@ -48,7 +48,8 @@ public class Person extends Agent{
 	public static int PATIENCE_THRESHOLD = MAX_SCALE / 5 + 1;
 	public static final int HELP_REQUEST_MEDIUM_THRESHOLD = MAX_SCALE / 2;
 	public static final int HELP_REQUEST_LOWER_THRESHOLD = MAX_SCALE / 4;
-		
+	public static final int DIRECTIONS_REQUEST_THRESHOLD = (int) (MAX_SCALE * 0.8);
+
 	protected static final Normal upperDistribution = RandomHelper.createNormal(MAX_SCALE *3 / 4 , (MAX_SCALE - MIN_SCALE)/10);
 	protected static final Normal lowerDistribution = RandomHelper.createNormal(MAX_SCALE / 4 , (MAX_SCALE - MIN_SCALE)/10);
 	protected static final Normal normalDistribution = RandomHelper.createNormal(MAX_SCALE / 2 , (MAX_SCALE - MIN_SCALE)/5);
@@ -117,8 +118,8 @@ public class Person extends Agent{
 		addBehaviour(new MovementBehaviour(x, y));
 	}
 
-	
-	
+
+
 	/**
 	 * @param pANIC_VARIATION the pANIC_VARIATION to set
 	 */
@@ -153,7 +154,7 @@ public class Person extends Agent{
 	public static void setKNOWLEDGE_ACQUISITION_FACTOR(double kNOWLEDGE_ACQUISITION_FACTOR) {
 		KNOWLEDGE_ACQUISITION_FACTOR = kNOWLEDGE_ACQUISITION_FACTOR;
 	}
-	
+
 	/**
 	 * @return the patienceVariation
 	 */
@@ -194,7 +195,7 @@ public class Person extends Agent{
 	 */
 	public void setHelpee(Person helped) {
 		this.helped = helped;
-		
+
 		if(helped == null) {
 			mobility = originalMobility;
 		}
@@ -209,20 +210,16 @@ public class Person extends Agent{
 
 	/**
 	 * Set the person that will be helping the person to the exit.
-	 * If the helper is null, the movement behaviour is started. 
+	 * If the helper is null, the movement behaviour is started and the panic is increased. 
 	 * @param helper the helper to set
 	 */
 	public void setHelper(Person helper) {
 		if(helper == null) {
 			mobility = originalMobility;
+			increasePanic();
 		}
-		
-		boolean previousHelper = this.helper != null;		
+
 		this.helper = helper;
-		
-		if(previousHelper){
-			addBehaviour(new MovementBehaviour(x, y));
-		}
 	}
 
 	/**
@@ -238,7 +235,7 @@ public class Person extends Agent{
 	public void setExitReached(boolean exitReached) {
 		this.exitReached = exitReached;
 	}
-	
+
 	/**
 	 * @return integer representation of the exitReached boolean for use in Repast's text sink
 	 */
@@ -255,10 +252,10 @@ public class Person extends Agent{
 		if(helper != null && mobility < DEATH_LEVEL) {
 			helper.setHelpee(null);
 		}
-		
+
 		return mobility < DEATH_LEVEL;
 	}
-	
+
 	/**
 	 * @return integer representation of the isDead boolean function for use in Repast's text sink
 	 */
@@ -352,7 +349,7 @@ public class Person extends Agent{
 	public void setPanic(int panic) {
 		this.panic = enforceBounds(panic);
 	}
-	
+
 	/**
 	 * @return the gender
 	 */
@@ -418,10 +415,10 @@ public class Person extends Agent{
 				variation *= 0.8;
 			}
 		}
-		variation *= independence * .2;
+		variation *= independence / MAX_SCALE; 
 
 		Log.detail("Panic variation: " + variation);
-		
+
 		setPanic((int) (panic + variation));		
 
 		if(panic >= (3/4) * MAX_SCALE){
@@ -450,7 +447,7 @@ public class Person extends Agent{
 	public int getHELP_RESPONSE_THRESHOLD(){
 		return (MAX_SCALE*3/5) + (getAltruism()/5);
 	}
-	
+
 	/*
 	 * decreaseMobility.
 	 * Updates the mobility.
@@ -551,6 +548,7 @@ public class Person extends Agent{
 	 * PanicHandler behaviour
 	 */
 	class PanicHandler extends SimpleBehaviour {
+		private MessageTemplate template = MessageTemplate.and(MessageTemplate.MatchPerformative(ACLMessage.PROPAGATE), MessageTemplate.MatchOntology(ServiceOntology.ONTOLOGY_NAME));
 		private static final long serialVersionUID = 1L;
 
 		public PanicHandler(Agent a) {
@@ -558,8 +556,6 @@ public class Person extends Agent{
 		}
 
 		public void action() {
-			MessageTemplate template = MessageTemplate.and(MessageTemplate.MatchPerformative(ACLMessage.PROPAGATE), MessageTemplate.MatchOntology(ServiceOntology.ONTOLOGY_NAME));
-
 			ACLMessage msg = receive(template);
 			if(msg!= null) {
 				Log.detail(getLocalName() + " heard a scream!");
@@ -620,6 +616,12 @@ public class Person extends Agent{
 	class HelperBehaviour extends SimpleBehaviour {
 		private static final int HELP_OFFER_TIMEOUT = 1000;
 
+		private final MessageTemplate templateHelping = MessageTemplate.or(
+				MessageTemplate.and(MessageTemplate.MatchPerformative(ACLMessage.ACCEPT_PROPOSAL), MessageTemplate.MatchOntology(ServiceOntology.ONTOLOGY_NAME)),
+				MessageTemplate.and(MessageTemplate.MatchPerformative(ACLMessage.REJECT_PROPOSAL), MessageTemplate.MatchOntology(ServiceOntology.ONTOLOGY_NAME)));
+
+		private final MessageTemplate template = MessageTemplate.and(MessageTemplate.MatchPerformative(ACLMessage.CFP), MessageTemplate.MatchOntology(ServiceOntology.ONTOLOGY_NAME));
+
 		private static final long serialVersionUID = 1L;
 
 		private boolean handlingHelpRequest;
@@ -634,14 +636,14 @@ public class Person extends Agent{
 
 			if(handlingHelpRequest){
 
-				msg = receive();
+				msg = receive(templateHelping);
 
 				if(msg == null) {
 					block(HELP_OFFER_TIMEOUT);
 					return;
 				}
 			}else{
-				msg = receive();
+				msg = receive(template);
 			}
 
 			if(msg != null && ( msg.getPerformative()== ACLMessage.CFP ||
@@ -689,6 +691,11 @@ public class Person extends Agent{
 
 			try {
 				HelpConfirmation confirmation = (HelpConfirmation) getContentManager().extractContent(msg);
+
+				if(confirmation.getMobility() < DEATH_LEVEL){
+					return;
+				}
+
 				shareMobility(confirmation.getMobility());
 				setAreaKnowledge(Integer.max(areaKnowledge, confirmation.getAreaKnowledge()));
 
@@ -733,6 +740,7 @@ public class Person extends Agent{
 					handlingHelpRequest = true;
 
 					Log.detail("HelpReply sent by" + getLocalName());
+					return;
 				} catch (CodecException | OntologyException e) {
 					e.printStackTrace();
 				}
@@ -753,6 +761,7 @@ public class Person extends Agent{
 				reply.setPerformative(ACLMessage.INFORM);
 			}else{
 				reply.setPerformative(ACLMessage.REFUSE);
+				Log.detail(getLocalName() + " refused directions to " + request.getSender().getLocalName());
 			}
 
 			DirectionsReply replyMessage = new DirectionsReply(areaKnowledge);
@@ -789,6 +798,7 @@ public class Person extends Agent{
 
 		public HelpRequestBehaviour(Agent a) {
 			super(a);
+			Log.detail(a.getLocalName() + " is requesting help.");
 			helpRequestSent = false;
 			beingHelped = false;
 			proposals = new ArrayList<HelpReply>();
@@ -809,7 +819,8 @@ public class Person extends Agent{
 
 		/**
 		 * receiveReplies.
-		 * Send HelpConfirmation message as a ACCEPT_PROPOSAL and REJECT_PROPOSAL to the others
+		 * Send HelpConfirmation message as a ACCEPT_PROPOSAL and REJECT_PROPOSAL to the others.
+		 * Decreases the state of panic.
 		 */
 		private void acceptBestProposal() {
 			Log.info("accepting best proposal?");
@@ -848,10 +859,11 @@ public class Person extends Agent{
 				e.printStackTrace();
 			}
 			send(confirmation);
+			decreasePanic();
 
 			// update reference to helper
 			setHelper(environment.findAgent(bestProposal.getProposerAID()));
-			
+
 			shareMobility(bestProposal.getMobility());		
 			setAreaKnowledge(Integer.max(areaKnowledge, bestProposal.getAreaKnowledge()));
 			beingHelped = true;
@@ -909,7 +921,7 @@ public class Person extends Agent{
 		 */
 		private boolean sendRequest() {
 			// find people in the surrounding area
-			ArrayList<AID> peopleNear = environment.findNearAgents(myAgent, 3);
+			ArrayList<AID> peopleNear = environment.findNearAgents(myAgent, 1);
 
 			if(peopleNear.isEmpty()) {
 				return false;
@@ -939,11 +951,11 @@ public class Person extends Agent{
 
 		@Override
 		public boolean done() {
-			requestingHelp = !(beingHelped || exitReached || isDead());
-			return !requestingHelp;
+			requestingHelp = !(beingHelped || exitReached);
+			return !requestingHelp || isDead();
 		}
 	}
-	
+
 	private void askHelp(){
 		if(!requestingHelp) {
 			requestingHelp = true;
@@ -955,8 +967,12 @@ public class Person extends Agent{
 	 * DirectionsRequest behaviour
 	 */
 	class DirectionsRequestBehaviour extends SimpleBehaviour {
+		private final MessageTemplate template = MessageTemplate.or(
+				MessageTemplate.and(MessageTemplate.MatchPerformative(ACLMessage.INFORM), MessageTemplate.MatchOntology(ServiceOntology.ONTOLOGY_NAME)),
+				MessageTemplate.and(MessageTemplate.MatchPerformative(ACLMessage.REFUSE), MessageTemplate.MatchOntology(ServiceOntology.ONTOLOGY_NAME)));
+
 		private static final int REQUEST_DISTANCE = 2;
-		private static final int MAX_ATTEMPTS = 10;
+		private static final int MAX_ATTEMPTS = 20;
 		private static final long serialVersionUID = 1L;
 		private boolean newDirectionsRequested;
 		private boolean newDirections;
@@ -965,6 +981,7 @@ public class Person extends Agent{
 
 		public DirectionsRequestBehaviour(Agent a) {
 			super(a);
+			Log.detail(a.getLocalName() + " is requesting directions.");
 			newDirectionsRequested = false;
 			newDirections = false;
 			nAttempts = 0;
@@ -984,22 +1001,10 @@ public class Person extends Agent{
 		 */
 		private void receiveReply() {
 			// wait for a response INFORM or REFUSE
-			MessageTemplate template = MessageTemplate.or(
-					MessageTemplate.and(MessageTemplate.MatchPerformative(ACLMessage.INFORM), MessageTemplate.MatchOntology(ServiceOntology.ONTOLOGY_NAME)),
-					MessageTemplate.and(MessageTemplate.MatchPerformative(ACLMessage.REFUSE), MessageTemplate.MatchOntology(ServiceOntology.ONTOLOGY_NAME)));
-
 			ACLMessage msg = receive(template);
-			Log.detail("HERE" + getLocalName() + msg);
 
 			if(msg == null) {
-				// check if there is anyone around and, if not, give up on this request
-				ArrayList<AID> peopleNear = environment.findNearAgents(myAgent, REQUEST_DISTANCE + 1);
-				peopleNear.removeAll(previousReplies);
-
-				if(peopleNear.isEmpty()) {
-					newDirectionsRequested = false;
-				}
-
+				nAttempts++;
 				return;
 			}
 
@@ -1013,7 +1018,7 @@ public class Person extends Agent{
 					return;
 				}
 
-				// update areaKnowledge to 90% of the knowledge of the person answering, if it is greater than the current value
+				// update areaKnowledge to a percentage of the knowledge of the person answering, if it is greater than the current value
 				setAreaKnowledge(Integer.max((int) (knowledgeReceived * KNOWLEDGE_ACQUISITION_FACTOR), areaKnowledge));
 
 				Log.detail(getLocalName() + " received directions from " + msg.getSender().getLocalName());
@@ -1074,7 +1079,7 @@ public class Person extends Agent{
 		 */
 		public boolean done() {
 			requestingDirections = !(nAttempts > MAX_ATTEMPTS || newDirections || exitReached);
-			return !requestingDirections;
+			return !requestingDirections || isDead();
 		}
 	}
 
@@ -1084,8 +1089,8 @@ public class Person extends Agent{
 			addBehaviour(new DirectionsRequestBehaviour(this));
 		}
 	}
-	
-	
+
+
 	/*
 	 * Movement behaviour
 	 */
@@ -1116,7 +1121,7 @@ public class Person extends Agent{
 			if(helper != null){
 				return;
 			}
-			
+
 			ArrayList<Pair<Integer,Integer>> orderedPaths = environment.getBestPathFromCell(x, y);
 
 			int prob = uniform.nextIntFromTo(MIN_SCALE, MAX_SCALE);
@@ -1140,12 +1145,12 @@ public class Person extends Agent{
 				}
 				updateDirection();
 			}
-			
+
 			prob = uniform.nextIntFromTo(MIN_SCALE, MAX_SCALE);
-			if(prob > areaKnowledge) {
+			if(prob > areaKnowledge && areaKnowledge < DIRECTIONS_REQUEST_THRESHOLD) {
 				askDirections();
 			}
-			
+
 			prob = uniform.nextIntFromTo(MIN_SCALE, MAX_SCALE);
 			if(prob > mobility && mobility < HELP_REQUEST_MEDIUM_THRESHOLD || mobility <= HELP_REQUEST_LOWER_THRESHOLD) {
 				askHelp();
@@ -1199,7 +1204,6 @@ public class Person extends Agent{
 				increasePatience();
 			}else{
 				if(uniform.nextIntFromTo(MIN_SCALE, MAX_SCALE) < getPanic()){
-					Log.error(getLocalName() + "PUSHED!!!!"); 
 					push(tempX, tempY);
 				}
 			}
@@ -1224,7 +1228,6 @@ public class Person extends Agent{
 
 				// if the person is in panic, push the person in front
 				if(prob < getPanic()){
-					Log.error(getLocalName() + "PUSHED!!!!"); 
 					push(tempX, tempY);
 				} else {
 					// if the person is impatient, try a different path
@@ -1284,16 +1287,21 @@ public class Person extends Agent{
 				return;
 			}
 
-			if(person.getHelpee() != null){
-				person.getHelpee().setHelper(null);
-				setHelpee(null);
-			}else if(person.getHelper() != null){
+			Log.info(getLocalName() + " pushed " + person.getLocalName());
+
+			if(person.getHelper() != null){
 				person.getHelper().setHelpee(null);
 				setHelper(null);
+			}else{
+				if(person.getHelpee() != null){
+					person.getHelpee().setHelper(null);
+					setHelpee(null);
+				}	
+
+				person.increasePanic();
 			}
-			
-			person.decreaseMobility();
-			person.increasePanic();
+
+			person.decreaseMobility();			
 
 			if(RandomHelper.nextIntFromTo(MIN_SCALE, MAX_SCALE) > altruism) {
 				person.decreasePatience();
@@ -1312,11 +1320,11 @@ public class Person extends Agent{
 		 */
 		private void moveTo(Person person, int selectedX, int selectedY) {
 			Person helpee = null;
-			
+
 			if(helped != null){
 				helpee = environment.userInCell(lastX, lastY);
 			}
-			
+
 			lastX = x;
 			lastY = y;
 			x = selectedX;
@@ -1340,7 +1348,7 @@ public class Person extends Agent{
 				takeDown();
 			}
 
-			return exitReached || helper!= null || isDead();
+			return exitReached || isDead();
 		}
 
 		private void updateDirection(){

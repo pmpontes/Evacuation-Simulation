@@ -15,7 +15,8 @@
 \contentsline {subsubsection}{\numberline {4.4.1}Agentes}{10}{subsubsection.4.4.1}
 \contentsline {subsubsection}{\numberline {4.4.2}Ambiente}{10}{subsubsection.4.4.2}
 \contentsline {section}{\numberline {5}Experimenta\IeC {\c c}\IeC {\~a}o}{11}{section.5}
-\contentsline {section}{\numberline {6}Conclus\IeC {\~a}o}{12}{section.6}
-\contentsline {section}{\numberline {7}Recursos}{12}{section.7}
-\contentsline {subsection}{\numberline {7.1}Bibliografia}{12}{subsection.7.1}
-\contentsline {subsection}{\numberline {7.2}Software}{12}{subsection.7.2}
+\contentsline {section}{\numberline {6}Conclus\IeC {\~a}o}{14}{section.6}
+\contentsline {section}{\numberline {7}Melhorias}{14}{section.7}
+\contentsline {section}{\numberline {8}Recursos}{14}{section.8}
+\contentsline {subsection}{\numberline {8.1}Bibliografia}{14}{subsection.8.1}
+\contentsline {subsection}{\numberline {8.2}Software}{14}{subsection.8.2}

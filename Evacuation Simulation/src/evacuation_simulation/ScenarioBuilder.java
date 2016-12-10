@@ -17,7 +17,6 @@ import jade.core.AID;
 import repast.simphony.context.Context;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.parameter.Parameters;
-import repast.simphony.parameter.ParametersParser;
 import repast.simphony.random.RandomHelper;
 import sajas.wrapper.ContainerController;
 import tools.Log;
@@ -33,15 +32,14 @@ public class ScenarioBuilder {
 
 	ScenarioBuilder(Context<Object> context){
 		this.currentContext = context;
-		ParametersParser parser;
+		
 		try {
 			Parameters params = RunEnvironment.getInstance().getParameters();
 			populationFile = params.getString("scenarioFilename");
 			environmentFile = params.getString("environmentFilename");
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			Log.error("Parameters file not found");
+			Log.error("File paths not found.");
 		}
 		
 		readSettings();
@@ -168,7 +166,6 @@ public class ScenarioBuilder {
 							Element positionElement = (Element) eElement.getElementsByTagName("position").item(0);
 							x = Integer.parseInt(positionElement.getAttribute("x"));
 							y = Integer.parseInt(positionElement.getAttribute("y"));
-							Log.error("Position specified:" + x + " " + y);
 						}else{
 							x = RandomHelper.nextIntFromTo(0, Environment.getX_DIMENSION()-1);
 							y = RandomHelper.nextIntFromTo(0, Environment.getY_DIMENSION()-1);

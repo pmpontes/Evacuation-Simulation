@@ -1,0 +1,17 @@
+<scenario 
+    panicVariation="10"
+    mobilityVariation="10"
+    knowledgeAcquisitionFactor=".9"
+    patienceVariation="10"
+    patienceThreshold="10"
+>
+    <person>
+    	<position x="21" y="8" />
+        <areaKnowledge>25</areaKnowledge>
+        <altruism>50</altruism>
+        <independence>100</independence>
+        <mobility>100</mobility>
+        <panic>0</panic>
+        <age>25</age>
+    </person>
+</scenario>
