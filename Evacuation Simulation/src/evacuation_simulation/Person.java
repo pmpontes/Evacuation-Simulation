@@ -1174,7 +1174,8 @@ public class Person extends Agent{
 				prob = uniform.nextIntFromTo(MIN_SCALE, MAX_SCALE);
 
 				// select best path, according to the person's knowledge, or if it is the only available path or if there is a visible exit nearby 
-				if(prob <= getUsableKnowledge() || orderedPaths.size() == 1 || !environment.findNearExits(myAgent, 4).isEmpty()){
+				int maxOrthogonalDistance = (environment.getMap().getHeight() > environment.getMap().getWidth()) ? environment.getMap().getHeight() : environment.getMap().getWidth();
+				if(prob <= getUsableKnowledge() || orderedPaths.size() == 1 || !environment.findNearExits(myAgent,maxOrthogonalDistance).isEmpty()){
 					tryMakeBestMove(orderedPaths);
 				} else {
 					prob = uniform.nextIntFromTo(MIN_SCALE, MAX_SCALE);
@@ -1325,7 +1326,7 @@ public class Person extends Agent{
 		private void push(int selectedX, int selectedY) {
 			Person person = environment.userInCell(selectedX, selectedY);
 
-			if(person == null){
+			if(person == null || (selectedX == x && selectedY == y)){
 				return;
 			}
 
@@ -1403,7 +1404,7 @@ public class Person extends Agent{
 			Pair<Integer, Integer> cellS = new Pair<Integer, Integer>(x, y+1);
 			Pair<Integer, Integer> stay = new Pair<Integer, Integer>(x, y);
 
-			HashMap<Character, Integer> directionProb = environment.mostCommonDirections(myAgent, 2);
+			HashMap<Character, Integer> directionProb = environment.mostCommonDirections(myAgent, 6);
 			int probN=-1, probW=-1, probE=-1, probS=-1, total=0;
 			if(orderedPaths.contains(cellN)){
 				probN = directionProb.get('N');
