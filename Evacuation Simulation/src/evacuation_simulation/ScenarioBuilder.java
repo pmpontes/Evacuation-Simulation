@@ -15,7 +15,9 @@ import environment.Environment;
 import environment.Pair;
 import jade.core.AID;
 import repast.simphony.context.Context;
-import repast.simphony.context.space.graph.NetworkBuilder;
+import repast.simphony.engine.environment.RunEnvironment;
+import repast.simphony.parameter.Parameters;
+import repast.simphony.parameter.ParametersParser;
 import repast.simphony.random.RandomHelper;
 import sajas.wrapper.ContainerController;
 import tools.Log;
@@ -23,7 +25,7 @@ import tools.Log;
 public class ScenarioBuilder {
 	private Environment environment;
 
-	private String populationFile = "scenarios/scenario1.xml";
+	private String populationFile = "scenarios/scenario.xml";
 	private String environmentFile = "maps/testMap_wall.map";
 	private Context<Object> currentContext;
 	private ResultsCollector resultsCollector;
@@ -31,7 +33,17 @@ public class ScenarioBuilder {
 
 	ScenarioBuilder(Context<Object> context){
 		this.currentContext = context;
-
+		ParametersParser parser;
+		try {
+			Parameters params = RunEnvironment.getInstance().getParameters();
+			populationFile = params.getString("scenarioFilename");
+			environmentFile = params.getString("environmentFilename");
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			Log.error("Parameters file not found");
+		}
+		
 		readSettings();
 	}
 
@@ -50,7 +62,7 @@ public class ScenarioBuilder {
 	}
 
 	/**
-	 * Create environment from file whose filename was present in the scenario xml
+	 * Create environment from file whose filename was present in the scenario
 	 */
 	public void createEnvironment(){
 		environment = new Environment(currentContext, environmentFile);
@@ -82,11 +94,6 @@ public class ScenarioBuilder {
 			}
 			if(!root.getAttribute("knowledgeAcquisitionFactor").equals("")){
 				Person.setKNOWLEDGE_ACQUISITION_FACTOR(Double.parseDouble(root.getAttribute("knowledgeAcquisitionFactor")));
-			}
-			if(!root.getAttribute("map").equals("")){
-				environmentFile = root.getAttribute("map");
-			}else{
-				Log.error("Map not specified; attempting to use default..."); 
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

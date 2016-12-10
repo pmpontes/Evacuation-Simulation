@@ -48,7 +48,6 @@ public class Person extends Agent{
 	public static int PATIENCE_THRESHOLD = MAX_SCALE / 5 + 1;
 	public static final int HELP_REQUEST_MEDIUM_THRESHOLD = MAX_SCALE / 2;
 	public static final int HELP_REQUEST_LOWER_THRESHOLD = MAX_SCALE / 4;
-	public static final int HELP_RESPONSE_THRESHOLD = MAX_SCALE - 25;
 		
 	protected static final Normal upperDistribution = RandomHelper.createNormal(MAX_SCALE *3 / 4 , (MAX_SCALE - MIN_SCALE)/10);
 	protected static final Normal lowerDistribution = RandomHelper.createNormal(MAX_SCALE / 4 , (MAX_SCALE - MIN_SCALE)/10);
@@ -445,6 +444,13 @@ public class Person extends Agent{
 		generatePanicVariation(false);
 	}
 
+	/**
+	 * @return Threshold for accepting a help request
+	 */
+	public int getHELP_RESPONSE_THRESHOLD(){
+		return (MAX_SCALE*3/5) + (getAltruism()/5);
+	}
+	
 	/*
 	 * decreaseMobility.
 	 * Updates the mobility.
