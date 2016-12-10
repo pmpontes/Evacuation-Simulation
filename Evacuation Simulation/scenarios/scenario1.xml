@@ -4,7 +4,6 @@
     knowledgeAcquisitionFactor=".9"
     patienceVariation="10"
     patienceThreshold="10"
-    map="maps/testMap_wall.map"
 >
     <person>
         <areaKnowledge>90</areaKnowledge>
