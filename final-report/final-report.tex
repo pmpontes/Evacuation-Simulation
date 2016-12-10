@@ -178,8 +178,6 @@ Dados os desafios - quer de ordem prática, quer de ordem financeira - que a rea
 
 Ocorreu um incêndio, uma inundação, a libertação de um gás nocivo, um qualquer acidente que obriga à evacuação daqueles presentes num dado local. O local possui múltiplas saídas de emergência e também obstáculos. Os indivíduos encontram-se distribuídos pelo local, ocupados nas suas tarefas usuais. Aquando da deteção do acidente, todos os indivíduos procuram atingir uma das saídas de emergência, o mais rapidamente possível.
 
-(inserir imagem)
-
 Alguns agentes poderão ser altruístas, no sentido de ajudarem acidentados a deslocarem-se até à saída, outros poderão simplesmente querer «salvar a pele», exibindo um comportamento mais egoísta. Alguns poderão conhecer bem o local e, como tal, chegar rapidamente à saída, outros demorarão mais ou mesmo perder-se, tendo que pedir ajuda. 
 
 
@@ -206,7 +204,7 @@ Deste modo, tem-se que os agentes implementados são autónomos, proativos e rea
 \begin{table}[H]
 	\centering
 	\label{agent-attributes}
-	\caption{Atributos dos agentes implementados.}
+	\caption{Atributos dos agentes implementados, que condicionam os seus comportamentos.}
 	\begin{tabular}{@{}lll@{}}
 		\toprule
 		\rowcolor[HTML]{FFFFFF} 
@@ -222,13 +220,16 @@ Deste modo, tem-se que os agentes implementados são autónomos, proativos e rea
 		\rowcolor[HTML]{FFFFFF} 
 		altruísmo   & int & \begin{tabular}[c]{@{}l@{}}{[}0, 100{]} \\probabilidade para ajudar outros\\\end{tabular}    \\ \midrule                                                 
 		\rowcolor[HTML]{FFFFFF} 
-		mobilidade   & int & \begin{tabular}[c]{@{}l@{}}{[}0, 100{]}\\ condiciona a velocidade a que se move\end{tabular} \\
+		mobilidade   & int & \begin{tabular}[c]{@{}l@{}}{[}0, 100{]}\\ condiciona a probabilidade de se mover\\num dado instante \end{tabular} \\
 		\midrule
 		\rowcolor[HTML]{FFFFFF} 
-		estado de pânico     & int & \begin{tabular}[c]{@{}l@{}}{[}0,100{]}\\ condiciona a velocidade a que se move\end{tabular}                                                   \\ \midrule
+		estado de pânico     & int & \begin{tabular}[c]{@{}l@{}}{[}0,100{]}\\ afeta o discernimento da pessoa\end{tabular}\\ \midrule
+		\rowcolor[HTML]{FFFFFF} 
+		paciência     & int & \begin{tabular}[c]{@{}l@{}}{[}0,100{]}\\determina a probabilidade de reagir de\\ intempestivamente\end{tabular}                                                   \\ \midrule
 	\end{tabular}
 
 \end{table}
+\newpage
 
 Em função dos atributos de independência e de conhecimento da área, considerou-se a categorização dos agentes em quatro estereótipos, conforme descrito na Tabela 2.
 
@@ -237,7 +238,7 @@ Em função dos atributos de independência e de conhecimento da área, consider
 \begin{table}[H]
 	\centering
 	\label{agent-types}
-	\caption{Diferentes tipos de agente.}
+	\caption{Diferentes tipos de agente, de acordo com os valore possíveis para os atributos considerados.}
 	\begin{tabular}{@{}lll@{}}
 		\toprule
 		\rowcolor[HTML]{FFFFFF} 
@@ -250,10 +251,10 @@ Em função dos atributos de independência e de conhecimento da área, consider
 		\begin{tabular}{@{}lll@{}}
 			 [50, 100] & \hspace{.8cm} [50, 100] \end{tabular}\\ \midrule 
 		 \rowcolor[HTML]{FFFFFF} 
-		 Independent &
+		 IndependentUnknowledgeable &
 		 \begin{tabular}{@{}lll@{}}
 		 	[50, 100] & \hspace{.8cm} [0, 50] \end{tabular}\\ \midrule 
-		 Knowledgeable &
+		 DependentKnowledgeable &
 		 \begin{tabular}{@{}lll@{}}
 		 	[0, 50] & \hspace{1.2cm} [50, 100] \end{tabular}\\ \midrule 
 		DependentUnknowledgeable &
@@ -295,8 +296,9 @@ A comunicação entre agentes foi implementada recorrendo a mensagens \textit{JA
 
 Dado que todos os agentes se encontram, a cada momento, numa dada posição de um espaço, cada agente pode tomar conhecimento daqueles que o rodeiam, sendo possível obter os seus \textit{AID}’s usando a noção de proximidade.\newline
 
+\renewcommand{\lstlistingname}{Excerto}
 
-\begin{lstlisting}
+\begin{lstlisting}[caption= Código \textit{Java}\, ilustrando a possibilidade de uma pessoa poder descobrir outras.]
 // find people in the surrounding area
 ArrayList<AID> peopleNear = environment.findNear(myAgent);
 if(peopleNear.isEmpty()) {
@@ -304,7 +306,10 @@ if(peopleNear.isEmpty()) {
 }
 \end{lstlisting}
 
+\paragraph{}
+
 Os vários agentes assumem uma atitude mais ou menos cooperativa, em função dos atributos altruísmo e independência, e partilham um objetivo comum: chegar a uma saída.
+\newline
 
 Com vista a simular de forma algo fidedigna as condições de uma evacuação de emergência, foram implementadas as seguintes interações entre agentes:
 
@@ -316,25 +321,12 @@ Um agente cujo nível de pânico sobe acima de um certo nível envia uma mensage
 
 Aqueles que recebem esta mensagem, podem, ou não, propagar a mensagem e aumentam o seu estado de pânico - variação que depende de diversos fatores: assumiu-se que as pessoas mais independentes são menos influenciáveis pelos gritos dos outros enquanto os mais jovens ou mais idosos são mais impressionáveis.\newline
 
+
+
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.5]{terror-behaviour.jpg}
 	\caption{Diagrama de sequência exemplificando uma interação do tipo Terror.}
-	\label{uml}
-\end{figure}
-
-\item Ajuda;
-
-Um agente pode pedir ajuda, enviando uma mensagem \textit{CFP} para agentes ao seu redor. Os agentes na disposição de ajudar podem oferecer a sua ajuda, enviando uma mensagem \textit{PROPOSAL}, com o valor da sua mobilidade, \textit{mobilidade1}.
-
-O autor do pedido de ajuda aceita uma oferta, respondendo com uma mensagem \textit{ACCEPT\_PROPOSAL}, com o valor da sua mobilidade, \textit{mobilidade2}. O agente que ofereceu ajuda passa a guiar o outro até à saída, sendo a mobilidade de cada um dada por:
-
-\[	mobilidade1 = mobilidade2 = \frac{mobilidade1 + moblidade2}{2} \]
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.4]{help-behaviour.jpg}
-	\caption{Diagrama de sequência exemplificando uma interação do tipo Ajuda.}
 	\label{uml}
 \end{figure}
 
@@ -351,9 +343,26 @@ Duas pessoas podem partilhar conhecimento sobre a área, mediante um pedido ness
 	\label{uml}
 \end{figure}
 
+
+
+\item Ajuda;
+
+Um agente pode pedir ajuda, enviando uma mensagem \textit{CFP} para agentes ao seu redor. Os agentes na disposição de ajudar podem oferecer a sua ajuda, enviando uma mensagem \textit{PROPOSAL}, com o valor da sua mobilidade, \textit{mobilidade1}.
+
+O autor do pedido de ajuda aceita uma oferta, respondendo com uma mensagem \textit{ACCEPT\_PROPOSAL}, com o valor da sua mobilidade, \textit{mobilidade2}. O agente que ofereceu ajuda passa a guiar o outro até à saída, sendo a mobilidade de cada um dada por:
+
+\[	mobilidade1 = mobilidade2 = \frac{mobilidade1 + moblidade2}{2} \]
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.4]{help-behaviour.jpg}
+	\caption{Diagrama de sequência exemplificando uma interação do tipo Ajuda.}
+	\label{uml}
+\end{figure}
+
 \end{itemize}
 
-Estes protocolos são relativamente simples, não sendo uma negociação na verdadeira aceção da palavra. De referir, ainda, que as interações Ajudar e Orientar são efetuadas de acordo com o modelo de Rede Contratual, sendo que, no caso, o papel de gestor cabe ao agente que faz o pedido inicial. 
+Como pode constatar-se, estes protocolos são relativamente simples. De referir, ainda, que as interações Ajudar e Orientar são efetuadas de acordo com o modelo de Rede Contratual, sendo que, no caso, o papel de gestor cabe ao agente que faz o pedido inicial. 
 
 
 %----------------------------------------------------------------------------------------
