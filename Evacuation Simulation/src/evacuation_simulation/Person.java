@@ -606,7 +606,7 @@ public class Person extends Agent{
 			return screamed || exitReached || isDead();
 		}
 	}
-	
+
 	boolean handlingHelpRequest = false;
 
 	/**
@@ -689,7 +689,7 @@ public class Person extends Agent{
 			}
 
 			handlingHelpRequest = false;
-			
+
 			try {
 				HelpConfirmation confirmation = (HelpConfirmation) getContentManager().extractContent(msg);
 
@@ -708,7 +708,7 @@ public class Person extends Agent{
 					return;
 				}
 				Log.error("HEREEEEE " + helpee);
-				
+
 				setHelpee(helpee);
 
 				Log.detail("Helping agent " + msg.getSender().getLocalName());
@@ -780,7 +780,7 @@ public class Person extends Agent{
 				// send reply
 				getContentManager().fillContent(reply, replyMessage);
 				send(reply);
-				
+
 			} catch (CodecException | OntologyException e) {
 				e.printStackTrace();
 			}
@@ -1102,6 +1102,29 @@ public class Person extends Agent{
 		}
 	}
 
+	/**
+	 * Move the person to the new position.
+	 * When helping another, pull that person to my previous position.
+	 * @param selectedX
+	 * @param selectedY
+	 */
+	private void moveTo(int selectedX, int selectedY) {
+		lastX = x;
+		lastY = y;
+		x = selectedX;
+		y = selectedY;
+
+		if(lastX != x && lastY != y){
+			lastDiffX = lastX;
+			lastDiffY = lastY;
+		}
+
+		environment.move(this, x, y);
+
+		if(helped != null){
+			helped.moveTo(lastDiffX, lastDiffY);
+		}
+	}
 
 	/*
 	 * Movement behaviour
@@ -1134,9 +1157,11 @@ public class Person extends Agent{
 
 		@Override
 		public void action() {			
+			Log.info("moving?? with " + helped + " /by " + helper);
 			if(helper != null || handlingHelpRequest || requestingHelp){
 				return;
 			}
+			Log.info("yes");
 
 			ArrayList<Pair<Integer,Integer>> orderedPaths = environment.getBestPathFromCell(x, y);
 
@@ -1166,7 +1191,7 @@ public class Person extends Agent{
 			if(prob > mobility && mobility < HELP_REQUEST_MEDIUM_THRESHOLD || mobility <= HELP_REQUEST_LOWER_THRESHOLD) {
 				askHelp();
 			}	
-			
+
 			prob = uniform.nextIntFromTo(MIN_SCALE, MAX_SCALE);
 			if(prob > areaKnowledge && areaKnowledge < DIRECTIONS_REQUEST_THRESHOLD) {
 				askDirections();
@@ -1183,7 +1208,7 @@ public class Person extends Agent{
 			Pair<Integer, Integer> path = massFollowingCell(orderedPaths);
 
 			if(environment.userFreeCell(path.getX(), path.getY())){
-				moveTo(selfReference, path.getX(), path.getY());
+				moveTo(path.getX(), path.getY());
 				increasePatience();
 			}else{
 				if(uniform.nextIntFromTo(MIN_SCALE, MAX_SCALE) < getPanic()){
@@ -1216,7 +1241,7 @@ public class Person extends Agent{
 			}
 
 			if(environment.userFreeCell(tempX, tempY)){
-				moveTo(selfReference, tempX, tempY);
+				moveTo(tempX, tempY);
 				increasePatience();
 			}else{
 				if(uniform.nextIntFromTo(MIN_SCALE, MAX_SCALE) < getPanic()){
@@ -1258,7 +1283,7 @@ public class Person extends Agent{
 					return false;
 				}
 			}else{	
-				moveTo(selfReference, tempX, tempY);
+				moveTo(tempX, tempY);
 				increasePatience();
 			}
 
@@ -1279,7 +1304,7 @@ public class Person extends Agent{
 				int tempY = paths.get(i).getY();
 
 				if(environment.userFreeCell(tempX, tempY) && tempX != lastX && tempY != lastY){
-					moveTo(selfReference, tempX, tempY);
+					moveTo(tempX, tempY);
 					increasePatience();
 					return true;
 				}
@@ -1299,63 +1324,36 @@ public class Person extends Agent{
 		private void push(int selectedX, int selectedY) {
 			Person person = environment.userInCell(selectedX, selectedY);
 
-			if(person == null || person.getAID().equals(helped.getAID())){
+			if(person == null){
 				return;
 			}
 
-			Log.info(getLocalName() + " pushed " + person.getLocalName());
+			boolean isPush = helped!=null ? !person.getAID().equals(helped.getAID()) : true;
 
-			if(person.getHelper() != null){
-				person.getHelper().setHelpee(null);
-				setHelper(null);
-			}else{
-				if(person.getHelpee() != null){
-					person.getHelpee().setHelper(null);
-					setHelpee(null);
+			if(isPush){
+				Log.info(getLocalName() + " pushed " + person.getLocalName());
+
+				if(person.getHelper() != null){
+					person.getHelper().setHelpee(null);
+					setHelper(null);
+				}else{
+					if(person.getHelpee() != null){
+						person.getHelpee().setHelper(null);
+						setHelpee(null);
+					}	
+
+					person.increasePanic();
 				}	
-
-				person.increasePanic();
-			}
-
-			person.decreaseMobility();			
+				
+				person.decreaseMobility();
+			}			
 
 			if(RandomHelper.nextIntFromTo(MIN_SCALE, MAX_SCALE) > altruism) {
 				person.decreasePatience();
 			}
 
-			moveTo(person, x, y);
-			moveTo(selfReference, selectedX, selectedY);
-		}
-
-		/**
-		 * Move the specified person to the new position.
-		 * When helping another, pull that person to my previous position.
-		 * @param person
-		 * @param selectedX
-		 * @param selectedY
-		 */
-		private void moveTo(Person person, int selectedX, int selectedY) {
-			Person helpee = null;
-
-			if(helped != null){
-				helpee = environment.userInCell(lastX, lastY);
-			}
-
-			lastX = x;
-			lastY = y;
-			x = selectedX;
-			y = selectedY;
-			
-			if(lastX != x && lastY != y){
-				lastDiffX = lastX;
-				lastDiffY = lastY;
-			}
-
-			environment.move(person, x, y);
-
-			if(helpee != null){
-				moveTo(helpee, lastDiffX, lastDiffY);
-			}
+			person.moveTo(x, y);
+			moveTo(selectedX, selectedY);
 		}
 
 		/**

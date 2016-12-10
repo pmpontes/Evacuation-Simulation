@@ -847,3 +847,18 @@ java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
 	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
 	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
 	at java.awt.EventDispatchThread.run(Unknown Source)
+FATAL [Thread-7] 2016-12-10 20:16:53,921 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (41.0)
+java.lang.NullPointerException
+	at evacuation_simulation.Person$MovementBehaviour.push(Person.java:1308)
+	at evacuation_simulation.Person$MovementBehaviour.tryMakeBestMove(Person.java:1249)
+	at evacuation_simulation.Person$MovementBehaviour.action(Person.java:1154)
+	at sajas.core.behaviours.Behaviour.actionWrapper(Behaviour.java:341)
+	at sajas.core.Agent.step(Agent.java:205)
+	at sajas.sim.repasts.AgentAction.execute(AgentAction.java:69)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
