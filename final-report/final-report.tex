@@ -843,7 +843,7 @@ A \textit{Grid} permite que um agente conheça a sua vizinhança, tornando poss�
 \newpage
 \section{Experimentação}
 
-Ao longo do processo de desenvolvimento foram levadas a cabo múltiplas experiências, com vista a testar a implementação dos agentes.
+Ao longo do processo de desenvolvimento foram levadas a cabo múltiplas experiências, com vista a testar a implementação dos agentes. O espaço utilizado para os testes levados a cabo nesta fase encontra-se definido em\textit{ src/maps/testMap.map}.
 \begin{itemize}
 	
 %----------------------------------------------------------------------------------------
@@ -854,8 +854,11 @@ Ao longo do processo de desenvolvimento foram levadas a cabo múltiplas experiê
 
 \textbf{Objetivo:} 
                                                                                                                                   	Testar se um agente é capaz de atingir a saída.
+\\\textbf{Cenários:} 
+\textit{exp1\_1.xml, exp1\_2.xml, exp1\_3.xml, exp1\_4.xml}
 	
 Esta experiência consistiu na colocação, numa dada posição de um espaço pré-definido, de um agente de um certo tipo, tendo-se analisado o seu comportamento e medido o tempo que decorreu até que chegassem à saída.
+
 	
 \setlength{\tabcolsep}{20pt}
 \renewcommand{\arraystretch}{1.3}
@@ -889,6 +892,8 @@ Esta experiência consistiu na colocação, numa dada posição de um espaço pr
 	
 	\textbf{Objetivo:} 
 	Testar o mecanismo de pânico.
+	\\\textbf{Cenário:} 
+	\textit{exp2.xml}	
 	
 	Esta experiência consistiu na colocação, em posições adjacentes de um espaço pré-definido, de dois agentes, sendo que um deles caracterizado por um elevado nível de pânico. No caso, ambos os agentes são do tipo \textit{IndependentKnowledgeable}, embora tal não seja relevante para o objetivo desta experiência, podendo, de facto, ter-se usado agentes de qualquer um dos tipos definidos.
 	
@@ -926,6 +931,8 @@ Esta experiência consistiu na colocação, numa dada posição de um espaço pr
 	
 	\textbf{Objetivo:} 
 	Testar a partilha de conhecimento entre dois agentes.
+	\\\textbf{Cenário:} 
+	\textit{exp3.xml}
 	
 	Esta experiência consistiu na colocação, em posições adjacentes de um espaço pré-definido, de um agente do tipo \textit{IndependentKnowledgeable}, com um elevado nível de altruísmo, e de um agente do tipo \textit{DependentUnknowledgeable}, com um conhecimento da área reduzido.
 	
@@ -951,6 +958,8 @@ Esta experiência consistiu na colocação, numa dada posição de um espaço pr
 
 \textbf{Objetivo:} 
 Testar o comportamento de ajuda de um agente para com outro.
+	\\\textbf{Cenário:} 
+\textit{exp4.xml}
 
 Esta experiência consistiu na colocação, em posições adjacentes de um espaço pré-definido, de um agente do tipo \textit{IndependentKnowledgeable}, com um elevado nível de altruísmo, e de um agente do tipo \textit{IndependentUnknowledgeable}, com uma mobilidade reduzida.
 
@@ -985,6 +994,15 @@ Terminada a fase de desenvolvimento, foram avaliados diferentes cenários.
 \end{itemize}
 
 Deste modo, foi possível observar-se como estas variações se refletem em métricas como o tempo médio e máximo de evacuação ou o número de feridos.
+
+\begin{itemize}
+	\item População conhecedora do local
+
+
+
+\end{itemize}
+	
+	
 
 \newpage
 \section{Conclusão}
@@ -1043,7 +1061,7 @@ O ficheiro poderá ser selecionado na \textit{GUI} do \textit{Repast}, através 
 
 \subsubsection{Especificação do cenário}
 
-O ficheiro que especifica a população a usar na simulação é um ficheiro .xml, e permite configurar tanto factores como atributos dos vários agentes a evacuar:
+O ficheiro que especifica a população a usar na simulação é um ficheiro .xml, e permite configurar tanto factores comuns a toda a simulação como os atributos individuas dos vários agentes a evacuar:
 \begin{lstlisting}
 <scenario 
 panicVariation="INT"
@@ -1053,9 +1071,10 @@ patienceVariation="INT"
 patienceThreshold="INT"
 >
 	<person>
-		<areaKnowledge>INT</areaKnowledge>
+		<position x="INT" y="INT"/>
+		<areaKnowledge>INT</areaKnowledge> <!--required-->
+		<independence>INT</independence>   <!--required-->
 		<altruism>INT</altruism>
-		<independence>INT</independence>
 		<patienceVariation>INT</patienceVariation>
 		<mobility>INT</mobility>
 		<panic>INT</panic>

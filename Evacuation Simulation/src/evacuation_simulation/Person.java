@@ -82,6 +82,9 @@ public class Person extends Agent{
 	protected Gender gender; 		 /* MALE / FEMALE */
 	protected int age;				 /* [5, 65] */
 
+	private int nPushes = 0;
+	private int nHelpRequests = 0;
+	private int nDirectionsRequests = 0;
 	private boolean exitReached;
 	private boolean requestingDirections;
 	private boolean requestingHelp;
@@ -520,7 +523,7 @@ public class Person extends Agent{
 			inform.setLanguage(codec.getName());
 			inform.setOntology(serviceOntology.getName());
 
-			EvacueeStats result = new EvacueeStats(getLocalName(), helped != null ? helped.getLocalName() : "none", age, areaKnowledge, altruism, independence, mobility, panic);
+			EvacueeStats result = new EvacueeStats(getLocalName(), helped != null ? helped.getLocalName() : "none", age, areaKnowledge, altruism, independence, mobility, panic, nPushes, nHelpRequests, nDirectionsRequests);
 
 			try {
 				getContentManager().fillContent(inform, result);
@@ -707,6 +710,7 @@ public class Person extends Agent{
 				}
 
 				setHelpee(helpee);
+				nHelpRequests++;
 
 				Log.detail("Helping agent " + msg.getSender().getLocalName());
 			} catch (Exception e) {
@@ -1027,6 +1031,7 @@ public class Person extends Agent{
 					Log.detail("Not a direction reply.");
 					return;
 				}
+				nDirectionsRequests++;
 
 				// update areaKnowledge to a percentage of the knowledge of the person answering, if it is greater than the current value
 				setAreaKnowledge(Integer.max((int) (knowledgeReceived * KNOWLEDGE_ACQUISITION_FACTOR), areaKnowledge));
@@ -1404,6 +1409,7 @@ public class Person extends Agent{
 
 			person.moveTo(x, y);
 			moveTo(selectedX, selectedY);
+			nPushes++;
 		}
 
 		/**

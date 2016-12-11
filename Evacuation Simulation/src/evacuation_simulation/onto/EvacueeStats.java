@@ -14,6 +14,9 @@ public class EvacueeStats implements Predicate {
 	private int independence;
 	private int physicalCondition;
 	private int panic;
+	private int nPushes;
+	private int nHelpRequests;
+	private int nDirectionsRequests;
 	
 	private static long startTime;
 	private long evacuationTime; 
@@ -25,7 +28,7 @@ public class EvacueeStats implements Predicate {
 		startTime = System.currentTimeMillis();
 	}
 	
-	public EvacueeStats(String id, String helpee, int age, int areaKnowledge, int altruism, int independence, int mobility, int panic) {
+	public EvacueeStats(String id, String helpee, int age, int areaKnowledge, int altruism, int independence, int mobility, int panic, int nPushes, int nHelpRequests, int nDirectionsRequests) {
 		this.evacuationTime = System.currentTimeMillis() - startTime;
 		this.id = id;
 		this.helpee = helpee;
@@ -35,6 +38,51 @@ public class EvacueeStats implements Predicate {
 		this.independence = independence;
 		this.physicalCondition = mobility;
 		this.panic = panic;
+		this.nDirectionsRequests = nDirectionsRequests;
+		this.nHelpRequests = nHelpRequests;
+		this.nPushes = nPushes;
+	}
+
+	/**
+	 * @return the nPushes
+	 */
+	public int getnPushes() {
+		return nPushes;
+	}
+
+	/**
+	 * @param nPushes the nPushes to set
+	 */
+	public void setnPushes(int nPushes) {
+		this.nPushes = nPushes;
+	}
+
+	/**
+	 * @return the nHelpRequests
+	 */
+	public int getnHelpRequests() {
+		return nHelpRequests;
+	}
+
+	/**
+	 * @param nHelpRequests the nHelpRequests to set
+	 */
+	public void setnHelpRequests(int nHelpRequests) {
+		this.nHelpRequests = nHelpRequests;
+	}
+
+	/**
+	 * @return the nDirectionsRequests
+	 */
+	public int getnDirectionsRequests() {
+		return nDirectionsRequests;
+	}
+
+	/**
+	 * @param nDirectionsRequests the nDirectionsRequests to set
+	 */
+	public void setnDirectionsRequests(int nDirectionsRequests) {
+		this.nDirectionsRequests = nDirectionsRequests;
 	}
 
 	/**

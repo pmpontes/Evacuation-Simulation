@@ -20,6 +20,9 @@ public class ResultsCollector extends Agent {
 	/* Relevant metrics */
 	private int nCtriticalInjuries = 0;
 	private int nDead = 0;
+	private int nPushes = 0;
+	private int nHelpRequests = 0;
+	private int nDirectionsRequests = 0;
 	private long mediumEvacuationTime = 0;
 	private long maximumEvacuationTime = 0;
 	private long minimumEvacuationTime = Long.MAX_VALUE;
@@ -84,6 +87,10 @@ public class ResultsCollector extends Agent {
 			if(stat.getPhysicalCondition() < Person.DEATH_LEVEL * 2){
 				nCtriticalInjuries++;
 			}
+			
+			nPushes += stat.getnPushes();
+			nDirectionsRequests += stat.getnDirectionsRequests();
+			nHelpRequests += stat.getnHelpRequests();
 		}
 		
 		if(!evacuationResults.isEmpty()) {
@@ -98,6 +105,9 @@ public class ResultsCollector extends Agent {
 		System.out.println("Some took only " + minimumEvacuationTime);
 		System.out.println(nCtriticalInjuries + (nCtriticalInjuries == 1 ? " was" : " were") + " critically injuried. ");
 		System.out.println(nDead + " died. ");
+		System.out.println(nDirectionsRequests + " directions requests answered.");
+		System.out.println(nPushes + " pushes occurred.");
+		System.out.println(nHelpRequests + " help requests answered.");
 		
 		System.out.println();
 		System.out.println("Detailed results:");
