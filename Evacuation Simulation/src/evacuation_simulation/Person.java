@@ -1132,10 +1132,6 @@ public class Person extends Agent{
 			lastDiffX = lastX;
 			lastDiffY = lastY;
 		}
-		
-		System.out.println("x: " + x + ", y: " + y);
-		System.out.println("lastX: " + lastX + ", lastY: " + lastY);
-		System.out.println("lastDiffX: " + lastDiffX + ", lastDiffY: " + lastDiffY);
 
 		environment.move(this, x, y);
 		
