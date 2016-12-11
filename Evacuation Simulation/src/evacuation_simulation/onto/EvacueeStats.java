@@ -14,9 +14,9 @@ public class EvacueeStats implements Predicate {
 	private int independence;
 	private int physicalCondition;
 	private int panic;
-	private int nPushes;
-	private int nHelpRequests;
-	private int nDirectionsRequests;
+	private int pushes;
+	private int helpRequests;
+	private int directionsRequests;
 	
 	private static long startTime;
 	private long evacuationTime; 
@@ -28,7 +28,8 @@ public class EvacueeStats implements Predicate {
 		startTime = System.currentTimeMillis();
 	}
 	
-	public EvacueeStats(String id, String helpee, int age, int areaKnowledge, int altruism, int independence, int mobility, int panic, int nPushes, int nHelpRequests, int nDirectionsRequests) {
+	public EvacueeStats(String id, String helpee, int age, int areaKnowledge, int altruism, int independence, 
+			int mobility, int panic, int nPushes, int nHelpRequests, int nDirectionsRequests) {
 		this.evacuationTime = System.currentTimeMillis() - startTime;
 		this.id = id;
 		this.helpee = helpee;
@@ -38,51 +39,51 @@ public class EvacueeStats implements Predicate {
 		this.independence = independence;
 		this.physicalCondition = mobility;
 		this.panic = panic;
-		this.nDirectionsRequests = nDirectionsRequests;
-		this.nHelpRequests = nHelpRequests;
-		this.nPushes = nPushes;
+		this.directionsRequests = nDirectionsRequests;
+		this.helpRequests = nHelpRequests;
+		this.pushes = nPushes;
 	}
 
 	/**
 	 * @return the nPushes
 	 */
-	public int getnPushes() {
-		return nPushes;
+	public int getPushes() {
+		return pushes;
 	}
 
 	/**
 	 * @param nPushes the nPushes to set
 	 */
-	public void setnPushes(int nPushes) {
-		this.nPushes = nPushes;
+	public void setPushes(int nPushes) {
+		this.pushes = nPushes;
 	}
 
 	/**
 	 * @return the nHelpRequests
 	 */
-	public int getnHelpRequests() {
-		return nHelpRequests;
+	public int getHelpRequests() {
+		return helpRequests;
 	}
 
 	/**
 	 * @param nHelpRequests the nHelpRequests to set
 	 */
-	public void setnHelpRequests(int nHelpRequests) {
-		this.nHelpRequests = nHelpRequests;
+	public void setHelpRequests(int nHelpRequests) {
+		this.helpRequests = nHelpRequests;
 	}
 
 	/**
 	 * @return the nDirectionsRequests
 	 */
-	public int getnDirectionsRequests() {
-		return nDirectionsRequests;
+	public int getDirectionsRequests() {
+		return directionsRequests;
 	}
 
 	/**
 	 * @param nDirectionsRequests the nDirectionsRequests to set
 	 */
-	public void setnDirectionsRequests(int nDirectionsRequests) {
-		this.nDirectionsRequests = nDirectionsRequests;
+	public void setDirectionsRequests(int nDirectionsRequests) {
+		this.directionsRequests = nDirectionsRequests;
 	}
 
 	/**

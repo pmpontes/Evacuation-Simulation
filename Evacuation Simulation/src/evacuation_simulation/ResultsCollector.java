@@ -69,6 +69,10 @@ public class ResultsCollector extends Agent {
 	
 	private void calculateResults() {		
 		for(EvacueeStats stat: evacuationResults){			
+			nPushes += stat.getPushes();
+			nDirectionsRequests += stat.getDirectionsRequests();
+			nHelpRequests += stat.getHelpRequests();
+			
 			if(stat.getPhysicalCondition() < Person.DEATH_LEVEL){
 				nDead++;
 				continue;
@@ -87,10 +91,6 @@ public class ResultsCollector extends Agent {
 			if(stat.getPhysicalCondition() < Person.DEATH_LEVEL * 2){
 				nCtriticalInjuries++;
 			}
-			
-			nPushes += stat.getnPushes();
-			nDirectionsRequests += stat.getnDirectionsRequests();
-			nHelpRequests += stat.getnHelpRequests();
 		}
 		
 		if(!evacuationResults.isEmpty()) {

@@ -112,6 +112,9 @@ public class Person extends Agent{
 		patience = MAX_SCALE;
 		patienceVariation = PATIENCE_VARIATION;
 
+		nPushes = 0;
+		nHelpRequests = 0;
+		nDirectionsRequests = 0;
 		gender = (RandomHelper.nextIntFromTo(0, 1) == 1) ? Gender.MALE : Gender.FEMALE;
 		age = RandomHelper.nextIntFromTo(MIN_AGE, MAX_AGE);
 		addBehaviour(new MovementBehaviour(x, y));
@@ -522,8 +525,9 @@ public class Person extends Agent{
 			inform.addReceiver(resultsCollector);
 			inform.setLanguage(codec.getName());
 			inform.setOntology(serviceOntology.getName());
-
-			EvacueeStats result = new EvacueeStats(getLocalName(), helped != null ? helped.getLocalName() : "none", age, areaKnowledge, altruism, independence, mobility, panic, nPushes, nHelpRequests, nDirectionsRequests);
+			
+			EvacueeStats result = new EvacueeStats(getLocalName(), helped != null ? helped.getLocalName() : "none", age, 
+					areaKnowledge, altruism, independence, mobility, panic, nPushes, nHelpRequests, nDirectionsRequests);
 
 			try {
 				getContentManager().fillContent(inform, result);
@@ -1475,6 +1479,7 @@ public class Person extends Agent{
 				}	
 				
 				person.decreaseMobility();
+				nPushes++;
 			}			
 
 			if(RandomHelper.nextIntFromTo(MIN_SCALE, MAX_SCALE) > altruism) {
@@ -1483,7 +1488,6 @@ public class Person extends Agent{
 
 			person.moveTo(x, y);
 			moveTo(selectedX, selectedY);
-			nPushes++;
 		}
 
 		/**

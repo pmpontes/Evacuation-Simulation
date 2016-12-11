@@ -996,9 +996,33 @@ Terminada a fase de desenvolvimento, foram avaliados diferentes cenários.
 Deste modo, foi possível observar-se como estas variações se refletem em métricas como o tempo médio e máximo de evacuação ou o número de feridos.
 
 \begin{itemize}
-	\item População conhecedora do local
+	%----------------------------------------------------------------------------------------	
+	\item \textbf{População conhecedora do local}
 
+\textbf{Objetivo:} 
+Testar o comportamento de agentes com elevado conhecimento da área a evacuar.
+\\\textbf{Cenário:} 
+\textit{scenario1.xml}
+\\\textbf{Mapa:} 
+\textit{map\_report.map}
 
+Esta experiência consistiu na colocação num espaço de 15 agentes do tipo \textit{IndependentKnowledgeable} e \textit{DependentKnowledgeable}, com um elevado nível de conhecimento da área e baixos níveis de pânico.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics{log_sc1.png}
+	\caption{Resultados da simulação.}
+	\label{log_sc1}
+\end{figure}
+
+Como seria expectável numa situação em que todos conhecem bem onde se encontram as saídas e não existindo pânico, a evacuação decorre sem problemas, não se tendo registado nenhum pedido de direções ou ajuda, nem qualquer empurrão.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics{log_sc1.png}
+	\caption{Variação dos atributos dos agentes do cenário.}
+	\label{log_sc1}
+\end{figure}
 
 \end{itemize}
 	
