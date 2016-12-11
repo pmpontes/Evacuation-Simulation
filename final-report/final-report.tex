@@ -578,7 +578,7 @@ boolean sendDirectionsRequest() {
 }
 \end{lstlisting}
 
-O agente a quem foram pedidas direções responde com uma mensagem \textit{INFORM} ou \textit{REFUSE}, com uma dada probabilidade.
+O agente a quem foram pedidas direções responde com uma mensagem \textit{INFORM} ou \textit{REFUSE}, com uma dada probabilidade, associada ao seu altruísmo.
 
 \begin{lstlisting}[caption= Código \textit{Java}\ da função responsável pela receção de pedidos de direções.]
 void handleDirectionsRequest(ACLMessage request) {
@@ -621,14 +621,13 @@ void receiveReply() {
 	}
 }
 \end{lstlisting}
-
 \item \textbf{Ajuda}
 
 Seguindo a especificação, uma pessoa com mobilidade reduzida pode pedir ajuda a outra na sua proximidade. 
 
 A cada instante, um agente que tenha pouca mobilidade da área pode - com uma probabilidade inversamente proporcional a essa mobilidade - enviar aos agentes ao seu redor uma mensagem \textit{CFP}.
 
-\begin{lstlisting}[caption= Código \textit{Java}\ da função responsável pelo envio de um pedido de ajuda.]
+\begin{lstlisting}[caption= Código \textit{Java}\ de envio de um pedido de ajuda.]
 boolean sendRequest() {
 	ArrayList<AID> peopleNear = environment.findNearAgents(myAgent);
 	if(peopleNear.isEmpty()) {
@@ -650,6 +649,65 @@ boolean sendRequest() {
 }
 \end{lstlisting}
 
+Os agentes a quem foi pedida ajuda respondem com uma mensagem \textit{ACCEPT\_PROPOSAL} ou \textit{REJECT\_PROPOSAL}, com uma dada probabilidade, associada ao seu altruísmo.
+
+\begin{lstlisting}[caption= Código \textit{Java}\ da função responsável pela receção de pedidos de direções.]
+void handleHelpRequest(ACLMessage request){
+	if((helped != null || handlingHelpRequest) && RandomHelper.nextIntFromTo(MIN_SCALE, MAX_SCALE) < getAltruisticFeeling() 
+	&& getMobility() > getMobilityHelpResponseThreshold()) {
+		ACLMessage reply = request.createReply();
+		reply.setPerformative(ACLMessage.PROPOSE);			
+		HelpReply replyMessage = new HelpReply(mobility, areaKnowledge);
+		getContentManager().fillContent(reply, replyMessage);
+		send(reply);
+	}
+}
+\end{lstlisting}
+
+O agente que pediu ajuda regista as propostas, e, após algum tempo, seleciona a melhor das propostas e envia uma confirmação.
+
+\begin{lstlisting}[caption= Código \textit{Java}\ das funções responsáveis pela receção e confirmação de prospostas de ajuda.]
+boolean receiveReplies() {
+	ACLMessage msg = receive(template);
+	
+	if(msg != null) {
+		HelpReply proposal = (HelpReply) getContentManager().extractContent(msg);
+		proposal.setProposerAID(msg.getSender());
+		proposals.add(proposal);
+	}else{
+		nAttempts++;
+	}
+	return nAttempts < MAX_ATTEMPTS;
+}
+
+void acceptBestProposal() {
+	proposals.sort();
+	HelpReply bestProposal = proposals.get(0);
+	proposals.remove(bestProposal);
+	
+	ACLMessage msg = new ACLMessage(ACLMessage.ACCEPT_PROPOSAL);
+	msg.addReceiver(bestProposal.getProposerAID());
+	msg.setLanguage(codec.getName());
+	msg.setOntology(serviceOntology.getName());
+	HelpConfirmation confirmationMessage = new HelpConfirmation(mobility, areaKnowledge);
+	getContentManager().fillContent(msg, confirmationMessage);
+	send(msg);
+	decreasePanic();
+	
+	Person helper = environment.findAgent(bestProposal.getProposerAID());
+	setHelper(helper);
+	shareMobility(bestProposal.getMobility());		
+	setAreaKnowledge(Integer.max(areaKnowledge, bestProposal.getAreaKnowledge()));
+	
+	if(!proposals.isEmpty()) {
+		msg.setPerformative(ACLMessage.REJECT_PROPOSAL);
+		for(HelpReply proposal: proposals) {
+			msg.addReceiver(proposal.getProposerAID());
+		}
+		send(msg);
+	}
+}
+\end{lstlisting}
 
 \item \textbf{Empurrões}
 
@@ -663,13 +721,11 @@ Se o agente empurrado estiver a ajudar ou a ser ajudado por outro, essa relaçã
 \begin{lstlisting}[caption= Código \textit{Java}\, da função que permite a uma pessoa «empurrar» outra.]
 void push(int selectedX, int selectedY) {
 	Person person = environment.userInCell(selectedX, selectedY);
-	
 	if(person == null || (selectedX == x && selectedY == y)){
 		return;
 	}
 	
-	boolean isPush = helped!=null ? !person.getAID().equals(helped.getAID()) : true;
-	
+	boolean isPush = helped!=null ? !person.getAID().equals(helped.getAID()) : true;	
 	if(isPush){
 		if(person.getHelper() != null){
 			person.getHelper().setHelpee(null);
@@ -694,7 +750,6 @@ void push(int selectedX, int selectedY) {
 \end{lstlisting}
 
 De notar que, para esta interação, não existe troca de mensagens entre os agentes, por se considerar esta aproximação mais próxima do que seria observável numa situação real.
-\newline
 
 \item \textbf{Movimento}
 (TODO)
@@ -703,28 +758,30 @@ De notar que, para esta interação, não existe troca de mensagens entre os age
 \end{itemize}
 
 \subsubsection{Ambiente}
-A representação do espaço é feita com recurso a múltiplas estruturas de dados, nomeadamente, uma \textit{Grid} (classe disponibilizada pelo \textit{Repast} que conterá os agentes), um \textit{array} bidimensional de caracteres com as posições das saídas e das paredes/obstáculos e um \textit{array} bidimensional de inteiros como um mapa de distâncias. Um utilizador tem a liberdade de indicar, na interface da simulação, um ficheiro com a configuração do ambiente onde estarão necessáriamente definidas as posições das saídas e das paredes/obstáculos.
+A representação do espaço é feita com recurso a múltiplas estruturas de dados, designadamente, uma \textit{Grid} - classe disponibilizada pelo \textit{Repast} - que contém os agentes, um \textit{array} bidimensional de caracteres com as posições das saídas e das paredes/obstáculos e um \textit{array} bidimensional de inteiros com um mapa de distâncias. 
+
+Um utilizador tem a liberdade de indicar, na interface da simulação, um ficheiro com a configuração do ambiente onde estarão necessariamente definidas as posições das saídas e das paredes/obstáculos.
 
 \begin{itemize}
 
 \item \textbf{Mapa de obstáculos e saídas}
 
-Este mapa é representado como um \textit{array} bidimensional com caracteres que representam as saídas, paredes/obstáculos ou espaços livres, nas posições em que estão definidas no ficheiro de configuração. Esta representação tanto é usada para a criação do mapa de distâncias como, em \textit{runtime}, para determinar se uma célula contem um obstáculo ou uma saída.
+Este mapa é representado como um \textit{array} bidimensional com caracteres que representam as saídas, paredes/obstáculos ou espaços livres, nas posições em que estão definidas no ficheiro de configuração. Esta representação é usada tanto para a criação do mapa de distâncias como para determinar,em \textit{runtime}, se uma célula contem um obstáculo ou uma saída.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.2]{map_text.png}
-	\caption{Representação visual dos conteúdos do mapa de obstáculos e saídas.}
+	\caption{Representação visual do conteúdo do mapa de obstáculos e saídas.}
 	\label{map}
 \end{figure}
 
 \item \textbf{Mapa de distâncias}
 
-Antes da execução da simulação, no momento em que o mapa é carregado, é construído um mapa de distâncias até às saídas. 
+Antes da execução da simulação, no momento em que o mapa é carregado, é construído um mapa com as distâncias até às saídas. 
 
 Este é obtido usando um algoritmo, semelhante a \textit{flooding}, que, começando a partir de cada saída, se propaga, colocando o valor atual de distância a essa saída nas células, parando de se propagar num certo sentido caso encontre uma célula já preenchida com um valor inferior ao valor que seria colocado ou caso encontre um obstáculo.
 \newpage
-\begin{lstlisting}[caption= Pseudo-código que retrata o algoritmo usado para o preenchimento do mapa de distâncias.]
+\begin{lstlisting}[caption= Pseudo-código do algoritmo usado para o preenchimento do mapa de distâncias.]
 generateDistanceMap() {
 	distanceMap; // Mapa de distancias
 
@@ -754,16 +811,15 @@ generateDistanceMap() {
 			distance++;
 		}
 	return distanceMap;		
-
 }
 \end{lstlisting}
 
-Este pré-processamento do melhor caminho até à saída mais próxima, a partir de cada célula, é uma abordagem válida, tendo em conta que o ambiente é estático. Revela também ter um desempenho considerávelmente melhor do que se fosse usado um algoritmo de \textit{path finding} a cada tentativa de movimento. 
+Este pré-processamento do melhor caminho até à saída mais próxima, a partir de cada célula, é uma abordagem válida, tendo em conta que se considerou o ambiente como sendo estático. Revela também ter um desempenho consideravelmente melhor do que se fosse usado um algoritmo de \textit{path finding} a cada tentativa de movimento. 
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.5]{map_distance.png}
-	\caption{Representação visual dos conteúdos do mapa de distâncias\protect\footnotemark.}
+	\caption{Representação visual do conteúdo do mapa de distâncias\protect\footnotemark.}
 	\label{map}
 \end{figure}
 
@@ -773,7 +829,7 @@ Este pré-processamento do melhor caminho até à saída mais próxima, a partir
 
 Para o ambiente ter uma representação visual na interface de simulação, é necessário o uso de uma \textit{Grid}, sendo que esta contém todos os agentes, obstáculos e saídas.
 
-A \textit{Grid} permite que um agente conheça a sua vizinhança, tornando possível usar a próximidade física entre agentes como um factor para os comportamentos entre estes. É também na \textit{Grid} que se observa o movimento dos agentes pelo espaço, contornando obstáculos e tentando atingir as saídas.
+A \textit{Grid} permite que um agente conheça a sua vizinhança, tornando possível usar a próximidade física entre agentes como um factor para os comportamentos entre estes. É também através desta \textit{Grid} que se pode observar o movimento dos agentes pelo espaço, contornando obstáculos e tentando atingir as saídas.
 
 \begin{figure}[H]
 	\centering
@@ -979,12 +1035,44 @@ Outra melhoria que poderia ser introduzida passaria pela criação de um novo ti
 
 \subsection{Manual de Utilizador}
 
-\subsubsection{Especificação de ficheiro de entrada}
+\subsubsection{Especificação do mapa}
 
-O ficheiro a partir do qual esta ferramenta interpreta o ambiente de simulação terá como conteúdo um conjunto de linhas, todas com comprimento idêntico, compostas pelos caracteres \textit{'W'} - que representa uma parede, ou, mais genéricamente, um obstáculo -, \textit{'E'} - que representa uma saída - e {' '}, que caracteriza um espaço livre. A ordem dos caracteres nas linhas, e das linhas no ficheiro, é a ordem considerada para a representação do mapa no ambiente na simulação.
+O ficheiro que especifica o espaço de simulação deverá ter como conteúdo um conjunto de linhas, todas com comprimento idêntico, compostas pelos caracteres \textit{'W'} - que representa uma parede, ou, mais genericamente, um obstáculo -, \textit{'E'} - que representa uma saída - e {' '}, que caracteriza um espaço livre. A ordem dos caracteres nas linhas, e das linhas no ficheiro, é a ordem considerada para a representação do mapa no ambiente na simulação.
 
-O ficheiro poderá ser selecionado na \textit{GUI} do \textit{Repast}, indo ao separador \textit{Parameters} na barra lateral, colocando o endereço para o ficheiro na caixa intitulada \textit{Environment File Name}.
+O ficheiro poderá ser selecionado na \textit{GUI} do \textit{Repast}, através do separador \textit{Parameters} na barra lateral, colocando o endereço para o ficheiro na caixa designada \textit{Environment File Name}.
 
+\subsubsection{Especificação do cenário}
+
+O ficheiro que especifica a população a usar na simulação é um ficheiro .xml, e permite configurar tanto factores como atributos dos vários agentes a evacuar:
+\begin{lstlisting}
+<scenario 
+panicVariation="INT"
+mobilityVariation="INT"
+knowledgeAcquisitionFactor="DOUBLE"
+patienceVariation="INT"
+patienceThreshold="INT"
+>
+	<person>
+		<areaKnowledge>INT</areaKnowledge>
+		<altruism>INT</altruism>
+		<independence>INT</independence>
+		<patienceVariation>INT</patienceVariation>
+		<mobility>INT</mobility>
+		<panic>INT</panic>
+		<age>INT</age>
+	</person>
+</scenario>
+\end{lstlisting}
+
+O ficheiro poderá ser selecionado na \textit{GUI} do \textit{Repast}, através do separador \textit{Parameters} na barra lateral, colocando o endereço para o ficheiro na caixa designada \textit{Scenario File Name}.
+
+\subsubsection{Utilização}
+
+Após a especificação do mapa e cenário a utilizar, é conveniente, para efeitos de visualização, alterar o parâmetro \textit{Schedule Tick Delay}, através do separador \textit{Run Options}. Nas experiências utilizadas, utilizaram-se \textit{delays} de valor entre 30 a 60.
+
+Concluído este passo, pode dar-se início à simulação, do mesmo modo que seria iniciada uma qualquer simulação \textit{Respast}.
+
+Além de se poder acompanhar a evacuação visualmente, através de um \textit{display} do espaço e pessoas a evacuar, é possível acompanhar e analisar a evolução do processo, através de um gráfico que monitoriza o valor médio de alguns dos atributos definidos para os agentes, e de um outro gráfico, que regista o número de evacuados e mortos. Adicionalmente, é possível observar o registo da execução, que mostra mensagens relevantes para compreender algumas das interações observadas.
 
 \end{titlepage}
 \end{document}
