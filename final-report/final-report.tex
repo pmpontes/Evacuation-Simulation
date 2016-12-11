@@ -204,7 +204,6 @@ Deste modo, tem-se que os agentes implementados são autónomos, proativos e rea
 \begin{table}[H]
 	\centering
 	\label{agent-attributes}
-	\caption{Atributos dos agentes implementados, que condicionam os seus comportamentos.}
 	\begin{tabular}{@{}lll@{}}
 		\toprule
 		\rowcolor[HTML]{FFFFFF} 
@@ -227,7 +226,7 @@ Deste modo, tem-se que os agentes implementados são autónomos, proativos e rea
 		\rowcolor[HTML]{FFFFFF} 
 		paciência     & int & \begin{tabular}[c]{@{}l@{}}{[}0,100{]}\\determina a probabilidade de reagir de\\ intempestivamente\end{tabular}                                                   \\ \midrule
 	\end{tabular}
-
+	\caption{Atributos dos agentes implementados, que condicionam os seus comportamentos.}
 \end{table}
 \newpage
 
@@ -238,7 +237,6 @@ Em função dos atributos de independência e de conhecimento da área, consider
 \begin{table}[H]
 	\centering
 	\label{agent-types}
-	\caption{Diferentes tipos de agente, de acordo com os valore possíveis para os atributos considerados.}
 	\begin{tabular}{@{}lll@{}}
 		\toprule
 		\rowcolor[HTML]{FFFFFF} 
@@ -265,6 +263,7 @@ Em função dos atributos de independência e de conhecimento da área, consider
  		\begin{tabular}{@{}lll@{}}
  			[0, 50] & \hspace{1.2cm} [0, 50] \end{tabular}\\ \midrule 
 	\end{tabular}
+	\caption{Diferentes tipos de agente, de acordo com os valore possíveis para os atributos considerados.}
 \end{table}
 
 Esta classificação permitiu a definição, ao nível de interface, de diferentes representações para os vários tipos de agente, permitindo estabelecer visualmente a relação entre o tipo de agente e os seus comportamentos.
@@ -274,7 +273,6 @@ Esta classificação permitiu a definição, ao nível de interface, de diferent
 \begin{table}[H]
 	\centering
 	\label{agent-behaviours}
-	\caption{Comportamentos dos agentes.}
 	\begin{tabular}{@{}lll@{}}
 		\toprule
 		\rowcolor[HTML]{FFFFFF} 
@@ -291,7 +289,7 @@ Esta classificação permitiu a definição, ao nível de interface, de diferent
 	    \begin{tabular}[c]{@{}l@{}}Pedido de\\Ajuda\end{tabular} & \begin{tabular}[c]{@{}l@{}}Um agente incapaz de se mover de forma autónoma\\ pede ajuda aos agentes na sua proximidade.\end{tabular}  \\ \midrule 
 		                                                       
 	\end{tabular}
-	
+		\caption{Comportamentos dos agentes.}
 \end{table}
 
 \subsection{Interações}
@@ -334,7 +332,7 @@ Aqueles que recebem esta mensagem, podem, ou não, propagar a mensagem e aumenta
 	\label{uml}
 \end{figure}
 
-\item Orientação.
+\item Orientação;
 
 Duas pessoas podem partilhar conhecimento sobre a área, mediante um pedido nesse sentido. Um agente que tenha pouco conhecimento da área pode enviar a um agente ao seu redor uma mensagem \textit{CFP}, a que esse agente responde com uma dada probabilidade - dependente do valor do atributo altruísmo. A resposta consiste numa mensagem \textit{INFORM}, com o valor do seu conhecimento da área, \textit{conhecimento1}. Por forma a simular a aquisição de informação, o agente que fez o pedido atualizará o seu nível de conhecimento da área, \textit{conhecimento2}, de acordo com:
 
@@ -351,17 +349,17 @@ onde FAC representa um fator de aquisição de conhecimento, de valor configurá
 \newpage
 
 
-\item Ajuda;
+\item Ajuda.
 
 Um agente pode pedir ajuda, enviando uma mensagem \textit{CFP} para agentes ao seu redor. Os agentes na disposição de ajudar podem oferecer a sua ajuda, enviando uma mensagem \textit{PROPOSAL}, com o valor da sua mobilidade, \textit{mobilidade1}.
 
 O autor do pedido de ajuda aceita a melhor oferta, respondendo com uma mensagem \textit{ACCEPT\_PROPOSAL}, com o valor da sua mobilidade, \textit{mobilidade2}, rejeitando as demais ofertas com uma mensagem \textit{REJECT\_PROPOSAL}. O agente que ofereceu ajuda passa a guiar o outro até à saída, sendo a mobilidade de cada um dada por:
 
-\[	mobilidade1 = mobilidade2 = \frac{mobilidade1 + moblidade2}{2} \]
+\[	mobilidade1 = mobilidade2 = \frac{mobilidade1 + moblidade2}{2} \]\newline
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.4]{help-behaviour.jpg}
+	\includegraphics[scale=0.45]{help-behaviour.jpg}
 	\caption{Diagrama de sequência exemplificando uma interação do tipo Ajuda.}
 	\label{uml}
 \end{figure}
@@ -407,54 +405,70 @@ O desenvolvimento decorreu em ambiente \textit{Windows} 10 e usando a versão \t
 
 O \textit{Repast} é uma \textit{framework open-source} que permite criar, analisar e experimentar com mundos artificiais populados por agentes que interagem de forma não trivial.
 
-Concretamente, irá utilizar-se a sua mais recente versão - \textit{Repast Simphony}, que permite programar em \textit{Java} a estrutura espacial, a estrutura lógica e os comportamentos dos agentes.
+Concretamente, utilizou-se a sua mais recente versão - \textit{Repast Simphony}, que permite programar em \textit{Java} a estrutura espacial, a estrutura lógica e os comportamentos dos agentes.
 
-Tendo sido amplamente utilizado em aplicações de simulação, considera-se de particular utilidade tendo em conta, por um lado, o foco emna modelar ção do comportamento social e, por outro, a recolha de métricas associadas às simulações realizadas. Por último, tem-se a vantagem de poder acompanhar, de forma visual, o decorrer da simulação.
+Tem sido amplamente utilizado em aplicações de simulação, e, no caso, considerou-se de particular utilidade, por um lado, a capacidade de definir e lidar com estruturas espaciais e, por outro, a recolha de métricas associadas às simulações realizadas. Por último, tem-se a vantagem de poder acompanhar, de forma visual, o decorrer da simulação.
 
-Adicionalmente, irá utilizar-se a \textit{API SAJaS}, que possibilita a integração de agentes \textit{JADE} com \textit{Repast}, permitindo definir os comportamentos de agentes e fazer uso das capacidades de comunicação entre agentes, visando simular as interações expectáveis num cenário de evacuação.
+Adicionalmente, utilizou-se a \textit{API SAJaS}, que possibilitou a integração de agentes \textit{JADE} com \textit{Repast}, permitindo definir os comportamentos de agentes e fazer uso das capacidades de comunicação entre agentes, visando simular as interações expectáveis num cenário de evacuação.
 
 \subsection{Estrutura}
 
 A aplicação pode, a nível lógico, dividir-se em diferentes módulos, com responsabilidades distintas.
-
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.5]{packages.jpg}
+	\includegraphics[scale=0.8]{packages.jpg}
 	\caption{Diagrama ilustrativo da estrutura lógica do projeto.}
 	\label{uml}
 \end{figure}
 
-O módulo \textit{Simulation} é responsável pela configuração da simulação, no que diz respeito às ferramentas usadas - \textit{Repast}, \textit{JADE} e \textit{SAJaS}.
+O módulo \textit{Simulation} é responsável, por um lado, pela configuração da simulação, no que diz respeito às ferramentas usadas - \textit{Repast}, \textit{JADE} e \textit{SAJaS} -, e, por outro lado, pela definição do cenário da simulação - tanto o espaço como a população a evacuar. 
+
+Adicionalmente, inclui a componente de recolha de estatísticas da simulação - \textit{ResultsCollector} -, implementado como um agente, cuja função é receber dados relativos à evacuação de cada uma das pessoas evacuadas.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.6]{simulation.jpg}
+	\includegraphics[scale=0.8]{simulation.jpg}
 	\caption{Classes do módulo \textit{Simulation}.}
 	\label{uml}
 \end{figure}
+\newpage
+O módulo \textit{Environment} contempla tudo o que se relaciona com a definição da estrutura espacial da simulação, bem como a sua configuração.\newline
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.5]{environment.jpg}
+	\includegraphics[scale=0.6]{environment.jpg}
 	\caption{Classes do módulo \textit{Environment}.}
 	\label{uml}
 \end{figure}
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.5]{person.jpg}
-	\caption{Classes do módulo \textit{Person}.}
-	\label{uml}
-\end{figure}
+O módulo \textit{Person} é formado pela classe \textit{Person} - subclasse de \textit{Agent} e onde são definidos os atributos e comportamentos de uma pessoa -, bem como as suas várias subclasses.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.5]{communication.jpg}
+	\includegraphics[scale=0.8]{person.jpg}
+	\caption{Classes do módulo \textit{Person}.}
+	\label{uml}
+\end{figure}
+\newpage
+O módulo \textit{Communiation} é formado pelas classes usadas na implementação da comunicação entre agentes. Estas classes são tipos de mensagens trocadas em interações entre agentes, e caracterizam a \textit{SimulationOntology}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.7]{communication.jpg}
 	\caption{Classes do módulo \textit{Communication}.}
 	\label{uml}
 \end{figure}
 
-\subsection{Detalhes}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{classes.jpg}
+	\caption{Diagrama de classes do projeto (simplificado).}
+	\label{uml}
+\end{figure}
+
+
+\newpage
+\subsection{Detalhes de Implementação}
 \subsubsection{Agentes}
 
 \begin{itemize}
@@ -508,9 +522,35 @@ public int getUsableKnowledge() {
 }
 \end{lstlisting}
 
+De referir que, para todos os atributos, sempre que é feita uma atribuição - por meio do uso de um método \textit{setAtributo(novoValor)}, o valor desse atributo é atualizado para o novo valor apenas se respeitar os limites definidos.
+\newline
+\begin{lstlisting}[caption= Código \textit{Java}\ da função que assegura que os vários atributos respeitam os limites definidos.]
+int enforceBounds(int attribute) {
+	if(attribute > MAX_SCALE){
+		return MAX_SCALE;
+	}else if(attribute < MIN_SCALE){
+		return MIN_SCALE;
+	}else{
+		return attribute;
+	}
+}
+\end{lstlisting}
+\newpage
 
 \item \textbf{Mecanismo de Pânico}
 
+Pela especificação, um agente cujo nível de pânico sobe acima de um certo nível envia uma mensagem \textit{PROPAGATE} para agentes na proximidade, sempre que atualiza o seu nível de pânico.
+
+\begin{lstlisting}[caption= Código \textit{Java}\ responsável pelo envio de um grito.]
+ACLMessage msg = receive(template);
+if(msg!= null) {
+	if(msg.getContent().equals(SCREAM_MESSAGE)){
+		increasePanic();
+	}
+}
+\end{lstlisting}
+
+Aqueles que recebem esta mensagem, podem, ou não, propagar a mensagem e aumentam o seu estado de pânico - variação que depende de diversos fatores: assumiu-se que as pessoas mais independentes são menos influenciáveis pelos gritos dos outros enquanto os mais jovens ou mais idosos são mais impressionáveis.\newline
 
 
 \item \textbf{Partilha de Direções}
@@ -519,16 +559,10 @@ Conforme a especificação, duas pessoas podem partilhar conhecimento sobre a á
 
 A cada instante, um agente que tenha pouco conhecimento da área pode - com uma probabilidade inversamente proporcional a esse conhecimento - enviar a um agente ao seu redor uma mensagem \textit{CFP}.
 
-\begin{lstlisting}[caption= Código \textit{Java}\, responsável pelo envio de um pedido de direções.]
-/**
-* makeRequest.
-* Sends a CFP containing a DirectionsRequest to an agent nearby, selected randomly.
-* @return true upon success, false otherwise
-*/
+\begin{lstlisting}[caption= Código \textit{Java}\ da função responsável pelo envio de um pedido de direções.]
 boolean sendDirectionsRequest() {
 	ArrayList<AID> peopleNear = environment.findNearAgents(myAgent, REQUEST_DISTANCE);
 	peopleNear.removeAll(previousReplies);
-	
 	SimUtilities.shuffle(peopleNear,  RandomHelper.getUniform());
 	if(peopleNear.isEmpty()) {
 		return false;
@@ -544,14 +578,9 @@ boolean sendDirectionsRequest() {
 }
 \end{lstlisting}
 
-O agente a quem foram pedidas direções responde com uma mensagem \textit{INFORM} ou \textit{REFUSE} uma dada probabilidade.
+O agente a quem foram pedidas direções responde com uma mensagem \textit{INFORM} ou \textit{REFUSE}, com uma dada probabilidade, associada ao seu altruísmo.
 
-\begin{lstlisting}[caption= Código \textit{Java}\, responsável pela receção de pedidos de direções.]
-/**
-* Handle a request for direction, by 'sharing' areaKnowledge. 
-* Requests are ignored  if the person is not feeling altruistic.
-* @param request
-*/
+\begin{lstlisting}[caption= Código \textit{Java}\ da função responsável pela receção de pedidos de direções.]
 void handleDirectionsRequest(ACLMessage request) {
 	ACLMessage reply = request.createReply();
 	
@@ -569,12 +598,7 @@ void handleDirectionsRequest(ACLMessage request) {
 
 O agente que pediu direções atualiza o seu conhecimento da área.
 
-\begin{lstlisting}[caption= Código \textit{Java}\, responsável pela receção de respostas a um pedido de direções.]
-/**
-* receiveReply.
-* Attempts to receive a reply of type INFORM or REFUSE.
-* Updates areaKnowledge to a percentage of the knowledge of the person answering, if it is greater than the current value.
-*/
+\begin{lstlisting}[caption= Código \textit{Java}\ da função responsável pela receção de respostas a um pedido de direções.]
 void receiveReply() {
 	ACLMessage msg = receive(template);
 	if(msg == null) {
@@ -597,10 +621,135 @@ void receiveReply() {
 	}
 }
 \end{lstlisting}
-
-
 \item \textbf{Ajuda}
 
+Seguindo a especificação, uma pessoa com mobilidade reduzida pode pedir ajuda a outra na sua proximidade. 
+
+A cada instante, um agente que tenha pouca mobilidade da área pode - com uma probabilidade inversamente proporcional a essa mobilidade - enviar aos agentes ao seu redor uma mensagem \textit{CFP}.
+
+\begin{lstlisting}[caption= Código \textit{Java}\ de envio de um pedido de ajuda.]
+boolean sendRequest() {
+	ArrayList<AID> peopleNear = environment.findNearAgents(myAgent);
+	if(peopleNear.isEmpty()) {
+		return false;
+	}
+
+	ACLMessage helpRequest = new ACLMessage(ACLMessage.CFP);
+	for(AID person : peopleNear)
+		helpRequest.addReceiver(person);
+	
+	helpRequest.setLanguage(codec.getName());
+	helpRequest.setOntology(serviceOntology.getName());
+	
+	HelpRequest requestMessage = new HelpRequest();
+	getContentManager().fillContent(helpRequest, requestMessage);
+	send(helpRequest);
+	
+	return true;
+}
+\end{lstlisting}
+
+Os agentes a quem foi pedida ajuda respondem com uma mensagem \textit{ACCEPT\_PROPOSAL} ou \textit{REJECT\_PROPOSAL}, com uma dada probabilidade, associada ao seu altruísmo.
+
+\begin{lstlisting}[caption= Código \textit{Java}\ da função responsável pela receção de pedidos de direções.]
+void handleHelpRequest(ACLMessage request){
+	if((helped != null || handlingHelpRequest) && RandomHelper.nextIntFromTo(MIN_SCALE, MAX_SCALE) < getAltruisticFeeling() 
+	&& getMobility() > getMobilityHelpResponseThreshold()) {
+		ACLMessage reply = request.createReply();
+		reply.setPerformative(ACLMessage.PROPOSE);			
+		HelpReply replyMessage = new HelpReply(mobility, areaKnowledge);
+		getContentManager().fillContent(reply, replyMessage);
+		send(reply);
+	}
+}
+\end{lstlisting}
+
+O agente que pediu ajuda regista as propostas, e, após algum tempo, seleciona a melhor das propostas e envia uma confirmação.
+
+\begin{lstlisting}[caption= Código \textit{Java}\ das funções responsáveis pela receção e confirmação de prospostas de ajuda.]
+boolean receiveReplies() {
+	ACLMessage msg = receive(template);
+	
+	if(msg != null) {
+		HelpReply proposal = (HelpReply) getContentManager().extractContent(msg);
+		proposal.setProposerAID(msg.getSender());
+		proposals.add(proposal);
+	}else{
+		nAttempts++;
+	}
+	return nAttempts < MAX_ATTEMPTS;
+}
+
+void acceptBestProposal() {
+	proposals.sort();
+	HelpReply bestProposal = proposals.get(0);
+	proposals.remove(bestProposal);
+	
+	ACLMessage msg = new ACLMessage(ACLMessage.ACCEPT_PROPOSAL);
+	msg.addReceiver(bestProposal.getProposerAID());
+	msg.setLanguage(codec.getName());
+	msg.setOntology(serviceOntology.getName());
+	HelpConfirmation confirmationMessage = new HelpConfirmation(mobility, areaKnowledge);
+	getContentManager().fillContent(msg, confirmationMessage);
+	send(msg);
+	decreasePanic();
+	
+	Person helper = environment.findAgent(bestProposal.getProposerAID());
+	setHelper(helper);
+	shareMobility(bestProposal.getMobility());		
+	setAreaKnowledge(Integer.max(areaKnowledge, bestProposal.getAreaKnowledge()));
+	
+	if(!proposals.isEmpty()) {
+		msg.setPerformative(ACLMessage.REJECT_PROPOSAL);
+		for(HelpReply proposal: proposals) {
+			msg.addReceiver(proposal.getProposerAID());
+		}
+		send(msg);
+	}
+}
+\end{lstlisting}
+
+\item \textbf{Empurrões}
+
+No contexto do problema, designou-se por «empurrão» a interação entre duas pessoas em que uma das pessoas, ao tentar mover-se, tem alguém à sua frente e decide removê-la do seu caminho à força, «empurrando-a».
+
+Na circunstância de o caminho selecionado se encontrar obstruído, um agente pode - conforme o seu estado de pânico ou impaciência - «empurrar» o agente que está a provocar esse bloqueio.
+
+Efetivamente, o «empurrão» consiste na troca de posições entre dois agentes. O agente que é «empurrado» vê a sua mobilidade reduzida e o seu nível de pânico aumentar.
+Se o agente empurrado estiver a ajudar ou a ser ajudado por outro, essa relação de ajuda é terminada.
+
+\begin{lstlisting}[caption= Código \textit{Java}\, da função que permite a uma pessoa «empurrar» outra.]
+void push(int selectedX, int selectedY) {
+	Person person = environment.userInCell(selectedX, selectedY);
+	if(person == null || (selectedX == x && selectedY == y)){
+		return;
+	}
+	
+	boolean isPush = helped!=null ? !person.getAID().equals(helped.getAID()) : true;	
+	if(isPush){
+		if(person.getHelper() != null){
+			person.getHelper().setHelpee(null);
+			setHelper(null);
+		}else{
+			if(person.getHelpee() != null){
+				person.getHelpee().setHelper(null);
+				setHelpee(null);
+			}	
+			person.increasePanic();
+		}	
+		person.decreaseMobility();
+	}			
+	
+	if(RandomHelper.nextIntFromTo(MIN_SCALE, MAX_SCALE) > altruism) {
+		person.decreasePatience();
+	}
+	
+	person.moveTo(x, y);
+	moveTo(selectedX, selectedY);
+}
+\end{lstlisting}
+
+De notar que, para esta interação, não existe troca de mensagens entre os agentes, por se considerar esta aproximação mais próxima do que seria observável numa situação real.
 
 \item \textbf{Movimento}
 (TODO)
@@ -609,28 +758,30 @@ void receiveReply() {
 \end{itemize}
 
 \subsubsection{Ambiente}
-A representação do espaço é feita com recurso a múltiplas estruturas de dados, nomeadamente, uma \textit{Grid} (classe disponibilizada pelo \textit{Repast} que conterá os agentes), um \textit{array} bidimensional de caracteres com as posições das saídas e das paredes/obstáculos e um \textit{array} bidimensional de inteiros como um mapa de distâncias. Um utilizador tem a liberdade de indicar, na interface da simulação, um ficheiro com a configuração do ambiente onde estarão necessáriamente definidas as posições das saídas e das paredes/obstáculos.
+A representação do espaço é feita com recurso a múltiplas estruturas de dados, designadamente, uma \textit{Grid} - classe disponibilizada pelo \textit{Repast} - que contém os agentes, um \textit{array} bidimensional de caracteres com as posições das saídas e das paredes/obstáculos e um \textit{array} bidimensional de inteiros com um mapa de distâncias. 
+
+Um utilizador tem a liberdade de indicar, na interface da simulação, um ficheiro com a configuração do ambiente onde estarão necessariamente definidas as posições das saídas e das paredes/obstáculos.
 
 \begin{itemize}
 
 \item \textbf{Mapa de obstáculos e saídas}
 
-Este mapa é representado como um \textit{array} bidimensional com caracteres que representam as saídas, paredes/obstáculos ou espaços livres, nas posições em que estão definidas no ficheiro de configuração. Esta representação tanto é usada para a criação do mapa de distâncias como, em \textit{runtime}, para determinar se uma célula contem um obstáculo ou uma saída.
+Este mapa é representado como um \textit{array} bidimensional com caracteres que representam as saídas, paredes/obstáculos ou espaços livres, nas posições em que estão definidas no ficheiro de configuração. Esta representação é usada tanto para a criação do mapa de distâncias como para determinar,em \textit{runtime}, se uma célula contem um obstáculo ou uma saída.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.2]{map_text.png}
-	\caption{Representação visual dos conteúdos do mapa de obstáculos e saídas.}
+	\caption{Representação visual do conteúdo do mapa de obstáculos e saídas.}
 	\label{map}
 \end{figure}
 
 \item \textbf{Mapa de distâncias}
 
-Antes da execução da simulação, no momento em que o mapa é carregado, é construído um mapa de distâncias até às saídas. 
+Antes da execução da simulação, no momento em que o mapa é carregado, é construído um mapa com as distâncias até às saídas. 
 
 Este é obtido usando um algoritmo, semelhante a \textit{flooding}, que, começando a partir de cada saída, se propaga, colocando o valor atual de distância a essa saída nas células, parando de se propagar num certo sentido caso encontre uma célula já preenchida com um valor inferior ao valor que seria colocado ou caso encontre um obstáculo.
 \newpage
-\begin{lstlisting}[caption= Pseudo-código que retrata o algoritmo usado para o preenchimento do mapa de distâncias.]
+\begin{lstlisting}[caption= Pseudo-código do algoritmo usado para o preenchimento do mapa de distâncias.]
 generateDistanceMap() {
 	distanceMap; // Mapa de distancias
 
@@ -660,16 +811,15 @@ generateDistanceMap() {
 			distance++;
 		}
 	return distanceMap;		
-
 }
 \end{lstlisting}
 
-Este pré-processamento do melhor caminho até à saída mais próxima, a partir de cada célula, é uma abordagem válida, tendo em conta que o ambiente é estático. Revela também ter um desempenho considerávelmente melhor do que se fosse usado um algoritmo de \textit{path finding} a cada tentativa de movimento. 
+Este pré-processamento do melhor caminho até à saída mais próxima, a partir de cada célula, é uma abordagem válida, tendo em conta que se considerou o ambiente como sendo estático. Revela também ter um desempenho consideravelmente melhor do que se fosse usado um algoritmo de \textit{path finding} a cada tentativa de movimento. 
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.5]{map_distance.png}
-	\caption{Representação visual dos conteúdos do mapa de distâncias\protect\footnotemark.}
+	\caption{Representação visual do conteúdo do mapa de distâncias\protect\footnotemark.}
 	\label{map}
 \end{figure}
 
@@ -679,7 +829,7 @@ Este pré-processamento do melhor caminho até à saída mais próxima, a partir
 
 Para o ambiente ter uma representação visual na interface de simulação, é necessário o uso de uma \textit{Grid}, sendo que esta contém todos os agentes, obstáculos e saídas.
 
-A \textit{Grid} permite que um agente conheça a sua vizinhança, tornando possível usar a próximidade física entre agentes como um factor para os comportamentos entre estes. É também na \textit{Grid} que se observa o movimento dos agentes pelo espaço, contornando obstáculos e tentando atingir as saídas.
+A \textit{Grid} permite que um agente conheça a sua vizinhança, tornando possível usar a próximidade física entre agentes como um factor para os comportamentos entre estes. É também através desta \textit{Grid} que se pode observar o movimento dos agentes pelo espaço, contornando obstáculos e tentando atingir as saídas.
 
 \begin{figure}[H]
 	\centering
@@ -693,7 +843,7 @@ A \textit{Grid} permite que um agente conheça a sua vizinhança, tornando poss�
 \newpage
 \section{Experimentação}
 
-Ao longo do processo de desenvolvimento foram levadas a cabo múltiplas experiências, com vista a testar a implementação dos Agentes.
+Ao longo do processo de desenvolvimento foram levadas a cabo múltiplas experiências, com vista a testar a implementação dos agentes.
 \begin{itemize}
 	
 %----------------------------------------------------------------------------------------
@@ -849,9 +999,9 @@ Da análise dos resultados das experiências levadas a cabo
 
 \section{Melhorias}
 
-Primeiramente, considera-se que seria útil a possibilidade de poder definir o espaço usando um \textit{GUI}.
+Considera-se que uma possível melhoria, seria a introdução de obstáculos dinâmicos no espaço, como os elementos fumo e fogo. Tal poderia ser implementado, por exemplo, usando um agente com a capacidade de se replicar ao longo do tempo para posições adjacentes, simulando a propagação de um incêndio. Agentes na proximidade poderiam sufocar ou queimar-se, vendo a sua mobilidade reduzida ou mesmo morrer.
 
-No que respeita a melhorias da simulação propriamente dita, uma possível melhoria, seria a introdução de um elemento fogo no espaço. Tal poderia ser implementado, por exemplo, usando um agente com a capacidade de se replicar ao longo do tempo para posições adjacentes, simulando a propagação de um incêndio. Agentes na proximidade poderiam queimar-se, vendo a sua mobilidade reduzida ou mesmo morrendo.
+Outra melhoria que poderia ser introduzida passaria pela criação de um novo tipo de agente, cuja única função seria coordenar a evacuação, ajudando aqueles que precisassem de ajuda a chegar à saída. Estes agentes de segurança poderiam existir em qualquer número e deveriam coordenar-se entre si, por modo a garantir que o espaço era evacuado, i.e., que todas as pessoas (vivas) chegavam à saída.
 
 
 
@@ -859,11 +1009,11 @@ No que respeita a melhorias da simulação propriamente dita, uma possível melh
 \subsection{Bibliografia}
 [1] Almeida, João; Rosseti, Rosaldo; Coelho, António: \textit{Crowd Simulation Modeling Applied to Emergency and Evacuation Simulations using Multi-Agent Systems}. 2011.
 
-[2] FIPA: \textit{FIPA Specification}. Disponível online em \url{http://www.fipa.org/specs/fipa00037/SC00037J.pdf}. Consultado em novembro de 2016.
+[2] \textit{FIPA: FIPA Specification}. Disponível online em \url{http://www.fipa.org/specs/fipa00037/SC00037J.pdf}. Consultado em novembro de 2016.
 
-[3] Respast: \textit{Repast Simphony Documentation}. Disponível online em \url{http://repast.sourceforge.net/docs/api/repast_simphony/index.html}. Consultado em novembro de 2016.
+[3] \textit{Respast: Repast Simphony Documentation}. Disponível online em \url{http://repast.sourceforge.net/docs/api/repast_simphony/index.html}. Consultado em novembro de 2016.
 
-[4] SAJaS: \textit{SAJaS Documentation}. Disponível online em \url{https://web.fe.up.pt/~hlc/doku.php?id=sajas}. Consultado em novembro de 2016.
+[4] \textit{SAJaS: SAJaS Documentation}. Disponível online em \url{https://web.fe.up.pt/~hlc/doku.php?id=sajas}. Consultado em novembro de 2016.
 
 
 \subsection{Software}
@@ -885,12 +1035,44 @@ No que respeita a melhorias da simulação propriamente dita, uma possível melh
 
 \subsection{Manual de Utilizador}
 
-\subsubsection{Especificação de ficheiro de entrada}
+\subsubsection{Especificação do mapa}
 
-O ficheiro a partir do qual esta ferramenta interpreta o ambiente de simulação terá como conteúdo um conjunto de linhas, todas com comprimento idêntico, compostas pelos caracteres \textit{'W'} - que representa uma parede, ou, mais genéricamente, um obstáculo -, \textit{'E'} - que representa uma saída - e {' '}, que caracteriza um espaço livre. A ordem dos caracteres nas linhas, e das linhas no ficheiro, é a ordem considerada para a representação do mapa no ambiente na simulação.
+O ficheiro que especifica o espaço de simulação deverá ter como conteúdo um conjunto de linhas, todas com comprimento idêntico, compostas pelos caracteres \textit{'W'} - que representa uma parede, ou, mais genericamente, um obstáculo -, \textit{'E'} - que representa uma saída - e {' '}, que caracteriza um espaço livre. A ordem dos caracteres nas linhas, e das linhas no ficheiro, é a ordem considerada para a representação do mapa no ambiente na simulação.
 
-O ficheiro poderá ser selecionado na \textit{GUI} do \textit{Repast}, indo ao separador \textit{Parameters} na barra lateral, colocando o endereço para o ficheiro na caixa intitulada \textit{Environment File Name}.
+O ficheiro poderá ser selecionado na \textit{GUI} do \textit{Repast}, através do separador \textit{Parameters} na barra lateral, colocando o endereço para o ficheiro na caixa designada \textit{Environment File Name}.
 
+\subsubsection{Especificação do cenário}
+
+O ficheiro que especifica a população a usar na simulação é um ficheiro .xml, e permite configurar tanto factores como atributos dos vários agentes a evacuar:
+\begin{lstlisting}
+<scenario 
+panicVariation="INT"
+mobilityVariation="INT"
+knowledgeAcquisitionFactor="DOUBLE"
+patienceVariation="INT"
+patienceThreshold="INT"
+>
+	<person>
+		<areaKnowledge>INT</areaKnowledge>
+		<altruism>INT</altruism>
+		<independence>INT</independence>
+		<patienceVariation>INT</patienceVariation>
+		<mobility>INT</mobility>
+		<panic>INT</panic>
+		<age>INT</age>
+	</person>
+</scenario>
+\end{lstlisting}
+
+O ficheiro poderá ser selecionado na \textit{GUI} do \textit{Repast}, através do separador \textit{Parameters} na barra lateral, colocando o endereço para o ficheiro na caixa designada \textit{Scenario File Name}.
+
+\subsubsection{Utilização}
+
+Após a especificação do mapa e cenário a utilizar, é conveniente, para efeitos de visualização, alterar o parâmetro \textit{Schedule Tick Delay}, através do separador \textit{Run Options}. Nas experiências utilizadas, utilizaram-se \textit{delays} de valor entre 30 a 60.
+
+Concluído este passo, pode dar-se início à simulação, do mesmo modo que seria iniciada uma qualquer simulação \textit{Respast}.
+
+Além de se poder acompanhar a evacuação visualmente, através de um \textit{display} do espaço e pessoas a evacuar, é possível acompanhar e analisar a evolução do processo, através de um gráfico que monitoriza o valor médio de alguns dos atributos definidos para os agentes, e de um outro gráfico, que regista o número de evacuados e mortos. Adicionalmente, é possível observar o registo da execução, que mostra mensagens relevantes para compreender algumas das interações observadas.
 
 \end{titlepage}
 \end{document}

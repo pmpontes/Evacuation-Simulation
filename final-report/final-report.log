@@ -1,0 +1,1503 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.10.21)  11 DEC 2016 19:39
+entering extended mode
+**./final-report.tex
+(final-report.tex
+LaTeX2e <2016/03/31> patch level 3
+Babel <3.9r> and hyphenation patterns for 75 language(s) loaded.
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\article.cls"
+Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\size12.clo"
+File: size12.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\inputenc.sty"
+Package: inputenc 2015/03/17 v1.2c Input encoding file
+\inpenc@prehook=\toks14
+\inpenc@posthook=\toks15
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\utf8.def"
+File: utf8.def 2016/02/28 v1.1s UTF-8 support for inputenc
+Now handling font encoding OML ...
+... no UTF-8 mapping file for font encoding OML
+Now handling font encoding T1 ...
+... processing UTF-8 mapping file for font encoding T1
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\t1enc.dfu"
+File: t1enc.dfu 2016/02/28 v1.1s UTF-8 support for inputenc
+   defining Unicode char U+00A0 (decimal 160)
+   defining Unicode char U+00A1 (decimal 161)
+   defining Unicode char U+00A3 (decimal 163)
+   defining Unicode char U+00AB (decimal 171)
+   defining Unicode char U+00AD (decimal 173)
+   defining Unicode char U+00BB (decimal 187)
+   defining Unicode char U+00BF (decimal 191)
+   defining Unicode char U+00C0 (decimal 192)
+   defining Unicode char U+00C1 (decimal 193)
+   defining Unicode char U+00C2 (decimal 194)
+   defining Unicode char U+00C3 (decimal 195)
+   defining Unicode char U+00C4 (decimal 196)
+   defining Unicode char U+00C5 (decimal 197)
+   defining Unicode char U+00C6 (decimal 198)
+   defining Unicode char U+00C7 (decimal 199)
+   defining Unicode char U+00C8 (decimal 200)
+   defining Unicode char U+00C9 (decimal 201)
+   defining Unicode char U+00CA (decimal 202)
+   defining Unicode char U+00CB (decimal 203)
+   defining Unicode char U+00CC (decimal 204)
+   defining Unicode char U+00CD (decimal 205)
+   defining Unicode char U+00CE (decimal 206)
+   defining Unicode char U+00CF (decimal 207)
+   defining Unicode char U+00D0 (decimal 208)
+   defining Unicode char U+00D1 (decimal 209)
+   defining Unicode char U+00D2 (decimal 210)
+   defining Unicode char U+00D3 (decimal 211)
+   defining Unicode char U+00D4 (decimal 212)
+   defining Unicode char U+00D5 (decimal 213)
+   defining Unicode char U+00D6 (decimal 214)
+   defining Unicode char U+00D8 (decimal 216)
+   defining Unicode char U+00D9 (decimal 217)
+   defining Unicode char U+00DA (decimal 218)
+   defining Unicode char U+00DB (decimal 219)
+   defining Unicode char U+00DC (decimal 220)
+   defining Unicode char U+00DD (decimal 221)
+   defining Unicode char U+00DE (decimal 222)
+   defining Unicode char U+00DF (decimal 223)
+   defining Unicode char U+00E0 (decimal 224)
+   defining Unicode char U+00E1 (decimal 225)
+   defining Unicode char U+00E2 (decimal 226)
+   defining Unicode char U+00E3 (decimal 227)
+   defining Unicode char U+00E4 (decimal 228)
+   defining Unicode char U+00E5 (decimal 229)
+   defining Unicode char U+00E6 (decimal 230)
+   defining Unicode char U+00E7 (decimal 231)
+   defining Unicode char U+00E8 (decimal 232)
+   defining Unicode char U+00E9 (decimal 233)
+   defining Unicode char U+00EA (decimal 234)
+   defining Unicode char U+00EB (decimal 235)
+   defining Unicode char U+00EC (decimal 236)
+   defining Unicode char U+00ED (decimal 237)
+   defining Unicode char U+00EE (decimal 238)
+   defining Unicode char U+00EF (decimal 239)
+   defining Unicode char U+00F0 (decimal 240)
+   defining Unicode char U+00F1 (decimal 241)
+   defining Unicode char U+00F2 (decimal 242)
+   defining Unicode char U+00F3 (decimal 243)
+   defining Unicode char U+00F4 (decimal 244)
+   defining Unicode char U+00F5 (decimal 245)
+   defining Unicode char U+00F6 (decimal 246)
+   defining Unicode char U+00F8 (decimal 248)
+   defining Unicode char U+00F9 (decimal 249)
+   defining Unicode char U+00FA (decimal 250)
+   defining Unicode char U+00FB (decimal 251)
+   defining Unicode char U+00FC (decimal 252)
+   defining Unicode char U+00FD (decimal 253)
+   defining Unicode char U+00FE (decimal 254)
+   defining Unicode char U+00FF (decimal 255)
+   defining Unicode char U+0100 (decimal 256)
+   defining Unicode char U+0101 (decimal 257)
+   defining Unicode char U+0102 (decimal 258)
+   defining Unicode char U+0103 (decimal 259)
+   defining Unicode char U+0104 (decimal 260)
+   defining Unicode char U+0105 (decimal 261)
+   defining Unicode char U+0106 (decimal 262)
+   defining Unicode char U+0107 (decimal 263)
+   defining Unicode char U+0108 (decimal 264)
+   defining Unicode char U+0109 (decimal 265)
+   defining Unicode char U+010A (decimal 266)
+   defining Unicode char U+010B (decimal 267)
+   defining Unicode char U+010C (decimal 268)
+   defining Unicode char U+010D (decimal 269)
+   defining Unicode char U+010E (decimal 270)
+   defining Unicode char U+010F (decimal 271)
+   defining Unicode char U+0110 (decimal 272)
+   defining Unicode char U+0111 (decimal 273)
+   defining Unicode char U+0112 (decimal 274)
+   defining Unicode char U+0113 (decimal 275)
+   defining Unicode char U+0114 (decimal 276)
+   defining Unicode char U+0115 (decimal 277)
+   defining Unicode char U+0116 (decimal 278)
+   defining Unicode char U+0117 (decimal 279)
+   defining Unicode char U+0118 (decimal 280)
+   defining Unicode char U+0119 (decimal 281)
+   defining Unicode char U+011A (decimal 282)
+   defining Unicode char U+011B (decimal 283)
+   defining Unicode char U+011C (decimal 284)
+   defining Unicode char U+011D (decimal 285)
+   defining Unicode char U+011E (decimal 286)
+   defining Unicode char U+011F (decimal 287)
+   defining Unicode char U+0120 (decimal 288)
+   defining Unicode char U+0121 (decimal 289)
+   defining Unicode char U+0122 (decimal 290)
+   defining Unicode char U+0123 (decimal 291)
+   defining Unicode char U+0124 (decimal 292)
+   defining Unicode char U+0125 (decimal 293)
+   defining Unicode char U+0128 (decimal 296)
+   defining Unicode char U+0129 (decimal 297)
+   defining Unicode char U+012A (decimal 298)
+   defining Unicode char U+012B (decimal 299)
+   defining Unicode char U+012C (decimal 300)
+   defining Unicode char U+012D (decimal 301)
+   defining Unicode char U+012E (decimal 302)
+   defining Unicode char U+012F (decimal 303)
+   defining Unicode char U+0130 (decimal 304)
+   defining Unicode char U+0131 (decimal 305)
+   defining Unicode char U+0132 (decimal 306)
+   defining Unicode char U+0133 (decimal 307)
+   defining Unicode char U+0134 (decimal 308)
+   defining Unicode char U+0135 (decimal 309)
+   defining Unicode char U+0136 (decimal 310)
+   defining Unicode char U+0137 (decimal 311)
+   defining Unicode char U+0139 (decimal 313)
+   defining Unicode char U+013A (decimal 314)
+   defining Unicode char U+013B (decimal 315)
+   defining Unicode char U+013C (decimal 316)
+   defining Unicode char U+013D (decimal 317)
+   defining Unicode char U+013E (decimal 318)
+   defining Unicode char U+0141 (decimal 321)
+   defining Unicode char U+0142 (decimal 322)
+   defining Unicode char U+0143 (decimal 323)
+   defining Unicode char U+0144 (decimal 324)
+   defining Unicode char U+0145 (decimal 325)
+   defining Unicode char U+0146 (decimal 326)
+   defining Unicode char U+0147 (decimal 327)
+   defining Unicode char U+0148 (decimal 328)
+   defining Unicode char U+014A (decimal 330)
+   defining Unicode char U+014B (decimal 331)
+   defining Unicode char U+014C (decimal 332)
+   defining Unicode char U+014D (decimal 333)
+   defining Unicode char U+014E (decimal 334)
+   defining Unicode char U+014F (decimal 335)
+   defining Unicode char U+0150 (decimal 336)
+   defining Unicode char U+0151 (decimal 337)
+   defining Unicode char U+0152 (decimal 338)
+   defining Unicode char U+0153 (decimal 339)
+   defining Unicode char U+0154 (decimal 340)
+   defining Unicode char U+0155 (decimal 341)
+   defining Unicode char U+0156 (decimal 342)
+   defining Unicode char U+0157 (decimal 343)
+   defining Unicode char U+0158 (decimal 344)
+   defining Unicode char U+0159 (decimal 345)
+   defining Unicode char U+015A (decimal 346)
+   defining Unicode char U+015B (decimal 347)
+   defining Unicode char U+015C (decimal 348)
+   defining Unicode char U+015D (decimal 349)
+   defining Unicode char U+015E (decimal 350)
+   defining Unicode char U+015F (decimal 351)
+   defining Unicode char U+0160 (decimal 352)
+   defining Unicode char U+0161 (decimal 353)
+   defining Unicode char U+0162 (decimal 354)
+   defining Unicode char U+0163 (decimal 355)
+   defining Unicode char U+0164 (decimal 356)
+   defining Unicode char U+0165 (decimal 357)
+   defining Unicode char U+0168 (decimal 360)
+   defining Unicode char U+0169 (decimal 361)
+   defining Unicode char U+016A (decimal 362)
+   defining Unicode char U+016B (decimal 363)
+   defining Unicode char U+016C (decimal 364)
+   defining Unicode char U+016D (decimal 365)
+   defining Unicode char U+016E (decimal 366)
+   defining Unicode char U+016F (decimal 367)
+   defining Unicode char U+0170 (decimal 368)
+   defining Unicode char U+0171 (decimal 369)
+   defining Unicode char U+0172 (decimal 370)
+   defining Unicode char U+0173 (decimal 371)
+   defining Unicode char U+0174 (decimal 372)
+   defining Unicode char U+0175 (decimal 373)
+   defining Unicode char U+0176 (decimal 374)
+   defining Unicode char U+0177 (decimal 375)
+   defining Unicode char U+0178 (decimal 376)
+   defining Unicode char U+0179 (decimal 377)
+   defining Unicode char U+017A (decimal 378)
+   defining Unicode char U+017B (decimal 379)
+   defining Unicode char U+017C (decimal 380)
+   defining Unicode char U+017D (decimal 381)
+   defining Unicode char U+017E (decimal 382)
+   defining Unicode char U+01CD (decimal 461)
+   defining Unicode char U+01CE (decimal 462)
+   defining Unicode char U+01CF (decimal 463)
+   defining Unicode char U+01D0 (decimal 464)
+   defining Unicode char U+01D1 (decimal 465)
+   defining Unicode char U+01D2 (decimal 466)
+   defining Unicode char U+01D3 (decimal 467)
+   defining Unicode char U+01D4 (decimal 468)
+   defining Unicode char U+01E2 (decimal 482)
+   defining Unicode char U+01E3 (decimal 483)
+   defining Unicode char U+01E6 (decimal 486)
+   defining Unicode char U+01E7 (decimal 487)
+   defining Unicode char U+01E8 (decimal 488)
+   defining Unicode char U+01E9 (decimal 489)
+   defining Unicode char U+01EA (decimal 490)
+   defining Unicode char U+01EB (decimal 491)
+   defining Unicode char U+01F0 (decimal 496)
+   defining Unicode char U+01F4 (decimal 500)
+   defining Unicode char U+01F5 (decimal 501)
+   defining Unicode char U+0218 (decimal 536)
+   defining Unicode char U+0219 (decimal 537)
+   defining Unicode char U+021A (decimal 538)
+   defining Unicode char U+021B (decimal 539)
+   defining Unicode char U+1E02 (decimal 7682)
+   defining Unicode char U+1E03 (decimal 7683)
+   defining Unicode char U+200C (decimal 8204)
+   defining Unicode char U+2010 (decimal 8208)
+   defining Unicode char U+2011 (decimal 8209)
+   defining Unicode char U+2012 (decimal 8210)
+   defining Unicode char U+2013 (decimal 8211)
+   defining Unicode char U+2014 (decimal 8212)
+   defining Unicode char U+2015 (decimal 8213)
+   defining Unicode char U+2018 (decimal 8216)
+   defining Unicode char U+2019 (decimal 8217)
+   defining Unicode char U+201A (decimal 8218)
+   defining Unicode char U+201C (decimal 8220)
+   defining Unicode char U+201D (decimal 8221)
+   defining Unicode char U+201E (decimal 8222)
+   defining Unicode char U+2030 (decimal 8240)
+   defining Unicode char U+2031 (decimal 8241)
+   defining Unicode char U+2039 (decimal 8249)
+   defining Unicode char U+203A (decimal 8250)
+   defining Unicode char U+2423 (decimal 9251)
+)
+Now handling font encoding OT1 ...
+... processing UTF-8 mapping file for font encoding OT1
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\ot1enc.dfu"
+File: ot1enc.dfu 2016/02/28 v1.1s UTF-8 support for inputenc
+   defining Unicode char U+00A0 (decimal 160)
+   defining Unicode char U+00A1 (decimal 161)
+   defining Unicode char U+00A3 (decimal 163)
+   defining Unicode char U+00AD (decimal 173)
+   defining Unicode char U+00B8 (decimal 184)
+   defining Unicode char U+00BF (decimal 191)
+   defining Unicode char U+00C5 (decimal 197)
+   defining Unicode char U+00C6 (decimal 198)
+   defining Unicode char U+00D8 (decimal 216)
+   defining Unicode char U+00DF (decimal 223)
+   defining Unicode char U+00E6 (decimal 230)
+   defining Unicode char U+00EC (decimal 236)
+   defining Unicode char U+00ED (decimal 237)
+   defining Unicode char U+00EE (decimal 238)
+   defining Unicode char U+00EF (decimal 239)
+   defining Unicode char U+00F8 (decimal 248)
+   defining Unicode char U+0131 (decimal 305)
+   defining Unicode char U+0141 (decimal 321)
+   defining Unicode char U+0142 (decimal 322)
+   defining Unicode char U+0152 (decimal 338)
+   defining Unicode char U+0153 (decimal 339)
+   defining Unicode char U+0174 (decimal 372)
+   defining Unicode char U+0175 (decimal 373)
+   defining Unicode char U+0176 (decimal 374)
+   defining Unicode char U+0177 (decimal 375)
+   defining Unicode char U+0218 (decimal 536)
+   defining Unicode char U+0219 (decimal 537)
+   defining Unicode char U+021A (decimal 538)
+   defining Unicode char U+021B (decimal 539)
+   defining Unicode char U+2013 (decimal 8211)
+   defining Unicode char U+2014 (decimal 8212)
+   defining Unicode char U+2018 (decimal 8216)
+   defining Unicode char U+2019 (decimal 8217)
+   defining Unicode char U+201C (decimal 8220)
+   defining Unicode char U+201D (decimal 8221)
+)
+Now handling font encoding OMS ...
+... processing UTF-8 mapping file for font encoding OMS
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\omsenc.dfu"
+File: omsenc.dfu 2016/02/28 v1.1s UTF-8 support for inputenc
+   defining Unicode char U+00A7 (decimal 167)
+   defining Unicode char U+00B6 (decimal 182)
+   defining Unicode char U+00B7 (decimal 183)
+   defining Unicode char U+2020 (decimal 8224)
+   defining Unicode char U+2021 (decimal 8225)
+   defining Unicode char U+2022 (decimal 8226)
+)
+Now handling font encoding OMX ...
+... no UTF-8 mapping file for font encoding OMX
+Now handling font encoding U ...
+... no UTF-8 mapping file for font encoding U
+   defining Unicode char U+00A9 (decimal 169)
+   defining Unicode char U+00AA (decimal 170)
+   defining Unicode char U+00AE (decimal 174)
+   defining Unicode char U+00BA (decimal 186)
+   defining Unicode char U+02C6 (decimal 710)
+   defining Unicode char U+02DC (decimal 732)
+   defining Unicode char U+200C (decimal 8204)
+   defining Unicode char U+2026 (decimal 8230)
+   defining Unicode char U+2122 (decimal 8482)
+   defining Unicode char U+2423 (decimal 9251)
+))
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\fontenc.sty"
+Package: fontenc 2016/06/19 v1.99m Standard LaTeX package
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\t1enc.def"
+File: t1enc.def 2016/06/19 v1.99m Standard LaTeX file
+LaTeX Font Info:    Redeclaring font encoding T1 on input line 48.
+))
+("C:\Program Files\MiKTeX 2.9\tex\latex\lm\lmodern.sty"
+Package: lmodern 2009/10/30 v1.6 Latin Modern Fonts
+LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
+(Font)                  OT1/cmr/m/n --> OT1/lmr/m/n on input line 22.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `normal'
+(Font)                  OML/cmm/m/it --> OML/lmm/m/it on input line 23.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
+(Font)                  OMS/cmsy/m/n --> OMS/lmsy/m/n on input line 24.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
+(Font)                  OMX/cmex/m/n --> OMX/lmex/m/n on input line 25.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 26.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `bold'
+(Font)                  OML/cmm/b/it --> OML/lmm/b/it on input line 27.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
+(Font)                  OMS/cmsy/b/n --> OMS/lmsy/b/n on input line 28.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
+(Font)                  OMX/cmex/m/n --> OMX/lmex/m/n on input line 29.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
+(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 31.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
+(Font)                  OT1/cmss/m/n --> OT1/lmss/m/n on input line 32.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
+(Font)                  OT1/cmr/m/it --> OT1/lmr/m/it on input line 33.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
+(Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 34.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 35.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
+(Font)                  OT1/cmss/bx/n --> OT1/lmss/bx/n on input line 36.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
+(Font)                  OT1/cmr/bx/it --> OT1/lmr/bx/it on input line 37.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
+(Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 38.
+)
+(C:\Users\pedro\AppData\Roaming\MiKTeX\2.9\tex\latex\parselines\parselines.sty
+Package: parselines 2011/02/19 v1.4 - a simple line parser for TeX
+\parselin@tk=\toks16
+\parselin@read=\read1
+) ("C:\Program Files\MiKTeX 2.9\tex\generic\babel\babel.sty"
+Package: babel 2016/04/23 3.9r The Babel package
+
+*************************************
+* Local config file bblopts.cfg used
+*
+(C:\Users\pedro\AppData\Roaming\MiKTeX\2.9\tex\latex\arabi\bblopts.cfg
+File: bblopts.cfg 2005/09/08 v0.1 add Arabic and Farsi to "declared" options of
+ babel
+)
+(C:\Users\pedro\AppData\Roaming\MiKTeX\2.9\tex\latex\babel-portuges\portuges.ld
+f
+Language: portuges 2008/03/18 v1.2q Portuguese support from the babel system
+ ("C:\Program Files\MiKTeX 2.9\tex\generic\babel\babel.def"
+File: babel.def 2016/04/23 3.9r Babel common definitions
+\babel@savecnt=\count87
+\U@D=\dimen103
+)
+Package babel Info: Making " an active character on input line 145.
+))
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\graphicx.sty"
+Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\keyval.sty"
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks17
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\graphics.sty"
+Package: graphics 2016/07/10 v1.0t Standard LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\trig.sty"
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\00miktex\graphics.cfg"
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 99.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics-def\pdftex.def"
+File: pdftex.def 2016/07/10 v0.06j Graphics/color for pdfTeX
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\infwarerr.sty"
+Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
+)
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds.sty"
+Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count88
+))
+\Gin@req@height=\dimen104
+\Gin@req@width=\dimen105
+)
+(C:\Users\pedro\AppData\Roaming\MiKTeX\2.9\tex\latex\ms\ragged2e.sty
+Package: ragged2e 2009/05/21 v2.1 ragged2e Package (MS)
+
+(C:\Users\pedro\AppData\Roaming\MiKTeX\2.9\tex\latex\ms\everysel.sty
+Package: everysel 2011/10/28 v1.2 EverySelectfont Package (MS)
+)
+(C:\Users\pedro\AppData\Roaming\MiKTeX\2.9\tex\latex\footmisc\footmisc.sty
+Package: footmisc 2011/06/06 v5.5b a miscellany of footnote facilities
+\FN@temptoken=\toks18
+\footnotemargin=\dimen106
+\c@pp@next@reset=\count89
+Package footmisc Info: Declaring symbol style bringhurst on input line 855.
+Package footmisc Info: Declaring symbol style chicago on input line 863.
+Package footmisc Info: Declaring symbol style wiley on input line 872.
+Package footmisc Info: Declaring symbol style lamport-robust on input line 883.
+
+Package footmisc Info: Declaring symbol style lamport* on input line 903.
+Package footmisc Info: Declaring symbol style lamport*-robust on input line 924
+.
+)
+\CenteringLeftskip=\skip43
+\RaggedLeftLeftskip=\skip44
+\RaggedRightLeftskip=\skip45
+\CenteringRightskip=\skip46
+\RaggedLeftRightskip=\skip47
+\RaggedRightRightskip=\skip48
+\CenteringParfillskip=\skip49
+\RaggedLeftParfillskip=\skip50
+\RaggedRightParfillskip=\skip51
+\JustifyingParfillskip=\skip52
+\CenteringParindent=\skip53
+\RaggedLeftParindent=\skip54
+\RaggedRightParindent=\skip55
+\JustifyingParindent=\skip56
+)
+(C:\Users\pedro\AppData\Roaming\MiKTeX\2.9\tex\latex\listings\listings.sty
+\lst@mode=\count90
+\lst@gtempboxa=\box26
+\lst@token=\toks19
+\lst@length=\count91
+\lst@currlwidth=\dimen107
+\lst@column=\count92
+\lst@pos=\count93
+\lst@lostspace=\dimen108
+\lst@width=\dimen109
+\lst@newlines=\count94
+\lst@lineno=\count95
+\lst@maxwidth=\dimen110
+
+(C:\Users\pedro\AppData\Roaming\MiKTeX\2.9\tex\latex\listings\lstmisc.sty
+File: lstmisc.sty 2015/06/04 1.6 (Carsten Heinz)
+\c@lstnumber=\count96
+\lst@skipnumbers=\count97
+\lst@framebox=\box27
+)
+(C:\Users\pedro\AppData\Roaming\MiKTeX\2.9\tex\latex\listings\listings.cfg
+File: listings.cfg 2015/06/04 1.6 listings configuration
+))
+Package: listings 2015/06/04 1.6 (Carsten Heinz)
+
+(C:\Users\pedro\AppData\Roaming\MiKTeX\2.9\tex\latex\xcolor\xcolor.sty
+Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\00miktex\color.cfg"
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1348.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1352.
+Package xcolor Info: Model `RGB' extended on input line 1364.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1366.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1367.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\geometry\geometry.sty"
+Package: geometry 2010/09/12 v5.6 Page Geometry
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ifpdf.sty"
+Package: ifpdf 2016/05/14 v3.1 Provides the ifpdf switch
+)
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ifvtex.sty"
+Package: ifvtex 2016/05/16 v1.6 Detect VTeX and its facilities (HO)
+Package ifvtex Info: VTeX not detected.
+)
+("C:\Program Files\MiKTeX 2.9\tex\generic\ifxetex\ifxetex.sty"
+Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
+)
+\Gm@cnth=\count98
+\Gm@cntv=\count99
+\c@Gm@tempcnt=\count100
+\Gm@bindingoffset=\dimen111
+\Gm@wd@mp=\dimen112
+\Gm@odd@mp=\dimen113
+\Gm@even@mp=\dimen114
+\Gm@layoutwidth=\dimen115
+\Gm@layoutheight=\dimen116
+\Gm@layouthoffset=\dimen117
+\Gm@layoutvoffset=\dimen118
+\Gm@dimlist=\toks20
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\geometry\geometry.cfg"))
+
+Package geometry Warning: Over-specification in `h'-direction.
+    `width' (483.69684pt) is ignored.
+
+
+Package geometry Warning: Over-specification in `v'-direction.
+    `height' (731.23582pt) is ignored.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amsmath.sty"
+Package: amsmath 2016/06/28 v2.15d AMS math features
+\@mathmargin=\skip57
+
+For additional information on amsmath, use the `?' option.
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amstext.sty"
+Package: amstext 2000/06/29 v2.01 AMS text
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amsgen.sty"
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks21
+\ex@=\dimen119
+))
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amsbsy.sty"
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen120
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amsopn.sty"
+Package: amsopn 2016/03/08 v2.02 operator names
+)
+\inf@bad=\count101
+LaTeX Info: Redefining \frac on input line 199.
+\uproot@=\count102
+\leftroot@=\count103
+LaTeX Info: Redefining \overline on input line 297.
+\classnum@=\count104
+\DOTSCASE@=\count105
+LaTeX Info: Redefining \ldots on input line 394.
+LaTeX Info: Redefining \dots on input line 397.
+LaTeX Info: Redefining \cdots on input line 518.
+\Mathstrutbox@=\box28
+\strutbox@=\box29
+\big@size=\dimen121
+LaTeX Font Info:    Redeclaring font encoding OML on input line 634.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 635.
+\macc@depth=\count106
+\c@MaxMatrixCols=\count107
+\dotsspace@=\muskip10
+\c@parentequation=\count108
+\dspbrk@lvl=\count109
+\tag@help=\toks22
+\row@=\count110
+\column@=\count111
+\maxfields@=\count112
+\andhelp@=\toks23
+\eqnshift@=\dimen122
+\alignsep@=\dimen123
+\tagshift@=\dimen124
+\tagwidth@=\dimen125
+\totwidth@=\dimen126
+\lineht@=\dimen127
+\@envbody=\toks24
+\multlinegap=\skip58
+\multlinetaggap=\skip59
+\mathdisplay@stack=\toks25
+LaTeX Info: Redefining \[ on input line 2739.
+LaTeX Info: Redefining \] on input line 2740.
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\hyperref.sty"
+Package: hyperref 2016/06/24 v6.83q Hypertext links for LaTeX
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\hobsub-hyperref.sty"
+Package: hobsub-hyperref 2016/05/16 v1.14 Bundle oberdiek, subset hyperref (HO)
+
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\hobsub-generic.sty"
+Package: hobsub-generic 2016/05/16 v1.14 Bundle oberdiek, subset generic (HO)
+Package: hobsub 2016/05/16 v1.14 Construct package bundles (HO)
+Package hobsub Info: Skipping package `infwarerr' (already loaded).
+Package hobsub Info: Skipping package `ltxcmds' (already loaded).
+Package: ifluatex 2016/05/16 v1.4 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+Package hobsub Info: Skipping package `ifvtex' (already loaded).
+Package: intcalc 2016/05/16 v1.2 Expandable calculations with integers (HO)
+Package hobsub Info: Skipping package `ifpdf' (already loaded).
+Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
+Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
+Package: pdftexcmds 2016/05/21 v0.22 Utility functions of pdfTeX for LuaTeX (HO
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+Package: pdfescape 2016/05/16 v1.14 Implements pdfTeX's escape features (HO)
+Package: bigintcalc 2016/05/16 v1.4 Expandable calculations on big integers (HO
+)
+Package: bitset 2016/05/16 v1.2 Handle bit-vector datatype (HO)
+Package: uniquecounter 2016/05/16 v1.3 Provide unlimited unique counter (HO)
+)
+Package hobsub Info: Skipping package `hobsub' (already loaded).
+Package: letltxmacro 2016/05/16 v1.5 Let assignment for LaTeX macros (HO)
+Package: hopatch 2016/05/16 v1.3 Wrapper for package hooks (HO)
+Package: xcolor-patch 2016/05/16 xcolor patch
+Package: atveryend 2016/05/16 v1.9 Hooks at the very end of document (HO)
+Package atveryend Info: \enddocument detected (standard20110627).
+Package: atbegshi 2016/06/09 v1.18 At begin shipout hook (HO)
+Package: refcount 2016/05/16 v3.5 Data extraction from label references (HO)
+Package: hycolor 2016/05/16 v1.8 Color options for hyperref/bookmark (HO)
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\auxhook.sty"
+Package: auxhook 2016/05/16 v1.4 Hooks for auxiliary files (HO)
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\kvoptions.sty"
+Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
+)
+\@linkdim=\dimen128
+\Hy@linkcounter=\count113
+\Hy@pagecounter=\count114
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\pd1enc.def"
+File: pd1enc.def 2016/06/24 v6.83q Hyperref: PDFDocEncoding definition (HO)
+Now handling font encoding PD1 ...
+... no UTF-8 mapping file for font encoding PD1
+)
+\Hy@SavedSpaceFactor=\count115
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\00miktex\hyperref.cfg"
+File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
+)
+Package hyperref Info: Hyper figures OFF on input line 4486.
+Package hyperref Info: Link nesting OFF on input line 4491.
+Package hyperref Info: Hyper index ON on input line 4494.
+Package hyperref Info: Plain pages OFF on input line 4501.
+Package hyperref Info: Backreferencing OFF on input line 4506.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4735.
+\c@Hy@tempcnt=\count116
+
+(C:\Users\pedro\AppData\Roaming\MiKTeX\2.9\tex\latex\url\url.sty
+\Urlmuskip=\muskip11
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 5088.
+\XeTeXLinkMargin=\dimen129
+\Fld@menulength=\count117
+\Field@Width=\dimen130
+\Fld@charsize=\dimen131
+Package hyperref Info: Hyper figures OFF on input line 6342.
+Package hyperref Info: Link nesting OFF on input line 6347.
+Package hyperref Info: Hyper index ON on input line 6350.
+Package hyperref Info: backreferencing OFF on input line 6357.
+Package hyperref Info: Link coloring OFF on input line 6362.
+Package hyperref Info: Link coloring with OCG OFF on input line 6367.
+Package hyperref Info: PDF/A mode OFF on input line 6372.
+LaTeX Info: Redefining \ref on input line 6412.
+LaTeX Info: Redefining \pageref on input line 6416.
+\Hy@abspage=\count118
+\c@Item=\count119
+\c@Hfootnote=\count120
+)
+
+Package hyperref Message: Driver (autodetected): hpdftex.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\hpdftex.def"
+File: hpdftex.def 2016/06/24 v6.83q Hyperref driver for pdfTeX
+\Fld@listcount=\count121
+\c@bookmark@seq@number=\count122
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\rerunfilecheck.sty"
+Package: rerunfilecheck 2016/05/16 v1.8 Rerun checks for auxiliary files (HO)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+82.
+)
+\Hy@SectionHShift=\skip60
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\float\float.sty"
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count123
+\float@exts=\toks26
+\float@box=\box30
+\@float@everytoks=\toks27
+\@floatcapt=\box31
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\tools\tabularx.sty"
+Package: tabularx 2016/02/03 v2.11 `tabularx' package (DPC)
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\tools\array.sty"
+Package: array 2014/10/28 v2.4c Tabular extension package (FMi)
+\col@sep=\dimen132
+\extrarowheight=\dimen133
+\NC@list=\toks28
+\extratabsurround=\skip61
+\backup@length=\skip62
+)
+\TX@col@width=\dimen134
+\TX@old@table=\dimen135
+\TX@old@col=\dimen136
+\TX@target=\dimen137
+\TX@delta=\dimen138
+\TX@cols=\count124
+\TX@ftn=\toks29
+)
+(C:\Users\pedro\AppData\Roaming\MiKTeX\2.9\tex\latex\booktabs\booktabs.sty
+Package: booktabs 2005/04/14 v1.61803 publication quality tables
+\heavyrulewidth=\dimen139
+\lightrulewidth=\dimen140
+\cmidrulewidth=\dimen141
+\belowrulesep=\dimen142
+\belowbottomsep=\dimen143
+\aboverulesep=\dimen144
+\abovetopsep=\dimen145
+\cmidrulesep=\dimen146
+\cmidrulekern=\dimen147
+\defaultaddspace=\dimen148
+\@cmidla=\count125
+\@cmidlb=\count126
+\@aboverulesep=\dimen149
+\@belowrulesep=\dimen150
+\@thisruleclass=\count127
+\@lastruleclass=\count128
+\@thisrulewidth=\dimen151
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\tools\indentfirst.sty"
+Package: indentfirst 1995/11/23 v1.03 Indent first paragraph (DPC)
+)
+(C:\Users\pedro\AppData\Roaming\MiKTeX\2.9\tex\latex\colortbl\colortbl.sty
+Package: colortbl 2012/02/13 v1.0a Color table columns (DPC)
+\everycr=\toks30
+\minrowclearance=\skip63
+)
+(C:\Users\pedro\AppData\Roaming\MiKTeX\2.9\tex\latex\caption\caption.sty
+Package: caption 2016/02/21 v3.3-144 Customizing captions (AR)
+
+(C:\Users\pedro\AppData\Roaming\MiKTeX\2.9\tex\latex\caption\caption3.sty
+Package: caption3 2016/05/22 v1.7-166 caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 67.
+\captionmargin=\dimen152
+\captionmargin@=\dimen153
+\captionwidth=\dimen154
+\caption@tempdima=\dimen155
+\caption@indent=\dimen156
+\caption@parindent=\dimen157
+\caption@hangindent=\dimen158
+)
+\c@ContinuedFloat=\count129
+Package caption Info: float package is loaded.
+Package caption Info: hyperref package is loaded.
+Package caption Info: listings package is loaded.
+)
+(C:\Users\pedro\AppData\Roaming\MiKTeX\2.9\tex\latex\enumitem\enumitem.sty
+Package: enumitem 2011/09/28 v3.5.2 Customized lists
+\labelindent=\skip64
+\enit@outerparindent=\dimen159
+\enit@toks=\toks31
+\enit@inbox=\box32
+\enitdp@description=\count130
+)
+(C:\Users\pedro\AppData\Roaming\MiKTeX\2.9\tex\latex\listings\lstlang1.sty
+File: lstlang1.sty 2015/06/04 1.6 listings language file
+)
+Package hyperref Info: Option `colorlinks' set `true' on input line 99.
+
+(final-report.aux
+
+LaTeX Warning: Label `uml' multiply defined.
+
+
+LaTeX Warning: Label `uml' multiply defined.
+
+
+LaTeX Warning: Label `uml' multiply defined.
+
+
+LaTeX Warning: Label `uml' multiply defined.
+
+
+LaTeX Warning: Label `uml' multiply defined.
+
+
+LaTeX Warning: Label `uml' multiply defined.
+
+
+LaTeX Warning: Label `uml' multiply defined.
+
+
+LaTeX Warning: Label `uml' multiply defined.
+
+
+LaTeX Warning: Label `map' multiply defined.
+
+
+LaTeX Warning: Label `map' multiply defined.
+
+)
+\openout1 = `final-report.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Try loading font information for T1+lmr on input line 101.
+ ("C:\Program Files\MiKTeX 2.9\tex\latex\lm\t1lmr.fd"
+File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+(C:\Users\pedro\AppData\Roaming\MiKTeX\2.9\tex\context\base\supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count131
+\scratchdimen=\dimen160
+\scratchbox=\box33
+\nofMPsegments=\count132
+\nofMParguments=\count133
+\everyMPshowfont=\toks32
+\MPscratchCnt=\count134
+\MPscratchDim=\dimen161
+\MPnumerator=\count135
+\makeMPintoPDFobject=\count136
+\everyMPtoPDFconversion=\toks33
+) ("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\epstopdf-base.sty"
+Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\grfext.sty"
+Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
+)
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+38.
+Package grfext Info: Graphics extension search list:
+(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 456.
+)
+Package ragged2e Info: ABD: executing \RaggedRight on input line 101.
+
+ABD: EverySelectfont initializing macros
+LaTeX Info: Redefining \selectfont on input line 101.
+\c@lstlisting=\count137
+
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: a4paper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(85.35826pt, 426.79135pt, 85.35826pt)
+* v-part:(T,H,B)=(85.35826pt, 674.33032pt, 85.35826pt)
+* \paperwidth=597.50787pt
+* \paperheight=845.04684pt
+* \textwidth=426.79135pt
+* \textheight=674.33032pt
+* \oddsidemargin=13.08827pt
+* \evensidemargin=13.08827pt
+* \topmargin=-23.91173pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \topskip=12.0pt
+* \footskip=30.0pt
+* \marginparwidth=44.0pt
+* \marginparsep=10.0pt
+* \columnsep=10.0pt
+* \skip\footins=10.8pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+\AtBeginShipoutBox=\box34
+Package hyperref Info: Link coloring ON on input line 101.
+("C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\nameref.sty"
+Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\gettitlestring.sty"
+Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
+)
+\c@section@level=\count138
+)
+LaTeX Info: Redefining \ref on input line 101.
+LaTeX Info: Redefining \pageref on input line 101.
+LaTeX Info: Redefining \nameref on input line 101.
+
+(final-report.out) (final-report.out)
+\@outlinefile=\write3
+\openout3 = `final-report.out'.
+
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
+
+<images/feup.jpg, id=99, 168.02776pt x 151.16475pt>
+File: images/feup.jpg Graphic file (type jpg)
+ <use images/feup.jpg>
+Package pdftex.def Info: images/feup.jpg used on input line 113.
+(pdftex.def)             Requested size: 168.02734pt x 151.16437pt.
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 116.
+
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\lm\ot1lmr.fd"
+File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 116.
+
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\lm\omllmm.fd"
+File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 116
+.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\lm\omslmsy.fd"
+File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 116
+.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\lm\omxlmex.fd"
+File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <14.4> on input line 116.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10> on input line 116.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7> on input line 116.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 149.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 149.
+ [1
+
+{C:/Users/pedro/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <./images/fe
+up.jpg>]
+(final-report.toc
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <12> on input line 4.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <8> on input line 4.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <6> on input line 4.
+)
+\tf@toc=\write4
+\openout4 = `final-report.toc'.
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 153.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 153.
+ [2
+
+]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 159.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 175.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 177.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 184.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 192.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 192.
+ [3
+
+]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 193.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 194.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 231.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 231.
+ [4]
+Overfull \hbox (1.07pt too wide) in paragraph at lines 233--234
+[]\T1/lmr/m/n/12 Em fun-ção dos atri-bu-tos de in-de-pen-dên-cia e de co-nhe-ci
+-mento da área, considerou-
+ []
+
+<images/independentKnowledgeable.png, id=148, 127.07475pt x 101.78024pt>
+File: images/independentKnowledgeable.png Graphic file (type png)
+
+<use images/independentKnowledgeable.png>
+Package pdftex.def Info: images/independentKnowledgeable.png used on input line
+ 248.
+(pdftex.def)             Requested size: 12.7082pt x 10.1786pt.
+
+<images/independentUnknowledgeable.png, id=149, 127.07475pt x 101.78024pt>
+File: images/independentUnknowledgeable.png Graphic file (type png)
+
+<use images/independentUnknowledgeable.png>
+Package pdftex.def Info: images/independentUnknowledgeable.png used on input li
+ne 253.
+(pdftex.def)             Requested size: 12.7082pt x 10.1786pt.
+
+<images/dependentKnowledgeable.png, id=150, 127.07475pt x 101.78024pt>
+File: images/dependentKnowledgeable.png Graphic file (type png)
+
+<use images/dependentKnowledgeable.png>
+Package pdftex.def Info: images/dependentKnowledgeable.png used on input line 2
+57.
+(pdftex.def)             Requested size: 12.7082pt x 10.1786pt.
+
+<images/dependentUnknowledgeable.png, id=151, 127.07475pt x 101.78024pt>
+File: images/dependentUnknowledgeable.png Graphic file (type png)
+
+<use images/dependentUnknowledgeable.png>
+Package pdftex.def Info: images/dependentUnknowledgeable.png used on input line
+ 261.
+(pdftex.def)             Requested size: 12.7082pt x 10.1786pt.
+
+Overfull \hbox (8.79352pt too wide) in paragraph at lines 240--266
+ [][] 
+ []
+
+
+Overfull \hbox (1.13025pt too wide) in paragraph at lines 276--292
+ [][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 295.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 299.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 299.
+[5 <./images/independentKnowledgeable.png> <./images/independentUnknowledgeable
+.png> <./images/dependentKnowledgeable.png> <./images/dependentUnknowledgeable.
+png>]
+Underfull \hbox (badness 10000) in paragraph at lines 299--300
+
+ []
+
+LaTeX Font Info:    Try loading font information for T1+lmtt on input line 303.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\lm\t1lmtt.fd"
+File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+Underfull \hbox (badness 10000) in paragraph at lines 313--315
+
+ []
+
+LaTeX Font Info:    Try loading font information for OMS+lmr on input line 320.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\lm\omslmr.fd"
+File: omslmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Font shape `OMS/lmr/m/n' in size <12> not available
+(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 320.
+
+Underfull \hbox (badness 10000) in paragraph at lines 324--325
+
+ []
+
+<images/terror-behaviour.jpg, id=158, 740.7675pt x 270.00874pt>
+File: images/terror-behaviour.jpg Graphic file (type jpg)
+
+<use images/terror-behaviour.jpg>
+Package pdftex.def Info: images/terror-behaviour.jpg used on input line 330.
+(pdftex.def)             Requested size: 370.38284pt x 135.00403pt.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 338.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 338.
+ [6 <./images/terror-behaviour.jpg>]
+Underfull \hbox (badness 10000) in paragraph at lines 341--342
+
+ []
+
+<images/directions-behaviour.jpg, id=173, 716.6775pt x 442.65375pt>
+File: images/directions-behaviour.jpg Graphic file (type jpg)
+
+<use images/directions-behaviour.jpg>
+Package pdftex.def Info: images/directions-behaviour.jpg used on input line 345
+.
+(pdftex.def)             Requested size: 358.33788pt x 221.32632pt.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 349.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 349.
+ [7 <./images/directions-behaviour.jpg>]
+Underfull \hbox (badness 10000) in paragraph at lines 358--359
+
+ []
+
+<images/help-behaviour.jpg, id=182, 973.6375pt x 429.605pt>
+File: images/help-behaviour.jpg Graphic file (type jpg)
+
+<use images/help-behaviour.jpg>
+Package pdftex.def Info: images/help-behaviour.jpg used on input line 362.
+(pdftex.def)             Requested size: 438.13283pt x 193.32045pt.
+
+Overfull \hbox (11.34148pt too wide) in paragraph at lines 362--363
+ [][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 376.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 376.
+[8 <./images/help-behaviour.jpg>]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 377.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 378.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 395.
+
+Underfull \hbox (badness 10000) in paragraph at lines 396--398
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 403--405
+
+ []
+
+
+Overfull \hbox (5.1523pt too wide) in paragraph at lines 410--411
+[]\T1/lmr/m/n/12 Tem sido am-pla-mente uti-li-zado em apli-ca-ções de si-mu-la-
+ção, e, no caso, considerou-
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 414.
+<images/packages.jpg, id=188, 375.4025pt x 286.06876pt>
+File: images/packages.jpg Graphic file (type jpg)
+
+<use images/packages.jpg>
+Package pdftex.def Info: images/packages.jpg used on input line 419.
+(pdftex.def)             Requested size: 300.3224pt x 228.85532pt.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 423.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 423.
+ [9]
+<images/simulation.jpg, id=199, 254.9525pt x 145.54375pt>
+File: images/simulation.jpg Graphic file (type jpg)
+
+<use images/simulation.jpg>
+Package pdftex.def Info: images/simulation.jpg used on input line 430.
+(pdftex.def)             Requested size: 203.96225pt x 116.43513pt.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 434.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 434.
+ [10 <./images/packages.jpg> <./images/simulation.jpg>]
+Underfull \hbox (badness 10000) in paragraph at lines 435--436
+
+ []
+
+<images/environment.jpg, id=206, 304.13625pt x 218.8175pt>
+File: images/environment.jpg Graphic file (type jpg)
+
+<use images/environment.jpg>
+Package pdftex.def Info: images/environment.jpg used on input line 439.
+(pdftex.def)             Requested size: 182.48315pt x 131.2915pt.
+
+<images/person.jpg, id=207, 295.1025pt x 215.80624pt>
+File: images/person.jpg Graphic file (type jpg)
+ <use images/person.jpg>
+Package pdftex.def Info: images/person.jpg used on input line 448.
+(pdftex.def)             Requested size: 236.0823pt x 172.64522pt.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 452.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 452.
+
+[11 <./images/environment.jpg> <./images/person.jpg>]
+<images/communication.jpg, id=214, 174.6525pt x 296.10625pt>
+File: images/communication.jpg Graphic file (type jpg)
+
+<use images/communication.jpg>
+Package pdftex.def Info: images/communication.jpg used on input line 457.
+(pdftex.def)             Requested size: 122.2559pt x 207.27295pt.
+
+<images/classes.jpg, id=215, 805.0075pt x 504.88625pt>
+File: images/classes.jpg Graphic file (type jpg)
+
+<use images/classes.jpg>
+Package pdftex.def Info: images/classes.jpg used on input line 464.
+(pdftex.def)             Requested size: 402.50278pt x 252.44249pt.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 470.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 470.
+ [12 <./images/communication.jpg> <./images/classes.jpg>]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 471.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 472.
+
+Underfull \hbox (badness 10000) in paragraph at lines 488--489
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 497--498
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 503--504
+
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 508.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 508.
+[13]
+Underfull \hbox (badness 10000) in paragraph at lines 525--527
+
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 538.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 538.
+[14]
+Underfull \hbox (badness 10000) in paragraph at lines 553--554
+
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 581.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 581.
+[15]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 626.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 626.
+ [16]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 668.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 668.
+ [17]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 712.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 712.
+ [18]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 758.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 758.
+ [19]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 760.
+
+<images/map_text.png, id=431, 732.7375pt x 732.7375pt>
+File: images/map_text.png Graphic file (type png)
+
+<use images/map_text.png>
+Package pdftex.def Info: images/map_text.png used on input line 773.
+(pdftex.def)             Requested size: 146.5449pt x 146.5449pt.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 783.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 783.
+ [20 <./images/map_text.png>]
+<images/map_distance.png, id=439, 887.315pt x 485.815pt>
+File: images/map_distance.png Graphic file (type png)
+
+<use images/map_distance.png>
+Package pdftex.def Info: images/map_distance.png used on input line 821.
+(pdftex.def)             Requested size: 443.65642pt x 242.9069pt.
+
+Overfull \hbox (16.86507pt too wide) in paragraph at lines 821--822
+ [][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 825.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 825.
+[21]
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 826.
+ <images/map_simulation.png, id=477, 752.8125pt x 752.8125pt>
+File: images/map_simulation.png Graphic file (type png)
+
+<use images/map_simulation.png>
+Package pdftex.def Info: images/map_simulation.png used on input line 836.
+(pdftex.def)             Requested size: 150.55983pt x 150.55983pt.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 843.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 843.
+ [22 <./images/map_distance.png> <./images/map_simulation.png>]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 844.
+ <images/panic_log.png, id=491, 402.90524pt x 133.6995pt>
+File: images/panic_log.png Graphic file (type png)
+
+<use images/panic_log.png>
+Package pdftex.def Info: images/panic_log.png used on input line 900.
+(pdftex.def)             Requested size: 402.90425pt x 133.69916pt.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 904.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 904.
+ [23]
+<images/panic_test.png, id=499, 377.61075pt x 213.1965pt>
+File: images/panic_test.png Graphic file (type png)
+
+<use images/panic_test.png>
+Package pdftex.def Info: images/panic_test.png used on input line 915.
+(pdftex.def)             Requested size: 377.60982pt x 213.19597pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 920--921
+
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 930.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 930.
+[24 <./images/panic_log.png> <./images/panic_test.png>]
+<images/directions_log.png, id=508, 526.96875pt x 99.37125pt>
+File: images/directions_log.png Graphic file (type png)
+
+<use images/directions_log.png>
+Package pdftex.def Info: images/directions_log.png used on input line 934.
+(pdftex.def)             Requested size: 421.57556pt x 79.4971pt.
+
+<images/directions_test.png, id=510, 382.42876pt x 222.23026pt>
+File: images/directions_test.png Graphic file (type png)
+
+<use images/directions_test.png>
+Package pdftex.def Info: images/directions_test.png used on input line 943.
+(pdftex.def)             Requested size: 382.42781pt x 222.2297pt.
+
+<images/help_log.png, id=511, 492.03825pt x 124.0635pt>
+File: images/help_log.png Graphic file (type png)
+
+<use images/help_log.png>
+Package pdftex.def Info: images/help_log.png used on input line 959.
+(pdftex.def)             Requested size: 393.63113pt x 99.25092pt.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 962.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 962.
+ [25 <./images/directions_log.png> <./images/directions_test.png>] <images/help
+_test.png, id=522, 382.42876pt x 214.401pt>
+File: images/help_test.png Graphic file (type png)
+
+<use images/help_test.png>
+Package pdftex.def Info: images/help_test.png used on input line 968.
+(pdftex.def)             Requested size: 382.42781pt x 214.40047pt.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 988.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 988.
+ [26 <./images/help_log.png> <./images/help_test.png>]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 989.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 989.
+ [27]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 990.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1000.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1008.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1009.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1019.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1026.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1026.
+ [28]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1028.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1028.
+ [29]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1033.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1036.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1038.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1044.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1069.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1075.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1075.
+ [30]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1077.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1077.
+ [31]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1078.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1078.
+ (final-report.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1078.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1078.
+
+
+
+Package rerunfilecheck Warning: File `final-report.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `final-report.out':
+(rerunfilecheck)             Before: 0E26D347F017944948357576B86765D4;1495
+(rerunfilecheck)             After:  9E2171A5C0F5EFE28864FE7709D7A06E;1572.
+
+LaTeX Warning: There were multiply-defined labels.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1078.
+ ) 
+Here is how much of TeX's memory you used:
+ 11721 strings out of 493334
+ 170284 string characters out of 3139251
+ 318447 words of memory out of 3000000
+ 14713 multiletter control sequences out of 15000+200000
+ 92194 words of font info for 59 fonts, out of 3000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 36i,16n,42p,622b,1386s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc}{C:/Program Files/M
+iKTeX 2.9/fonts/enc/dvips/lm/lm-rm.enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/d
+vips/lm/lm-mathit.enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathsy
+.enc}<C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmbx12.pfb><C:/Program 
+Files/MiKTeX 2.9/fonts/type1/public/lm/lmbxi10.pfb><C:/Program Files/MiKTeX 2.9
+/fonts/type1/public/lm/lmcsc10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/pub
+lic/lm/lmmi12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmr10.pfb>
+<C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmr12.pfb><C:/Program Files/
+MiKTeX 2.9/fonts/type1/public/lm/lmr7.pfb><C:/Program Files/MiKTeX 2.9/fonts/ty
+pe1/public/lm/lmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmri1
+2.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb><C:/Program
+ Files/MiKTeX 2.9/fonts/type1/public/lm/lmtt10.pfb><C:/Program Files/MiKTeX 2.9
+/fonts/type1/public/lm/lmtt12.pfb>
+Output written on final-report.pdf (31 pages, 941301 bytes).
+PDF statistics:
+ 690 PDF objects out of 1000 (max. 8388607)
+ 322 named destinations out of 1000 (max. 500000)
+ 308 words of extra memory for PDF output out of 10000 (max. 10000000)
+
