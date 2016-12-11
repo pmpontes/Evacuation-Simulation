@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import com.sun.media.Log;
+
 public class SurfaceMap {
 	ArrayList<ArrayList<Character>> physicalMap;
 	ArrayList<ArrayList<Integer>> distanceMap;
@@ -185,39 +187,36 @@ public class SurfaceMap {
 	 * @param y2
 	 * @return
 	 */
-	boolean elementVisible(int x1, int y1, int x2, int y2){        
-        int slope;
-        int dx, dy, incE, incNE, d, x, y;
-        // Onde inverte a linha x1 > x2       
-        if (x1 > x2){
-            return elementVisible(x2, y2, x1, y1);
-        }        
-        dx = x2 - x1;
-        dy = y2 - y1;
-    
-        if (dy < 0){            
-            slope = -1;
-            dy = -dy;
-        }
-        else{            
-           slope = 1;
-        }
-        // Constante de Bresenham
-        incE = 2 * dy;
-        incNE = 2 * dy - 2 * dx;
-        d = 2 * dy - dx;
-        y = y1;       
-        for (x = x1; x <= x2; x++){
-            if(physicalMap.get(y).get(x) == 'W')
+	public boolean elementVisible(int x,int y,int x2, int y2) {
+		
+	    int w = x2 - x ;
+	    int h = y2 - y ;
+	    int dx1 = 0, dy1 = 0, dx2 = 0, dy2 = 0 ;
+	    if (w<0) dx1 = -1 ; else if (w>0) dx1 = 1 ;
+	    if (h<0) dy1 = -1 ; else if (h>0) dy1 = 1 ;
+	    if (w<0) dx2 = -1 ; else if (w>0) dx2 = 1 ;
+	    int longest = Math.abs(w) ;
+	    int shortest = Math.abs(h) ;
+	    if (!(longest>shortest)) {
+	        longest = Math.abs(h) ;
+	        shortest = Math.abs(w) ;
+	        if (h<0) dy2 = -1 ; else if (h>0) dy2 = 1 ;
+	        dx2 = 0 ;            
+	    }
+	    int numerator = longest >> 1 ;
+	    for (int i=0;i<=longest;i++) {
+	    	if(physicalMap.get(y).get(x) == 'W')
             	return false;
-            if (d <= 0){
-              d += incE;
-            }
-            else{
-              d += incNE;
-              y += slope;
-            }
-        }
-        return true;
+	        numerator += shortest ;
+	        if (!(numerator<longest)) {
+	            numerator -= longest ;
+	            x += dx1 ;
+	            y += dy1 ;
+	        } else {
+	            x += dx2 ;
+	            y += dy2 ;
+	        }
+	    }
+	    return true;
 	}
 }
