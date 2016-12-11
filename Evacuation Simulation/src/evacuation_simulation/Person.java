@@ -1228,6 +1228,19 @@ public class Person extends Agent{
 				if(uniform.nextIntFromTo(MIN_SCALE, MAX_SCALE) < getPanic()){
 					push(path.getX(), path.getY());
 				}
+				else {
+					// if the person is impatient, try a different path
+					if(getPatience() <= PATIENCE_THRESHOLD){
+						orderedPaths.remove(0);
+						if(!orderedPaths.isEmpty()){
+							if(tryRandomMove(orderedPaths)){
+								return;
+							}
+						}
+					} 								
+					decreasePatience();	// lose patience as no move was made valid
+					return;
+				}
 			}
 		}
 
@@ -1242,8 +1255,10 @@ public class Person extends Agent{
 			SimUtilities.shuffle(orderedPaths,  uniform);
 			int tempX = orderedPaths.get(0).getX();
 			int tempY = orderedPaths.get(0).getY();
+			Pair<Integer, Integer> lastPosition = orderedPaths.get(0);
 
-			while(lastX == tempX && lastY == tempY){
+			while(lastDiffX == tempX && lastDiffY == tempY){
+				lastPosition = orderedPaths.get(0);
 				orderedPaths.remove(0);
 
 				if(orderedPaths.isEmpty()) {
@@ -1264,8 +1279,9 @@ public class Person extends Agent{
 					// if the person is impatient, try a different path
 					if(getPatience() <= PATIENCE_THRESHOLD){
 						orderedPaths.remove(0);
+						orderedPaths.add(lastPosition);
 						if(!orderedPaths.isEmpty()){
-							if(tryRandomMove(orderedPaths)){
+							if(tryMakeMove(orderedPaths)){
 								return true;
 							}
 						}
@@ -1317,7 +1333,7 @@ public class Person extends Agent{
 		}
 
 		/**
-		 * Attempts to make a move to an empty cell, different than the last.
+		 * Attempts to make a move to an empty cell.
 		 * If the given paths are ordered, the best valid move is made. 
 		 * It is not possible to push anyone.
 		 * If a move is performed, the patience level is increased.
@@ -1329,7 +1345,7 @@ public class Person extends Agent{
 				int tempX = paths.get(i).getX();
 				int tempY = paths.get(i).getY();
 
-				if(environment.userFreeCell(tempX, tempY) && tempX != lastX && tempY != lastY){
+				if(environment.userFreeCell(tempX, tempY)){
 					moveTo(tempX, tempY);
 					increasePatience();
 					return true;
