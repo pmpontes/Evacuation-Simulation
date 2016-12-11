@@ -442,7 +442,7 @@ public class Person extends Agent{
 		return enforceBounds((MAX_SCALE/2) + (getAltruisticFeeling()/5));
 	}
 
-	/*
+	/**
 	 * decreaseMobility.
 	 * Updates the mobility.
 	 * Younger and older people are more prone to mobility variations.
@@ -459,7 +459,7 @@ public class Person extends Agent{
 		updateMobility((int) (mobility + variation));
 	}
 
-	/*
+	/**
 	 * shareMobility.
 	 * Updates the mobility of two people, moving together.
 	 * @param otherPersonMobility the mobility of the person helping or being helped
@@ -469,7 +469,7 @@ public class Person extends Agent{
 		updateMobility((otherPersonMobility + mobility) / 2);
 	}
 
-	/*
+	/**
 	 * enforceBounds.
 	 * Ensures the given attribute is within MIN_SCALE and MAX_SCALE.
 	 * @param attribute
@@ -926,7 +926,7 @@ public class Person extends Agent{
 
 		/**
 		 * sendHelpRequest.
-		 * Sends a CFP message with a HelpRequest to all agents nearby 
+		 * Sends a CFP message with a HelpRequest to all agents nearby.
 		 * @return true upon success, false otherwise
 		 */
 		private boolean sendRequest() {
@@ -1366,7 +1366,7 @@ public class Person extends Agent{
 		/**
 		 * Push the person at the specified position, taking its place. 
 		 * If this person is helping someone, it stops doing so and vice-versa.
-		 * Both the mobility and the panic level of the person pushed is decreased.
+		 * The mobility of the person pushed is decreased, and its panic level increased.
 		 * The patience of the person pushed may also be decreased.
 		 * @param selectedX
 		 * @param selectedY
