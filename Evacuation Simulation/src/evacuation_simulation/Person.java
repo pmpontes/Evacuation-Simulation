@@ -1111,16 +1111,30 @@ public class Person extends Agent{
 		lastY = y;
 		x = selectedX;
 		y = selectedY;
-
-		if(lastX != x && lastY != y){
+		
+		if(lastX != x || lastY != y){
 			lastDiffX = lastX;
 			lastDiffY = lastY;
 		}
+		
+		System.out.println("x: " + x + ", y: " + y);
+		System.out.println("lastX: " + lastX + ", lastY: " + lastY);
+		System.out.println("lastDiffX: " + lastDiffX + ", lastDiffY: " + lastDiffY);
 
 		environment.move(this, x, y);
-
+		
+		Log.error("I'm moving!");
 		if(helped != null){
-			helped.moveTo(lastDiffX, lastDiffY);
+			Log.error("I moved the helped!");
+			// If the helper reached the exit
+			if(environment.getMap().getObjectAt(x, y) == Environment.EXIT){
+				helped.moveTo(x, y);
+			} else {
+				helped.moveTo(lastDiffX, lastDiffY);
+			}
+		}
+		if(helper != null){
+			Log.error("Someone moved me!");
 		}
 	}
 
@@ -1155,11 +1169,13 @@ public class Person extends Agent{
 
 		@Override
 		public void action() {			
-			Log.info("moving?? with " + helped + " /by " + helper);
-			if(helper != null || handlingHelpRequest || requestingHelp){
+			if(helper != null){
 				return;
 			}
-
+			if(helped!=null){
+				Log.info("moving?? with " + helped + " /by " + helper);
+			}
+				
 			ArrayList<Pair<Integer,Integer>> orderedPaths = environment.getBestPathFromCell(x, y);
 
 			int prob = uniform.nextIntFromTo(MIN_SCALE, MAX_SCALE);
@@ -1225,7 +1241,7 @@ public class Person extends Agent{
 
 			SimUtilities.shuffle(orderedPaths,  uniform);
 			int tempX = orderedPaths.get(0).getX();
-			int tempY = orderedPaths.get(0).getY();			
+			int tempY = orderedPaths.get(0).getY();
 
 			while(lastX == tempX && lastY == tempY){
 				orderedPaths.remove(0);
@@ -1244,6 +1260,18 @@ public class Person extends Agent{
 			}else{
 				if(uniform.nextIntFromTo(MIN_SCALE, MAX_SCALE) < getPanic()){
 					push(tempX, tempY);
+				} else {
+					// if the person is impatient, try a different path
+					if(getPatience() <= PATIENCE_THRESHOLD){
+						orderedPaths.remove(0);
+						if(!orderedPaths.isEmpty()){
+							if(tryRandomMove(orderedPaths)){
+								return true;
+							}
+						}
+					} 								
+					decreasePatience();	// lose patience as no move was made valid
+					return false;
 				}
 			}
 
