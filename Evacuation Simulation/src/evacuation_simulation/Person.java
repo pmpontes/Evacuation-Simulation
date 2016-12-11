@@ -461,7 +461,7 @@ public class Person extends Agent{
 		if(age < MAX_AGE / 3 || age > 2 * MAX_AGE / 3){
 			variation *= 1.2;	
 		}
-		Log.detail("Mobility variation: " + variation);
+		
 		updateMobility((int) (mobility + variation));
 	}
 
@@ -694,7 +694,6 @@ public class Person extends Agent{
 
 			handlingHelpRequest = false;
 
-			Log.error(msg +"");
 			try {
 				HelpConfirmation confirmation = (HelpConfirmation) getContentManager().extractContent(msg);
 
@@ -1140,18 +1139,12 @@ public class Person extends Agent{
 
 		environment.move(this, x, y);
 		
-		Log.error("I'm moving!");
 		if(helped != null){
-			Log.error("I moved the helped!");
-			// If the helper reached the exit
 			if(environment.getMap().getObjectAt(x, y) == Environment.EXIT){
 				helped.moveTo(x, y);
 			} else {
 				helped.moveTo(lastDiffX, lastDiffY);
 			}
-		}
-		if(helper != null){
-			Log.error("Someone moved me!");
 		}
 	}
 
@@ -1189,9 +1182,6 @@ public class Person extends Agent{
 			if(helper != null){
 				return;
 			}
-			if(helped!=null){
-				Log.info("moving?? with " + helped + " /by " + helper);
-			}
 				
 			ArrayList<Pair<Integer,Integer>> orderedPaths = environment.getBestPathFromCell(x, y);
 
@@ -1199,7 +1189,6 @@ public class Person extends Agent{
 
 			// try to make a move if there are valid paths and according to current mobility  
 			if(orderedPaths.size() > 0 && prob <= getMobility()){
-				Log.info("yes");
 				prob = uniform.nextIntFromTo(MIN_SCALE, MAX_SCALE);
 
 				// select best path, according to the person's knowledge, or if it is the only available path or if there is a visible exit nearby 

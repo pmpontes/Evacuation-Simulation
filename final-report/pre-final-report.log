@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.10.21)  11 DEC 2016 22:13
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.10.21)  11 DEC 2016 22:52
 entering extended mode
-**./final-report.tex
-(final-report.tex
+**./pre-final-report.tex
+(pre-final-report.tex
 LaTeX2e <2016/03/31> patch level 3
 Babel <3.9r> and hyphenation patterns for 75 language(s) loaded.
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\article.cls"
@@ -802,7 +802,7 @@ File: lstlang1.sty 2015/06/04 1.6 listings language file
 )
 Package hyperref Info: Option `colorlinks' set `true' on input line 99.
 
-(final-report.aux
+(pre-final-report.aux
 
 LaTeX Warning: Label `uml' multiply defined.
 
@@ -834,7 +834,7 @@ LaTeX Warning: Label `map' multiply defined.
 LaTeX Warning: Label `map' multiply defined.
 
 )
-\openout1 = `final-report.aux'.
+\openout1 = `pre-final-report.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 101.
 LaTeX Font Info:    ... okay on input line 101.
@@ -934,9 +934,9 @@ LaTeX Info: Redefining \ref on input line 101.
 LaTeX Info: Redefining \pageref on input line 101.
 LaTeX Info: Redefining \nameref on input line 101.
 
-(final-report.out) (final-report.out)
+(pre-final-report.out) (pre-final-report.out)
 \@outlinefile=\write3
-\openout3 = `final-report.out'.
+\openout3 = `pre-final-report.out'.
 
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
@@ -984,7 +984,7 @@ Package babel Info: Redefining portuges shorthand "|
 
 {C:/Users/pedro/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <./images/fe
 up.jpg>]
-(final-report.toc
+(pre-final-report.toc
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <12> on input line 4.
 LaTeX Font Info:    External font `lmex10' loaded for size
@@ -993,7 +993,7 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <6> on input line 4.
 )
 \tf@toc=\write4
-\openout4 = `final-report.toc'.
+\openout4 = `pre-final-report.toc'.
 
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 153.
@@ -1416,87 +1416,87 @@ Underfull \hbox (badness 10000) in paragraph at lines 1002--1009
 <images/log_sc1.png, id=537, 317.988pt x 119.84775pt>
 File: images/log_sc1.png Graphic file (type png)
  <use images/log_sc1.png>
-Package pdftex.def Info: images/log_sc1.png used on input line 1015.
+Package pdftex.def Info: images/log_sc1.png used on input line 1014.
 (pdftex.def)             Requested size: 317.98721pt x 119.84744pt.
 
 <images/graph_sc1.png, id=538, 380.622pt x 216.20775pt>
 File: images/graph_sc1.png Graphic file (type png)
 
 <use images/graph_sc1.png>
-Package pdftex.def Info: images/graph_sc1.png used on input line 1024.
+Package pdftex.def Info: images/graph_sc1.png used on input line 1023.
 (pdftex.def)             Requested size: 380.62105pt x 216.20721pt.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1028.
+(babel)             in language  on input line 1027.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1028.
+(babel)             in language  on input line 1027.
  [27 <./images/log_sc1.png>]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1033.
+(babel)             in language  on input line 1032.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1033.
+(babel)             in language  on input line 1032.
  [28 <./images/graph_sc1.png>]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1034.
+(babel)             in language  on input line 1033.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1044.
+(babel)             in language  on input line 1041.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1052.
+(babel)             in language  on input line 1049.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1053.
+(babel)             in language  on input line 1050.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1063.
+(babel)             in language  on input line 1060.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1070.
+(babel)             in language  on input line 1069.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1070.
+(babel)             in language  on input line 1069.
  [29]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1072.
+(babel)             in language  on input line 1069.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1072.
+(babel)             in language  on input line 1069.
  [30]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1074.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 1077.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1080.
+(babel)             in language  on input line 1079.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1082.
+(babel)             in language  on input line 1085.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1088.
+(babel)             in language  on input line 1111.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1114.
+(babel)             in language  on input line 1115.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1118.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1118.
+(babel)             in language  on input line 1115.
  [31]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1122.
+(babel)             in language  on input line 1119.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1122.
+(babel)             in language  on input line 1119.
  [32]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1123.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1123.
- (final-report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1123.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1123.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1120.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1120.
+ (pre-final-report.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1120.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1120.
 
-Package rerunfilecheck Info: File `final-report.out' has not changed.
+Package rerunfilecheck Info: File `pre-final-report.out' has not changed.
 (rerunfilecheck)             Checksum: 9E2171A5C0F5EFE28864FE7709D7A06E;1572.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1123.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1120.
  ) 
 Here is how much of TeX's memory you used:
  11740 strings out of 493334
- 170621 string characters out of 3139251
+ 170685 string characters out of 3139251
  318447 words of memory out of 3000000
  14726 multiletter control sequences out of 15000+200000
  92194 words of font info for 59 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 36i,16n,42p,622b,1386s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 36i,16n,42p,626b,1386s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc}{C:/Program Files/M
 iKTeX 2.9/fonts/enc/dvips/lm/lm-rm.enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/d
 vips/lm/lm-mathit.enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathsy
@@ -1510,7 +1510,7 @@ pe1/public/lm/lmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmri1
 2.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb><C:/Program
  Files/MiKTeX 2.9/fonts/type1/public/lm/lmtt10.pfb><C:/Program Files/MiKTeX 2.9
 /fonts/type1/public/lm/lmtt12.pfb>
-Output written on final-report.pdf (32 pages, 921130 bytes).
+Output written on pre-final-report.pdf (32 pages, 998633 bytes).
 PDF statistics:
  707 PDF objects out of 1000 (max. 8388607)
  326 named destinations out of 1000 (max. 500000)
