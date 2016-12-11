@@ -1195,15 +1195,20 @@ public class Person extends Agent{
 
 				// select best path, according to the person's knowledge, or if it is the only available path or if there is a visible exit nearby 
 				int maxOrthogonalDistance = (environment.getMap().getHeight() > environment.getMap().getWidth()) ? environment.getMap().getHeight() : environment.getMap().getWidth();
-				if(prob <= getUsableKnowledge() || orderedPaths.size() == 1 || !environment.findNearExits(myAgent,maxOrthogonalDistance).isEmpty()){
+				if(prob <= getUsableKnowledge() || orderedPaths.size() == 1){
 					tryMakeBestMove(orderedPaths);
 				} else {
-					prob = uniform.nextIntFromTo(MIN_SCALE, MAX_SCALE);
-
-					if(prob < getIndependence()){
-						tryRandomMove(orderedPaths);
+					ArrayList<Pair<Integer,Integer>> nearbyExits = environment.findNearExits(myAgent,maxOrthogonalDistance);
+					if(!nearbyExits.isEmpty()){
+						moveTowardsSeenExit(nearbyExits.get(0), orderedPaths);
 					} else {
-						tryFollowOthers(orderedPaths);
+						prob = uniform.nextIntFromTo(MIN_SCALE, MAX_SCALE);
+	
+						if(prob < getIndependence()){
+							tryRandomMove(orderedPaths);
+						} else {
+							tryFollowOthers(orderedPaths);
+						}
 					}
 				}
 				updateDirection();
@@ -1218,6 +1223,61 @@ public class Person extends Agent{
 			if(prob > areaKnowledge && areaKnowledge < DIRECTIONS_REQUEST_THRESHOLD) {
 				askDirections();
 			}
+		}
+
+		/**
+		 * Attempts to make a valid move, in the direction of the exit the agent is seeing.
+		 * It tries to maintain sight of the exit as it moves
+		 * If the a path is occupied by a person, a push may be occur if the person is in a panic.
+		 * @param orderedPaths
+		 * @return true upon success, false otherwise
+		 */
+		private void moveTowardsSeenExit(Pair<Integer, Integer> nearestExit, ArrayList<Pair<Integer, Integer>> orderedPaths) {
+
+			ArrayList<Pair<Integer, Integer>> nextPossiblePaths = new ArrayList<Pair<Integer, Integer>>();
+			if(nearestExit.getX() > x)	nextPossiblePaths.add(new Pair<Integer,Integer>(x+1, y));
+			if(nearestExit.getX() < x)	nextPossiblePaths.add(new Pair<Integer,Integer>(x-1, y));
+			if(nearestExit.getY() > y)	nextPossiblePaths.add(new Pair<Integer,Integer>(x, y+1));
+			if(nearestExit.getY() < y)	nextPossiblePaths.add(new Pair<Integer,Integer>(x, y-1));
+			
+			Pair<Integer, Integer> path;
+			for(int i = 0; i < nextPossiblePaths.size(); i++){
+				if(environment.getMap().elementVisible(nearestExit.getX(), nearestExit.getY(),
+													nextPossiblePaths.get(i).getX(), nextPossiblePaths.get(i).getY())
+					&& orderedPaths.contains(nextPossiblePaths.get(i))){
+					
+					if(nextPossiblePaths.get(i).getX() != lastX || nextPossiblePaths.get(i).getY() != lastY){
+						path = nextPossiblePaths.get(i);
+						
+						if(environment.userFreeCell(path.getX(), path.getY())){
+							moveTo(path.getX(), path.getY());
+							increasePatience();
+							return;
+						} else {
+							// if the person is impatient, try a different path
+							if(getPatience() <= PATIENCE_THRESHOLD){
+								orderedPaths.remove(0);
+								if(!orderedPaths.isEmpty()){
+									if(tryRandomMove(orderedPaths)){
+										return;
+									}
+								}
+							} 								
+							decreasePatience();	// lose patience as no move was made valid
+							return;
+						}
+					}
+				}
+			}
+			
+			int prob = uniform.nextIntFromTo(MIN_SCALE, MAX_SCALE);
+			
+			if(prob < getIndependence()){
+				tryRandomMove(orderedPaths);
+			} else {
+				tryFollowOthers(orderedPaths);
+			}
+		
 		}
 
 		/**
@@ -1316,6 +1376,20 @@ public class Person extends Agent{
 			int tempY = orderedPaths.get(0).getY();
 
 			if(!environment.userFreeCell(tempX, tempY)) {
+				
+				for(int i = 1; i < orderedPaths.size(); i++){
+					if(environment.getMap().getDistanceAt(tempX, tempY) 
+							== environment.getMap().getDistanceAt(orderedPaths.get(i).getX(), orderedPaths.get(i).getY())){
+						
+						if(environment.userFreeCell(orderedPaths.get(i).getX(), orderedPaths.get(i).getY())){
+							moveTo(orderedPaths.get(i).getX(), orderedPaths.get(i).getY());
+							increasePatience();
+							return true;
+						}
+					} else {
+						break;
+					}
+				}
 
 				// if the person is in panic, push the person in front
 				if(prob < getPanic()){

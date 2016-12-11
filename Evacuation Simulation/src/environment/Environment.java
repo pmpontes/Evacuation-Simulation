@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+import com.sun.media.Log;
+
 import entity.Exit;
 import entity.Wall;
 import evacuation_simulation.Person;
@@ -114,8 +116,9 @@ public class Environment {
 		return null;
 	}
 
-	public ArrayList<AID> findNearExits(Agent myAgent, int distance){
-		ArrayList<AID> exitsList = new ArrayList<AID>();
+	public ArrayList<Pair<Integer,Integer>> findNearExits(Agent myAgent, int distance){
+		ArrayList<Pair<Integer,Integer>> exitsList = new ArrayList<Pair<Integer,Integer>>();
+		Log.error("entered");
 
 		GridCellNgh<Exit> neighbourhood = new GridCellNgh<Exit>(grid, grid.getLocation(myAgent), Exit.class, distance, distance);
 		List<GridCell<Exit>> nghPoints = neighbourhood.getNeighborhood(false);
@@ -124,11 +127,17 @@ public class Environment {
 			if(Exit.size() > 0){
 				Iterable<Exit> iterable = Exit.items();
 				for(Exit agent : iterable){
-					if(map.elementVisible(grid.getLocation(myAgent).getCoord(0), grid.getLocation(myAgent).getCoord(1), grid.getLocation(agent).getCoord(0), grid.getLocation(agent).getCoord(1)))
-						exitsList.add(agent.getAID());
+					if(map.elementVisible(grid.getLocation(myAgent).getCoord(0), 
+											map.getHeight()-grid.getLocation(myAgent).getCoord(1)-1,
+											grid.getLocation(agent).getCoord(0), 
+											map.getHeight()-grid.getLocation(agent).getCoord(1)-1)){
+						
+						exitsList.add(new Pair<Integer,Integer>(grid.getLocation(agent).getCoord(0), map.getHeight()-grid.getLocation(agent).getCoord(1)-1));
+					}
 				}
 			}
 		}
+		
 
 		return exitsList;
 	}

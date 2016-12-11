@@ -56,10 +56,11 @@
         <age>25</age>
     </person>
     <person>
+    	<position x="42" y="3"/>
         <areaKnowledge>0</areaKnowledge>
         <altruism>90</altruism>
         <independence>90</independence>
-        <mobility>30</mobility>
+        <mobility>100</mobility>
         <panic>10</panic>
         <age>25</age>
     </person>
