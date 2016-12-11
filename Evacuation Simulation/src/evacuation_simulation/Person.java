@@ -1252,17 +1252,20 @@ public class Person extends Agent{
 							increasePatience();
 							return;
 						} else {
-							// if the person is impatient, try a different path
-							if(getPatience() <= PATIENCE_THRESHOLD){
-								orderedPaths.remove(0);
-								if(!orderedPaths.isEmpty()){
-									if(tryRandomMove(orderedPaths)){
-										return;
+							if(uniform.nextIntFromTo(MIN_SCALE, MAX_SCALE) < getPanic()){
+								push(path.getX(), path.getY());
+							} else {
+								// if the person is impatient, try a different path
+								if(getPatience() <= PATIENCE_THRESHOLD){
+									if(!orderedPaths.isEmpty()){
+										if(tryRandomMove(orderedPaths)){
+											return;
+										}
 									}
-								}
-							} 								
-							decreasePatience();	// lose patience as no move was made valid
-							return;
+								} 								
+								decreasePatience();	// lose patience as no move was made valid
+								return;
+							}
 						}
 					}
 				}
