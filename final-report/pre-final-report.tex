@@ -121,7 +121,7 @@
 
 \HRule \\[1.2cm]
 { \huge \bfseries \textit{Simulação de Evacuação com Agentes}}\\[0.6cm] % Title of your document
-{ \large \bfseries Relatório de Implementação} \\[0.6cm]
+{ \large \bfseries Relatório de Implementação\\ Versão preliminar} \\[0.6cm]
 \HRule \\[2cm]
  
 %----------------------------------------------------------------------------------------
@@ -997,16 +997,15 @@ Deste modo, foi possível observar-se como estas variações se refletem em mét
 
 \begin{itemize}
 	%----------------------------------------------------------------------------------------	
-	\item \textbf{População preparada vs despreparada}
+	\item \textbf{População preparada}
 
 \textbf{Objetivo:} 
-Confrontar o comportamento de agentes com elevado conhecimento da área a evacuar com o comportamento de agentes que não conhecem a área tão bem.
+Testar o comportamento de agentes com elevado conhecimento da área a evacuar.
 \\\textbf{Cenário:} 
-\textit{scenario1.xml}, \textit{scenario2.xml}
+\textit{scenario1.xml}
 \\\textbf{Mapa:} 
 \textit{map\_2016\_12\_10\_19\_25\_05.map}
 \newline
-
 
 Esta experiência consistiu na colocação num espaço de 45 agentes do tipo \textit{IndependentKnowledgeable} e \textit{DependentKnowledgeable}, com um elevado nível de conhecimento da área, baixos níveis de pânico.
 
@@ -1026,24 +1025,6 @@ Como seria expectável numa situação em que todos conhecem a área relativamen
 	\label{graph_sc1}
 \end{figure}
 
-\begin{figure}[H]
-	\centering
-	\includegraphics{log_sc1.png}
-	\caption{Resultados da simulação.}
-	\label{log_sc1}
-\end{figure}
-
--------Como seria expectável numa situação em que todos conhecem a área relativamente bem, sabendo onde se encontram as saídas e não existindo pânico, a evacuação decorre sem problemas de maior, não havendo feridos. Registaram-se apenas pedidos de direções e um número reduzido de empurrões.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics{graph_sc1.png}
-	\caption{Variação dos atributos dos agentes do cenário.}
-	\label{graph_sc1}
-\end{figure}
-
---------Como seria expectável numa situação em que todos conhecem a área relativamente bem, sabendo onde se encontram as saídas e não existindo pânico, a evacuação decorre sem problemas de maior, não havendo feridos. Registaram-se apenas pedidos de direções e um número reduzido de empurrões.
-
 \end{itemize}
 	
 	
@@ -1056,8 +1037,6 @@ Terminado o projeto, destaca-se a importância de ferramentas de simulação de 
 Consideram-se atingidos os objetivos definidos: desenvolver um programa que permita simular a interação de agentes confinados a um espaço concreto e limitado perante a necessidade de evacuar esse espaço.
 
 Tem-se como particularmente útil a possibilidade de acompanhar a evacuação visualmente e a possibilidade de analisar os dados recolhidos, por um lado, através de gráficos e, por outro, através do registo de eventos.
-
-Da análise dos resultados das experiências levadas a cabo
 
 \section{Melhorias}
 
