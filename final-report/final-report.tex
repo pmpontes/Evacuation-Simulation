@@ -843,7 +843,7 @@ A \textit{Grid} permite que um agente conheça a sua vizinhança, tornando poss�
 \newpage
 \section{Experimentação}
 
-Ao longo do processo de desenvolvimento foram levadas a cabo múltiplas experiências, com vista a testar a implementação dos agentes. O espaço utilizado para os testes levados a cabo nesta fase encontra-se definido em\textit{ src/maps/testMap.map}.
+Ao longo do processo de desenvolvimento foram levadas a cabo múltiplas experiências, com vista a testar a implementação dos agentes. Os espaços utilizados para os testes levados a cabo nesta fase encontram-se definidos em\textit{ src/maps/testMap\_wall.map} e \textit{ src/maps/testMap.map}, tendo o primeiro sido usado para a evacuação simples e o segundo para os restantes.
 \begin{itemize}
 	
 %----------------------------------------------------------------------------------------
@@ -871,12 +871,12 @@ Esta experiência consistiu na colocação, numa dada posição de um espaço pr
 		\textbf{Tipo de agente}  & \textbf{Tempo de evacuação}\\
 		\toprule
 		\rowcolor[HTML]{FFFFFF} 
-		IndependentKnowledgeable & 16.73s \\ \midrule 
+		IndependentKnowledgeable & 82 ticks \\ \midrule 
 		\rowcolor[HTML]{FFFFFF} 
-		IndependentUnknowledgeable & 34.79s \\ \midrule 
-		DependentKnowledgeable & 17.71s \\ \midrule 
+		IndependentUnknowledgeable & 212 ticks \\ \midrule 
+		DependentKnowledgeable & 82 ticks \\ \midrule 
 		DependentUnknowledgeable &
-		50.12s \\ \midrule 
+		334 ticks \\ \midrule 
 	\end{tabular}
 \end{table}
 	
