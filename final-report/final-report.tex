@@ -490,9 +490,9 @@ O conhecimento da área condiciona a probabilidade de um agente de, a cada insta
 
 \item Paciência
 
-Considerou-se que a paciência de uma pessoa oscila, aumentando ou diminuindo de acordo com um valor predefinido e configurável.
+Considerou-se que a paciência de uma pessoa oscila, aumentando - por exemplo, quando o agente vê o seu caminho escolhido obstruído por outro agente - ou diminuindo - por exemplo, quando o agente consegue mover-se com sucesso - de acordo com um valor predefinido e configurável.
 
-A paciência de uma pessoa influencia a forma como o caminho a seguir é selecionado: se o caminho selecionado estiver bloqueado por outra pessoa e não se quiser empurrá-la, pode esperar-se por um tempo razoável, até que essa pessoa desobstrua a passagem, ou, esgotada a paciência, ultrapassá-la.
+A paciência de uma pessoa influencia a forma como o caminho a seguir é selecionado: se o caminho selecionado estiver bloqueado por outra pessoa e não se quiser empurrá-la, pode esperar-se por um tempo razoável, até que essa pessoa desobstrua a passagem (reduzindo a paciência a cada tentativa de movimento), ou, esgotada a paciência, escolher um outro caminho disponível.
 
 \end{itemize}
 
@@ -508,7 +508,6 @@ public int getUsableKnowledge() {
 }
 \end{lstlisting}
 
-\newline
 
 \item \textbf{Mecanismo de Pânico}
 
@@ -610,7 +609,86 @@ void receiveReply() {
 \end{itemize}
 
 \subsubsection{Ambiente}
-Detalhes de implementação sobre o ambiente/espaço.
+A representação do espaço é feita com recurso a múltiplas estruturas de dados, nomeadamente, uma \textit{Grid} (classe disponibilizada pelo \textit{Repast} que conterá os agentes), um \textit{array} bidimensional de caracteres com as posições das saídas e das paredes/obstáculos e um \textit{array} bidimensional de inteiros como um mapa de distâncias. Um utilizador tem a liberdade de indicar, na interface da simulação, um ficheiro com a configuração do ambiente onde estarão necessáriamente definidas as posições das saídas e das paredes/obstáculos.
+
+\begin{itemize}
+
+\item \textbf{Mapa de obstáculos e saídas}
+
+Este mapa é representado como um \textit{array} bidimensional com caracteres que representam as saídas, paredes/obstáculos ou espaços livres, nas posições em que estão definidas no ficheiro de configuração. Esta representação tanto é usada para a criação do mapa de distâncias como, em \textit{runtime}, para determinar se uma célula contem um obstáculo ou uma saída.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.2]{map_text.png}
+	\caption{Representação visual dos conteúdos do mapa de obstáculos e saídas.}
+	\label{map}
+\end{figure}
+
+\item \textbf{Mapa de distâncias}
+
+Antes da execução da simulação, no momento em que o mapa é carregado, é construído um mapa de distâncias até às saídas. 
+
+Este é obtido usando um algoritmo, semelhante a \textit{flooding}, que, começando a partir de cada saída, se propaga, colocando o valor atual de distância a essa saída nas células, parando de se propagar num certo sentido caso encontre uma célula já preenchida com um valor inferior ao valor que seria colocado ou caso encontre um obstáculo.
+\newpage
+\begin{lstlisting}[caption= Pseudo-código que retrata o algoritmo usado para o preenchimento do mapa de distâncias.]
+generateDistanceMap() {
+	distanceMap; // Mapa de distancias
+
+	for(exit in exitsList){
+		distance = 1;
+		toVisit; 		// Array com celulas a visitar
+		visited; 		// Array com celulas ja visitadas
+		futureToVisit; 	// Array com celulas a ser visitadas no futuro
+		toVisit.add(exit);
+
+		while( !toVisit.empty() ) {
+
+			for(cell in toVisit){
+				
+				for(cardinal in cardinalPoints){		// Por cada ponto cardeal ver celula adjacente
+					if(cell.cardinal == ' ' and !visited.contains(cell.cardinal)){ // Verifica se a celula adjacente corresponde a um espaco livre e ainda nao foi visitada
+						if(distance < distanceMap.get(cell.cardinal)){ // Se a distancia atual for mais baixa que a distancia que a celula ja tinha
+							futureToVisit.add(cell.cardinal);
+							distanceMap.set(cell.cardinal, distance);
+						}
+						visited.add(cell.cardinal);
+					}
+				}
+			}
+			toVisit = futureToVisit;
+			futureToVisit.clear();
+			distance++;
+		}
+	return distanceMap;		
+
+}
+\end{lstlisting}
+
+Este pré-processamento do melhor caminho até à saída mais próxima, a partir de cada célula, é uma abordagem válida, tendo em conta que o ambiente é estático. Revela também ter um desempenho considerávelmente melhor do que se fosse usado um algoritmo de \textit{path finding} a cada tentativa de movimento. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{map_distance.png}
+	\caption{Representação visual dos conteúdos do mapa de distâncias\protect\footnotemark.}
+	\label{map}
+\end{figure}
+
+\footnotetext{Nota: Cores usadas meramente com o propósito de facilitar a compreensão da figura. Na representação do mapa de distâncias não há nenhuma indicação explícita de qual é a saída mais próxima, essa informação é extraída a partir dos valores nas células vizinhas. \\Apesar de não ser apresentado na figura, as paredes contém valor -1.}
+
+\item \textbf{\textit{Grid}}
+
+Para o ambiente ter uma representação visual na interface de simulação, é necessário o uso de uma \textit{Grid}, sendo que esta contém todos os agentes, obstáculos e saídas.
+
+A \textit{Grid} permite que um agente conheça a sua vizinhança, tornando possível usar a próximidade física entre agentes como um factor para os comportamentos entre estes. É também na \textit{Grid} que se observa o movimento dos agentes pelo espaço, contornando obstáculos e tentando atingir as saídas.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.20]{map_simulation.png}
+	\caption{Representação da \textit{Grid} na interface da simulação}
+	\label{map}
+\end{figure}
+
+\end{itemize}
 
 \newpage
 \section{Experimentação}
@@ -796,6 +874,23 @@ No que respeita a melhorias da simulação propriamente dita, uma possível melh
 [3] \textit{SAJaS}.
 
 [4] \textit{Eclipse};
+
+\newpage
+%----------------------------------------------------------------------------------------
+%	UserMan Begin
+%----------------------------------------------------------------------------------------
+
+\section{Apêndice}
+
+
+\subsection{Manual de Utilizador}
+
+\subsubsection{Especificação de ficheiro de entrada}
+
+O ficheiro a partir do qual esta ferramenta interpreta o ambiente de simulação terá como conteúdo um conjunto de linhas, todas com comprimento idêntico, compostas pelos caracteres \textit{'W'} - que representa uma parede, ou, mais genéricamente, um obstáculo -, \textit{'E'} - que representa uma saída - e {' '}, que caracteriza um espaço livre. A ordem dos caracteres nas linhas, e das linhas no ficheiro, é a ordem considerada para a representação do mapa no ambiente na simulação.
+
+O ficheiro poderá ser selecionado na \textit{GUI} do \textit{Repast}, indo ao separador \textit{Parameters} na barra lateral, colocando o endereço para o ficheiro na caixa intitulada \textit{Environment File Name}.
+
 
 \end{titlepage}
 \end{document}
