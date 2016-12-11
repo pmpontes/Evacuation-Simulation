@@ -1052,6 +1052,14 @@ public class Person extends Agent{
 			// find people in the surrounding area
 			ArrayList<AID> peopleNear = environment.findNearAgents(myAgent, REQUEST_DISTANCE);
 			peopleNear.removeAll(previousReplies);
+			
+			if(helper != null){
+				peopleNear.remove(helper.getAID());
+			}
+			if(helped != null){
+				peopleNear.remove(helped.getAID());
+			}
+			
 			SimUtilities.shuffle(peopleNear,  RandomHelper.getUniform());
 
 			if(peopleNear.isEmpty()) {

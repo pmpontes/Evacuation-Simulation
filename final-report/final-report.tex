@@ -338,7 +338,9 @@ Aqueles que recebem esta mensagem, podem, ou não, propagar a mensagem e aumenta
 
 Duas pessoas podem partilhar conhecimento sobre a área, mediante um pedido nesse sentido. Um agente que tenha pouco conhecimento da área pode enviar a um agente ao seu redor uma mensagem \textit{CFP}, a que esse agente responde com uma dada probabilidade - dependente do valor do atributo altruísmo. A resposta consiste numa mensagem \textit{INFORM}, com o valor do seu conhecimento da área, \textit{conhecimento1}. Por forma a simular a aquisição de informação, o agente que fez o pedido atualizará o seu nível de conhecimento da área, \textit{conhecimento2}, de acordo com:
 
-\[	conhecimento2 = max(conhecimento2, conhecimento1 * 0.80) \]
+\[	conhecimento2 = max(conhecimento2, conhecimento1 * FAC) \]
+
+onde FAC representa um fator de aquisição de conhecimento, de valor configurável, que visa simular as perdas de informação típicas numa troca de informações.\newline
 
 \begin{figure}[H]
 	\centering
@@ -346,14 +348,14 @@ Duas pessoas podem partilhar conhecimento sobre a área, mediante um pedido ness
 	\caption{Diagrama de sequência exemplificando uma interação do tipo Orientação.}
 	\label{uml}
 \end{figure}
-
+\newpage
 
 
 \item Ajuda;
 
 Um agente pode pedir ajuda, enviando uma mensagem \textit{CFP} para agentes ao seu redor. Os agentes na disposição de ajudar podem oferecer a sua ajuda, enviando uma mensagem \textit{PROPOSAL}, com o valor da sua mobilidade, \textit{mobilidade1}.
 
-O autor do pedido de ajuda aceita uma oferta, respondendo com uma mensagem \textit{ACCEPT\_PROPOSAL}, com o valor da sua mobilidade, \textit{mobilidade2}. O agente que ofereceu ajuda passa a guiar o outro até à saída, sendo a mobilidade de cada um dada por:
+O autor do pedido de ajuda aceita a melhor oferta, respondendo com uma mensagem \textit{ACCEPT\_PROPOSAL}, com o valor da sua mobilidade, \textit{mobilidade2}, rejeitando as demais ofertas com uma mensagem \textit{REJECT\_PROPOSAL}. O agente que ofereceu ajuda passa a guiar o outro até à saída, sendo a mobilidade de cada um dada por:
 
 \[	mobilidade1 = mobilidade2 = \frac{mobilidade1 + moblidade2}{2} \]
 
@@ -413,26 +415,47 @@ Adicionalmente, irá utilizar-se a \textit{API SAJaS}, que possibilita a integra
 
 \subsection{Estrutura}
 
-Estrutura da aplicação, módulos, diagrama de classes...
-(incluir UML)
+A aplicação pode, a nível lógico, dividir-se em diferentes módulos, com responsabilidades distintas.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.5]{packages.jpg}
-	\caption{Diagrama de pacotes, ilustrativo da estrutura lógica do projeto.}
+	\caption{Diagrama ilustrativo da estrutura lógica do projeto.}
+	\label{uml}
+\end{figure}
+
+O módulo \textit{Simulation} é responsável pela configuração da simulação, no que diz respeito às ferramentas usadas - \textit{Repast}, \textit{JADE} e \textit{SAJaS}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.6]{simulation.jpg}
+	\caption{Classes do módulo \textit{Simulation}.}
+	\label{uml}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{environment.jpg}
+	\caption{Classes do módulo \textit{Environment}.}
+	\label{uml}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{person.jpg}
+	\caption{Classes do módulo \textit{Person}.}
 	\label{uml}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.5]{communication.jpg}
-	\caption{Classes do pacote \textit{Communication}.}
+	\caption{Classes do módulo \textit{Communication}.}
 	\label{uml}
 \end{figure}
 
 \subsection{Detalhes}
 \subsubsection{Agentes}
-Detalhes de implementação sobre o agentes
 
 \begin{itemize}
 	
@@ -461,7 +484,9 @@ Da mobilidade de uma pessoa depende a probabilidade de, a cada instante, uma pes
 
 \item Conhecimento da área
 
-O conhecimento da área varia apenas por meio da partilha de informação com outras pessoas.
+O conhecimento da área pode variar, aumentando apenas por meio da partilha de informação com outras pessoas.
+
+O conhecimento da área condiciona a probabilidade de um agente de, a cada instante, selecionar o melhor caminho na direção da saída.\newline
 
 \item Paciência
 
@@ -471,13 +496,116 @@ A paciência de uma pessoa influencia a forma como o caminho a seguir é selecio
 
 \end{itemize}
 
-\item Movimento
+Adicionalmente, definiram-se algumas funções, que traduzem a influência do pânico sobre outros atributos:
 
-\item Direções
+\begin{lstlisting}[caption= Código \textit{Java}\ de funções que traduzem a influência do pânico sobre o altruísmo e cohecimento de área.]
+public int getAltruisticFeeling() {
+	return altruism - panic / 5;
+}
 
-\item Ajuda
+public int getUsableKnowledge() {
+	return areaKnowledge - panic / 5;
+}
+\end{lstlisting}
 
-\item Outros
+\newline
+
+\item \textbf{Mecanismo de Pânico}
+
+
+
+\item \textbf{Partilha de Direções}
+
+Conforme a especificação, duas pessoas podem partilhar conhecimento sobre a área, mediante um pedido nesse sentido. 
+
+A cada instante, um agente que tenha pouco conhecimento da área pode - com uma probabilidade inversamente proporcional a esse conhecimento - enviar a um agente ao seu redor uma mensagem \textit{CFP}.
+
+\begin{lstlisting}[caption= Código \textit{Java}\, responsável pelo envio de um pedido de direções.]
+/**
+* makeRequest.
+* Sends a CFP containing a DirectionsRequest to an agent nearby, selected randomly.
+* @return true upon success, false otherwise
+*/
+boolean sendDirectionsRequest() {
+	ArrayList<AID> peopleNear = environment.findNearAgents(myAgent, REQUEST_DISTANCE);
+	peopleNear.removeAll(previousReplies);
+	
+	SimUtilities.shuffle(peopleNear,  RandomHelper.getUniform());
+	if(peopleNear.isEmpty()) {
+		return false;
+	}
+	
+	ACLMessage directionsRequest = new ACLMessage(ACLMessage.CFP);			
+	directionsRequest.addReceiver(peopleNear.get(0));
+	DirectionsRequest requestMessage = new DirectionsRequest();
+	getContentManager().fillContent(directionsRequest, requestMessage);
+	send(directionsRequest);
+	
+	return true;
+}
+\end{lstlisting}
+
+O agente a quem foram pedidas direções responde com uma mensagem \textit{INFORM} ou \textit{REFUSE} uma dada probabilidade.
+
+\begin{lstlisting}[caption= Código \textit{Java}\, responsável pela receção de pedidos de direções.]
+/**
+* Handle a request for direction, by 'sharing' areaKnowledge. 
+* Requests are ignored  if the person is not feeling altruistic.
+* @param request
+*/
+void handleDirectionsRequest(ACLMessage request) {
+	ACLMessage reply = request.createReply();
+	
+	if(RandomHelper.nextIntFromTo(MIN_SCALE, MAX_SCALE) < getAltruisticFeeling()) {
+		reply.setPerformative(ACLMessage.INFORM);
+	}else{
+		reply.setPerformative(ACLMessage.REFUSE);
+	}
+	
+	DirectionsReply replyMessage = new DirectionsReply(areaKnowledge);
+	getContentManager().fillContent(reply, replyMessage);
+	send(reply);
+}
+\end{lstlisting}
+
+O agente que pediu direções atualiza o seu conhecimento da área.
+
+\begin{lstlisting}[caption= Código \textit{Java}\, responsável pela receção de respostas a um pedido de direções.]
+/**
+* receiveReply.
+* Attempts to receive a reply of type INFORM or REFUSE.
+* Updates areaKnowledge to a percentage of the knowledge of the person answering, if it is greater than the current value.
+*/
+void receiveReply() {
+	ACLMessage msg = receive(template);
+	if(msg == null) {
+		return;
+	}
+	
+	if(msg.getPerformative() == ACLMessage.INFORM) {				
+		int previousKnowledge = areaKnowledge;
+		int knowledgeReceived = ((DirectionsReply) getContentManager().extractContent(msg)).getKnowkledge();
+		
+		setAreaKnowledge(Integer.max((int) (knowledgeReceived * KNOWLEDGE_ACQUISITION_FACTOR), areaKnowledge));
+		
+		if(previousKnowledge < areaKnowledge){
+			newDirections = true;
+		}else{
+			previousReplies.add(msg.getSender());
+		}
+	}else if(msg.getPerformative() == ACLMessage.REFUSE){			
+		newDirectionsRequested = false;
+	}
+}
+\end{lstlisting}
+
+
+\item \textbf{Ajuda}
+
+
+\item \textbf{Movimento}
+(TODO)
+
 
 \end{itemize}
 
@@ -605,16 +733,16 @@ Esta experiência consistiu na colocação, em posições adjacentes de um espa�
 	\label{help_log}
 \end{figure}
 
-Como esperado, observou-se que o agente com mobilidade reduzida «pediu ajuda», que faz com que o outro lhe faça uma proposta. Recebendo esta proposta, o agente que efetuou o pedido envia uma confirmação, e atualiza o seu conhecimento da área com base na informação da proposta  . Na Figura \ref{help_graph} é possível verificar o aumento do conhecimento médio.
+Como esperado, observou-se que o agente com mobilidade reduzida «pediu ajuda», que faz com que o outro lhe faça uma proposta. Recebendo esta proposta, o agente que efetuou o pedido envia uma confirmação, e atualiza o seu conhecimento da área com base na informação da proposta, bem como a sua mobilidade, conforme previsto para uma interação deste tipo. Na Figura \ref{help_graph} é possível verificar o aumento do conhecimento médio.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics{directions_test.png}
+	\includegraphics{help_test.png}
 	\caption{Variação dos atributos dos agentes do cenário.}
-	\label{directions_graph}
+	\label{help_graph}
 \end{figure}
 	
-	Na Figura \ref{help_graph} é possível verificar o aumento do conhecimento médio.
+	De referir, ainda, que o pico na mobilidade média observado na Figura \ref{help_graph} é meramente resultado da implementação da interação, e deve-se à atualização assíncrona dos valores da mobilidade de ambos os agentes envolvidos.
 %----------------------------------------------------------------------------------------
 %	EXP end
 %----------------------------------------------------------------------------------------
@@ -633,16 +761,18 @@ Deste modo, foi possível observar-se como estas variações se refletem em mét
 \newpage
 \section{Conclusão}
 
-Terminado o projeto, destaca-se a importância de ferramentas de simulação de evacuação, perante os desafios que a realização de simulacros coloca.
+Terminado o projeto, destaca-se a importância de ferramentas de simulação de evacuação - perante os desafios que a realização de simulacros coloca - e a aplicabilidade deste projeto a esse fim.
 
 Consideram-se atingidos os objetivos definidos: desenvolver um programa que permita simular a interação de agentes confinados a um espaço concreto e limitado perante a necessidade de evacuar esse espaço.
 
+Tem-se como particularmente útil a possibilidade de acompanhar a evacuação visualmente e a possibilidade de analisar os dados recolhidos, por um lado, através de gráficos e, por outro, através do registo de eventos.
+
 Da análise dos resultados das experiências levadas a cabo
-Do desenvolvimento do trabalho e aplicabilidade de SMA ao cenário proposto
 
 \section{Melhorias}
 
 Primeiramente, considera-se que seria útil a possibilidade de poder definir o espaço usando um \textit{GUI}.
+
 No que respeita a melhorias da simulação propriamente dita, uma possível melhoria, seria a introdução de um elemento fogo no espaço. Tal poderia ser implementado, por exemplo, usando um agente com a capacidade de se replicar ao longo do tempo para posições adjacentes, simulando a propagação de um incêndio. Agentes na proximidade poderiam queimar-se, vendo a sua mobilidade reduzida ou mesmo morrendo.
 
 
