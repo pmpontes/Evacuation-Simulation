@@ -862,3 +862,12 @@ java.lang.NullPointerException
 	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
 	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
 	at java.lang.Thread.run(Unknown Source)
+FATAL [Thread-18] 2016-12-11 22:57:05,713 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (303.0)
+java.lang.NullPointerException
+	at repast.simphony.engine.schedule.ActionQueue.percolateDown(ActionQueue.java:122)
+	at repast.simphony.engine.schedule.ActionQueue.popMin(ActionQueue.java:209)
+	at repast.simphony.engine.schedule.Schedule.preExecute(Schedule.java:330)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:348)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)

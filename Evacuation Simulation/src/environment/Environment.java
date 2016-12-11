@@ -96,7 +96,7 @@ public class Environment {
 				Iterable<Person> iterable = person.items();
 				for(Person agent : iterable){
 					if(map.elementVisible(grid.getLocation(myAgent).getCoord(0), grid.getLocation(myAgent).getCoord(1), grid.getLocation(agent).getCoord(0), grid.getLocation(agent).getCoord(1)))
-						neighboursList.add(agent.getAID());
+						if(!agent.isExitReached() && !agent.isDead()) neighboursList.add(agent.getAID());
 				}
 			}
 		}
