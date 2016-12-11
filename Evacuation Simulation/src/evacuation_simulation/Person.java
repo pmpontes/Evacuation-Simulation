@@ -920,8 +920,8 @@ public class Person extends Agent{
 				Log.detail("Not a help reply.");
 			}
 
-			//return nAttempts < MAX_ATTEMPTS;
-			return !proposals.isEmpty(); // use first response
+			return nAttempts < MAX_ATTEMPTS;
+			//return !proposals.isEmpty(); // use first response
 		}
 
 		/**

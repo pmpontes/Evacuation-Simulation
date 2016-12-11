@@ -286,7 +286,7 @@ Esta classificação permitiu a definição, ao nível de interface, de diferent
 	    \rowcolor[HTML]{FFFFFF} 
 	    \begin{tabular}[c]{@{}l@{}}Sentido de\\Altruísmo\end{tabular} & \begin{tabular}[c]{@{}l@{}}A cada momento um agente monitoriza o ambiente\\ envolvente e decide responder ou ignorar pedidos de\\ ajuda de outros agentes.\end{tabular}  \\ \midrule 
 	    \rowcolor[HTML]{FFFFFF} 
-	    \begin{tabular}[c]{@{}l@{}}Pedido de\\Direções\end{tabular} & \begin{tabular}[c]{@{}l@{}}Um agente , por ser pouco independente ou ter pouco\\conhecimento da área, pede direções a agentes\\ na sua proximidade.\end{tabular}  \\ \midrule 
+	    \begin{tabular}[c]{@{}l@{}}Pedido de\\Direções\end{tabular} & \begin{tabular}[c]{@{}l@{}}Um agente toma, por ser pouco independente ou ter\\ pouco \\conhecimento da área, pede direções a agentes\\ na sua proximidade.\end{tabular}  \\ \midrule 
 	    \rowcolor[HTML]{FFFFFF} 
 	    \begin{tabular}[c]{@{}l@{}}Pedido de\\Ajuda\end{tabular} & \begin{tabular}[c]{@{}l@{}}Um agente incapaz de se mover de forma autónoma\\ pede ajuda aos agentes na sua proximidade.\end{tabular}  \\ \midrule 
 		                                                       
@@ -407,7 +407,7 @@ O \textit{Repast} é uma \textit{framework open-source} que permite criar, anali
 
 Concretamente, irá utilizar-se a sua mais recente versão - \textit{Repast Simphony}, que permite programar em \textit{Java} a estrutura espacial, a estrutura lógica e os comportamentos dos agentes.
 
-Tendo sido amplamente utilizado em aplicações de simulação, considera-se de particular utilidade tendo em conta, por um lado, o foco na modelação do comportamento social e, por outro, a recolha de métricas associadas às simulações realizadas. Por último, tem-se a vantagem de poder acompanhar, de forma visual, o decorrer da simulação.
+Tendo sido amplamente utilizado em aplicações de simulação, considera-se de particular utilidade tendo em conta, por um lado, o foco emna modelar ção do comportamento social e, por outro, a recolha de métricas associadas às simulações realizadas. Por último, tem-se a vantagem de poder acompanhar, de forma visual, o decorrer da simulação.
 
 Adicionalmente, irá utilizar-se a \textit{API SAJaS}, que possibilita a integração de agentes \textit{JADE} com \textit{Repast}, permitindo definir os comportamentos de agentes e fazer uso das capacidades de comunicação entre agentes, visando simular as interações expectáveis num cenário de evacuação.
 
@@ -459,9 +459,15 @@ Não obstante, a mobilidade de uma pessoa pode ser temporariamente aumentada, se
 
 Da mobilidade de uma pessoa depende a probabilidade de, a cada instante, uma pessoa se mover. A mobilidade constringe, ainda, o altruísmo de uma pessoa, limitando a resposta a pedidos de ajuda recebidos.\newline
 
+\item Conhecimento da área
+
+O conhecimento da área varia apenas por meio da partilha de informação com outras pessoas.
+
 \item Paciência
 
-Considerou-se que a paciência de uma pessoa oscila, aumentando ou diminuindo com um valor predefinido e configurável.
+Considerou-se que a paciência de uma pessoa oscila, aumentando ou diminuindo de acordo com um valor predefinido e configurável.
+
+A paciência de uma pessoa influencia a forma como o caminho a seguir é selecionado: se o caminho selecionado estiver bloqueado por outra pessoa e não se quiser empurrá-la, pode esperar-se por um tempo razoável, até que essa pessoa desobstrua a passagem, ou, esgotada a paciência, ultrapassá-la.
 
 \end{itemize}
 
@@ -574,16 +580,41 @@ Esta experiência consistiu na colocação, numa dada posição de um espaço pr
 	\label{directions_log}
 	\end{figure}
 
-	Como esperado, observou-se que o agente com menor conhecimento da área efetuou um pedido de direções, que despoleta uma resposta por parte do outro agente. Recebendo esta resposta, o agente que efetuou o pedido atualiza o seu conhecimento da área com base na informação que contém e num fator de aquisição de conhecimento, como detalhado. Na Figura \ref{directions_graph} é possível verificar o aumento do conhecimento médio.
+	Confirmou-se que o agente com menor conhecimento da área efetuou um pedido de direções, que despoleta uma resposta por parte do outro agente. Recebendo esta resposta, o agente que efetuou o pedido atualiza o seu conhecimento da área com base na informação que contém e num fator de aquisição de conhecimento, como detalhado. Na Figura \ref{directions_graph} é possível verificar o aumento do conhecimento médio.
 
 	\begin{figure}[H]
 	\centering
 	\includegraphics{directions_test.png}
 	\caption{Variação dos atributos dos agentes do cenário.}
 	\label{directions_graph}
+	\end{figure}
+
+	%----------------------------------------------------------------------------------------
+
+\item \textbf{Pedido de Ajuda}
+
+\textbf{Objetivo:} 
+Testar o comportamento de ajuda de um agente para com outro.
+
+Esta experiência consistiu na colocação, em posições adjacentes de um espaço pré-definido, de um agente do tipo \textit{IndependentKnowledgeable}, com um elevado nível de altruísmo, e de um agente do tipo \textit{IndependentUnknowledgeable}, com uma mobilidade reduzida.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=.8]{help_log.png}
+	\caption{Excerto do registo de execução de uma simulação do cenário descrito.}
+	\label{help_log}
+\end{figure}
+
+Como esperado, observou-se que o agente com mobilidade reduzida «pediu ajuda», que faz com que o outro lhe faça uma proposta. Recebendo esta proposta, o agente que efetuou o pedido envia uma confirmação, e atualiza o seu conhecimento da área com base na informação da proposta  . Na Figura \ref{help_graph} é possível verificar o aumento do conhecimento médio.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics{directions_test.png}
+	\caption{Variação dos atributos dos agentes do cenário.}
+	\label{directions_graph}
 \end{figure}
 	
-	
+	Na Figura \ref{help_graph} é possível verificar o aumento do conhecimento médio.
 %----------------------------------------------------------------------------------------
 %	EXP end
 %----------------------------------------------------------------------------------------
