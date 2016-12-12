@@ -989,7 +989,7 @@ Como esperado, observou-se que o agente com mobilidade reduzida «pediu ajuda»,
 
 Terminada a fase de desenvolvimento, foram avaliados diferentes cenários.
 \begin{itemize}
-	\item diferentes configurações para o local do acidente, variando o número e localização de saídas de emergência e obstáculos;
+	\item diferentes configurações para o local do acidente, variando o número e localização de saídas de emergência;
 	\item diferentes combinações de agentes a evacuar, variando o seu tipo, número e localização.
 \end{itemize}
 
@@ -1000,7 +1000,7 @@ Deste modo, foi possível observar-se como estas variações se refletem em mét
 	\item \textbf{População preparada vs despreparada}
 
 \textbf{Objetivo:} 
-Confrontar o comportamento de agentes com elevado conhecimento da área a evacuar com o comportamento de agentes que não conhecem a área tão bem.
+Confrontar o comportamento de pessoas com elevado conhecimento da área a evacuar com o comportamento de pessoas que não conhecem a área tão bem.
 \\\textbf{Cenário:} 
 \textit{scenario1.xml}, \textit{scenario2.xml}
 \\\textbf{Mapa:} 
@@ -1008,48 +1008,138 @@ Confrontar o comportamento de agentes com elevado conhecimento da área a evacua
 \newline
 
 
-Esta experiência consistiu na colocação num espaço de 45 agentes do tipo \textit{IndependentKnowledgeable} e \textit{DependentKnowledgeable}, com um elevado nível de conhecimento da área, baixos níveis de pânico.
+Esta experiência divide-se em duas partes: a primeira consistiu na colocação no espaço especificado de 45 agentes do tipo \textit{IndependentKnowledgeable} e \textit{DependentKnowledgeable}, com um elevado nível de conhecimento da área e baixos níveis de pânico. A segunda parte consistiu na repetição da primeira parte, mas desta vez com agentes do tipo \textit{IndependentUnknowledgeable} e \textit{DependentUnknowledgeable}, com um baixo nível de conhecimento da área e  baixos níveis de pânico.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics{log_sc1.png}
-	\caption{Resultados da simulação.}
+	\caption{Resultados da simulação 1.}
 	\label{log_sc1}
 \end{figure}
 
-Como seria expectável numa situação em que todos conhecem a área relativamente bem, sabendo onde se encontram as saídas e não existindo pânico, a evacuação decorre sem problemas de maior, não havendo feridos. Registaram-se apenas pedidos de direções e um número reduzido de empurrões.
+Como seria expectável numa situação em que todos conhecem a área relativamente bem, sabendo onde se encontram as saídas e não existindo pânico, a evacuação decorre sem problemas de maior, não havendo feridos. Registaram-se apenas alguns pedidos de direções e um número reduzido de empurrões.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics{graph_sc1.png}
-	\caption{Variação dos atributos dos agentes do cenário.}
+	\caption{Variação dos atributos dos agentes do cenário 1.}
 	\label{graph_sc1}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics{log_sc1.png}
-	\caption{Resultados da simulação.}
+	\includegraphics{log_sc2.png}
+	\caption{Resultados da simulação 2.}
 	\label{log_sc1}
 \end{figure}
 
--------Como seria expectável numa situação em que todos conhecem a área relativamente bem, sabendo onde se encontram as saídas e não existindo pânico, a evacuação decorre sem problemas de maior, não havendo feridos. Registaram-se apenas pedidos de direções e um número reduzido de empurrões.
+Nesta situação em que poucos são os que conhecem bem a área, o pânico geral aumenta, havendo lugar a um elevado número de empurrões, dos quais resultam pessoas com mobilidade reduzida e mortos. Registaram-se, ainda, alguns pedidos de direções e de ajuda.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics{graph_sc1.png}
-	\caption{Variação dos atributos dos agentes do cenário.}
+	\includegraphics{graph_sc2.png}
+	\caption{Variação dos atributos dos agentes do cenário 2.}
 	\label{graph_sc1}
 \end{figure}
 
---------Como seria expectável numa situação em que todos conhecem a área relativamente bem, sabendo onde se encontram as saídas e não existindo pânico, a evacuação decorre sem problemas de maior, não havendo feridos. Registaram-se apenas pedidos de direções e um número reduzido de empurrões.
+A comparação dos resultados destes dois cenários permite confirmar a existência de benefícios que advém do conhecimento da área na altura de evacuá-la, tornando evidente a vantagem de estar preparado para uma situação de emergência, nomeadamente, conhecendo bem os caminhos até à saída mais próxima.
+
+O desempenho das pessoas no cenário 2 degrada-se substancialmente face ao observado no cenário 1, e tal reflete-se em todas as métricas registadas: o tempo de evacuação aumenta, assim como o número de empurrões, que sobe dramaticamente, e dos quais resultam mortes.
+
+	%----------------------------------------------------------------------------------------	
+\item \textbf{Espaço com saídas insuficientes}
+
+\textbf{Objetivo:} 
+Analisar o comportamento de pessoas com elevado conhecimento da área durante a evacuação de um espaço com apenas uma saída de emergência.
+\\\textbf{Cenário:} 
+\textit{scenario1.xml}
+\\\textbf{Mapas:} 
+\textit{single\_exit.map}, \textit{multiple\_exits.map}
+\newline
+
+Esta experiência consistiu na colocação de 45 agentes, com um elevado nível de conhecimento da área e baixos níveis de pânico, primeiro num espaço com múltiplas saídas e, depois, num espaço com uma única saída.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics{log_sc3.png}
+	\caption{Resultados da simulação 3.}
+	\label{log_sc3}
+\end{figure}
+
+Observou-se que, existindo um número suficiente de saídas cuja localização é do conhecimento da generalidade das pessoas no espaço, o número de mortes tende a ser igual a 0, apesar do número elevado de pessoas para a dimensão do espaço. 
+
+Não obstante da ocorrência de alguns empurrões, o fluxo de pessoas através das saídas parece ser suficiente para evitar que a mobilidade das pessoas seja severamente afetada.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics{graph_sc3.png}
+	\caption{Variação dos atributos dos agentes do cenário 3.}
+	\label{graph_sc3}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics{log_sc4.png}
+	\caption{Resultados da simulação 4.}
+	\label{log_sc4}
+\end{figure}
+
+Após a segunda fase da experiência pôde verificar-se que, existindo apenas uma saída, os agentes exibem um comportamento próximo daquele que seria exibido numa situação real, designado por \textit{clogging}, que designa o fenómeno que ocorre quando um grande número de pessoas tenta passar por uma saída, esta acaba por ficar parcialmente obstruída. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=1.1]{clogging.png}
+	\caption{Fenómeno de \textit{clogging}.}
+	\label{clog}
+\end{figure}
+
+Com efeito, essa obstrução resultou num elevado número de empurrões e, consequentemente, na morte de várias pessoas. Este caos é claramente visível no gráfico da Figura \ref{graph_sc4}, onde se pode ver que o pânico atinge o valor máximo da escala e a mobilidade decresce de forma acentuada.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics{graph_sc4.png}
+	\caption{Variação dos atributos dos agentes do cenário 4.}
+	\label{graph_sc4}
+\end{figure}
+
+A realização desta experiência permitiu confirmar a importância do planeamento no que respeita à definição do número e localização das saídas de emergência, duas fortes condicionantes do sucesso de uma evacuação.
+
+
+\item \textbf{Grande multidão}
+
+\textbf{Objetivo:} 
+Analisar o comportamento das pessoas quando inseridas numa multidão a ser evacuada.
+\\\textbf{Cenário:} 
+\textit{scenario5.xml}
+\\\textbf{Mapas:} 
+\textit{museum.map}
+\newline
+
+Esta experiência consistiu na colocação de 100 agentes - 25 de cada um dos tipos definidos de acordo com os atributos de conhecimento da área e de independência -, num espaço de grandes dimensões, com uma saída apenas.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics{log_sc5.png}
+	\caption{Resultados da simulação 5.}
+	\label{log_sc5}
+\end{figure}
+
+Tendo em conta o caráter eminentemente estocástico desta experiência - em que apenas se definiram os atributos de conhecimento de área e independência, sendo o resto definido por defeito, em certos casos, por uma função normal, de valor médio MAX\_SCALE / 2 e desvio padrão MAX\_SCALE / 5 - os resultados obtidos em diferentes execuções variam consideravelmente.
+Todavia, essa pluralidade de resultados reforça a importância dos atributos das pessoas da população a evacuar - já que, se em algumas das execuções, não se registou qualquer morte, noutras o cenário não é tão positivo.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics{graph_sc5_1.png}
+	\caption{Variação dos atributos dos agentes do cenário 5.}
+	\label{graph_sc5}
+\end{figure}
 
 \end{itemize}
 	
 	
 
 \newpage
-\section{Conclusão}
+\section{Conclusões}
 
 Terminado o projeto, destaca-se a importância de ferramentas de simulação de evacuação - perante os desafios que a realização de simulacros coloca - e a aplicabilidade deste projeto a esse fim.
 
@@ -1057,9 +1147,10 @@ Consideram-se atingidos os objetivos definidos: desenvolver um programa que perm
 
 Tem-se como particularmente útil a possibilidade de acompanhar a evacuação visualmente e a possibilidade de analisar os dados recolhidos, por um lado, através de gráficos e, por outro, através do registo de eventos.
 
-Da análise dos resultados das experiências levadas a cabo
+Da análise dos resultados das experiências levadas a cabo foi possível retirar várias conclusões. Por um lado, a realização das experiências mais simples permitiu validar a implementação dos vários comportamentos dos agentes.
+Por outro lado, confirmou-se a forte influência do conhecimento da área no sucesso de uma evacuação, bem como a importância da existência de um número suficiente de saídas de emergência, devidamente posicionadas. A população a evacuar - e, mais concretamente, os seus atributos - são, igualmente, fatores determinantes para o resultado de uma evacuação, seja no que diz respeito à velocidade, seja no número de interações, seja no número de feridos ou mortos.
 
-\section{Melhorias}
+\section{Possíveis Melhorias}
 
 Considera-se que uma possível melhoria, seria a introdução de obstáculos dinâmicos no espaço, como os elementos fumo e fogo. Tal poderia ser implementado, por exemplo, usando um agente com a capacidade de se replicar ao longo do tempo para posições adjacentes, simulando a propagação de um incêndio. Agentes na proximidade poderiam sufocar ou queimar-se, vendo a sua mobilidade reduzida ou mesmo morrer.
 
@@ -1097,6 +1188,10 @@ Outra melhoria que poderia ser introduzida passaria pela criação de um novo ti
 
 \subsection{Manual de Utilizador}
 
+\subsubsection{Desenho do mapa}
+
+Com vista a facilitar o desenho de um mapa, disponibiliza-se uma ferramenta simples para o efeito, \textit{EnvironmentBuilder}.
+
 \subsubsection{Especificação do mapa}
 
 O ficheiro que especifica o espaço de simulação deverá ter como conteúdo um conjunto de linhas, todas com comprimento idêntico, compostas pelos caracteres \textit{'W'} - que representa uma parede, ou, mais genericamente, um obstáculo -, \textit{'E'} - que representa uma saída - e {' '}, que caracteriza um espaço livre. A ordem dos caracteres nas linhas, e das linhas no ficheiro, é a ordem considerada para a representação do mapa no ambiente na simulação.
@@ -1131,11 +1226,46 @@ O ficheiro poderá ser selecionado na \textit{GUI} do \textit{Repast}, através 
 
 \subsubsection{Utilização}
 
+Antes de iniciar a aplicação, aconselha-se a consulta da errata.
+
 Após a especificação do mapa e cenário a utilizar, é conveniente, para efeitos de visualização, alterar o parâmetro \textit{Schedule Tick Delay}, através do separador \textit{Run Options}. Nas experiências utilizadas, utilizaram-se \textit{delays} de valor entre 30 a 60.
 
 Concluído este passo, pode dar-se início à simulação, do mesmo modo que seria iniciada uma qualquer simulação \textit{Respast}.
 
 Além de se poder acompanhar a evacuação visualmente, através de um \textit{display} do espaço e pessoas a evacuar, é possível acompanhar e analisar a evolução do processo, através de um gráfico que monitoriza o valor médio de alguns dos atributos definidos para os agentes, e de um outro gráfico, que regista o número de evacuados e mortos. Adicionalmente, é possível observar o registo da execução, que mostra mensagens relevantes para compreender algumas das interações observadas.
+
+\subsection{Errata}
+
+Na versão submetida originalmente, do cálculo da variação de pânico resulta um valor nulo para alguns casos, devido a um erro de divisão inteira:
+
+\begin{lstlisting}
+void generatePanicVariation(boolean isIncrease) {
+	float variation = PANIC_VARIATION * ((isIncrease) ? 1 : -1);
+	
+	// younger and older people are more prone to panic variations 
+	if(age < MAX_AGE / 3 || age > 2 * MAX_AGE / 3){
+		if(isIncrease){
+			variation *= 1.2;	
+		}else{
+			variation *= 0.7;
+		}
+	}else{
+		if(!isIncrease){
+			variation *= 0.8;
+		}
+	}
+	
+	// correction
+	// variation *= independence / MAX_SCALE; 
+	variation *= ((float) independence) / MAX_SCALE; 
+	
+	setPanic((int) (panic + variation));		
+	
+	if(panic >= (3 * MAX_SCALE / 4)){
+		addBehaviour(new ScreamBehaviour(this));
+	}
+}
+\end{lstlisting}
 
 \end{titlepage}
 \end{document}

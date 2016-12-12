@@ -417,8 +417,8 @@ public class Person extends Agent{
 				variation *= 0.8;
 			}
 		}
-		variation *= independence / MAX_SCALE; 
-
+		variation *= ((float) independence) / MAX_SCALE; 
+		
 		setPanic((int) (panic + variation));		
 
 		if(panic >= (3 * MAX_SCALE / 4)){
@@ -909,9 +909,7 @@ public class Person extends Agent{
 		private boolean receiveReplies() {
 			// wait for responses
 			ACLMessage msg = receive(template);
-
-			System.err.println(msg);
-
+			
 			try {
 				if(msg != null) {
 					// save proposal
