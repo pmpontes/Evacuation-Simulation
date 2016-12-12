@@ -1,2 +1,0 @@
-AvgAltruism: 50.0, AvgAreaKnowledge: 90.0, AvgIndependence: 100.0, AvgMobility: 100.0, AvgPanic: 0.0, AvgPatience: 100.0, DeathCount: 0.0, EscapeeCount: 0.0
-AvgAltruism: 50.0, AvgAreaKnowledge: 90.0, AvgIndependence: 100.0, AvgMobility: 100.0, AvgPanic: 0.0, AvgPatience: 100.0, DeathCount: 0.0, EscapeeCount: 0.0

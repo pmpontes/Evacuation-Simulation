@@ -1,9 +1,0 @@
-model.archive = C:/Users/Gil/Univ/4ano/1semestre/AIAD/repast_workspace/aiad/Evacuation Simulation/output/complete_model.jar
-batch.params.file = scenario.rs/batch_params.xml
-ssh.key_dir = C:/Users/Gil/.ssh
-poll.frequency = 60.0
-model.output = C:/Users/Gil/Univ/4ano/1semestre/AIAD/repast_workspace/aiad/Evacuation Simulation/output
-
-vm.arguments = -Xmx512M
-local.0.instances = 2
-local.0.working_directory = C:/Users/Gil/AppData/Local/Temp/

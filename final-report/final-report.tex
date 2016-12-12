@@ -752,15 +752,57 @@ void push(int selectedX, int selectedY) {
 De notar que, para esta interação, não existe troca de mensagens entre os agentes, por se considerar esta aproximação mais próxima do que seria observável numa situação real.
 
 \item \textbf{Movimento}
-(TODO)
 
+O movimento é o comportamento base de todas as pessoas, sendo este afetado por muitos dos atributos de cada pessoa, nomeadamente a mobilidade, o conhecimento da área, a independência, o estado de pânico e a paciência. Os atributos são interpretados como uma probabilidade de, naquela iteração do comportamento de movimento, ser atribuída à pessoa uma determinada característica.
+
+A cada iteração do movimento uma pessoa escolhe uma célula para a qual se deslocará, tendo em conta as características que lhe forem atribuídas nessa iteração.
+
+O movimento está limitado para as células a norte, sul, este e oeste da célula onde a pessoa se encontra atualmente. Há quatro formas distintas de escolher o caminho a seguir:
+\begin{itemize}
+
+\item \textbf{Melhor Caminho}
+
+Caso a pessoa conheça a área e o seu conhecimento não esteja muito afetado pelos seus níveis de pânico, seguirá no melhor caminho até à saída mais próxima. 
+
+A célula para onde a pessoa se deslocará é determinada identificando as células a norte, sul, este e oeste da célula onde a pessoa se encontra no momento e ordenando essas células por ordem crescente de distância. A célula com um valor de distância menor é a melhor para a pessoa ocupar, ou seja, a primeira célula nesta listagem corresponde à melhor célula para onde a pessoa se pode deslocar.
+
+Se os níveis de pânico da pessoa afetarem significativamente o conhecimento da área da pessoa, ela seguirá um movimento aleatório.
+
+\item \textbf{Saída Visível}
+
+Se a pessoa não conhece a área mas tem uma linha de visão desobstruída para uma das saídas, seguirá em direção a essa saída, sendo esta a saída mais próxima ou não. A cada movimento, a pessoa tem o cuidado de se movimentar para uma célula que permita que a linha de visão entre ela e a saída se mantenha.
+
+Este método assume que a pessoa consegue ver uma saída a qualquer distância, desde que o caminho em linha reta entre ela e a saída não tenha nenhum obstáculo no caminho. Se a pessoa vir muitas saídas a partir da mesma posição, seguirá em direção à saída mais próxima que ela consiga ver.
+
+\item \textbf{Seguir Multidões}
+
+Uma pessoa que for dependente, não conheça a área e não vir uma saída terá tendência a seguir na direção em que vir o maior número de pessoas a deslocar-se.
+
+Para o conseguir, a pessoa procura todas as pessoas na sua vizinhança e associa cada direção a uma probabilidade.
+
+\[P(Direção) = \frac{N_{DireçãoNaVizinhança}}{T_{PessoasVizinhança}}\]\\
+
+A pessoa terá, portanto, uma probabilidade \(P(Direção)\) de seguir numa certa direção.
+
+\item \textbf{Movimento Aleatório}
+
+Caso nenhuma das condições anteriores se verifique, i. e., se a pessoa não conhecer a área, for independente e não vir uma saída, identificará todas as células adjacentes que constituam movimentos válidos e escolherá uma de forma aleatória. 
 
 \end{itemize}
+
+De forma a tentar forçar um movimento minimamente coerente, uma pessoa não pode deslocar-se para a célula onde esteve na iteração anterior de movimento, salvo quando este revela ser o melhor caminho.
+
+Caso uma pessoa se tente deslocar para uma célula já ocupada, verifica-se qual o valor de paciência dela nesse instante. Se o valor estiver acima de um determinado nível, a pessoa mantém-se na mesma célula e vê a sua paciência a diminuir. Se a paciência descer abaixo de um certo nível, a pessoa escolherá um outro caminho de modo a contornar quem está na célula para a qual a pessoa se queria mover.
+
+Este comportamento tenta, portanto, ser uma aproximação minimamente realista do que seria o movimento de uma pessoa numa situação de elevado \textit{stress}, tendo em conta diversos fatores que condicionam a sua tomada de decisão.
+
 
 \subsubsection{Ambiente}
 A representação do espaço é feita com recurso a múltiplas estruturas de dados, designadamente, uma \textit{Grid} - classe disponibilizada pelo \textit{Repast} - que contém os agentes, um \textit{array} bidimensional de caracteres com as posições das saídas e das paredes/obstáculos e um \textit{array} bidimensional de inteiros com um mapa de distâncias. 
 
 Um utilizador tem a liberdade de indicar, na interface da simulação, um ficheiro com a configuração do ambiente onde estarão necessariamente definidas as posições das saídas e das paredes/obstáculos.
+
+Não é permitido que haja mais que uma entidade/agente numa célula, com a excepção das saídas, onde é possível estarem simultâneamente multiplos agentes.
 
 \begin{itemize}
 
@@ -780,7 +822,7 @@ Este mapa é representado como um \textit{array} bidimensional com caracteres qu
 Antes da execução da simulação, no momento em que o mapa é carregado, é construído um mapa com as distâncias até às saídas. 
 
 Este é obtido usando um algoritmo, semelhante a \textit{flooding}, que, começando a partir de cada saída, se propaga, colocando o valor atual de distância a essa saída nas células, parando de se propagar num certo sentido caso encontre uma célula já preenchida com um valor inferior ao valor que seria colocado ou caso encontre um obstáculo.
-\newpage
+
 \begin{lstlisting}[caption= Pseudo-código do algoritmo usado para o preenchimento do mapa de distâncias.]
 generateDistanceMap() {
 	distanceMap; // Mapa de distancias
@@ -834,10 +876,11 @@ A \textit{Grid} permite que um agente conheça a sua vizinhança, tornando poss�
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.20]{map_simulation.png}
-	\caption{Representação da \textit{Grid} na interface da simulação}
+	\caption{Representação da \textit{Grid} na interface da simulação, já com alguns agentes inseridos.}
 	\label{map}
 \end{figure}
 
+\end{itemize}
 \end{itemize}
 
 \newpage
