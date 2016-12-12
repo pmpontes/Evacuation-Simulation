@@ -178,12 +178,12 @@ Dados os desafios - quer de ordem prática, quer de ordem financeira - que a rea
 
 Ocorreu um incêndio, uma inundação, a libertação de um gás nocivo, um qualquer acidente que obriga à evacuação daqueles presentes num dado local. O local possui múltiplas saídas de emergência e também obstáculos. Os indivíduos encontram-se distribuídos pelo local, ocupados nas suas tarefas usuais. Aquando da deteção do acidente, todos os indivíduos procuram atingir uma das saídas de emergência, o mais rapidamente possível.
 
-Alguns agentes poderão ser altruístas, no sentido de ajudarem acidentados a deslocarem-se até à saída, outros poderão simplesmente querer «salvar a pele», exibindo um comportamento mais egoísta. Alguns poderão conhecer bem o local e, como tal, chegar rapidamente à saída, outros demorarão mais ou mesmo perder-se, tendo que pedir ajuda. 
+Alguns agentes poderão ser altruístas, no sentido de ajudarem acidentados a deslocarem-se até à saída, outros poderão simplesmente querer «salvar a pele», exibindo um comportamento mais egoísta. Alguns poderão conhecer bem o local e, como tal, chegar rapidamente à saída, outros poderão demorar mais ou mesmo perder-se, tendo que pedir ajuda. 
 
 
 \subsection{Objetivos}
 
-Realizado no âmbito da unidade curricular de Agentes e Inteligência Artificial Distribuída, com este projeto pretende desenvolver-se um programa que permita simular a interação de agentes confinados a um espaço concreto e limitado perante a necessidade de evacuar esse espaço, podendo o utilizador definir diferentes cenários, especificando, por um lado, o tipo, número e localização dos agentes a evacuar e, por outro, o número e localização de saídas de emergência e obstáculos. 
+Realizado no âmbito da unidade curricular de Agentes e Inteligência Artificial Distribuída, com este projeto pretendia desenvolver-se um programa que permitisse simular a interação de agentes confinados a um espaço concreto e limitado perante a necessidade de evacuar esse espaço, podendo o utilizador definir diferentes cenários, especificando, por um lado, o tipo, número e localização dos agentes a evacuar e, por outro, o número e localização de saídas de emergência e obstáculos. 
 
 %----------------------------------------------------------------------------------------
 %	ESPECIFICAÇÃO
@@ -197,7 +197,7 @@ Podem distinguir-se dimensões distintas no comportamento exibido durante uma ev
 
 Assume-se que, em situações de emergência, os indivíduos entram em pânico e ficam, por isso, propensos a tomar decisões irracionais. Mais ainda, as pessoas tentam mover-se tão depressa quanto possível, devendo evitar obstáculos.
 
-Deste modo, tem-se que os agentes implementados são autónomos, proativos e reativos e são caracterizados por diversos atributos, conforme definido na Tabela 1.
+Adicionalmente, tem-se que os agentes implementados são autónomos, proativos e reativos e são caracterizados por diversos atributos, descritos na Tabela 1.
 
 \setlength{\tabcolsep}{20pt}
 \renewcommand{\arraystretch}{1.3}
@@ -230,7 +230,7 @@ Deste modo, tem-se que os agentes implementados são autónomos, proativos e rea
 \end{table}
 \newpage
 
-Em função dos atributos de independência e de conhecimento da área, considerou-se a categorização dos agentes em quatro estereótipos, conforme descrito na Tabela 2.
+Em função dos atributos de independência e de conhecimento da área, considerou-se a categorização dos agentes em quatro estereótipos, de acordo com o descrito na Tabela 2.
 
 \setlength{\tabcolsep}{20pt}
 \renewcommand{\arraystretch}{1.3}
@@ -278,13 +278,13 @@ Esta classificação permitiu a definição, ao nível de interface, de diferent
 		\rowcolor[HTML]{FFFFFF} 
 		\textbf{Comportamento}  & \textbf{Descrição}                                                                                                                                   \\ \toprule
 		\rowcolor[HTML]{FFFFFF} 
-		\begin{tabular}[c]{@{}l@{}}Processo de\\Evacuação\end{tabular} & \begin{tabular}[c]{@{}l@{}}A cada momento um agente deve usar o seu\\conhecimento da área e mover-se em direção à saída.\end{tabular}  \\ \midrule 
+		\begin{tabular}[c]{@{}l@{}}Mecanismo de\\Movimento\end{tabular} & \begin{tabular}[c]{@{}l@{}}A cada momento um agente deve usar o seu\\conhecimento da área e mover-se em direção à saída.\end{tabular}  \\ \midrule 
 		\rowcolor[HTML]{FFFFFF} 
 	    \begin{tabular}[c]{@{}l@{}}Mecanismo de\\Pânico\end{tabular} & \begin{tabular}[c]{@{}l@{}}A cada momento um agente atualiza o seu estado\\ de pânico de acordo com a sua condição e o\\ambiente envolvente.\end{tabular}  \\ \midrule 
 	    \rowcolor[HTML]{FFFFFF} 
 	    \begin{tabular}[c]{@{}l@{}}Sentido de\\Altruísmo\end{tabular} & \begin{tabular}[c]{@{}l@{}}A cada momento um agente monitoriza o ambiente\\ envolvente e decide responder ou ignorar pedidos de\\ ajuda de outros agentes.\end{tabular}  \\ \midrule 
 	    \rowcolor[HTML]{FFFFFF} 
-	    \begin{tabular}[c]{@{}l@{}}Pedido de\\Direções\end{tabular} & \begin{tabular}[c]{@{}l@{}}Um agente toma, por ser pouco independente ou ter\\ pouco \\conhecimento da área, pede direções a agentes\\ na sua proximidade.\end{tabular}  \\ \midrule 
+	    \begin{tabular}[c]{@{}l@{}}Pedido de\\Direções\end{tabular} & \begin{tabular}[c]{@{}l@{}}Um agente toma, por ser pouco independente ou ter\\ pouco conhecimento da área, pede direções a agentes \\na sua proximidade.\end{tabular}  \\ \midrule 
 	    \rowcolor[HTML]{FFFFFF} 
 	    \begin{tabular}[c]{@{}l@{}}Pedido de\\Ajuda\end{tabular} & \begin{tabular}[c]{@{}l@{}}Um agente incapaz de se mover de forma autónoma\\ pede ajuda aos agentes na sua proximidade.\end{tabular}  \\ \midrule 
 		                                                       
@@ -389,7 +389,7 @@ A implementação do projeto executou-se em diferentes etapas:
 		
 		Teste e análise do comportamento de vários agentes num espaço. 
 	\end{enumerate}
-	\item Exploração de diferentes cenários e recolha e avaliação de métricas (1 de dezembro a 10 de dezembro).
+	\item Exploração de diferentes cenários e recolha e avaliação de métricas (1 de dezembro a 11 de dezembro).
 \end{enumerate}
 
 \subsection{Ambiente de Desenvolvimento e Ferramentas}
@@ -485,14 +485,14 @@ Assumiu-se que o pânico de uma pessoa pode aumentar - por exemplo, como resulta
 
 Mais ainda, tem-se que o pânico aumenta mais depressa do que diminui e, no cálculo dessa variação considerou-se que as pessoas mais independentes têm uma reação mais moderada, i.e., veem o seu nível de pânico variar de forma mais comedida. Pelo contrário, jovens e pessoas de idade mais avançada reagem de forma mais pronunciada, isto é, veem o seu nível de pânico variar de forma errática.
 
-Numa tentativa de aproximar a simulação daquilo que seria observável numa situação real, considerou-se que o pânico condiciona a capacidade de uma pessoa usar o seu conhecimento da área e escolher um caminho até à saída. Por outro lado, fez-se igualmente depender do estado de pânico de uma pessoa a probabilidade de empurrar alguém que se encontre no caminho que pretende seguir.\newline
+Numa tentativa de aproximar a simulação daquilo que seria observável numa situação real, considerou-se que o pânico condiciona a capacidade de uma pessoa usar o seu conhecimento da área para escolher um caminho até à saída. Por outro lado, fez-se igualmente depender do estado de pânico de uma pessoa a probabilidade de empurrar alguém que se encontre no caminho que pretende seguir.\newline
 
 
 \item Mobilidade
 
 No que diz respeito à mobilidade, consideram-se apenas variações negativas - por exemplo, provocadas por empurrões -, sendo que aquelas mais jovens ou de idade mais avançada verão a sua mobilidade diminuir de forma mais rapidamente.
 
-Não obstante, a mobilidade de uma pessoa pode ser temporariamente aumentada, sempre que uma pessoa for ajudada por outra. Se, por motivo de empurrão ou morte, essa ajuda terminar, a mobilidade da pessoa é restaurada para o seu valor anterior.
+Não obstante, a mobilidade de uma pessoa pode ser temporariamente aumentada, sempre que uma pessoa for ajudada por outra. Se, por motivo de um empurrão ou morte, essa ajuda terminar, a mobilidade da pessoa é restaurada para o seu valor anterior.
 
 Da mobilidade de uma pessoa depende a probabilidade de, a cada instante, uma pessoa se mover. A mobilidade constringe, ainda, o altruísmo de uma pessoa, limitando a resposta a pedidos de ajuda recebidos.\newline
 
@@ -753,7 +753,7 @@ De notar que, para esta interação, não existe troca de mensagens entre os age
 
 \item \textbf{Movimento}
 
-O movimento é o comportamento base de todas as pessoas, sendo este afetado por muitos dos atributos de cada pessoa, nomeadamente a mobilidade, o conhecimento da área, a independência, o estado de pânico e a paciência. Os atributos são interpretados como uma probabilidade de, naquela iteração do comportamento de movimento, ser atribuída à pessoa uma determinada característica.
+O movimento é o comportamento base de todas as pessoas, sendo este afetado por muitos dos atributos de cada pessoa, nomeadamente a mobilidade, o conhecimento da área, a independência, o estado de pânico e a paciência. Os atributos são interpretados como uma probabilidade de, naquela iteração do comportamento de movimento, ser atribuída à pessoa uma determinada característica: por exemplo, um agente com conhecimento de área de 70 tem 70\% de probabilidade de, naquela iteração, conhecer a área.
 
 A cada iteração do movimento uma pessoa escolhe uma célula para a qual se deslocará, tendo em conta as características que lhe forem atribuídas nessa iteração.
 
@@ -886,7 +886,7 @@ A \textit{Grid} permite que um agente conheça a sua vizinhança, tornando poss�
 \newpage
 \section{Experimentação}
 
-Ao longo do processo de desenvolvimento foram levadas a cabo múltiplas experiências, com vista a testar a implementação dos agentes. Os espaços utilizados para os testes levados a cabo nesta fase encontram-se definidos em\textit{ src/maps/testMap\_wall.map} e \textit{ src/maps/testMap.map}, tendo o primeiro sido usado para a evacuação simples e o segundo para os restantes. Nestas simulações foi tambem usado um \textit{tick delay} de 60. 
+Ao longo do processo de desenvolvimento foram levadas a cabo múltiplas experiências, com vista a testar a implementação dos agentes. Os espaços utilizados para os testes levados a cabo nesta fase encontram-se definidos em\textit{ src/maps/testMap\_wall.map} e \textit{ src/maps/testMap.map}, tendo o primeiro sido usado para a evacuação simples e o segundo para os restantes. Nestas simulações foi usado um \textit{tick delay} de 60. 
 \begin{itemize}
 	
 %----------------------------------------------------------------------------------------
@@ -996,7 +996,7 @@ Esta experiência consistiu na colocação, numa dada posição de um espaço pr
 	\end{figure}
 
 	%----------------------------------------------------------------------------------------
-
+\newpage
 \item \textbf{Pedido de Ajuda}
 
 \textbf{Objetivo:} 
