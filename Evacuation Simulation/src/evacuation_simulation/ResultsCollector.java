@@ -1,6 +1,6 @@
 package evacuation_simulation;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
 import evacuation_simulation.onto.EvacueeStats;
 import evacuation_simulation.onto.ServiceOntology;
@@ -11,11 +11,13 @@ import jade.content.onto.Ontology;
 import jade.content.onto.OntologyException;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
-import jade.wrapper.ControllerException;
 import sajas.core.Agent;
 import sajas.core.behaviours.CyclicBehaviour;
 
 public class ResultsCollector extends Agent {
+	
+	private int RESULTSCOLLECTOR_SLEEP = 200;
+	private int counter = 0;
 
 	/* Relevant metrics */
 	private int nCtriticalInjuries = 0;
@@ -33,7 +35,7 @@ public class ResultsCollector extends Agent {
 	private Codec codec;
 	private Ontology serviceOntology;
 	
-	private ArrayList<EvacueeStats> evacuationResults = new ArrayList<EvacueeStats>();
+	private HashSet<EvacueeStats> evacuationResults = new HashSet<EvacueeStats>();
 	
 	public ResultsCollector() {
 		this.nEvacuees = 0;
@@ -131,40 +133,45 @@ public class ResultsCollector extends Agent {
 		@Override
 		public void action() {
 			
-			ACLMessage inform = myAgent.receive(template);
-			
-			if(inform != null) {
-				EvacueeStats result = null;
-				try {
-					result = (EvacueeStats) getContentManager().extractContent(inform);
-					evacuationResults.add(result);
-				} catch (CodecException | OntologyException e) {
-					e.printStackTrace();
-				}
-				
-				// when evacuation is complete
-				if(++nEvacuated == nEvacuees) {
+			// when evacuation is complete
+			if(nEvacuated == nEvacuees) {
+				System.out.println(counter);
+				if(++counter == RESULTSCOLLECTOR_SLEEP){
 					// calculate and output results
 					calculateResults();			
 					printResults();
 					
 					// Allow for some time to pass before terminating the simulation
-					// This prevents the graph in the Repast GUI from displaying incorrect final information
-					
-					(new Thread() {
-						  public void run() {
-							// shutdown
-								try {
-									Thread.sleep(10);
-									myAgent.getContainerController().getPlatformController().kill();
-								} catch (ControllerException | InterruptedException e) {
-									e.printStackTrace();
-								}
-						  }
-					}).start();
+					// This prevents the graph in the Repast GUI from displaying incorrect final informations
+					try {
+						myAgent.getContainerController().getPlatformController().kill();
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
+				
 			} else {
-				block();
+			
+				ACLMessage inform = myAgent.receive(template);
+				boolean flag = false;
+				
+				if(inform != null) {
+					EvacueeStats result = null;
+					try {
+						result = (EvacueeStats) getContentManager().extractContent(inform);
+						flag = evacuationResults.add(result);
+					} catch (CodecException | OntologyException e) {
+						e.printStackTrace();
+					}
+					
+					if(flag){
+						nEvacuated++;
+					}
+					
+				} else {
+					block();
+				}
 			}
 		}
 	}
