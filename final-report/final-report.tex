@@ -176,14 +176,14 @@ Dados os desafios - quer de ordem prática, quer de ordem financeira - que a rea
 
 \subsection{Cenário}
 
-Ocorreu um incêndio, uma inundação, a libertação de um gás nocivo, um qualquer acidente que obriga à evacuação daqueles presentes num dado local. O local possui múltiplas saídas de emergência e também obstáculos. Os indivíduos encontram-se distribuídos pelo local, ocupados nas suas tarefas usuais. Aquando da deteção do acidente, todos os indivíduos procuram atingir uma das saídas de emergência, o mais rapidamente possível.
+Ocorreu um incêndio, uma inundação, a libertação de um gás nocivo, um qualquer acidente que obriga à evacuação daqueles presentes num dado local. Os indivíduos encontram-se distribuídos pelo local, ocupados nas suas tarefas usuais. Aquando da deteção do acidente, todos os indivíduos procuram atingir uma das saídas de emergência, o mais rapidamente possível.
 
-Alguns agentes poderão ser altruístas, no sentido de ajudarem acidentados a deslocarem-se até à saída, outros poderão simplesmente querer «salvar a pele», exibindo um comportamento mais egoísta. Alguns poderão conhecer bem o local e, como tal, chegar rapidamente à saída, outros poderão demorar mais ou mesmo perder-se, tendo que pedir ajuda. 
+Alguns agentes poderão ser altruístas, no sentido de ajudarem outros - fornecendo direções ou ajudando aqueles acidentados a deslocarem-se até à saída -, outros poderão simplesmente querer «salvar a pele», exibindo um comportamento mais egoísta. Alguns poderão conhecer bem o local e, como tal, chegar rapidamente à saída, outros poderão demorar mais ou mesmo perder-se, tendo que pedir ajuda. 
 
 
 \subsection{Objetivos}
 
-Realizado no âmbito da unidade curricular de Agentes e Inteligência Artificial Distribuída, com este projeto pretendia desenvolver-se um programa que permitisse simular a interação de agentes confinados a um espaço concreto e limitado perante a necessidade de evacuar esse espaço, podendo o utilizador definir diferentes cenários, especificando, por um lado, o tipo, número e localização dos agentes a evacuar e, por outro, o número e localização de saídas de emergência e obstáculos. 
+Realizado no âmbito da unidade curricular de Agentes e Inteligência Artificial Distribuída, com este projeto pretendia desenvolver-se um programa que permitisse simular a interação de agentes confinados a um espaço concreto e limitado perante a necessidade de evacuar esse espaço, podendo o utilizador definir diferentes cenários, especificando, por um lado, o tipo, número e localização dos agentes a evacuar e, por outro, o número e localização de saídas de emergência. 
 
 %----------------------------------------------------------------------------------------
 %	ESPECIFICAÇÃO
@@ -195,7 +195,7 @@ Realizado no âmbito da unidade curricular de Agentes e Inteligência Artificial
 
 Podem distinguir-se dimensões distintas no comportamento exibido durante uma evacuação: por um lado, o espaço a evacuar e a sua configuração, e, por outro lado, as características psicológicas e sociais que afetam a resposta dos que participam na evacuação.
 
-Assume-se que, em situações de emergência, os indivíduos entram em pânico e ficam, por isso, propensos a tomar decisões irracionais. Mais ainda, as pessoas tentam mover-se tão depressa quanto possível, devendo evitar obstáculos.
+Assume-se que, em situações de emergência, os indivíduos entram em pânico e ficam, por isso, propensos a tomar decisões irracionais. Mais ainda, as pessoas tentam mover-se tão depressa quanto possível, devendo contornar aqueles que, não se movendo ou fazendo-o lentamente, constituem um obstáculo.
 
 Adicionalmente, tem-se que os agentes implementados são autónomos e proativos, sendo caracterizados por diversos atributos, descritos na Tabela 1.
 
@@ -334,7 +334,7 @@ Aqueles que recebem esta mensagem, podem, ou não, propagar a mensagem e aumenta
 
 \item Orientação;
 
-Duas pessoas podem partilhar conhecimento sobre a área, mediante um pedido nesse sentido. Um agente que tenha pouco conhecimento da área pode enviar a um agente ao seu redor uma mensagem \textit{CFP}, a que esse agente responde com uma dada probabilidade - dependente do valor do atributo altruísmo. A resposta consiste numa mensagem \textit{INFORM}, com o valor do seu conhecimento da área, \textit{conhecimento1}. Por forma a simular a aquisição de informação, o agente que fez o pedido atualizará o seu nível de conhecimento da área, \textit{conhecimento2}, de acordo com:
+Uma pessoa pode partilhar com outra o seu conhecimento sobre a área, mediante um pedido nesse sentido. Um agente que tenha pouco conhecimento da área pode enviar a um agente ao seu redor uma mensagem \textit{CFP}, a que esse agente responde com uma dada probabilidade - dependente do valor do atributo altruísmo. A resposta consiste numa mensagem \textit{INFORM}, com o valor do seu conhecimento da área, \textit{conhecimento1}. Por forma a simular a aquisição de informação, o agente que fez o pedido atualizará o seu nível de conhecimento da área, \textit{conhecimento2}, de acordo com:
 
 \[	conhecimento2 = max(conhecimento2, conhecimento1 * FAC) \]
 
@@ -421,9 +421,9 @@ A aplicação pode, a nível lógico, dividir-se em diferentes módulos, com res
 	\label{uml}
 \end{figure}
 
-O módulo \textit{Simulation} é responsável, por um lado, pela configuração da simulação, no que diz respeito às ferramentas usadas - \textit{Repast}, \textit{JADE} e \textit{SAJaS} -, e, por outro lado, pela definição do cenário da simulação - tanto o espaço como a população a evacuar. 
+O módulo \textit{Simulation} é responsável, por um lado, pela configuração da simulação, no que diz respeito às ferramentas usadas - \textit{Repast}, \textit{JADE} e \textit{SAJaS} -, e, por outro lado, pela criação do cenário da simulação - tanto o espaço como a população a evacuar. 
 
-Adicionalmente, inclui a componente de recolha de estatísticas da simulação - \textit{ResultsCollector} -, implementado como um agente, cuja função é receber dados relativos à evacuação de cada uma das pessoas evacuadas.
+Adicionalmente, inclui a componente de recolha de estatísticas da simulação - \textit{ResultsCollector} -, implementada como um agente, cuja função é receber dados relativos à evacuação de cada uma das pessoas evacuadas.
 
 \begin{figure}[H]
 	\centering
@@ -490,7 +490,7 @@ Numa tentativa de aproximar a simulação daquilo que seria observável numa sit
 
 \item Mobilidade
 
-No que diz respeito à mobilidade, consideram-se apenas variações negativas - por exemplo, provocadas por empurrões -, sendo que aquelas mais jovens ou de idade mais avançada verão a sua mobilidade diminuir de forma mais rapidamente.
+No que diz respeito à mobilidade, consideram-se apenas variações negativas - provocadas por empurrões -, sendo que aquelas mais jovens ou de idade mais avançada verão a sua mobilidade diminuir mais rapidamente.
 
 Não obstante, a mobilidade de uma pessoa pode ser temporariamente aumentada, sempre que uma pessoa for ajudada por outra. Se, por motivo de um empurrão ou morte, essa ajuda terminar, a mobilidade da pessoa é restaurada para o seu valor anterior.
 
@@ -498,7 +498,7 @@ Da mobilidade de uma pessoa depende a probabilidade de, a cada instante, uma pes
 
 \item Conhecimento da área
 
-O conhecimento da área pode variar, aumentando apenas por meio da partilha de informação com outras pessoas.
+O conhecimento da área pode aumentar, por meio da partilha de informação com outras pessoas.
 
 O conhecimento da área condiciona a probabilidade de um agente de, a cada instante, selecionar o melhor caminho na direção da saída.\newline
 
@@ -555,7 +555,7 @@ Aqueles que recebem esta mensagem, podem, ou não, propagar a mensagem e aumenta
 
 \item \textbf{Partilha de Direções}
 
-Conforme a especificação, duas pessoas podem partilhar conhecimento sobre a área, mediante um pedido nesse sentido. 
+Conforme a especificação, é possível partilhar conhecimento sobre a área, mediante um pedido nesse sentido. 
 
 A cada instante, um agente que tenha pouco conhecimento da área pode - com uma probabilidade inversamente proporcional a esse conhecimento - enviar a um agente ao seu redor uma mensagem \textit{CFP}.
 
@@ -594,7 +594,7 @@ void handleDirectionsRequest(ACLMessage request) {
 }
 \end{lstlisting}
 
-O agente que pediu direções atualiza o seu conhecimento da área.
+Após receber a informação, o agente que pediu direções atualiza o seu conhecimento da área.
 
 \begin{lstlisting}[caption= Código \textit{Java}\ da função responsável pela receção de respostas a um pedido de direções.]
 void receiveReply() {
@@ -623,7 +623,7 @@ void receiveReply() {
 
 Seguindo a especificação, uma pessoa com mobilidade reduzida pode pedir ajuda a outra na sua proximidade. 
 
-A cada instante, um agente que tenha pouca mobilidade da área pode - com uma probabilidade inversamente proporcional a essa mobilidade - enviar aos agentes ao seu redor uma mensagem \textit{CFP}.
+A cada instante, um agente que tenha pouca mobilidade da área pode - com uma probabilidade inversamente proporcional a essa mobilidade - enviar aos agentes ao seu redor uma mensagem \textit{CFP}, pedindo ajuda.
 
 \begin{lstlisting}[caption= Código \textit{Java}\ de envio de um pedido de ajuda.]
 boolean sendRequest() {
@@ -662,7 +662,7 @@ void handleHelpRequest(ACLMessage request){
 }
 \end{lstlisting}
 
-O agente que pediu ajuda regista as propostas, e, após algum tempo, seleciona a melhor das propostas e envia uma confirmação.
+O agente que pediu ajuda regista as propostas, e, após algum tempo, seleciona a melhor e envia uma confirmação.
 
 \begin{lstlisting}[caption= Código \textit{Java}\ das funções responsáveis pela receção e confirmação de prospostas de ajuda.]
 boolean receiveReplies() {
@@ -711,9 +711,9 @@ void acceptBestProposal() {
 
 No contexto do problema, designou-se por «empurrão» a interação entre duas pessoas em que uma das pessoas, ao tentar mover-se, tem alguém à sua frente e decide removê-la do seu caminho à força, «empurrando-a».
 
-Na circunstância de o caminho selecionado se encontrar obstruído, um agente pode - conforme o seu estado de pânico ou impaciência - «empurrar» o agente que está a provocar esse bloqueio.
+Na circunstância de o caminho selecionado se encontrar obstruído, um agente pode - conforme o seu estado de pânico ou impaciência - empurrar»o agente que está a provocar esse bloqueio.
 
-Efetivamente, o «empurrão» consiste na troca de posições entre dois agentes. O agente que é «empurrado» vê a sua mobilidade reduzida e o seu nível de pânico aumentar.
+Na prática, o empurrão consiste na troca de posições entre dois agentes. O agente que é empurrado vê a sua mobilidade reduzida e o seu nível de pânico aumentar.
 Se o agente empurrado estiver a ajudar ou a ser ajudado por outro, essa relação de ajuda é terminada.
 
 \begin{lstlisting}[caption= Código \textit{Java}\, da função que permite a uma pessoa «empurrar» outra.]
@@ -747,11 +747,11 @@ void push(int selectedX, int selectedY) {
 }
 \end{lstlisting}
 
-De notar que, para esta interação, não existe troca de mensagens entre os agentes, por se considerar esta aproximação mais próxima do que seria observável numa situação real.
+De notar que, nesta interação, não existe troca de mensagens entre os agentes, por se considerar esta aproximação mais próxima do que seria observável numa situação real.
 
 \item \textbf{Movimento}
 
-O movimento é o comportamento base de todas as pessoas, sendo este afetado por muitos dos atributos de cada pessoa, nomeadamente a mobilidade, o conhecimento da área, a independência, o estado de pânico e a paciência. Os atributos são interpretados como uma probabilidade de, naquela iteração do comportamento de movimento, ser atribuída à pessoa uma determinada característica: por exemplo, um agente com conhecimento de área de 70 tem 70\% de probabilidade de, naquela iteração, conhecer a área.
+O movimento é o comportamento base de todas as pessoas, sendo este afetado por muitos dos atributos definidos para os agentes, nomeadamente a mobilidade, o conhecimento da área, a independência, o estado de pânico e a paciência. Os atributos são interpretados como uma probabilidade de, naquela iteração do comportamento de movimento, ser atribuída à pessoa uma determinada característica: por exemplo, um agente com conhecimento de área de 70 tem 70\% de probabilidade de, naquela iteração, conhecer a área.
 
 A cada iteração do movimento uma pessoa escolhe uma célula para a qual se deslocará, tendo em conta as características que lhe forem atribuídas nessa iteração.
 
@@ -994,11 +994,11 @@ Como esperado, apesar de o agente com conhecimento da área conseguir ver a saí
 
 	Em algumas das execuções, como nesta, observaram-se «empurrões», devido ao facto de se encontrarem em posições adjacentes e ao facto de os agentes estarem num estado de pânico. 
 	
-	No caso, um dos agentes «empurrou» o outro, o que produziu o primeiro aumento do nível de pânico, visível no gráfico da Figura \ref{panic_graph}. 
+	No caso, um dos agentes empurrou o outro, o que produziu o primeiro aumento do nível de pânico, visível no gráfico da Figura \ref{panic_graph}. 
 	
-	Seguiu-se um novo «empurrão», desta vez, por parte do agente que tinha sido «empurrado» antes, causando um novo aumento do nível de pânico. 
+	Seguiu-se um novo empurrão, desta vez, por parte do agente que tinha sido empurrado antes, causando um novo aumento do nível de pânico. 
 	
-	O terceiro aumento do pânico observado fica a dever-se ao «grito» que o agente em pânico lançou ao ser empurrado, e reflete a reação do agente que o empurrou a esse mesmo «grito». 
+	O terceiro aumento do pânico observado fica a dever-se ao «grito» que o agente em pânico lançou ao ser empurrado, e reflete a reação do agente que o empurrou a esse mesmo grito. 
 	
 	\begin{figure}[H]
 		\centering
@@ -1159,7 +1159,7 @@ Na situação em que poucos conhecem a área suficientemente bem, e existe uma f
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=.7]{graph_sc_dependent.png}
+	\includegraphics[scale=.6]{graph_sc_dependent.png}
 	\caption{Variação dos atributos dos agentes do cenário 3.}
 	\label{graph_sc1}
 \end{figure}
@@ -1170,7 +1170,7 @@ Na situação em que poucos conhecem a área suficientemente bem, e existe uma f
 	\caption{Resultados da simulação 4.}
 	\label{log_sc1}
 \end{figure}
-
+\newpage
 No caso em que poucos conhecem a área suficientemente bem, mas existe um forte sentido de independência, tal não se verificou. Pelo contrário, as pessoas moveram-se pelo espaço, até encontrarem a saída, ignorando a direção seguida pelas demais.
 
 \begin{figure}[H]
@@ -1187,6 +1187,7 @@ Estes dois cenários permitem estudar o comportamento de dois tipos de pessoa di
 De um modo particular, o cenário 3 permitiu estudar os fenómenos de \textit{herding} - nome usado para descrever a dinâmica de multidões frequentemente observada em situações de emergência, em que as pessoas perdem a capacidade de agir logicamente e decidir por si próprias que caminho seguir, tendo essa falta de independência por resultado que as pessoas tendam a seguir os outros. \newline
 
 	%----------------------------------------------------------------------------------------	
+	\newpage
 \item \textbf{Altruísmo}
 
 \textbf{Objetivo:} 
@@ -1195,7 +1196,7 @@ Confrontar o comportamento de pessoas com baixo nível de altruísmo durante uma
 \textit{scenario5.xml}, \textit{scenario6.xml}
 \\\textbf{Mapa:} 
 \textit{map\_2016\_12\_10\_19\_25\_05.map}
-\newline
+
 
 
 A primeira parte desta experiência consistiu na colocação no espaço especificado de 47 agentes, do tipo \textit{IndependentKnowledgeable} e \textit{IndependentUnknowledgeable}, com um baixo nível de altruísmo. A segunda parte consistiu na repetição da primeira, desta vez com agentes com um elevado nível de altruísmo.
@@ -1211,7 +1212,7 @@ Numa situação em que a predisposição das pessoas para ajudar outros é baixa
 
 \begin{figure}[H]
 	\centering
-	\includegraphics{graph_sc_alt1.png}
+	\includegraphics[scale=.6]{graph_sc_alt1.png}
 	\caption{Variação dos atributos dos agentes do cenário 5.}
 	\label{graph_sc1}
 \end{figure}
@@ -1223,7 +1224,7 @@ Numa situação em que a predisposição das pessoas para ajudar outros é baixa
 	\label{log_sc1}
 \end{figure}
 
-No caso em que a maioria das pessoas age de modo altruísta, observou-se que, invariavelmente, o número de respostas com pedidos de direções era superior aos verificados no cenário anterior.
+No caso em que a maioria das pessoas age de modo altruísta, observou-se que, invariavelmente, o número de respostas com pedidos de direções era superior aos verificados nas condições do cenário anterior.
 
 \begin{figure}[H]
 	\centering
@@ -1232,7 +1233,7 @@ No caso em que a maioria das pessoas age de modo altruísta, observou-se que, in
 	\label{graph_sc1}
 \end{figure}
 
-Em ambos os casos, não resultaram da evacuação feridos ou mortes, tendo apenas sido registados apenas alguns pedidos de direções. O pânico geral mantém-se praticamente constante e num nível baixo, tendo havido apenas lugar a um número limitado de empurrões.\newline
+Em ambos os casos, não resultaram da evacuação feridos ou mortes, tendo apenas sido registados apenas alguns pedidos de direções. O pânico geral não oscila substancialmente, e mantém um nível baixo, tendo havido apenas lugar a um número limitado de empurrões.\newline
 
 
 	%----------------------------------------------------------------------------------------	
@@ -1251,7 +1252,7 @@ Esta experiência consistiu na colocação de 45 agentes, com um elevado nível 
 \begin{figure}[H]
 	\centering
 	\includegraphics{log_sc3.png}
-	\caption{Resultados da simulação 3.}
+	\caption{Resultados da simulação 7.}
 	\label{log_sc3}
 \end{figure}
 
@@ -1262,14 +1263,14 @@ Não obstante da ocorrência de alguns empurrões, o fluxo de pessoas através d
 \begin{figure}[H]
 	\centering
 	\includegraphics{graph_sc3.png}
-	\caption{Variação dos atributos dos agentes do cenário 3.}
+	\caption{Variação dos atributos dos agentes do cenário 7.}
 	\label{graph_sc3}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics{log_sc4.png}
-	\caption{Resultados da simulação 4.}
+	\caption{Resultados da simulação 8.}
 	\label{log_sc4}
 \end{figure}
 
@@ -1287,7 +1288,7 @@ Com efeito, essa obstrução resultou num elevado número de empurrões e, conse
 \begin{figure}[H]
 	\centering
 	\includegraphics{graph_sc4.png}
-	\caption{Variação dos atributos dos agentes do cenário 4.}
+	\caption{Variação dos atributos dos agentes do cenário 8.}
 	\label{graph_sc4}
 \end{figure}
 
@@ -1309,7 +1310,7 @@ Esta experiência consistiu na colocação de 100 agentes - 25 de cada um dos ti
 \begin{figure}[H]
 	\centering
 	\includegraphics{log_sc5.png}
-	\caption{Resultados da simulação 5.}
+	\caption{Resultados da simulação 9.}
 	\label{log_sc5}
 \end{figure}
 
@@ -1319,7 +1320,7 @@ Todavia, essa pluralidade de resultados reforça a importância dos atributos da
 \begin{figure}[H]
 	\centering
 	\includegraphics{graph_sc5_1.png}
-	\caption{Variação dos atributos dos agentes do cenário 5.}
+	\caption{Variação dos atributos dos agentes do cenário 9.}
 	\label{graph_sc5}
 \end{figure}
 
@@ -1338,16 +1339,20 @@ Esta experiência consistiu na colocação de 110 agentes - 30 com baixo pânico
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=1]{log_sc7.png}
-	\caption{Resultados da simulação 5.}
+	\caption{Resultados da simulação 10.}
 	\label{log_sc7}
 \end{figure}
 
-A realização desta experiência permitiu demonstrar como o pânico se propaga rápidamente no início da simulação, tendo em conta que ainda existe um grande número de pessoas por evacuar. À medida que as pessoas com maior conhecimento da área partilham informação com as pessoas que têm menor conhecimento da área e que estes procedem para a saída, vai diminuindo o número de pessoas que podem ser influenciadas por esta propagação do pânico. Sendo assím, o nível médio de pânico da população vais tendendo para um valor estável ao fim de algum tempo, como se pode verificar pelo gráfico na figura 40. 
+A realização desta experiência permitiu demonstrar como o pânico se propaga rapidamente no início da simulação, tendo em conta que ainda existe um grande número de pessoas por evacuar. 
+
+À medida que as pessoas com maior conhecimento da área partilham informação com as pessoas que têm menor conhecimento da área e que estes procedem para a saída, vai diminuindo o número de pessoas que podem ser influenciadas por esta propagação do pânico. 
+
+Sendo assim, o nível médio de pânico da população vais tendendo para um valor estável ao fim de algum tempo, como se pode verificar pelo gráfico na figura 40. 
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=.6]{graph_sc7.png}
-	\caption{Variação dos atributos dos agentes do cenário 5.}
+	\caption{Variação dos atributos dos agentes do cenário 10.}
 	\label{graph_sc7}
 \end{figure}
 
