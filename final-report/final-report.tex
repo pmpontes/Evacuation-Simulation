@@ -197,7 +197,7 @@ Podem distinguir-se dimensões distintas no comportamento exibido durante uma ev
 
 Assume-se que, em situações de emergência, os indivíduos entram em pânico e ficam, por isso, propensos a tomar decisões irracionais. Mais ainda, as pessoas tentam mover-se tão depressa quanto possível, devendo evitar obstáculos.
 
-Adicionalmente, tem-se que os agentes implementados são autónomos, proativos e reativos e são caracterizados por diversos atributos, descritos na Tabela 1.
+Adicionalmente, tem-se que os agentes implementados são autónomos e proativos, sendo caracterizados por diversos atributos, descritos na Tabela 1.
 
 \setlength{\tabcolsep}{20pt}
 \renewcommand{\arraystretch}{1.3}
@@ -1084,11 +1084,11 @@ Terminada a fase de desenvolvimento, foram avaliados diferentes cenários.
 	\item diferentes combinações de agentes a evacuar, variando o seu tipo, número e localização.
 \end{itemize}
 
-Deste modo, foi possível observar-se como estas variações se refletem em métricas como o tempo médio e máximo de evacuação ou o número de feridos. Uma vez mais, usou-se um \textit{tick delay} de 60.
+Deste modo, foi possível observar-se como estas variações se refletem em métricas como o tempo médio e máximo de evacuação ou o número de feridos. Uma vez mais, nas experiências detalhadas a seguir, usou-se um \textit{tick delay} de 60.
 
 \begin{itemize}
 	%----------------------------------------------------------------------------------------	
-	\item \textbf{População preparada vs despreparada}
+	\item \textbf{Preparação da população}
 
 \textbf{Objetivo:} 
 Confrontar o comportamento de pessoas com elevado conhecimento da área a evacuar com o comportamento de pessoas que não conhecem a área tão bem.
@@ -1133,7 +1133,114 @@ Nesta situação em que poucos são os que conhecem bem a área, o pânico geral
 	\label{graph_sc1}
 \end{figure}
 
-A comparação dos resultados destes dois cenários permite confirmar a existência de benefícios que advém do conhecimento da área na altura de evacuá-la, tornando evidente a vantagem de estar preparado para uma situação de emergência, nomeadamente, conhecendo bem os caminhos até à saída mais próxima.
+A comparação dos resultados destes dois cenários permite medir o impacto conhecimento prévio de um espaço aquando da necessidade de evacuá-lo, tornando evidente a vantagem de estar preparado para uma situação de emergência, nomeadamente, conhecendo bem os caminhos até à saída mais próxima.
+
+O desempenho das pessoas no cenário 2 degrada-se substancialmente face ao observado no cenário 1, e tal reflete-se em todas as métricas registadas: o tempo de evacuação aumenta, assim como o número de empurrões, que sobe dramaticamente, e dos quais resultam mortes.
+
+
+	%----------------------------------------------------------------------------------------	
+\item \textbf{Independência}
+
+\textbf{Objetivo:} 
+Confrontar o comportamento de pessoas com elevado nível de independência durante uma evacuação com o comportamento de pessoas pessoas mais dependentes.
+\\\textbf{Cenário:} 
+\textit{scenario3.xml}, \textit{scenario4.xml}
+\\\textbf{Mapa:} 
+\textit{map\_2016\_12\_10\_19\_25\_05.map}
+\newline
+
+
+Esta experiência divide-se em duas partes: a primeira consistiu na colocação no espaço especificado de 45 agentes do tipo \textit{DependentUnknowledgeable}, com um baixo nível de independência. A segunda parte consistiu na repetição da primeira parte, mas desta vez com agentes do tipo \textit{IndependentUnknowledgeable}, com um elevado nível de independência.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics{log_sc3.png}
+	\caption{Resultados da simulação 3.}
+	\label{log_sc1}
+\end{figure}
+
+Numa situação em que poucos conhecem a área suficientemente bem, e existe uma forte relação de dependência, observou-se, ao longo da simulação, uma forte tendência em seguir a direção mais seguida num determinado momento.
+/////
+Nestas condições, da evacuação resultam feridos e . Registaram-se apenas alguns pedidos de direções e um número reduzido de empurrões.
+/////
+
+\begin{figure}[H]
+	\centering
+	\includegraphics{graph_sc3.png}
+	\caption{Variação dos atributos dos agentes do cenário 3.}
+	\label{graph_sc1}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics{log_sc4.png}
+	\caption{Resultados da simulação 4.}
+	\label{log_sc1}
+\end{figure}
+
+No caso em que poucos conhecem a área suficientemente bem, e existe um forte sentido de independência, tal não se verifica. Pelo contrário, as pessoas movem-se pelo espaço, até encontrarem a saída, ignorando a direção seguida pelos demais. O pânico geral aumenta, havendo lugar a um elevado número de empurrões, dos quais resultam pessoas com mobilidade reduzida e mortos. Registaram-se, ainda, alguns pedidos de direções e de ajuda.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics{graph_sc4.png}
+	\caption{Variação dos atributos dos agentes do cenário 4.}
+	\label{graph_sc1}
+\end{figure}
+
+Estes dois cenários permitem estudar o comportamento de dois tipos de pessoa diferentes - pessoas altamente independentes e pessoas sem «vontade própria» - e o impacto que essa diferença tem no tempo de evacuação e ////////
+
+O desempenho das pessoas no cenário 2 degrada-se substancialmente face ao observado no cenário 1, e tal reflete-se em todas as métricas registadas: o tempo de evacuação aumenta, assim como o número de empurrões, que sobe dramaticamente, e dos quais resultam mortes.
+
+	%----------------------------------------------------------------------------------------	
+\item \textbf{Independência}
+
+\textbf{Objetivo:} 
+Confrontar o comportamento de pessoas com elevado nível de independência durante uma evacuação com o comportamento de pessoas pessoas mais dependentes.
+\\\textbf{Cenário:} 
+\textit{scenario3.xml}, \textit{scenario4.xml}
+\\\textbf{Mapa:} 
+\textit{map\_2016\_12\_10\_19\_25\_05.map}
+\newline
+
+
+Esta experiência divide-se em duas partes: a primeira consistiu na colocação no espaço especificado de 45 agentes do tipo \textit{DependentUnknowledgeable}, com um baixo nível de independência. A segunda parte consistiu na repetição da primeira parte, mas desta vez com agentes do tipo \textit{IndependentUnknowledgeable}, com um elevado nível de independência.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics{log_sc3.png}
+	\caption{Resultados da simulação 3.}
+	\label{log_sc1}
+\end{figure}
+
+Numa situação em que poucos conhecem a área suficientemente bem, e existe uma forte relação de dependência, observou-se, ao longo da simulação, uma forte tendência em seguir a direção mais seguida num determinado momento.
+/////
+Nestas condições, da evacuação resultam feridos e . Registaram-se apenas alguns pedidos de direções e um número reduzido de empurrões.
+/////
+
+\begin{figure}[H]
+	\centering
+	\includegraphics{graph_sc3.png}
+	\caption{Variação dos atributos dos agentes do cenário 3.}
+	\label{graph_sc1}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics{log_sc4.png}
+	\caption{Resultados da simulação 4.}
+	\label{log_sc1}
+\end{figure}
+
+No caso em que poucos conhecem a área suficientemente bem, e existe um forte sentido de independência, tal não se verifica. Pelo contrário, as pessoas movem-se pelo espaço, até encontrarem a saída, ignorando a direção seguida pelos demais. O pânico geral aumenta, havendo lugar a um elevado número de empurrões, dos quais resultam pessoas com mobilidade reduzida e mortos. Registaram-se, ainda, alguns pedidos de direções e de ajuda.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics{graph_sc4.png}
+	\caption{Variação dos atributos dos agentes do cenário 4.}
+	\label{graph_sc1}
+\end{figure}
+
+Estes dois cenários permitem estudar o comportamento de dois tipos de pessoa diferentes - pessoas altamente independentes e pessoas sem «vontade própria» - e o impacto que essa diferença tem no tempo de evacuação e ////////
 
 O desempenho das pessoas no cenário 2 degrada-se substancialmente face ao observado no cenário 1, e tal reflete-se em todas as métricas registadas: o tempo de evacuação aumenta, assim como o número de empurrões, que sobe dramaticamente, e dos quais resultam mortes.
 
@@ -1243,11 +1350,15 @@ Por outro lado, confirmou-se a forte influência do conhecimento da área no suc
 
 \section{Possíveis Melhorias}
 
-Considera-se que uma possível melhoria, seria a introdução de obstáculos dinâmicos no espaço, como os elementos fumo e fogo. Tal poderia ser implementado, por exemplo, usando um agente com a capacidade de se replicar ao longo do tempo para posições adjacentes, simulando a propagação de um incêndio. Agentes na proximidade poderiam sufocar ou queimar-se, vendo a sua mobilidade reduzida ou mesmo morrer.
+Considera-se que uma possível melhoria, seria a introdução de outros obstáculos dinâmicos no espaço, como os elementos fumo e fogo. Tal poderia ser implementado, por exemplo, usando um agente com a capacidade de se replicar ao longo do tempo para posições adjacentes, simulando a propagação de um incêndio. Agentes na proximidade poderiam sufocar ou queimar-se, vendo a sua mobilidade reduzida ou mesmo morrer.
 
-Uma optimização passível de ser incorporada seria dotar os agentes da reconhecer os caminhos já percorridos, com vista a evitar seguir caminhos já explorados.
+No que respeita à implementação de agentes, uma optimização passível de ser incorporada seria dotar os agentes da capacidade de reconhecer os caminhos já percorridos, com vista a evitar seguir caminhos já explorados. 
 
-Outra melhoria que poderia ser introduzida passaria pela criação de um novo tipo de agente, cuja única função seria coordenar a evacuação, ajudando aqueles que precisassem de ajuda a chegar à saída. Estes agentes de segurança poderiam existir em qualquer número e deveriam coordenar-se entre si, por modo a garantir que o espaço era evacuado, i.e., que todas as pessoas (vivas) chegavam à saída.
+Adicionalmente, tem-se a utilização de modelos de distribuição estatística mais adequados a cada um dos diferentes atributos.
+
+Outra melhoria que poderia ser introduzida ao nível da interação entre os agentes prende-se com a visualização gráfica dessa interação, nomeadamente através da criação de uma rede ligando os agentes envolvidos.
+
+Por último, equaciona-se a criação de um novo tipo de agente, cuja única função seria coordenar a evacuação, ajudando aqueles que precisassem de ajuda a chegar à saída. Estes agentes de segurança poderiam existir em qualquer número e deveriam coordenar-se entre si, por modo a garantir que o espaço era evacuado, i.e., que todas as pessoas (vivas) chegavam à saída.
 
 
 
