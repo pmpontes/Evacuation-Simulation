@@ -562,8 +562,6 @@ A cada instante, um agente que tenha pouco conhecimento da área pode - com uma 
 \begin{lstlisting}[caption= Código \textit{Java}\ da função responsável pelo envio de um pedido de direções.]
 boolean sendDirectionsRequest() {
 	ArrayList<AID> peopleNear = environment.findNearAgents(myAgent, REQUEST_DISTANCE);
-	peopleNear.removeAll(previousReplies);
-	SimUtilities.shuffle(peopleNear,  RandomHelper.getUniform());
 	if(peopleNear.isEmpty()) {
 		return false;
 	}
@@ -886,7 +884,7 @@ A \textit{Grid} permite que um agente conheça a sua vizinhança, tornando poss�
 \newpage
 \section{Experimentação}
 
-Ao longo do processo de desenvolvimento foram levadas a cabo múltiplas experiências, com vista a testar a implementação dos agentes. Nestas simulações foi usado um \textit{tick delay} de 60. 
+Ao longo do processo de desenvolvimento foram levadas a cabo múltiplas experiências, com vista a testar a implementação dos agentes. Nestas simulações foi usado um \textit{tick delay} de 60. \newline
 \begin{itemize}
 	
 %----------------------------------------------------------------------------------------
@@ -929,7 +927,7 @@ Esta experiência consistiu na colocação, numa dada posição de um espaço pr
 	
 	Dado que, nesta fase, se utilizou apenas um agente de cada tipo em cada simulação, o atributo independência não se reflete no desempenho do agente, tendo-se observado tempos de evacuação semelhantes para os agentes dos tipos \textit{IndependentKnowledgeable} e \textit{DependentKnowledgeable}. 
 	
-	O mesmo não foi observado no caso dos agentes de tipos \textit{DependentKnowledgeable} e \textit{DependentUnknowledgeable}, devido ao caráter estocástico das simulações.
+	O mesmo não foi observado no caso dos agentes de tipos \textit{DependentKnowledgeable} e \textit{DependentUnknowledgeable}, devido ao caráter estocástico das simulações.\newline
 
 	%----------------------------------------------------------------------------------------
 
@@ -969,7 +967,7 @@ Esta experiência consistiu na execução de dois cenários, um composto por um 
 	\end{tabular}
 \end{table}
 
-Como esperado, apesar de o agente com conhecimento da área conseguir ver a saída, este segue para a saída mais próxima, apesar de não ser visível inicialmente. Por outro lado, o agente sem conhecimento da área, apesar de não conhecer o espaço nem saber o caminho para a saída mais próxima segue para a saída que consegue ver.
+Como esperado, apesar de o agente com conhecimento da área conseguir ver a saída, este segue para a saída mais próxima, apesar de não ser visível inicialmente. Por outro lado, o agente sem conhecimento da área, apesar de não conhecer o espaço nem saber o caminho para a saída mais próxima segue para a saída que consegue ver.\newline
 
 	%----------------------------------------------------------------------------------------
 	
@@ -1078,13 +1076,13 @@ Como esperado, observou-se que o agente com mobilidade reduzida «pediu ajuda»,
 \end{itemize}
 
 
-Terminada a fase de desenvolvimento, foram avaliados diferentes cenários.
+Terminada a fase de desenvolvimento, foram avaliados diferentes cenários:
 \begin{itemize}
 	\item diferentes configurações para o local do acidente, variando o número e localização de saídas de emergência;
-	\item diferentes combinações de agentes a evacuar, variando o seu tipo, número e localização.
+	\item diferentes combinações de agentes a evacuar, variando o seu tipo e número.
 \end{itemize}
 
-Deste modo, foi possível observar-se como estas variações se refletem em métricas como o tempo médio e máximo de evacuação ou o número de feridos. Uma vez mais, nas experiências detalhadas a seguir, usou-se um \textit{tick delay} de 60.
+Deste modo, foi possível observar-se como estas variações se refletem em métricas como o tempo médio e máximo de evacuação ou o número de feridos. Uma vez mais, nas experiências detalhadas a seguir, usou-se um \textit{tick delay} de 60.\newline
 
 \begin{itemize}
 	%----------------------------------------------------------------------------------------	
@@ -1135,9 +1133,7 @@ Nesta situação em que poucos são os que conhecem bem a área, o pânico geral
 
 A comparação dos resultados destes dois cenários permite medir o impacto conhecimento prévio de um espaço aquando da necessidade de evacuá-lo, tornando evidente a vantagem de estar preparado para uma situação de emergência, nomeadamente, conhecendo bem os caminhos até à saída mais próxima.
 
-O desempenho das pessoas no cenário 2 degrada-se substancialmente face ao observado no cenário 1, e tal reflete-se em todas as métricas registadas: o tempo de evacuação aumenta, assim como o número de empurrões, que sobe dramaticamente, e dos quais resultam mortes.
-
-
+O desempenho das pessoas no cenário 2 degrada-se substancialmente face ao observado no cenário 1, e tal reflete-se em todas as métricas registadas: o tempo de evacuação aumenta, assim como o número de empurrões, que sobe dramaticamente, e dos quais resultam mortes.\newline
 	%----------------------------------------------------------------------------------------	
 \item \textbf{Independência}
 
@@ -1159,41 +1155,42 @@ Esta experiência divide-se em duas partes: a primeira consistiu na colocação 
 	\label{log_sc1}
 \end{figure}
 
-Numa situação em que poucos conhecem a área suficientemente bem, e existe uma forte relação de dependência, observou-se, ao longo da simulação, fenómenos de \textit{herding} - nome usado para descrever a dinâmica de multidões frequentemente observado em situações de emergência em que as pessoas perdem a capacidade de agir logicamente e decidir por si próprias que caminho seguir, tendo essa falta de independência por resultado que as pessoas tendam a seguir os outros. 
+Na situação em que poucos conhecem a área suficientemente bem, e existe uma forte relação de dependência, observou-se, ao longo da simulação, que as pessoas exibiam uma tendência para seguir a direção das demais. 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics{graph_sc_dependent.png}
+	\includegraphics[scale=.7]{graph_sc_dependent.png}
 	\caption{Variação dos atributos dos agentes do cenário 3.}
 	\label{graph_sc1}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics{log_sc_dependent.png}
+	\includegraphics{log_sc_independent.png}
 	\caption{Resultados da simulação 4.}
 	\label{log_sc1}
 \end{figure}
 
-No caso em que poucos conhecem a área suficientemente bem, e existe um forte sentido de independência, tal não se verifica. Pelo contrário, as pessoas movem-se pelo espaço, até encontrarem a saída, ignorando a direção seguida pelos demais. O pânico geral aumenta, havendo lugar a um elevado número de empurrões, dos quais resultam pessoas com mobilidade reduzida e mortos. Registaram-se, ainda, alguns pedidos de direções e de ajuda.
+No caso em que poucos conhecem a área suficientemente bem, mas existe um forte sentido de independência, tal não se verificou. Pelo contrário, as pessoas moveram-se pelo espaço, até encontrarem a saída, ignorando a direção seguida pelas demais.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics{graph_sc_dependent.png}
+	\includegraphics[scale=.6]{graph_sc_independent.png}
 	\caption{Variação dos atributos dos agentes do cenário 4.}
 	\label{graph_sc1}
 \end{figure}
 
-Em ambos os casos, não resultaram feridos ou mortes, tendo apenas sido registados apenas alguns pedidos de direções e empurrões.
-Estes dois cenários permitem estudar o comportamento de dois tipos de pessoa diferentes - pessoas altamente independentes e pessoas sem «vontade própria» - e o impacto que essa diferença tem no tempo de evacuação e ////////
+Em ambos os casos, não resultaram da evacuação feridos ou mortes, tendo apenas sido registados apenas alguns pedidos de direções. O pânico geral mantém-se praticamente constante e num nível baixo, tendo havido apenas lugar a um número limitado de empurrões.
 
-O desempenho das pessoas no cenário 2 degrada-se substancialmente face ao observado no cenário 1, e tal reflete-se em todas as métricas registadas: o tempo de evacuação aumenta, assim como o número de empurrões, que sobe dramaticamente, e dos quais resultam mortes.
+Estes dois cenários permitem estudar o comportamento de dois tipos de pessoa diferentes - pessoas altamente independentes e pessoas sem «vontade própria» - e o impacto que essa diferença tem na evacuação. 
+
+De um modo particular, o cenário 3 permitiu estudar os fenómenos de \textit{herding} - nome usado para descrever a dinâmica de multidões frequentemente observada em situações de emergência, em que as pessoas perdem a capacidade de agir logicamente e decidir por si próprias que caminho seguir, tendo essa falta de independência por resultado que as pessoas tendam a seguir os outros. \newline
 
 	%----------------------------------------------------------------------------------------	
 \item \textbf{Altruísmo}
 
 \textbf{Objetivo:} 
-Confrontar o comportamento de pessoas com elevado nível de independência durante uma evacuação com o comportamento de pessoas pessoas mais dependentes.
+Confrontar o comportamento de pessoas com baixo nível de altruísmo durante uma evacuação com o comportamento de pessoas pessoas mais altruístas.
 \\\textbf{Cenário:} 
 \textit{scenario5.xml}, \textit{scenario6.xml}
 \\\textbf{Mapa:} 
@@ -1201,7 +1198,7 @@ Confrontar o comportamento de pessoas com elevado nível de independência duran
 \newline
 
 
-A primeira parte desta experiência consistiu na colocação no espaço especificado de 45 agentes do tipo \textit{IndependentKnowledgeable} e \textit{IndependentUnknowledgeable}, com um baixo nível de altruísmo. A segunda parte consistiu na repetição da primeira parte, mas desta vez com agentes do tipo \textit{IndependentKnowledgeable} e \textit{IndependentUnknowledgeable}, com um elevado nível de altruísmo.
+A primeira parte desta experiência consistiu na colocação no espaço especificado de 47 agentes, do tipo \textit{IndependentKnowledgeable} e \textit{IndependentUnknowledgeable}, com um baixo nível de altruísmo. A segunda parte consistiu na repetição da primeira, desta vez com agentes com um elevado nível de altruísmo.
 
 \begin{figure}[H]
 	\centering
@@ -1210,10 +1207,7 @@ A primeira parte desta experiência consistiu na colocação no espaço especifi
 	\label{log_sc1}
 \end{figure}
 
-Numa situação em que poucos conhecem a área suficientemente bem, e existe uma forte relação de dependência, observou-se, ao longo da simulação, uma forte tendência em seguir a direção mais seguida num determinado momento.
-/////
-Nestas condições, da evacuação resultam feridos e . Registaram-se apenas alguns pedidos de direções e um número reduzido de empurrões.
-/////
+Numa situação em que a predisposição das pessoas para ajudar outros é baixa, verificou-se uma variação pouco significativa no nível de conhecimento da área geral, já que o número de pedidos de direções que obtiveram resposta é diminuto.
 
 \begin{figure}[H]
 	\centering
@@ -1229,18 +1223,17 @@ Nestas condições, da evacuação resultam feridos e . Registaram-se apenas alg
 	\label{log_sc1}
 \end{figure}
 
-No caso em que poucos conhecem a área suficientemente bem, e existe um forte sentido de independência, tal não se verifica. Pelo contrário, as pessoas movem-se pelo espaço, até encontrarem a saída, ignorando a direção seguida pelos demais. O pânico geral aumenta, havendo lugar a um elevado número de empurrões, dos quais resultam pessoas com mobilidade reduzida e mortos. Registaram-se, ainda, alguns pedidos de direções e de ajuda.
+No caso em que a maioria das pessoas age de modo altruísta, observou-se que, invariavelmente, o número de respostas com pedidos de direções era superior aos verificados no cenário anterior.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics{graph_sc_alt2.png}
+	\includegraphics[scale=.6]{graph_sc_alt2.png}
 	\caption{Variação dos atributos dos agentes do cenário 6.}
 	\label{graph_sc1}
 \end{figure}
 
-Estes dois cenários permitem estudar o comportamento de dois tipos de pessoa diferentes - pessoas altamente independentes e pessoas sem «vontade própria» - e o impacto que essa diferença tem no tempo de evacuação e ////////
+Em ambos os casos, não resultaram da evacuação feridos ou mortes, tendo apenas sido registados apenas alguns pedidos de direções. O pânico geral mantém-se praticamente constante e num nível baixo, tendo havido apenas lugar a um número limitado de empurrões.\newline
 
-O desempenho das pessoas no cenário 2 degrada-se substancialmente face ao observado no cenário 1, e tal reflete-se em todas as métricas registadas: o tempo de evacuação aumenta, assim como o número de empurrões, que sobe dramaticamente, e dos quais resultam mortes.
 
 	%----------------------------------------------------------------------------------------	
 \item \textbf{Espaço com saídas insuficientes}
@@ -1343,8 +1336,8 @@ Consideram-se atingidos os objetivos definidos: desenvolver um programa que perm
 
 Tem-se como particularmente útil a possibilidade de acompanhar a evacuação visualmente e a possibilidade de analisar os dados recolhidos, por um lado, através de gráficos e, por outro, através do registo de eventos.
 
-Da análise dos resultados das experiências levadas a cabo foi possível retirar várias conclusões. Por um lado, a realização das experiências mais simples permitiu validar a implementação dos vários comportamentos dos agentes.
-Por outro lado, confirmou-se a forte influência do conhecimento da área no sucesso de uma evacuação, bem como a importância da existência de um número suficiente de saídas de emergência, devidamente posicionadas. A população a evacuar - e, mais concretamente, os seus atributos - são, igualmente, fatores determinantes para o resultado de uma evacuação, seja no que diz respeito à velocidade, seja no número de interações, seja no número de feridos ou mortos.
+Da análise dos resultados das experiências levadas a cabo foi possível retirar várias conclusões. Por um lado, a realização das experiências mais simples permitiu validar a implementação dos vários comportamentos dos agentes, tendo-se observado alguns comportamentos que seriam expectáveis em circunstâncias reais, como fenómenos de \textit{clogging }e \textit{herding}.
+Por outro lado, confirmou-se a forte influência do conhecimento da área no sucesso de uma evacuação, bem como a importância da existência de um número suficiente de saídas de emergência, devidamente posicionadas. A população a evacuar - e, mais concretamente, os seus atributos - são, igualmente, fatores determinantes para o resultado de uma evacuação, seja no que diz respeito à rapidez, seja no número de interações, seja no número de feridos ou mortos.
 
 \section{Possíveis Melhorias}
 
@@ -1437,39 +1430,6 @@ Após a especificação do mapa e cenário a utilizar, é conveniente, para efei
 Concluído este passo, pode dar-se início à simulação, do mesmo modo que seria iniciada uma qualquer simulação \textit{Respast}.
 
 Além de se poder acompanhar a evacuação visualmente, através de um \textit{display} do espaço e pessoas a evacuar, é possível acompanhar e analisar a evolução do processo, através de um gráfico que monitoriza o valor médio de alguns dos atributos definidos para os agentes, e de um outro gráfico, que regista o número de evacuados e mortos. Adicionalmente, é possível observar o registo da execução, que mostra mensagens relevantes para compreender algumas das interações observadas.
-
-\subsection{Errata}
-
-Na versão submetida originalmente, do cálculo da variação de pânico resulta um valor nulo para alguns casos, devido a um erro de divisão inteira:
-
-\begin{lstlisting}
-void generatePanicVariation(boolean isIncrease) {
-	float variation = PANIC_VARIATION * ((isIncrease) ? 1 : -1);
-	
-	// younger and older people are more prone to panic variations 
-	if(age < MAX_AGE / 3 || age > 2 * MAX_AGE / 3){
-		if(isIncrease){
-			variation *= 1.2;	
-		}else{
-			variation *= 0.7;
-		}
-	}else{
-		if(!isIncrease){
-			variation *= 0.8;
-		}
-	}
-	
-	// correction
-	// variation *= independence / MAX_SCALE; 
-	variation *= ((float) independence) / MAX_SCALE; 
-	
-	setPanic((int) (panic + variation));		
-	
-	if(panic >= (3 * MAX_SCALE / 4)){
-		addBehaviour(new ScreamBehaviour(this));
-	}
-}
-\end{lstlisting}
 
 \end{titlepage}
 \end{document}

@@ -26,4 +26,3 @@
 \contentsline {subsubsection}{\numberline {9.1.2}Especifica\IeC {\c c}\IeC {\~a}o do mapa}{43}{subsubsection.9.1.2}
 \contentsline {subsubsection}{\numberline {9.1.3}Especifica\IeC {\c c}\IeC {\~a}o do cen\IeC {\'a}rio}{43}{subsubsection.9.1.3}
 \contentsline {subsubsection}{\numberline {9.1.4}Utiliza\IeC {\c c}\IeC {\~a}o}{44}{subsubsection.9.1.4}
-\contentsline {subsection}{\numberline {9.2}Errata}{44}{subsection.9.2}
