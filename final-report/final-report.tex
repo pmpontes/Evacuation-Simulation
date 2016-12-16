@@ -1323,9 +1323,37 @@ Todavia, essa pluralidade de resultados reforça a importância dos atributos da
 	\label{graph_sc5}
 \end{figure}
 
+\item \textbf{Propagação do pânico}
+
+\textbf{Objetivo:} 
+Analisar a propagação do pânico por uma população dispersa por um espaço relativamente amplo.
+\\\textbf{Cenário:} 
+\textit{scenario\_7.xml}
+\\\textbf{Mapas:} 
+\textit{map\_2016\_12\_10\_19\_25\_05.map}
+\newline
+
+Esta experiência consistiu na colocação de 110 agentes - 30 com baixo pânico e elevado conhecimento da área, 40 com baixo pânico e conhecimento intermédio da área e, finalmente, 40 com elevado pânico e conhecimento intermédio da área -, num espaço de grandes dimensões.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=1]{log_sc7.png}
+	\caption{Resultados da simulação 5.}
+	\label{log_sc7}
+\end{figure}
+
+A realização desta experiência permitiu demonstrar como o pânico se propaga rápidamente no início da simulação, tendo em conta que ainda existe um grande número de pessoas por evacuar. À medida que as pessoas com maior conhecimento da área partilham informação com as pessoas que têm menor conhecimento da área e que estes procedem para a saída, vai diminuindo o número de pessoas que podem ser influenciadas por esta propagação do pânico. Sendo assím, o nível médio de pânico da população vais tendendo para um valor estável ao fim de algum tempo, como se pode verificar pelo gráfico na figura 40. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=.6]{graph_sc7.png}
+	\caption{Variação dos atributos dos agentes do cenário 5.}
+	\label{graph_sc7}
+\end{figure}
+
 \end{itemize}
 	
-	
+
 
 \newpage
 \section{Conclusões}
