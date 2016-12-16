@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.10.21)  12 DEC 2016 14:13
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.10.21)  12 DEC 2016 14:26
 entering extended mode
 **./final-report.tex
 (final-report.tex
@@ -1389,231 +1389,245 @@ Package babel Info: Redefining portuges shorthand "|
  [24 <./images/map_simulation.png>]
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 887.
+
+<images/map5.png, id=515, 148.30406pt x 45.92157pt>
+File: images/map5.png Graphic file (type png)
+ <use images/map5.png>
+Package pdftex.def Info: images/map5.png used on input line 949.
+(pdftex.def)             Requested size: 148.30368pt x 45.92145pt.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 945.
+(babel)             in language  on input line 953.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 945.
- [25]
-<images/panic_log.png, id=522, 402.90524pt x 133.6995pt>
+(babel)             in language  on input line 953.
+
+[25] <images/panic_log.png, id=523, 402.90524pt x 133.6995pt>
 File: images/panic_log.png Graphic file (type png)
 
 <use images/panic_log.png>
-Package pdftex.def Info: images/panic_log.png used on input line 948.
+Package pdftex.def Info: images/panic_log.png used on input line 992.
 (pdftex.def)             Requested size: 402.90425pt x 133.69916pt.
-
-<images/panic_test.png, id=524, 377.61075pt x 213.1965pt>
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 998.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 998.
+ [26 <./images/map5.png> <./images/panic_log.png>]
+<images/panic_test.png, id=533, 377.61075pt x 213.1965pt>
 File: images/panic_test.png Graphic file (type png)
 
 <use images/panic_test.png>
-Package pdftex.def Info: images/panic_test.png used on input line 963.
+Package pdftex.def Info: images/panic_test.png used on input line 1007.
 (pdftex.def)             Requested size: 377.60982pt x 213.19597pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 968--969
+Underfull \hbox (badness 10000) in paragraph at lines 1012--1013
 
  []
 
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 969.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 969.
-[26 <./images/panic_log.png> <./images/panic_test.png>]
-<images/directions_log.png, id=534, 526.96875pt x 99.37125pt>
+<images/directions_log.png, id=535, 526.96875pt x 99.37125pt>
 File: images/directions_log.png Graphic file (type png)
 
 <use images/directions_log.png>
-Package pdftex.def Info: images/directions_log.png used on input line 984.
+Package pdftex.def Info: images/directions_log.png used on input line 1030.
 (pdftex.def)             Requested size: 421.57556pt x 79.4971pt.
-
-<images/directions_test.png, id=536, 382.42876pt x 222.23026pt>
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1034.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1034.
+ [27 <./images/panic_test.png>]
+<images/directions_test.png, id=544, 382.42876pt x 222.23026pt>
 File: images/directions_test.png Graphic file (type png)
 
 <use images/directions_test.png>
-Package pdftex.def Info: images/directions_test.png used on input line 993.
+Package pdftex.def Info: images/directions_test.png used on input line 1039.
 (pdftex.def)             Requested size: 382.42781pt x 222.2297pt.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 999.
+(babel)             in language  on input line 1045.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 999.
- [27 <./images/directions_log.png> <./images/directions_test.png>] <images/help
-_log.png, id=545, 492.03825pt x 124.0635pt>
+(babel)             in language  on input line 1045.
+ [28 <./images/directions_log.png> <./images/directions_test.png>] <images/help
+_log.png, id=553, 492.03825pt x 124.0635pt>
 File: images/help_log.png Graphic file (type png)
 
 <use images/help_log.png>
-Package pdftex.def Info: images/help_log.png used on input line 1011.
+Package pdftex.def Info: images/help_log.png used on input line 1059.
 (pdftex.def)             Requested size: 393.63113pt x 99.25092pt.
 
-<images/help_test.png, id=547, 382.42876pt x 214.401pt>
+<images/help_test.png, id=555, 382.42876pt x 214.401pt>
 File: images/help_test.png Graphic file (type png)
 
 <use images/help_test.png>
-Package pdftex.def Info: images/help_test.png used on input line 1020.
+Package pdftex.def Info: images/help_test.png used on input line 1068.
 (pdftex.def)             Requested size: 382.42781pt x 214.40047pt.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1036.
+(babel)             in language  on input line 1083.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1036.
- [28 <./images/help_log.png> <./images/help_test.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 1045--1052
+(babel)             in language  on input line 1083.
+ [29 <./images/help_log.png> <./images/help_test.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 1093--1100
 
  []
 
-<images/log_sc1.png, id=557, 328.22626pt x 119.84775pt>
+<images/log_sc1.png, id=565, 328.22626pt x 119.84775pt>
 File: images/log_sc1.png Graphic file (type png)
 
 <use images/log_sc1.png>
-Package pdftex.def Info: images/log_sc1.png used on input line 1058.
+Package pdftex.def Info: images/log_sc1.png used on input line 1106.
 (pdftex.def)             Requested size: 328.22545pt x 119.84744pt.
 
-<images/graph_sc1.png, id=558, 380.622pt x 216.20775pt>
+<images/graph_sc1.png, id=566, 380.622pt x 216.20775pt>
 File: images/graph_sc1.png Graphic file (type png)
 
 <use images/graph_sc1.png>
-Package pdftex.def Info: images/graph_sc1.png used on input line 1067.
+Package pdftex.def Info: images/graph_sc1.png used on input line 1115.
 (pdftex.def)             Requested size: 380.62105pt x 216.20721pt.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1071.
+(babel)             in language  on input line 1119.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1071.
- [29 <./images/log_sc1.png>]
-<images/log_sc2.png, id=565, 328.22626pt x 115.02975pt>
+(babel)             in language  on input line 1119.
+ [30 <./images/log_sc1.png>]
+<images/log_sc2.png, id=573, 328.22626pt x 115.02975pt>
 File: images/log_sc2.png Graphic file (type png)
 
 <use images/log_sc2.png>
-Package pdftex.def Info: images/log_sc2.png used on input line 1074.
+Package pdftex.def Info: images/log_sc2.png used on input line 1122.
 (pdftex.def)             Requested size: 328.22545pt x 115.02946pt.
 
-<images/graph_sc2.png, id=566, 381.8265pt x 215.6055pt>
+<images/graph_sc2.png, id=574, 381.8265pt x 215.6055pt>
 File: images/graph_sc2.png Graphic file (type png)
 
 <use images/graph_sc2.png>
-Package pdftex.def Info: images/graph_sc2.png used on input line 1083.
+Package pdftex.def Info: images/graph_sc2.png used on input line 1131.
 (pdftex.def)             Requested size: 381.82556pt x 215.60497pt.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1087.
+(babel)             in language  on input line 1135.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1087.
- [30 <./images/graph_sc1.png> <./images/log_sc2.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 1095--1102
+(babel)             in language  on input line 1135.
+ [31 <./images/graph_sc1.png> <./images/log_sc2.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 1143--1150
 
  []
 
-<images/log_sc3.png, id=575, 307.74976pt x 113.82526pt>
+<images/log_sc3.png, id=584, 307.74976pt x 113.82526pt>
 File: images/log_sc3.png Graphic file (type png)
 
 <use images/log_sc3.png>
-Package pdftex.def Info: images/log_sc3.png used on input line 1107.
+Package pdftex.def Info: images/log_sc3.png used on input line 1155.
 (pdftex.def)             Requested size: 307.749pt x 113.82497pt.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1111.
+(babel)             in language  on input line 1159.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1111.
- [31 <./images/graph_sc2.png>]
-<images/graph_sc3.png, id=583, 375.20175pt x 218.0145pt>
+(babel)             in language  on input line 1159.
+ [32 <./images/graph_sc2.png>]
+<images/graph_sc3.png, id=591, 375.20175pt x 218.0145pt>
 File: images/graph_sc3.png Graphic file (type png)
 
 <use images/graph_sc3.png>
-Package pdftex.def Info: images/graph_sc3.png used on input line 1118.
+Package pdftex.def Info: images/graph_sc3.png used on input line 1166.
 (pdftex.def)             Requested size: 375.20082pt x 218.01395pt.
 
-<images/log_sc4.png, id=584, 308.352pt x 114.4275pt>
+<images/log_sc4.png, id=592, 308.352pt x 114.4275pt>
 File: images/log_sc4.png Graphic file (type png)
  <use images/log_sc4.png>
-Package pdftex.def Info: images/log_sc4.png used on input line 1125.
+Package pdftex.def Info: images/log_sc4.png used on input line 1173.
 (pdftex.def)             Requested size: 308.35124pt x 114.42722pt.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1131.
+(babel)             in language  on input line 1179.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1131.
+(babel)             in language  on input line 1179.
 
-[32 <./images/log_sc3.png> <./images/graph_sc3.png> <./images/log_sc4.png>]
-<images/clogging.png, id=595, 151.767pt x 149.96025pt>
+[33 <./images/log_sc3.png> <./images/graph_sc3.png> <./images/log_sc4.png>]
+<images/clogging.png, id=603, 151.767pt x 149.96025pt>
 File: images/clogging.png Graphic file (type png)
 
 <use images/clogging.png>
-Package pdftex.def Info: images/clogging.png used on input line 1134.
+Package pdftex.def Info: images/clogging.png used on input line 1182.
 (pdftex.def)             Requested size: 166.9442pt x 164.95676pt.
 
-<images/graph_sc4.png, id=597, 381.22424pt x 216.20775pt>
+<images/graph_sc4.png, id=605, 381.22424pt x 216.20775pt>
 File: images/graph_sc4.png Graphic file (type png)
 
 <use images/graph_sc4.png>
-Package pdftex.def Info: images/graph_sc4.png used on input line 1143.
+Package pdftex.def Info: images/graph_sc4.png used on input line 1191.
 (pdftex.def)             Requested size: 381.22331pt x 216.20721pt.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1153.
+(babel)             in language  on input line 1201.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1153.
- [33 <./images/clogging.png> <./images/graph_sc4.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 1153--1160
+(babel)             in language  on input line 1201.
+ [34 <./images/clogging.png> <./images/graph_sc4.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 1201--1208
 
  []
 
-<images/log_sc5.png, id=606, 301.72725pt x 110.814pt>
+<images/log_sc5.png, id=614, 301.72725pt x 110.814pt>
 File: images/log_sc5.png Graphic file (type png)
  <use images/log_sc5.png>
-Package pdftex.def Info: images/log_sc5.png used on input line 1165.
+Package pdftex.def Info: images/log_sc5.png used on input line 1213.
 (pdftex.def)             Requested size: 301.7265pt x 110.8137pt.
 
-<images/graph_sc5_1.png, id=607, 408.92775pt x 215.00325pt>
+<images/graph_sc5_1.png, id=615, 408.92775pt x 215.00325pt>
 File: images/graph_sc5_1.png Graphic file (type png)
 
 <use images/graph_sc5_1.png>
-Package pdftex.def Info: images/graph_sc5_1.png used on input line 1175.
+Package pdftex.def Info: images/graph_sc5_1.png used on input line 1223.
 (pdftex.def)             Requested size: 408.92674pt x 215.00272pt.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1184.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1184.
- [34 <./images/log_sc5.png> <./images/graph_sc5_1.png>]
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1185.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1196.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1204.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1205.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1212.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1212.
- [35]
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1215.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1224.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1224.
- [36]
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1229.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 1232.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1234.
+(babel)             in language  on input line 1232.
+ [35 <./images/log_sc5.png> <./images/graph_sc5_1.png>]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1238.
+(babel)             in language  on input line 1233.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 1244.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1270.
+(babel)             in language  on input line 1252.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1274.
+(babel)             in language  on input line 1253.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1274.
+(babel)             in language  on input line 1260.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1260.
+ [36]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1263.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1272.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1272.
  [37]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1277.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 1280.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1313.
+(babel)             in language  on input line 1282.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1313.
+(babel)             in language  on input line 1288.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1294.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1319.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1319.
  [38]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1314.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1314.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1320.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1330.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1361.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1361.
+ [39]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1363.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1363.
+ [40]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1364.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1364.
  (final-report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1314.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1314.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1364.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1364.
 
 Package rerunfilecheck Info: File `final-report.out' has not changed.
 (rerunfilecheck)             Checksum: 768512307274AAACD2CC4B5B12BFA9D1;1719.
@@ -1621,33 +1635,36 @@ Package rerunfilecheck Info: File `final-report.out' has not changed.
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1314.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1364.
  ) 
 Here is how much of TeX's memory you used:
- 11846 strings out of 493334
- 172457 string characters out of 3139251
+ 11856 strings out of 493334
+ 172608 string characters out of 3139251
  313447 words of memory out of 3000000
- 14779 multiletter control sequences out of 15000+200000
+ 14783 multiletter control sequences out of 15000+200000
  92194 words of font info for 59 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  36i,16n,42p,622b,2248s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc}{C:/Program Files/M
-iKTeX 2.9/fonts/enc/dvips/lm/lm-rm.enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/d
-vips/lm/lm-mathit.enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathsy
-.enc}<C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmbx12.pfb><C:/Program 
-Files/MiKTeX 2.9/fonts/type1/public/lm/lmbxi10.pfb><C:/Program Files/MiKTeX 2.9
-/fonts/type1/public/lm/lmcsc10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/pub
-lic/lm/lmmi12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmmi8.pfb>
-<C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmr10.pfb><C:/Program Files/
-MiKTeX 2.9/fonts/type1/public/lm/lmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/t
-ype1/public/lm/lmr7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmr8
-.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmri12.pfb><C:/Program 
-Files/MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb><C:/Program Files/MiKTeX 2.9/
-fonts/type1/public/lm/lmtt10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/publi
-c/lm/lmtt12.pfb>
-Output written on final-report.pdf (38 pages, 1118661 bytes).
+pdfTeX warning (dest): name{figure.caption.20} has been referenced but does n
+ot exist, replaced by a fixed one
+
+{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc}{C:/Program Files/MiK
+TeX 2.9/fonts/enc/dvips/lm/lm-rm.enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/dvi
+ps/lm/lm-mathit.enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathsy.e
+nc}<C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmbx12.pfb><C:/Program Fi
+les/MiKTeX 2.9/fonts/type1/public/lm/lmbxi10.pfb><C:/Program Files/MiKTeX 2.9/f
+onts/type1/public/lm/lmcsc10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/publi
+c/lm/lmmi12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmmi8.pfb><C
+:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmr10.pfb><C:/Program Files/Mi
+KTeX 2.9/fonts/type1/public/lm/lmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/typ
+e1/public/lm/lmr7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmr8.p
+fb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmri12.pfb><C:/Program Fi
+les/MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb><C:/Program Files/MiKTeX 2.9/fo
+nts/type1/public/lm/lmtt10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/
+lm/lmtt12.pfb>
+Output written on final-report.pdf (40 pages, 1058737 bytes).
 PDF statistics:
- 813 PDF objects out of 1000 (max. 8388607)
- 370 named destinations out of 1000 (max. 500000)
- 387 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 826 PDF objects out of 1000 (max. 8388607)
+ 375 named destinations out of 1000 (max. 500000)
+ 392 words of extra memory for PDF output out of 10000 (max. 10000000)
 
