@@ -65,6 +65,8 @@ public class Person extends Agent{
 	protected Ontology serviceOntology;	
 	protected ACLMessage myCfp;	
 	protected Context<Object> simulationContext;
+	
+	private int done = 0;
 
 	/**
 	 * Human attributes
@@ -90,6 +92,7 @@ public class Person extends Agent{
 	private boolean requestingHelp;
 	private Person helper;
 	private Person helped;
+	private boolean hasNotified = false;
 
 	public Person(AID resultsCollector, Environment environment, Context<Object> context, int x, int y){
 		this.resultsCollector = resultsCollector;		
@@ -120,7 +123,9 @@ public class Person extends Agent{
 		addBehaviour(new MovementBehaviour(x, y));
 	}
 
-
+	public boolean done(){
+		return done == 1;
+	}
 
 	/**
 	 * @param pANIC_VARIATION the pANIC_VARIATION to set
@@ -324,6 +329,7 @@ public class Person extends Agent{
 		this.mobility = enforceBounds(mobility);
 	}
 
+	
 	/**
 	 * Sets the mobility to the specified value, ensuring it is within MIN_SCALE and MAX_SCALE.
 	 * If the new mobility is lower than DEATH_LEVEL, notifies the ResultsCollector.
@@ -392,7 +398,7 @@ public class Person extends Agent{
 	 * @return knowledge - panic/5
 	 */
 	public int getUsableKnowledge() {
-		return areaKnowledge - panic / 5;
+		return enforceBounds(areaKnowledge - panic / 10);
 	}
 
 	/**
@@ -508,10 +514,9 @@ public class Person extends Agent{
 
 	@Override
 	protected void takeDown() {
-		Log.info(getLocalName() + " terminating.");
-
 		// notify results collector
-		if(!isDead()){
+		if(!isDead() && !hasNotified){
+			Log.info(getLocalName() + " found exit.");
 			notifyResultsCollector();
 		}
 	}
@@ -521,6 +526,7 @@ public class Person extends Agent{
 	 */
 	private void notifyResultsCollector() {
 		if(resultsCollector != null) {
+			hasNotified = true;
 			ACLMessage inform = new ACLMessage(ACLMessage.INFORM);
 			inform.addReceiver(resultsCollector);
 			inform.setLanguage(codec.getName());
@@ -557,6 +563,9 @@ public class Person extends Agent{
 		}
 
 		public void action() {
+			if(done())
+				return;
+			
 			ACLMessage msg = receive(template);
 			if(msg!= null) {
 				Log.detail(getLocalName() + " heard a scream!");
@@ -569,7 +578,7 @@ public class Person extends Agent{
 
 		@Override
 		public boolean done() {
-			return exitReached || isDead();
+			return exitReached || isDead() || Person.this.done();
 		}
 	}
 
@@ -586,6 +595,9 @@ public class Person extends Agent{
 		}
 
 		public void action() {
+			if(done())
+				return;
+			
 			// find people in the surrounding area
 			ArrayList<AID> peopleNear = environment.findNearAgents(myAgent, 4);
 			if(peopleNear.isEmpty()) {
@@ -607,7 +619,7 @@ public class Person extends Agent{
 		}
 
 		public boolean done() {
-			return screamed || exitReached || isDead();
+			return screamed || exitReached || isDead() || Person.this.done();
 		}
 	}
 
@@ -635,6 +647,9 @@ public class Person extends Agent{
 		}
 
 		public void action() {
+			if(done())
+				return;
+			
 			ACLMessage msg = null;
 
 			if(handlingHelpRequest){
@@ -696,8 +711,15 @@ public class Person extends Agent{
 
 			try {
 				HelpConfirmation confirmation = (HelpConfirmation) getContentManager().extractContent(msg);
+				
+				// update reference to helper
+				Person helpee = environment.findAgent(msg.getSender());
+				if(helpee == null){
+					Log.error(msg.getSender().getLocalName() + " was not found");
+					return;
+				}
 
-				if(confirmation.getMobility() < DEATH_LEVEL){
+				if(confirmation.getMobility() < DEATH_LEVEL || helpee.isDead() || helpee.isExitReached()){
 					Log.error("HelpRequest from dead " + msg.getSender().getLocalName());
 					return;
 				}
@@ -705,12 +727,7 @@ public class Person extends Agent{
 				shareMobility(confirmation.getMobility());
 				setAreaKnowledge(Integer.max(areaKnowledge, confirmation.getAreaKnowledge()));
 
-				// update reference to helper
-				Person helpee = environment.findAgent(msg.getSender());
-				if(helpee == null){
-					Log.error(msg.getSender().getLocalName() + " was not found");
-					return;
-				}
+				
 
 				setHelpee(helpee);
 				nHelpRequests++;
@@ -738,6 +755,18 @@ public class Person extends Agent{
 			if(helped != null || handlingHelpRequest){
 				return;
 			}
+			
+			HelpRequest confirmation;
+			try {
+				confirmation = (HelpRequest) getContentManager().extractContent(request);
+				if(confirmation.getMobility() < DEATH_LEVEL){
+					Log.error("HelpRequest from dead " + request.getSender().getLocalName());
+					return;
+				}
+			} catch (CodecException | OntologyException e1) {
+				return;
+			}
+
 			
 			if(RandomHelper.nextIntFromTo(MIN_SCALE, MAX_SCALE) < getAltruisticFeeling() 
 					&& getMobility() > getMobilityHelpResponseThreshold()) {
@@ -795,7 +824,7 @@ public class Person extends Agent{
 		 * @see sajas.core.behaviours.Behaviour#done()
 		 */
 		public boolean done() {
-			return (mobility <= MAX_SCALE / 5) || (getAltruisticFeeling() <= MIN_SCALE / 10) || exitReached || isDead();
+			return (mobility <= MAX_SCALE / 5) || (getAltruisticFeeling() <= MIN_SCALE / 10) || exitReached || isDead() || Person.this.done();
 		}
 	}
 
@@ -821,6 +850,9 @@ public class Person extends Agent{
 		}
 
 		public void action() {
+			if(done())
+				return;
+			
 			if(!helpRequestSent && !sendRequest()){
 				return;
 			}
@@ -950,7 +982,7 @@ public class Person extends Agent{
 			helpRequest.setLanguage(codec.getName());
 			helpRequest.setOntology(serviceOntology.getName());
 
-			HelpRequest requestMessage = new HelpRequest();
+			HelpRequest requestMessage = new HelpRequest(getMobility());
 			try {
 				getContentManager().fillContent(helpRequest, requestMessage);
 			} catch (CodecException | OntologyException e) {
@@ -967,7 +999,7 @@ public class Person extends Agent{
 		@Override
 		public boolean done() {
 			requestingHelp = !(beingHelped || nAttempts >= MAX_ATTEMPTS || exitReached);
-			return !requestingHelp || isDead();
+			return !requestingHelp || isDead() || Person.this.done();
 		}
 	}
 
@@ -1103,7 +1135,7 @@ public class Person extends Agent{
 		 */
 		public boolean done() {
 			requestingDirections = !(nAttempts > MAX_ATTEMPTS || newDirections || exitReached);
-			return !requestingDirections || isDead();
+			return !requestingDirections || isDead() || Person.this.done();
 		}
 	}
 
@@ -1172,7 +1204,13 @@ public class Person extends Agent{
 		}
 
 		@Override
-		public void action() {			
+		public void action() {		
+			if(done())
+				return;
+			
+			System.out.println(getLocalName() + ": x->" + x + " y->" + y + " Helped->" + (getHelpee()!=null? getHelpee().getLocalName() : "") + ": Helped by->" + (getHelpee()!=null? getHelpee().getLocalName() : "") + "; areaKnowledge->" + 
+					getAreaKnowledge() + "; altruism->" + getAltruism() + "; independence->" + getIndependence() +
+					"; mobility->" + getMobility() + "; panic->" + getPanic());
 			if(helper != null){
 				return;
 			}
@@ -1449,16 +1487,16 @@ public class Person extends Agent{
 
 			boolean isPush = helped!=null ? !person.getAID().equals(helped.getAID()) : true;
 
-			if(isPush){
+			if(isPush && getHelpee() == null){
 				Log.info(getLocalName() + " pushed " + person.getLocalName());
 
 				if(person.getHelper() != null){
 					person.getHelper().setHelpee(null);
-					setHelper(null);
+					person.setHelper(null);
 				}else{
 					if(person.getHelpee() != null){
 						person.getHelpee().setHelper(null);
-						setHelpee(null);
+						person.setHelpee(null);
 					}	
 
 					person.increasePanic();
@@ -1466,11 +1504,11 @@ public class Person extends Agent{
 				
 				person.decreaseMobility();
 				nPushes++;
+				
+				if(RandomHelper.nextIntFromTo(MIN_SCALE, MAX_SCALE) > person.getAltruism()) {
+					person.decreasePatience();
+				}
 			}			
-
-			if(RandomHelper.nextIntFromTo(MIN_SCALE, MAX_SCALE) > altruism) {
-				person.decreasePatience();
-			}
 
 			person.moveTo(x, y);
 			moveTo(selectedX, selectedY);
@@ -1482,12 +1520,13 @@ public class Person extends Agent{
 		@Override
 		public boolean done() {
 			exitReached = environment.getMap().getObjectAt(x, y) == Environment.EXIT;
-
+			
 			if(exitReached){
 				takeDown();
 			}
+			if(exitReached || isDead()) done=1;
 
-			return exitReached || isDead();
+			return exitReached || isDead() || Person.this.done();
 		}
 
 		private void updateDirection(){

@@ -6,14 +6,6 @@
     patienceThreshold="10"
 >
     <person>
-        <areaKnowledge>45</areaKnowledge>
-        <independence>10</independence>
-    </person>
-    <person>
-        <areaKnowledge>25</areaKnowledge>
-        <independence>10</independence>
-    </person>
-    <person>
         <areaKnowledge>35</areaKnowledge>
         <independence>10</independence>
     </person>

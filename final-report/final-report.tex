@@ -1154,26 +1154,23 @@ Esta experiência divide-se em duas partes: a primeira consistiu na colocação 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics{log_sc3.png}
+	\includegraphics{log_sc_dependent.png}
 	\caption{Resultados da simulação 3.}
 	\label{log_sc1}
 \end{figure}
 
-Numa situação em que poucos conhecem a área suficientemente bem, e existe uma forte relação de dependência, observou-se, ao longo da simulação, uma forte tendência em seguir a direção mais seguida num determinado momento.
-/////
-Nestas condições, da evacuação resultam feridos e . Registaram-se apenas alguns pedidos de direções e um número reduzido de empurrões.
-/////
+Numa situação em que poucos conhecem a área suficientemente bem, e existe uma forte relação de dependência, observou-se, ao longo da simulação, fenómenos de \textit{herding} - nome usado para descrever a dinâmica de multidões frequentemente observado em situações de emergência em que as pessoas perdem a capacidade de agir logicamente e decidir por si próprias que caminho seguir, tendo essa falta de independência por resultado que as pessoas tendam a seguir os outros. 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics{graph_sc3.png}
+	\includegraphics{graph_sc_dependent.png}
 	\caption{Variação dos atributos dos agentes do cenário 3.}
 	\label{graph_sc1}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics{log_sc4.png}
+	\includegraphics{log_sc_dependent.png}
 	\caption{Resultados da simulação 4.}
 	\label{log_sc1}
 \end{figure}
@@ -1182,11 +1179,12 @@ No caso em que poucos conhecem a área suficientemente bem, e existe um forte se
 
 \begin{figure}[H]
 	\centering
-	\includegraphics{graph_sc4.png}
+	\includegraphics{graph_sc_dependent.png}
 	\caption{Variação dos atributos dos agentes do cenário 4.}
 	\label{graph_sc1}
 \end{figure}
 
+Em ambos os casos, não resultaram feridos ou mortes, tendo apenas sido registados apenas alguns pedidos de direções e empurrões.
 Estes dois cenários permitem estudar o comportamento de dois tipos de pessoa diferentes - pessoas altamente independentes e pessoas sem «vontade própria» - e o impacto que essa diferença tem no tempo de evacuação e ////////
 
 O desempenho das pessoas no cenário 2 degrada-se substancialmente face ao observado no cenário 1, e tal reflete-se em todas as métricas registadas: o tempo de evacuação aumenta, assim como o número de empurrões, que sobe dramaticamente, e dos quais resultam mortes.
@@ -1203,12 +1201,12 @@ Confrontar o comportamento de pessoas com elevado nível de independência duran
 \newline
 
 
-A primeira parte desta experiência consistiu na colocação no espaço especificado de 45 agentes do tipo \textit{DependentUnknowledgeable}, com um baixo nível de independência. A segunda parte consistiu na repetição da primeira parte, mas desta vez com agentes do tipo \textit{IndependentUnknowledgeable}, com um elevado nível de independência.
+A primeira parte desta experiência consistiu na colocação no espaço especificado de 45 agentes do tipo \textit{IndependentKnowledgeable} e \textit{IndependentUnknowledgeable}, com um baixo nível de altruísmo. A segunda parte consistiu na repetição da primeira parte, mas desta vez com agentes do tipo \textit{IndependentKnowledgeable} e \textit{IndependentUnknowledgeable}, com um elevado nível de altruísmo.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics{log_sc3.png}
-	\caption{Resultados da simulação 3.}
+	\includegraphics{log_sc_alt1.png}
+	\caption{Resultados da simulação 5.}
 	\label{log_sc1}
 \end{figure}
 
@@ -1219,15 +1217,15 @@ Nestas condições, da evacuação resultam feridos e . Registaram-se apenas alg
 
 \begin{figure}[H]
 	\centering
-	\includegraphics{graph_sc3.png}
-	\caption{Variação dos atributos dos agentes do cenário 3.}
+	\includegraphics{graph_sc_alt1.png}
+	\caption{Variação dos atributos dos agentes do cenário 5.}
 	\label{graph_sc1}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics{log_sc4.png}
-	\caption{Resultados da simulação 4.}
+	\includegraphics{log_sc_alt2.png}
+	\caption{Resultados da simulação 6.}
 	\label{log_sc1}
 \end{figure}
 
@@ -1235,8 +1233,8 @@ No caso em que poucos conhecem a área suficientemente bem, e existe um forte se
 
 \begin{figure}[H]
 	\centering
-	\includegraphics{graph_sc4.png}
-	\caption{Variação dos atributos dos agentes do cenário 4.}
+	\includegraphics{graph_sc_alt2.png}
+	\caption{Variação dos atributos dos agentes do cenário 6.}
 	\label{graph_sc1}
 \end{figure}
 
@@ -1308,7 +1306,7 @@ A realização desta experiência permitiu confirmar a importância do planeamen
 \textbf{Objetivo:} 
 Analisar o comportamento das pessoas quando inseridas numa multidão a ser evacuada.
 \\\textbf{Cenário:} 
-\textit{scenario5.xml}
+\textit{scenario\_evac.xml}
 \\\textbf{Mapas:} 
 \textit{museum.map}
 \newline
